@@ -1,0 +1,10 @@
+.thead-light {
+    tr {
+        th {
+            &::after {
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+}

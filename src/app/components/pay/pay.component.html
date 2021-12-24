@@ -1,0 +1,222 @@
+<main id="content" role="main" class="main pointer-event"> 
+    <div class="content container-fluid">
+       <!-- Card -->
+       <div class="card mb-3 mb-lg-5">
+        <!-- Header -->
+        <div class="card-header">
+          <div class="row justify-content-between align-items-center flex-grow-1">
+            <div class="col-12 col-md">
+              <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-header-title font-weight-bold">Ödəmə </h3>
+  
+                <!-- Datatable Info -->
+                
+                <!-- End Datatable Info -->
+              </div>
+            </div>
+  
+            <div class="col-auto">
+              <!-- Filter -->
+              <div class="row align-items-sm-center">
+                <div class="col-sm-auto">
+                  <div class="d-flex align-items-center mr-2">
+                    <span class="text-secondary mr-2">Status:</span>
+  
+                    <!-- Select -->
+                    <select class="js-select2-custom js-datatable-filter custom-select-sm" size="1" style="opacity: 0;"
+                            data-target-column-index="2"
+                            data-hs-select2-options='{
+                              "minimumResultsForSearch": "Infinity",
+                              "customClass": "custom-select custom-select-sm custom-select-borderless",
+                              "dropdownAutoWidth": true,
+                              "width": true
+                            }'>
+                      <option value="">Lorem</option>
+                     
+                    </select>
+                    <!-- End Select -->
+                  </div>
+                </div>
+  
+                <div class="col-md">
+                  <form>
+                    <!-- Search -->
+                    <div class="input-group input-group-merge input-group-flush">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">
+                          <i class="tio-search"></i>
+                        </div>
+                      </div>
+                      <input id="datatableSearch" type="search" class="form-control" aria-label="Search users">
+                    </div>
+                    <!-- End Search -->
+                  </form>
+                </div>
+              </div>
+              <!-- End Filter -->
+            </div>
+          </div>
+        </div>
+        <!-- End Header -->
+  
+        <!-- Table -->
+        <div class="table-responsive datatable-custom">
+          <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                 data-hs-datatables-options='{
+                   "columnDefs": [{
+                      "targets": [0, 1, 4],
+                      "orderable": false
+                    }],
+                   "order": [],
+                   "info": {
+                     "totalQty": "#datatableWithPaginationInfoTotalQty"
+                   },
+                   "search": "#datatableSearch",
+                   "entries": "#datatableEntries",
+                   "pageLength": 8,
+                   "isResponsive": false,
+                   "isShowPaging": false,
+                   "pagination": "datatablePagination"
+                 }'>
+            <thead class="thead-light">
+              <tr>
+                <th scope="col" class="table-column-pr-0">
+                  <div class="custom-control custom-checkbox">
+               
+                  </div>
+                </th>
+                <th class="table-column-pl-0"> XİdmətİN növü</th>
+                <th>SİFARİŞ №</th>
+                <th>MƏBLƏĞ</th>
+                <th>ödəmə</th>
+              </tr>
+            </thead>
+  
+            <tbody>
+              <tr>
+                <td class="table-column-pr-0">
+                 
+                </td>
+                <td class="table-column-pl-0">
+                  <a class="media align-items-center" >
+                    <div class="media-body">
+                      <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-warning"></span>Broker </span>
+                    </div>
+                  </a>
+                </td>
+                <td>
+                  123456879
+                </td>
+                <td>₼ 786.00</td>
+                <td><div >
+                  <button class="btn newChech bg-success text-light" (click)="openDialog()">
+                     ÖDƏ
+                  </button>
+                </div></td>
+             
+              </tr>
+  
+              <tr>
+                <td class="table-column-pr-0">
+                  <div class="custom-control custom-checkbox">
+                  
+                  </div>
+                </td>
+                <td class="table-column-pl-0">
+                  <a class="media align-items-center">
+                  
+                    <div class="media-body">
+                      <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-success"></span>Terminal xidməti</span>
+                    </div>
+                  </a>
+                </td>
+                <td>
+                  362159847
+                </td>
+                <td>₼ 256.00</td>
+                <td><div >
+                  <button class="btn newChech bg-success text-light " (click)="openDialog()">
+                     ÖDƏ
+                  </button>
+                </div></td>
+              </tr>
+  
+              <tr>
+                  <td class="table-column-pr-0">
+                   
+                  </td>
+                  <td class="table-column-pl-0">
+                    <a class="media align-items-center">
+                      <div class="media-body">
+                        <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-warning"></span>Broker </span>
+                      </div>
+                    </a>
+                  </td>
+                  <td>
+                      357196842
+                  </td>
+                  <td>₼ 1500.00</td>
+                  <td><div>
+                    <button class="btn newChech bg-success text-light " (click)="openDialog()" >
+                       ÖDƏ
+                    </button>
+                  </div></td>
+               
+                </tr>
+    
+    
+                
+           
+  
+  
+              
+              
+  
+            </tbody>
+          </table>
+        </div>
+        <!-- End Table -->
+  
+        <!-- Footer -->
+        <div class="card-footer">
+          <!-- Pagination -->
+          <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
+            <div class="col-sm mb-2 mb-sm-0">
+              <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
+                <span class="mr-2">Showing:</span>
+  
+                <!-- Select -->
+                <select id="datatableEntries" class="js-select2-custom"
+                        data-hs-select2-options='{
+                          "minimumResultsForSearch": "Infinity",
+                          "customClass": "custom-select custom-select-sm custom-select-borderless",
+                          "dropdownAutoWidth": true,
+                          "width": true
+                        }'>
+                  <option value="4">4</option>
+                  <option value="6">6</option>
+                  <option value="8" selected>8</option>
+                  <option value="12">12</option>
+                </select>
+                <!-- End Select -->
+  
+                <span class="text-secondary mr-2">of</span>
+  
+                <!-- Pagination Quantity -->
+                <span id="datatableWithPaginationInfoTotalQty"></span>
+              </div>
+            </div>
+  
+            <div class="col-sm-auto">
+              <div class="d-flex justify-content-center justify-content-sm-end">
+                <!-- Pagination -->
+                <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+              </div>
+            </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+        <!-- End Footer -->
+      </div>
+    </div>
+  </main>

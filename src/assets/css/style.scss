@@ -1,0 +1,209 @@
+.navbar-brand {
+    .navbar-brand-logo {
+        height: 30px;
+        width: 88px;
+        left: 20px;
+        top: 18px;
+        border-radius: 0px;
+    }
+}
+
+.navbar-vertical-content {
+    .nav-tabs {
+        .nav-item,
+        .navbar-vertical-aside-has-menu {
+            img {
+                margin-right: 10%;
+            }
+        }
+    }
+}
+
+.newOrder {
+    background-color: #4299BF!important;
+    color: #fff!important;
+    height: 40px;
+    width: 170px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+.checkBox {
+    margin: 0px 10px;
+    input {
+        margin: 0px 10px;
+        color: #fff;
+    }
+}
+
+.selectfileInput {
+    position: relative;
+    opacity: 0;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    padding: 0;
+}
+
+.selectfileInputCopy {
+    position: relative;
+}
+
+.selectfileLabel {
+    position: absolute;
+    top: 42%;
+    right: 9%;
+}
+
+.checkBox {
+    padding: 10px 0;
+    .col-lg-5 {
+        .toggle-switch-input:checked+.toggle-switch-label {
+            background-color: #4299BF;
+        }
+    }
+}
+
+.card-block {
+    background-color: #E7EBF4!important;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
+    background-color: #4299BF;
+}
+
+.form-group {
+    padding-top: 10px;
+}
+
+.card-header {
+    border-left: 1px solid #E7EBF4;
+}
+
+.content-btn {
+    padding: 20px;
+}
+
+.newAccept {
+    background-color: #fff!important;
+    border-color: #4299BF!important;
+    color: #4299BF!important;
+}
+
+.back {
+    background-color: #fff!important;
+    color: #6A7A8A!important;
+    border-color: #6A7A8A!important;
+}
+
+.Scan {
+    top: 17%;
+    right: 15%;
+}
+
+select {
+    option {
+        color: #9A9A9A
+    }
+}
+
+.step-item {
+    h4 {
+        font-family: Averta;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 19px;
+        letter-spacing: 0em;
+        text-align: left;
+    }
+}
+
+.lastStep {
+    &::after {
+        display: none;
+    }
+}
+
+.step-icon {
+    background-color: #00C9A7!important;
+    color: #fff!important;
+    &::after {
+        background-color: #00C9A7;
+        height: 6px!important;
+        top: 1.3125rem;
+        left: 2.5625rem!important;
+        width: calc(21pc - 7.5625rem)!important;
+        height: 1.0625rem;
+        border-top: 0.125rem solid #e7eaf3;
+        border: none;
+    }
+}
+
+.interest-Div {
+    padding: 30px 0;
+    .interest {
+        font-family: Averta;
+        font-size: 36px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 43px;
+        letter-spacing: 0em;
+        text-align: left;
+        color: #000;
+    }
+}
+
+.allCheckbox {
+    position: relative;
+    .toggle-switch-label {
+        height: 24px!important;
+        width: 49px!important;
+        .toggle-switch-indicator {
+            width: 20px!important;
+            height: 20px!important;
+            left: 6px;
+        }
+    }
+}
+
+.btnAdd {
+    margin-left: 7%;
+}
+
+.main,
+.pointer-event {
+    margin-top: 59px;
+}
+
+.orderBtn {
+    font-family: Averta;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #000000;
+}
+
+.line {
+    position: relative;
+    &::after {
+        position: absolute;
+        content: "";
+        width: 135px;
+        height: 2px;
+        background-color: #4299BF;
+        bottom: -33px;
+        left: -15px;
+    }
+}
+
+//
+#datatableEntries {
+    border: none;
+}

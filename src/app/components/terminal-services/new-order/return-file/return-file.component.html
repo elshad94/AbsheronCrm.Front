@@ -1,0 +1,233 @@
+
+<main id="content" role="main" class="main pointer-event"> 
+    <div class="content container-fluid">
+       <!-- Card -->
+       <div class="row">
+          <div class="col-lg-9 mb-5 mb-lg-0">
+            <!-- Card -->
+            <div class="card card-lg">
+              <!-- Body -->
+              <div class="card-body">
+                <div class="row align-items-center">
+              
+  
+                  <a class="ml-5 orderBtn " routerLink="/order">Xidmətlər</a>
+                  <a class="ml-5 orderBtn line">Geridönüş sənədi</a>
+                </div>
+                <!-- End Row -->
+  
+                <hr class="my-5">
+  
+                <!-- End Row -->
+               <div class="form">
+                <div class="row align-items-center">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <input type="text" id="exampleFormControlInput1" class="form-control" placeholder="Vaqon №">
+                          </div>
+                    </div>
+                <div class="col-lg-4">
+                    <div class="mb-3" >
+                        <input  type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel" placeholder="scan.pdf" aria-label="0.0">
+                         
+                        <input  type="file" class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0">
+    
+                        <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                        <!-- End Input Group -->
+                      </div>
+                </div>
+                <div class="col-lg-4">
+                    <button class="btn btn-block newOrder mb-3" href="javascript:;">
+                        Yadda saxla
+                    </button>
+        
+                </div>
+                </div>
+               </div>
+               <hr class="my-5">
+               <div class="js-add-field"
+               data-hs-add-field-options='{
+                  "template": "#addInvoiceItemTemplate",
+                  "container": "#addInvoiceItemContainer",
+                  "defaultCreated": 0
+                }'>
+            <!-- Title -->
+            <div class="bg-light border-bottom p-2 mb-3">
+              <div class="row">
+                <div class="col-sm-5">
+                  <h6 class="card-title text-cap">N/V-İN №</h6>
+                </div>
+               
+                <div class="col-sm-2 d-none d-sm-inline-block">
+                  <h6 class="card-title text-cap">fAYL</h6>
+                </div>
+               
+              </div>
+            </div>
+            <!-- End Title -->
+
+            <!-- Content -->
+            <div class="row">
+              <div class="col-md-5 col-lg-6 mb-3">
+                <select class="custom-select">
+                    <option selected="">Lorem Ipsum</option>
+                  </select>
+              </div>
+
+              
+
+              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3">
+                <input  type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel" placeholder="scan.pdf" aria-label="0.0">
+                 
+                <input  type="file" class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0">
+
+                <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                <!-- End Input Group -->
+              </div>
+
+              <div class="col-md-5 col-lg-6 mb-3">
+                <select class="custom-select">
+                    <option selected="">Lorem Ipsum</option>
+                  </select>
+              </div>
+
+              
+
+              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3">
+                <input  type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel" placeholder="scan.pdf" aria-label="0.0">
+                 
+                <input  type="file" class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0">
+
+                <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                <!-- End Input Group -->
+              </div>
+              <div class="col-md-5 col-lg-6 mb-3">
+                <select class="custom-select">
+                    <option selected="">Lorem Ipsum</option>
+                  </select>
+              </div>
+
+              
+
+              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3">
+                <input  type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel" placeholder="scan.pdf" aria-label="0.0">
+                 
+                <input  type="file" class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0">
+
+                <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                <!-- End Input Group -->
+              </div>
+             
+             
+            </div>
+            <!-- End Content -->
+
+            <!-- Container For Input Field -->
+            <div id="addInvoiceItemContainer"></div>
+
+          
+            <!-- Add Phone Input Field -->
+            <div id="addInvoiceItemTemplate" style="display: none;">
+              <!-- Content -->
+              <div class="input-group-add-field">
+                <div class="row">
+                  <div class="col-md-5">
+                    <input type="text" class="form-control mb-3" placeholder="Item name" aria-label="Item name">
+                    <input type="text" class="form-control mb-3" placeholder="Description" aria-label="Description">
+                  </div>
+
+                  <div class="col-12 col-sm-auto col-md-3">
+                    <!-- Quantity Counter -->
+                    <div class="js-quantity-counter input-group-quantity-counter mb-3">
+                      <input type="number" class="js-result form-control input-group-quantity-counter-control" value="1">
+
+                      <div class="input-group-quantity-counter-toggle">
+                        <a class="js-minus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
+                          <i class="tio-remove"></i>
+                        </a>
+                        <a class="js-plus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
+                          <i class="tio-add"></i>
+                        </a>
+                      </div>
+                    </div>
+                    <!-- End Quantity Counter -->
+                  </div>
+
+                  <div class="col-12 col-sm col-md-2">
+                    <!-- Input Group -->
+                    <div class="mb-3">
+                      <input type="number" class="form-control" placeholder="00" aria-label="00">
+                    </div>
+                    <!-- End Input Group -->
+                  </div>
+
+                  <div class="col col-md-2">
+                    <input type="number" class="form-control-plaintext mb-3" placeholder="$0.00" aria-label="$0.00">
+                  </div>
+                </div>
+                <!-- End Row -->
+
+                <a class="js-delete-field input-group-add-field-delete" href="javascript:;" data-toggle="tooltip" data-placement="top" title="Remove item">
+                  <i class="tio-clear"></i>
+                </a>
+              </div>
+              <!-- End Content -->
+            </div>
+            <!-- End Add Phone Input Field -->
+          </div>
+
+              
+  
+              </div>
+              <!-- End Body -->
+            </div>
+            <!-- End Card -->
+  
+            <!-- Sticky Block End Point -->
+            <div id="stickyBlockEndPoint"></div>
+          </div>
+  
+          <div id="stickyBlockStartPoint" class="col-lg-3">
+            <div class="js-sticky-block"
+                 data-hs-sticky-block-options='{
+                   "parentSelector": "#stickyBlockStartPoint",
+                   "breakpoint": "lg",
+                   "startPoint": "#stickyBlockStartPoint",
+                   "endPoint": "#stickyBlockEndPoint",
+                   "stickyOffsetTop": 20
+                 }'>
+              <a class="btn btn-block newOrder mb-3" href="javascript:;">
+                  Yadda saxla
+              </a>
+  
+              <a class="btn btn-block newAccept mb-3" href="javascript:;">
+                  Təsdiqlə
+              </a>
+  
+              <a class="btn btn-block back mb-3" routerLink="/neworder">
+                  Geri
+              </a>
+  
+       
+              <!-- End Row -->
+  
+              <hr class="my-4">
+  
+              <!-- Form Group -->
+              <div class="form-group">
+                  <dl >
+                      <dt >Sənəd nömrəsi:</dt>
+                      <dd >1234567890</dd>
+                      <dt >Müştəri:</dt>
+                      <dd >Lorem İpsum LLC</dd>
+                      <dt >Tarix:</dt>
+                      <dd >26.11.2021</dd>
+                    </dl>
+               
+            </div>
+          </div>
+        </div>
+      
+    </div>
+</div>
+</main>

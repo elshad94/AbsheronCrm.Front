@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "broker-edit.component.scss"
+    ],
+    "names": [],
+    "file": "broker-edit.component.css"
+}
