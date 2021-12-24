@@ -38,16 +38,14 @@
                   </div>
                 </div>
   
-                <div class="col-md">
+                <!-- <div class="col-md">
                   <form>
-                    <!-- Search -->
                     <div class="input-group input-group-merge input-group-flush">
                       <a  href="#"><img src="assets/icon/Frame 8pen.png" alt=""></a>
                       <a class="ml-2" href="#"><img src="assets/icon/Frame 6trash.png" alt=""></a>
                     </div>
-                    <!-- End Search -->
                   </form>
-                </div>
+                </div> -->
               </div>
               <!-- End Filter -->
             </div>
@@ -58,13 +56,51 @@
         <!-- Table -->
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+            mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="orderNo">
+              <th mat-header-cell *matHeaderCellDef>SIFARISH No</th>
+              <td mat-cell *matCellDef="let order"> {{order.orderNo}} </td>
+            </ng-container>
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>TARIX</th>
+              <td mat-cell *matCellDef="let order"> {{order.date | date:'yyyy-MM-dd'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+              <th mat-header-cell *matHeaderCellDef>MEBLEQ</th>
+              <td mat-cell *matCellDef="let order"> {{order.amount}} </td>
+            </ng-container>
+            <ng-container matColumnDef="statusText">
+              <th mat-header-cell *matHeaderCellDef>STATUS</th>
+              <td mat-cell *matCellDef="let order"> {{order.orderStatus.statusText}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let order">
+                <a href="/neworder">
+                  <img src="assets/icon/Frame 8pen.png" alt="">
+                </a>
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="">
+                <img src="assets/icon/Frame 6trash.png" alt="">
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons >
+          </mat-paginator>
+
+          <!-- <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
                  data-hs-datatables-options='{
                    "columnDefs": [{
                       "targets": [0, 1, 4],
                       "orderable": false
                     }],
                    "order": [],
-                   "data": []
                    "info": {
                      "totalQty": "#datatableWithPaginationInfoTotalQty"
                    },
@@ -72,9 +108,10 @@
                    "entries": "#datatableEntries",
                    "pageLength": 8,
                    "isResponsive": false,
-                   "isShowPaging": false,
+                   "isShowPaging": true,
                    "pagination": "datatablePagination"
-                 }'>
+                 }'
+                 >
             <thead class="thead-light">
               <tr>
                 <th scope="col" class="table-column-pr-0">
@@ -109,129 +146,10 @@
                 <td>{{terminalOrder.amount}} AZN</td>
                 <td>{{terminalOrder.orderStatus.statusText}}</td>
               </tr>
-              <!-- <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
-                    <label class="custom-control-label" for="usersDataCheck2"></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">12356 </span>
-                    </div>
-                </td>
-                <td>
-               02.11.2021
-                </td>
-                <td>465 AZN</td>
-                <td>Təsdiqlənib</td>
-             
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="usersDataCheck3">
-                    <label class="custom-control-label" for="usersDataCheck3"></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">65489</span>
-                    </div>
-                </td>
-                <td>
-               10.12.2021
-                </td>
-                <td>123 AZN</td>
-                <td>Gözləmədə</td>
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="usersDataCheck4">
-                    <label class="custom-control-label" for="usersDataCheck4"></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">01235</span>
-                    </div>
-                </td>
-                <td>
-              17.10.2021
-                </td>
-                <td>753 AZN</td>
-                <td>Geri qaytarılıb</td>
-                
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="usersDataCheck5">
-                    <label class="custom-control-label" for="usersDataCheck5"></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">36527</span>
-                    </div>
-                  
-                </td>
-                <td>
-               01.12.2021
-                </td>
-                <td>23 AZN</td>
-                <td>Ləğv edilib</td>
-              </tr> -->
             </tbody>
-          </table>
+          </table> -->
         </div>
         <!-- End Table -->
-  
-        <!-- Footer -->
-        <div class="card-footer">
-          <!-- Pagination -->
-          <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
-            <div class="col-sm mb-2 mb-sm-0">
-              <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                <span class="mr-2">Showing:</span>
-  
-                <!-- Select -->
-                <select id="datatableEntries" class="js-select2-custom"
-                        data-hs-select2-options='{
-                          "minimumResultsForSearch": "Infinity",
-                          "customClass": "custom-select custom-select-sm custom-select-borderless",
-                          "dropdownAutoWidth": true,
-                          "width": true
-                        }'>
-                  <option value="4">4</option>
-                  <option value="6">6</option>
-                  <option value="8" selected>8</option>
-                  <option value="12">12</option>
-                </select>
-                <!-- End Select -->
-  
-                <span class="text-secondary mr-2">of</span>
-  
-                <!-- Pagination Quantity -->
-                <span id="datatableWithPaginationInfoTotalQty"></span>
-              </div>
-            </div>
-  
-            <div class="col-sm-auto">
-              <div class="d-flex justify-content-center justify-content-sm-end">
-                <!-- Pagination -->
-                <nav id="datatablePagination" aria-label="Activity pagination"></nav>
-              </div>
-            </div>
-          </div>
-          <!-- End Pagination -->
-        </div>
-        <!-- End Footer -->
       </div>
     </div>
   </main>

@@ -31,12 +31,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
-
-
-
-
-
-
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator'; 
 
 @NgModule({
     declarations: [
@@ -77,9 +73,9 @@ import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        MatInputModule
-
-
+        MatInputModule,
+        MatTableModule,
+        MatPaginatorModule
     ],
     providers: [
         {
