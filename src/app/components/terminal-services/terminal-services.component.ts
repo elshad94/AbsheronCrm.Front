@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { TerminalService } from 'src/app/services/terminal.service';
 
 @Component({
-  selector: 'app-terminal-services',
-  templateUrl: './terminal-services.component.html',
-  styleUrls: ['./terminal-services.component.scss']
+    selector: 'app-terminal-services',
+    templateUrl: './terminal-services.component.html',
+    styleUrls: ['./terminal-services.component.scss']
 })
 export class TerminalServicesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+    ngOnInit(): void {
+    }
 }

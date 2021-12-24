@@ -39,75 +39,75 @@ import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    HomeComponent,
-    TerminalServicesComponent,
-    ServicesComponent,
-    NewOrderComponent,
-    BrokerComponent,
-    BrokerOrderComponent,
-    PayComponent,
-    PayModalComponent,
-    TrackComponent,
-    ReportComponent,
-    SettingComponent,
-    ProfileAccountComponent,
-    ChangepwdComponent,
-    NotificationComponent,
-    OrderComponent,
-    ReturnFileComponent,
-    LegalAccountComponent,
-    NextModalComponent,
-    LastModalComponent,
-    LoginComponent,
-    RegisterComponent,
-    BrokerEditComponent,
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        HomeComponent,
+        TerminalServicesComponent,
+        ServicesComponent,
+        NewOrderComponent,
+        BrokerComponent,
+        BrokerOrderComponent,
+        PayComponent,
+        PayModalComponent,
+        TrackComponent,
+        ReportComponent,
+        SettingComponent,
+        ProfileAccountComponent,
+        ChangepwdComponent,
+        NotificationComponent,
+        OrderComponent,
+        ReturnFileComponent,
+        LegalAccountComponent,
+        NextModalComponent,
+        LastModalComponent,
+        LoginComponent,
+        RegisterComponent,
+        BrokerEditComponent,
 
 
 
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatDialogModule,
-    MatSelectModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatDialogModule,
+        MatSelectModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule
 
 
-  ],
-  providers: [
-   {
-      provide:'BrokerItemUrl',
-      useValue:'https://localhost:44323/api'
+    ],
+    providers: [
+        {
+            provide:'BrokerItemUrl',
+            useValue:'https://localhost:44323/api'
 
-    },
-    {
-      provide:'DeleteBrokerItem',
-      useValue:'https://localhost:44323/api/Broker?id='
-
-
-    },
-    {
-      provide:'PostBrokerItem',
-      useValue:'https://localhost:44323/api/Broker'
+        },
+        {
+            provide:'DeleteBrokerItem',
+            useValue:'https://localhost:44323/api/Broker?id='
 
 
-    },
-    {
-      provide:'PutBrokerItem',
-      useValue:'https://localhost:44323/api/Broker/'
+        },
+        {
+            provide:'PostBrokerItem',
+            useValue:'https://localhost:44323/api/Broker'
 
 
-    }
-  ],
-  bootstrap: [AppComponent]
+        },
+        {
+            provide:'PutBrokerItem',
+            useValue:'https://localhost:44323/api/Broker/'
+
+
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule {
 
- }
+}

@@ -1,4 +1,4 @@
-<main id="content" role="main" class="main pointer-event"> 
+<main id="content" role="main" class="main pointer-event">
     <div class="content container-fluid">
        <!-- Card -->
        <div class="card mb-3 mb-lg-5">
@@ -64,6 +64,7 @@
                       "orderable": false
                     }],
                    "order": [],
+                   "data": []
                    "info": {
                      "totalQty": "#datatableWithPaginationInfoTotalQty"
                    },
@@ -90,7 +91,25 @@
             </thead>
   
             <tbody>
-              <tr>
+              <tr *ngFor="let terminalOrder of terminalOrders">
+                <td class="table-column-pr-0">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
+                    <label class="custom-control-label" for="usersDataCheck2"></label>
+                  </div>
+                </td>
+                <td class="table-column-pl-0">
+                  <div class="media-body">
+                    <span class="h5 text-hover-primary mb-0">{{terminalOrder.orderNo}}</span>
+                  </div>
+                </td>
+                <td>
+                  {{terminalOrder.date | date:'yyyy-MM-dd'}}
+                </td>
+                <td>{{terminalOrder.amount}} AZN</td>
+                <td>{{terminalOrder.orderStatus.statusText}}</td>
+              </tr>
+              <!-- <tr>
                 <td class="table-column-pr-0">
                   <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
@@ -167,14 +186,7 @@
                 </td>
                 <td>23 AZN</td>
                 <td>Ləğv edilib</td>
-              </tr>
-  
-           
-  
-  
-              
-              
-  
+              </tr> -->
             </tbody>
           </table>
         </div>
