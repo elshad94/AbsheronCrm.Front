@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApplicationRef, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,11 +28,11 @@ import { NextModalComponent } from './components/pay/next-modal/next-modal.compo
 import { LastModalComponent } from './components/pay/last-modal/last-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
 import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -59,10 +59,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        BrokerEditComponent,
-
-
-
+        BrokerEditComponent
     ],
     imports: [
         BrowserModule,
