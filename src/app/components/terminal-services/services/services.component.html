@@ -23,7 +23,7 @@
                     <span class="text-secondary mr-2">Status:</span>
   
                     <!-- Select -->
-                    <select class="js-select2-custom js-datatable-filter custom-select-sm" size="1" style="opacity: 0;"
+                    <select class="js-select2-custom js-datatable-filter custom-select-sm" size="1" style="opacity: 1;"
                             data-target-column-index="2"
                             data-hs-select2-options='{
                               "minimumResultsForSearch": "Infinity",
@@ -54,9 +54,6 @@
         <!-- End Header -->
   
         <!-- LE TABLES -->
-        <div [hidden]="!showNotif" class="{{notifStyleClass}}">
-          {{notifMessage}}
-        </div>
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
             mat-table [dataSource]="dataSource">
