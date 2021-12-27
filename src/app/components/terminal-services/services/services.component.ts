@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import TerminalItem from 'src/app/model/terminal-item';
 import { TerminalService } from 'src/app/services/terminal.service';
-import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-services',
@@ -12,15 +12,11 @@ import { DeleteDialogComponent } from '../../delete-dialog/delete-dialog.compone
     styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-    columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'edit', 'delete'];
+    columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'actions'];
     terminalItems: TerminalItem[] = [];
     dataSource: MatTableDataSource<TerminalItem> = new MatTableDataSource<TerminalItem>(this.terminalItems);
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     orderStatuses: string[] = [];
-    // notification
-    showNotif = false;
-    notifStyleClass = '';
-    notifMessage = '';
 
     constructor(
         private terminalService: TerminalService,
@@ -32,54 +28,47 @@ export class ServicesComponent implements OnInit {
     }
 
     openDialog(orderId: number, orderNo: string) {
-        const dialogRef = this.dialog.open(DeleteDialogComponent, {
-            width: '250px',
-            data: {orderNo, orderId},
-        });
-
-        dialogRef.afterClosed().subscribe(orderId => {
-            if(!orderId) {
-                return;
+        Swal.fire({
+            title: `Sifariş No ${orderNo} silinsin?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Bəli',
+            cancelButtonText: 'Xeyr'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.deleteTerminalOrder(orderId, orderNo);
             }
-            this.deleteTerminalOrder(orderId);
         });
     }
 
-    private deleteTerminalOrder(orderId: number) {
+    private deleteTerminalOrder(orderId: number, orderNo: string) {
         this.terminalService
             .deleteTerminalOrder(orderId)
             .subscribe(response => {
                 switch(response.status) {
                 case 404:
-                    this.showNotif = true;
-                    this.notifStyleClass = 'error_notif';
-                    this.notifMessage = 'Order artiq silinib';
-                    setTimeout(() => {
-                        this.showNotif = false;
-                        this.notifStyleClass = '';
-                        this.notifMessage = '';
-                    }, 10000);
+                    Swal.fire(
+                        'Error!',
+                        `Order No ${orderNo} artıq silinib!`,
+                        'error'
+                    );
                     break;
                 case 400: case 500:
-                    this.showNotif = true;
-                    this.notifStyleClass = 'error_notif';
-                    this.notifMessage = 'Serverde problem var...';
-                    setTimeout(() => {
-                        this.showNotif = false;
-                        this.notifStyleClass = '';
-                        this.notifMessage = '';
-                    }, 10000);
+                    Swal.fire(
+                        'Error!',
+                        'Server problemi',
+                        'error'
+                    );
                     break;
                 default:
+                    Swal.fire(
+                        'Silindi!',
+                        `Sifariş No ${orderNo} silindi`,
+                        'success'
+                    );
                     this.getTerminalorders();
-                    this.showNotif = true;
-                    this.notifStyleClass = 'success_notif';
-                    this.notifMessage = 'Sifaris ugurla silindi!';
-                    setTimeout(() => {
-                        this.showNotif = false;
-                        this.notifStyleClass = '';
-                        this.notifMessage = '';
-                    }, 10000,);
                 }
             });
     }
