@@ -73,17 +73,12 @@
               <th mat-header-cell *matHeaderCellDef>STATUS</th>
               <td mat-cell *matCellDef="let order"> {{order.orderStatus.statusText}} </td>
             </ng-container>
-            <ng-container matColumnDef="edit">
+            <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let order">
                 <a href="/neworder">
                   <img src="assets/icon/Frame 8pen.png" alt="">
                 </a>
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="delete">
-              <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let order">
                 <img src="assets/icon/Frame 6trash.png" alt="" (click)="openDialog(order.orderId, order.orderNo)" >
               </td>
             </ng-container>

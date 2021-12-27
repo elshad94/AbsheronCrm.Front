@@ -12,10 +12,11 @@ import Swal from 'sweetalert2';
     styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-    columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'edit', 'delete'];
+    columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'actions'];
     terminalItems: TerminalItem[] = [];
     dataSource: MatTableDataSource<TerminalItem> = new MatTableDataSource<TerminalItem>(this.terminalItems);
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    orderStatuses: string[] = [];
 
     constructor(
         private terminalService: TerminalService,
@@ -78,6 +79,7 @@ export class ServicesComponent implements OnInit {
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
+                this.orderStatuses = [...new Set(terminalItems.map(ti => ti.orderStatus.statusText))];
             });
     }
 
