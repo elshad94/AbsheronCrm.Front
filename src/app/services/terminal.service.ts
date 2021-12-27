@@ -18,4 +18,8 @@ export class TerminalService {
     deleteTerminalOrder(orderId: number): Observable<HttpResponse<unknown>> {
         return this.http.delete(`${baseUrl}/Delete/${orderId}`, {observe: 'response'});
     }
+
+    // getNewTerminalData(): Observable<> {
+        
+    // }
 }
