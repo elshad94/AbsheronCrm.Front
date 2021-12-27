@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+    <p>Sifariş No {{data.orderNo}} silinsin?</p>
+</div>
+<div mat-dialog-actions>
+    <div class="buttons">
+        <button class="no_button" mat-button (click)="onNoClick()">Xeyr</button>
+        <button class="yes_button" mat-button [mat-dialog-close]="data.orderId" cdkFocusInitial>Bəli</button>
+    </div>
+</div>
