@@ -71,6 +71,14 @@ export class ServicesComponent implements OnInit {
                     break;
                 default:
                     this.getTerminalorders();
+                    this.showNotif = true;
+                    this.notifStyleClass = 'success_notif';
+                    this.notifMessage = 'Sifaris ugurla silindi!';
+                    setTimeout(() => {
+                        this.showNotif = false;
+                        this.notifStyleClass = '';
+                        this.notifMessage = '';
+                    }, 10000,);
                 }
             });
     }
@@ -81,14 +89,6 @@ export class ServicesComponent implements OnInit {
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
-                this.showNotif = true;
-                this.notifStyleClass = 'success_notif';
-                this.notifMessage = 'Sifaris ugurla silindi!';
-                setTimeout(() => {
-                    this.showNotif = false;
-                    this.notifStyleClass = '';
-                    this.notifMessage = '';
-                }, 10000,);
             });
     }
 }
