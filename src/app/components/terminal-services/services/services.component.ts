@@ -80,4 +80,10 @@ export class ServicesComponent implements OnInit {
                 this.dataSource.paginator = this.paginator;
             });
     }
+
+    filterTableByStatus(status: string) {
+        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) => 
+            data.orderStatus.statusText === filter;
+        this.dataSource.filter = status.trim();
+    }
 }

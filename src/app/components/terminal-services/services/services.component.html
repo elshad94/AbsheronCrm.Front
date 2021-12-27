@@ -31,8 +31,8 @@
                               "dropdownAutoWidth": true,
                               "width": true
                             }'>
-                      <option value="">Lorem</option>
-                     
+                      <option value="" (click)="filterTableByStatus('')">Hamısı</option>
+                      <option *ngFor="let status of orderStatuses" value="{{status}}" (click)="filterTableByStatus(status)">{{status}}</option>      
                     </select>
                     <!-- End Select -->
                   </div>
