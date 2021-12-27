@@ -16,6 +16,7 @@ export class ServicesComponent implements OnInit {
     terminalItems: TerminalItem[] = [];
     dataSource: MatTableDataSource<TerminalItem> = new MatTableDataSource<TerminalItem>(this.terminalItems);
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    orderStatuses: string[] = [];
     // notification
     showNotif = false;
     notifStyleClass = '';
@@ -89,6 +90,13 @@ export class ServicesComponent implements OnInit {
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
+                this.orderStatuses = [...new Set(terminalItems.map(ti => ti.orderStatus.statusText))];
             });
+    }
+
+    filterTableByStatus(status: string) {
+        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) => 
+            data.orderStatus.statusText === filter;
+        this.dataSource.filter = status.trim();
     }
 }

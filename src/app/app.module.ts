@@ -61,10 +61,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
         LoginComponent,
         RegisterComponent,
         BrokerEditComponent,
-        DeleteDialogComponent,
-
-
-
+        DeleteDialogComponent
     ],
     imports: [
         BrowserModule,
