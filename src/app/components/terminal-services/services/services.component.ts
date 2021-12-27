@@ -16,6 +16,10 @@ export class ServicesComponent implements OnInit {
     terminalItems: TerminalItem[] = [];
     dataSource: MatTableDataSource<TerminalItem> = new MatTableDataSource<TerminalItem>(this.terminalItems);
     @ViewChild(MatPaginator) paginator!: MatPaginator;
+    // notification
+    showNotif = false;
+    notifStyleClass = '';
+    notifMessage = '';
 
     constructor(
         private terminalService: TerminalService,
@@ -46,12 +50,24 @@ export class ServicesComponent implements OnInit {
             .subscribe(response => {
                 switch(response.status) {
                 case 404:
-                    //TODO: popup
-                    console.log('NOT FOUND');
+                    this.showNotif = true;
+                    this.notifStyleClass = 'error_notif';
+                    this.notifMessage = 'Order artiq silinib';
+                    setTimeout(() => {
+                        this.showNotif = false;
+                        this.notifStyleClass = '';
+                        this.notifMessage = '';
+                    }, 10000);
                     break;
                 case 400: case 500:
-                    //TODO: popup
-                    console.log('ERROR');
+                    this.showNotif = true;
+                    this.notifStyleClass = 'error_notif';
+                    this.notifMessage = 'Serverde problem var...';
+                    setTimeout(() => {
+                        this.showNotif = false;
+                        this.notifStyleClass = '';
+                        this.notifMessage = '';
+                    }, 10000);
                     break;
                 default:
                     this.getTerminalorders();
@@ -65,6 +81,14 @@ export class ServicesComponent implements OnInit {
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
+                this.showNotif = true;
+                this.notifStyleClass = 'success_notif';
+                this.notifMessage = 'Sifaris ugurla silindi!';
+                setTimeout(() => {
+                    this.showNotif = false;
+                    this.notifStyleClass = '';
+                    this.notifMessage = '';
+                }, 10000,);
             });
     }
 }

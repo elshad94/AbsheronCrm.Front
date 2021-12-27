@@ -53,7 +53,10 @@
         </div>
         <!-- End Header -->
   
-        <!-- Table -->
+        <!-- LE TABLES -->
+        <div [hidden]="!showNotif" class="{{notifStyleClass}}">
+          {{notifMessage}}
+        </div>
         <div class="table-responsive datatable-custom">
           <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
             mat-table [dataSource]="dataSource">

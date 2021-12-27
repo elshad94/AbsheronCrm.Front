@@ -32,7 +32,8 @@ import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
 import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component'; 
 
 @NgModule({
     declarations: [
@@ -60,6 +61,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         LoginComponent,
         RegisterComponent,
         BrokerEditComponent,
+        DeleteDialogComponent,
 
 
 
