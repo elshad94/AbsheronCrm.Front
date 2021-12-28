@@ -22,30 +22,30 @@ import { TerminalServicesComponent } from './components/terminal-services/termin
 import { TrackComponent } from './components/track/track.component';
 
 const routes: Routes = [
-{path:"",component:HomeComponent},
-{path:"terminalservices",component:TerminalServicesComponent},
-{path:"services",component:ServicesComponent},
-{path:"neworder",component:NewOrderComponent},
-{path:"broker",component:BrokerComponent},
-{path:"brokerOrder",component:BrokerOrderComponent},
-{path:"pay",component:PayComponent},
-{path:"payModal",component:PayModalComponent},
-{path:"track",component:TrackComponent},
-{path:"report",component:ReportComponent},
-{path:"changepwd",component:ChangepwdComponent},
-{path:"notification",component:NotificationComponent},
-{path:"profileAccount",component:ProfileAccountComponent},
-{path:"order",component:OrderComponent},
-{path:"returnFile",component:ReturnFileComponent},
-{path:"legalAccount",component:LegalAccountComponent},
-{path:"nextModal",component:NextModalComponent},
-{path:"login",component:LoginComponent},
-{path:"brokerEdit/:id",component:BrokerEditComponent},
+    {path:'',component:HomeComponent},
+    {path:'terminalservices',component:TerminalServicesComponent},
+    {path:'services',component:ServicesComponent},
+    {path:'neworder',component:NewOrderComponent},
+    {path:'broker',component:BrokerComponent},
+    {path:'brokerOrder',component:BrokerOrderComponent},
+    {path:'pay',component:PayComponent},
+    {path:'payModal',component:PayModalComponent},
+    {path:'track',component:TrackComponent},
+    {path:'report',component:ReportComponent},
+    {path:'changepwd',component:ChangepwdComponent},
+    {path:'notification',component:NotificationComponent},
+    {path:'profileAccount',component:ProfileAccountComponent},
+    {path:'order',component:OrderComponent},
+    {path:'returnFile',component:ReturnFileComponent},
+    {path:'legalAccount',component:LegalAccountComponent},
+    {path:'nextModal',component:NextModalComponent},
+    {path:'login',component:LoginComponent},
+    {path:'brokerEdit/:id',component:BrokerEditComponent},
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

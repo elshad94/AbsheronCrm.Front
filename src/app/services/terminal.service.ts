@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NvNoTypeId, TerminalNewData, TerminalNewDataRequest } from '../model/terminal-new-data';
+import { TerminalUpdateData } from '../model/terminal-update-data';
 
 const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 
@@ -10,6 +11,8 @@ const baseUrl = 'https://localhost:44323/api/TerminalOrder';
     providedIn: 'root'
 })
 export class TerminalService {
+    terminalUpdateData?: TerminalUpdateData;
+
     constructor(private http: HttpClient) {}  
 
     httpOptions = {

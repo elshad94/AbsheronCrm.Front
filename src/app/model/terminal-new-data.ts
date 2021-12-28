@@ -1,14 +1,10 @@
+import { TerminalExpense } from './TerminalExpense';
+
 export interface TerminalNewData {
     terminalWays: TerminalWay[],
-    expenses: TerminalNewOrderExpense[],
+    expenses: TerminalExpense[],
     transportTypeId: number,
     transportTypeText: string
-}
-
-export interface TerminalNewOrderExpense {
-    id: number,
-    isSelected: boolean,
-    text: string
 }
 
 export interface TerminalNewDataRequest {

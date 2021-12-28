@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NvNoTypeId, TerminalNewOrderExpense, TerminalWay } from 'src/app/model/terminal-new-data';
+import { Router } from '@angular/router';
+import { NvNoTypeId, TerminalWay } from 'src/app/model/terminal-new-data';
+import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-new-order',
@@ -8,14 +11,14 @@ import { TerminalService } from 'src/app/services/terminal.service';
     styleUrls: ['./new-order.component.scss']
 })
 export class NewOrderComponent implements OnInit {
-    terminalService!: TerminalService;
     nvNoRadio: NvNoTypeId = 1;
     terminalWays: TerminalWay[] = [];
     nvnoList: string[] = [];
-    expenses: TerminalNewOrderExpense[] = [];
+    expenses: TerminalExpense[] = [];
     
-    constructor(service: TerminalService) {
-        this.terminalService = service;
+    constructor(
+        private terminalService: TerminalService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -37,6 +40,33 @@ export class NewOrderComponent implements OnInit {
             return;
         }
         this.nvnoList = this.nvnoList.filter(nvno => nvno !== nvNo);
+    }
+
+    submit() {
+        // check nvNoList not empty
+        if(this.nvnoList.length === 0) {
+            Swal.fire(
+                'Error!',
+                'En azı bir vaqon və ya konteynr seçin!',
+                'error'
+            );
+            return;
+        }
+        // check terminalways not empty
+        if(this.expenses.filter(exp => exp.isSelected).length === 0) {
+            Swal.fire(
+                'Error!',
+                'En azı bir xidmət seçin!',
+                'error'       
+            );
+            return;
+        }
+        // submit
+        this.terminalService.terminalUpdateData = {
+            expenses: this.expenses,
+            terminalWays: this.terminalWays
+        };
+        this.router.navigate(['/order']);
     }
 
     private getNewOrderData() {
