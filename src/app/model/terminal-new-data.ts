@@ -1,11 +1,5 @@
 export interface TerminalNewData {
-    terminalWays: [
-        {
-            nvNo: string,
-            qaimeNo: string,
-            yuk: string
-        }
-    ],
+    terminalWays: TerminalWay[],
     expenses: [
         {
             id: number,
@@ -25,3 +19,9 @@ export interface TerminalNewDataRequest {
 }
 
 export type NvNoTypeId = 1 | 2
+
+export interface TerminalWay {
+    nvNo: string,
+    qaimeNo: string,
+    yuk: string    
+}

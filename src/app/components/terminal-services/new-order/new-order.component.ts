@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NvNoTypeId } from 'src/app/model/terminal-new-data';
+import { NvNoTypeId, TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalService } from 'src/app/services/terminal.service';
 
 @Component({
@@ -10,16 +10,18 @@ import { TerminalService } from 'src/app/services/terminal.service';
 export class NewOrderComponent implements OnInit {
     terminalService!: TerminalService;
     nvNoRadio: NvNoTypeId = 1;
+    terminalWays: TerminalWay[] = [];
     
     constructor(service: TerminalService) {
         this.terminalService = service;
     }
 
     ngOnInit() {
-        document.addEventListener('DOMContentLoaded', (event) => { 
+        document.addEventListener('DOMContentLoaded', () => { 
             const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
             vaqonRadio.checked = true;
         });
+        this.getNewOrderData();
     }
 
     changeVaqonType() {
@@ -29,7 +31,7 @@ export class NewOrderComponent implements OnInit {
     private getNewOrderData() {
         this.terminalService.getNewTerminalData(this.nvNoRadio)
             .subscribe(terminalNewData => {
-                console.log(terminalNewData);
+                this.terminalWays = terminalNewData.terminalWays;
             });
     }
 }

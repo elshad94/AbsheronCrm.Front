@@ -38,7 +38,7 @@
                 <!-- End Select -->
               </div>
             </div>
-            <div class="table-responsive datatable-custom">
+            <div class="table-responsive datatable-custom smoll">
               <table id="datatable"
                 class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
                 data-hs-datatables-options='{
@@ -73,7 +73,7 @@
                 </thead>
 
                 <tbody>
-                  <tr>
+                  <tr *ngFor="let tw of terminalWays">
                     <td class="table-column-pr-0">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
@@ -81,50 +81,10 @@
                       </div>
                     </td>
 
-                    <td>12345678</td>
-                    <td>12345678</td>
-                    <td>Lorem ipsum dolor sit amet</td>
+                    <td>{{tw.nvNo}}</td>
+                    <td>{{tw.qaimeNo}}</td>
+                    <td>{{tw.yuk}}</td>
                   </tr>
-
-                  <tr>
-                    <td class="table-column-pr-0">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usersDataCheck3">
-                        <label class="custom-control-label" for="usersDataCheck3"></label>
-                      </div>
-                    </td>
-
-                    <td>12345678</td>
-                    <td>12345678</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                  </tr>
-
-                  <tr>
-                    <td class="table-column-pr-0">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usersDataCheck4">
-                        <label class="custom-control-label" for="usersDataCheck4"></label>
-                      </div>
-                    </td>
-
-                    <td>12345678</td>
-                    <td>12345678</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                  </tr>
-
-                  <tr>
-                    <td class="table-column-pr-0">
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="usersDataCheck5">
-                        <label class="custom-control-label" for="usersDataCheck5"></label>
-                      </div>
-                    </td>
-
-                    <td>12345678</td>
-                    <td>12345678</td>
-                    <td>Lorem ipsum dolor sit amet</td>
-                  </tr>
-
                 </tbody>
               </table>
             </div>
