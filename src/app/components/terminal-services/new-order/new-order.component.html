@@ -99,32 +99,12 @@
                 <div class="col-lg-12">
                   <div class="card-block">
                     <div class="row ">
-                      <div class="col-lg-6">
+                      <div class="col-lg-6" *ngFor="let exp of expenses"
+                        [hidden]="!exp.isSelected">
                         <div title="Fəhlə xidmətləri" contenteditable="false" spellcheck="false" tabindex="-1"
                           class="tagify__tag tagify--noAnim" __isvalid="true" value="white">
                           <p title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
-                          <div><span class="tagify__tag-text">Fəhlə xidmətləri</span></div>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div title="Fəhlə xidmətləri" contenteditable="false" spellcheck="false" tabindex="-1"
-                          class="tagify__tag tagify--noAnim" __isvalid="true" value="white">
-                          <p title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
-                          <div><span class="tagify__tag-text">Avtocar xidmətləri</span></div>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div title="Fəhlə xidmətləri" contenteditable="false" spellcheck="false" tabindex="-1"
-                          class="tagify__tag tagify--noAnim" __isvalid="true" value="white">
-                          <p title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
-                          <div><span class="tagify__tag-text">Lorem xidmətləri</span></div>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div title="Fəhlə xidmətləri" contenteditable="false" spellcheck="false" tabindex="-1"
-                          class="tagify__tag tagify--noAnim" __isvalid="true" value="white">
-                          <p title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
-                          <div><span class="tagify__tag-text">Dolor xidmətləri</span></div>
+                          <div><span class="tagify__tag-text">{{exp.text}}</span></div>
                         </div>
                       </div>
                     </div>
@@ -136,53 +116,10 @@
                     <!-- Checkbox -->
 
                     <div class="row">
-
-                      <div class="col-lg-6">
+                      <div *ngFor="let exp of expenses" class="col-lg-6">
                         <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck12" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck12">Fəhlə xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck11" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck11">Lorem xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck10" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck10">Avtocar xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck9" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck9">İpsum xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck8" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck8">Kran xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck7" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck7">Dolor xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck6" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck6">Sit xidmətləri</label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" id="customCheck5" class="custom-control-input" checked>
-                          <label class="custom-control-label" for="customCheck5">Sit xidmətləri</label>
+                          <input type="checkbox" [(ngModel)]="exp.isSelected">
+                          <label>{{exp.text}}</label>
                         </div>
                       </div>
                     </div>

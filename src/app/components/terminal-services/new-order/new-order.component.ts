@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NvNoTypeId, TerminalWay } from 'src/app/model/terminal-new-data';
+import { NvNoTypeId, TerminalNewOrderExpense, TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalService } from 'src/app/services/terminal.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class NewOrderComponent implements OnInit {
     nvNoRadio: NvNoTypeId = 1;
     terminalWays: TerminalWay[] = [];
     nvnoList: string[] = [];
+    expenses: TerminalNewOrderExpense[] = [];
     
     constructor(service: TerminalService) {
         this.terminalService = service;
@@ -42,6 +43,7 @@ export class NewOrderComponent implements OnInit {
         this.terminalService.getNewTerminalData(this.nvNoRadio)
             .subscribe(terminalNewData => {
                 this.terminalWays = terminalNewData.terminalWays;
+                this.expenses = terminalNewData.expenses;
                 this.nvnoList = [];
             });
     }

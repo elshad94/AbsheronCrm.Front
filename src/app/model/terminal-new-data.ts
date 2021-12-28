@@ -1,14 +1,14 @@
 export interface TerminalNewData {
     terminalWays: TerminalWay[],
-    expenses: [
-        {
-            id: number,
-            isSelected: boolean,
-            text: string
-        }
-    ],
+    expenses: TerminalNewOrderExpense[],
     transportTypeId: number,
     transportTypeText: string
+}
+
+export interface TerminalNewOrderExpense {
+    id: number,
+    isSelected: boolean,
+    text: string
 }
 
 export interface TerminalNewDataRequest {
