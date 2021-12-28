@@ -11,6 +11,7 @@ export class NewOrderComponent implements OnInit {
     terminalService!: TerminalService;
     nvNoRadio: NvNoTypeId = 1;
     terminalWays: TerminalWay[] = [];
+    nvnoList: string[] = [];
     
     constructor(service: TerminalService) {
         this.terminalService = service;
@@ -28,10 +29,20 @@ export class NewOrderComponent implements OnInit {
         this.getNewOrderData();
     }
 
+    checkTerminalWay(event: Event, nvNo: string) {
+        const checkbox = event.target as HTMLInputElement;
+        if(checkbox.checked) {
+            this.nvnoList.push(nvNo);
+            return;
+        }
+        this.nvnoList = this.nvnoList.filter(nvno => nvno !== nvNo);
+    }
+
     private getNewOrderData() {
         this.terminalService.getNewTerminalData(this.nvNoRadio)
             .subscribe(terminalNewData => {
                 this.terminalWays = terminalNewData.terminalWays;
+                this.nvnoList = [];
             });
     }
 }
