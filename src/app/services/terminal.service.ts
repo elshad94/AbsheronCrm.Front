@@ -1,7 +1,8 @@
 import TerminalItem from '../model/terminal-item';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { NvNoTypeId, TerminalNewData, TerminalNewDataRequest } from '../model/terminal-new-data';
 
 const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 
@@ -11,6 +12,12 @@ const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 export class TerminalService {
     constructor(private http: HttpClient) {}  
 
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+    };
+
     getTerminalOrders(): Observable<TerminalItem[]> {
         return this.http.get<TerminalItem[]>(baseUrl + '/GetAllTerminalOrders');
     }
@@ -19,7 +26,11 @@ export class TerminalService {
         return this.http.delete(`${baseUrl}/Delete/${orderId}`, {observe: 'response'});
     }
 
-    // getNewTerminalData(): Observable<> {
-        
-    // }
+    getNewTerminalData(nvNoTypeId: NvNoTypeId): Observable<TerminalNewData> {
+        const reqData: TerminalNewDataRequest = {
+            nvNoTypeId
+        }; 
+        return this.http
+            .post<TerminalNewData>(`${baseUrl}/GetCreateData`, reqData);
+    }
 }
