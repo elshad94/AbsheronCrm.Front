@@ -1,14 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
 html,
 body {
     height: 100%;
+    margin: 0;
+    font-family: 'Lexend Deca', sans-serif!important;
+    font: 'Lexend Deca', sans-serif!important;
 }
 
-body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-}
 
 .odd {
     .dataTables_empty {
@@ -72,24 +74,4 @@ body {
     height: 8px;
     border-radius: 50%;
     background: white;
-}
-
-.error_notif {
-    color: red;
-    background: lightgrey;
-    font-size: 20px;
-    border-style: solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-  
-.success_notif {
-    color: green;
-    background: lightgrey;
-    font-size: 20px;
-    border-style: solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
 }
