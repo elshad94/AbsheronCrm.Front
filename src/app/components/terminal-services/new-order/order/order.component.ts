@@ -20,12 +20,39 @@ export class OrderComponent implements OnInit {
         if(terminalUpdateData) {
             this.terminalWays = terminalUpdateData.terminalWays;
             this.expenses = terminalUpdateData.expenses; 
-            this.expenses.forEach(e => e.isSelected = false);
-            logger.info(this.terminalWays);
-            logger.info(this.expenses);
             return;
         }
         logger.warning('USING DUMMY DATA FOR DEVELOPMENT!');
+        this.expenses = [{
+            id: 1,
+            isSelected: true,
+            text: 'Bob'
+        }, {
+            id: 2,
+            isSelected: true,
+            text: 'Tommy'
+        },{
+            id: 2,
+            isSelected: true,
+            text: 'blahblah'
+        }];
+        this.terminalWays = [
+            { 
+                nvNo: '53551842',
+                qaimeNo: '31874135',
+                yuk: '73063072 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+            },
+            { 
+                nvNo: '53553842',
+                qaimeNo: '32874135',
+                yuk: '73063232 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+            },
+            { 
+                nvNo: '53553342',
+                qaimeNo: '32324135',
+                yuk: '73063234 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+            }
+        ];
     }
 
     setExpenseSelected(exp: TerminalExpense) {
