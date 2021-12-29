@@ -47,12 +47,11 @@
               <!-- End Title -->
 
               <!-- Content -->
-              <div class="row">
+              <div *ngFor="let xidmet of xidmetler" class="row">
                 <div class="col-md-5">
                   <select class="form-control mb-3" name="" id="">
                     <option value="">Xidməti seçin</option>
-                    <option *ngFor="let exp of expenses" value="exp.text" 
-                      (click)="setExpenseSelected(exp)">{{exp.text}}</option>
+                    <option *ngFor="let exp of expenses" value="exp.text">{{exp.text}}</option>
                   </select>
                   <input type="text" class="form-control mb-3" placeholder="N/V №" aria-label="Description">
                 </div>
