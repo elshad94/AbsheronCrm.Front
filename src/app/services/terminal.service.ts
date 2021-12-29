@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NvNoTypeId, TerminalNewData, TerminalNewDataRequest } from '../model/terminal-new-data';
 import { TerminalUpdateData } from '../model/terminal-update-data';
+import TerminalUpdateRequestData from '../model/TerminalUpdateRequestData';
 
 const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 
@@ -13,6 +14,9 @@ const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 export class TerminalService {
     // used for passing data between first and second terminal order screens
     terminalUpdateData?: TerminalUpdateData;
+    // used for passing data between second terminal order screen and terminal file upload screen
+    // also used for sending data when creating new terminal order
+    terminalUpdateRequestData?: TerminalUpdateRequestData;
 
     constructor(private http: HttpClient) {}  
 

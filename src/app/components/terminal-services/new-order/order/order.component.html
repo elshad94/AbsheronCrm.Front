@@ -11,7 +11,7 @@
 
 
               <a class="ml-5 orderBtn line" routerLink="/order">Xidmətlər</a>
-              <a class="ml-5 orderBtn" routerLink="/returnFile">Geridönüş sənədi</a>
+              <a class="ml-5 orderBtn" (click)="toReturnFile()">Geridönüş sənədi</a>
             </div>
             <!-- End Row -->
 
@@ -25,6 +25,14 @@
                         "defaultCreated": 0
                       }'>
               <!-- Title -->
+              <!-- <div class="row"> -->
+              <div class="row">
+                <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3"
+                  placeholder="Dolu yükdaşıma kodu" [(ngModel)]="fullRefCode">
+                <div class="col-sm-1"></div>
+                <input type="text" class="form-control col-sm-4 mb-3" 
+                  placeholder="Boş yükdaşıma kodu" [(ngModel)]="emptyRefCode">
+              </div>
               <div class="bg-light border-bottom p-2 mb-3">
                 <div class="row">
                   <div class="col-sm-5">
@@ -50,23 +58,23 @@
               <div *ngFor="let xidmet of xidmetler" class="row">
                 <div class="col-md-5">
                   <select class="form-control mb-3" name="" id="">
-                    <option value="">Xidməti seçin</option>
-                    <option *ngFor="let exp of expenses" value="exp.text">{{exp.text}}</option>
+                    <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">{{exp.text}}</option>
                   </select>
-                  <input type="text" class="form-control mb-3" placeholder="N/V №" aria-label="Description">
+                  <input type="text" class="form-control mb-3" placeholder="N/V №" aria-label="Description"
+                    value="{{xidmet.temrinalWay.nvNo}}">
                 </div>
 
                 <div class="col-12 col-sm-auto col-md-3">
                   <!-- Quantity Counter -->
                   <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                    <input type="number" class="js-result form-control input-group-quantity-counter-control" value="1">
+                    <input type="number" class="js-result form-control input-group-quantity-counter-control" [(ngModel)]="xidmet.count">
 
                     <div class="input-group-quantity-counter-toggle">
                       <a class="js-minus input-group-quantity-counter-btn" href="javascript:;">
-                        <i class="tio-remove"></i>
+                        <i class="tio-remove" (click)="decreaseCount(xidmet)"></i>
                       </a>
                       <a class="js-plus input-group-quantity-counter-btn" href="javascript:;">
-                        <i class="tio-add"></i>
+                        <i class="tio-add" (click)="increaseCount(xidmet)"></i>
                       </a>
                     </div>
                   </div>
@@ -76,13 +84,13 @@
                 <div class="col-12 col-sm col-md-2">
                   <!-- Input Group -->
                   <div class="mb-3">
-                    <p>₼ 45.50</p>
+                    <p>₼ {{xidmet.temrinalWay.amount}}</p>
                   </div>
                   <!-- End Input Group -->
                 </div>
 
                 <div class="col col-md-2">
-                  <p>₼ 45.50</p>
+                  <p>₼ {{xidmet.totalAmount}}</p>
                 </div>
 
               </div>
@@ -91,7 +99,8 @@
               <!-- Container For Input Field -->
               <div id="addInvoiceItemContainer"></div>
 
-              <a href="javascript:;" class="js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary">
+              <a href="javascript:;" class="js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary"
+                (click)="addXidmet()">
                 + Yeni xidmət
               </a>
 
@@ -154,15 +163,16 @@
                 <div class="form-group">
 
                   <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
-                    aria-label="Who is this invoice to?" rows="3"></textarea>
+                    aria-label="Who is this invoice to?" rows="3" 
+                    [(ngModel)]="notes"></textarea>
                 </div>
               </div>
               <div class="col-md-8 col-lg-6">
                 <dl class="row text-sm-right">
                   <dt class="col-sm-6">Cəmi:</dt>
-                  <dd class="col-sm-6">₼ 45.50</dd>
+                  <dd class="col-sm-6">₼ {{total}}</dd>
                   <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
-                  <dd class="col-sm-6">₼ 50.00</dd>
+                  <dd class="col-sm-6">₼ {{totalEdv}}</dd>
                 </dl>
                 <!-- End Row -->
               </div>
