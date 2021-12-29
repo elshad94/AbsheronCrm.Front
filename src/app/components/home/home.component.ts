@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ConWag } from 'src/app/model/conWag';
-import conWags from '/src/app/components/home/conWag.json';
+import { OrderCountService } from 'src/app/services/orderCount.service';
 
 @Component({
   selector: 'app-home',
@@ -9,28 +9,41 @@ import conWags from '/src/app/components/home/conWag.json';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() {}
+  constructor(private orderCount: OrderCountService) { }
 
   @ViewChild('chart')
   d1!: ElementRef;
 
-  conWag: ConWag[] = conWags;
+  conWag: ConWag[] = [];
 
+  ngOnInit() {
+    this.orderCount.getOrdersCount().subscribe((data: ConWag[]) => {
+      this.conWag = data;
+    });
+  }
+
+
+  chartCon: ConWag[] = []
 
   ngAfterViewInit() {
+    this.orderCount.getOrdersCount().subscribe((data: ConWag[]) => {
+      this.chartCon = data;
+      console.log(data)
+    });
     this.d1.nativeElement.insertAdjacentHTML('beforeend', `<canvas id="updatingData" style="height: 20rem;"
     data-hs-chartjs-options='{
+      
       "type": "bar",
       "data": {
         "labels": ["Yan", "Fev", "Mar", "Apr", "May", "İyn", "İyl", "Avq", "Sen", "Okt","Noy","Dek"],
         "datasets": [{
-          "data": [${this.conWag.map(c => c.konteynrCount)}],
+          "data": [${this.chartCon.map(x => x.konteynrCount)}],
           "backgroundColor": "#57DAC2",
           "hoverBackgroundColor": "#57DAC2",
           "borderColor": "#57DAC2"
         },
         {
-          "data": [${this.conWag.map(c => c.vaqonCount)}],
+          "data": [${this.chartCon.map(x => x.vaqonCount)}],
           "backgroundColor": "#377DFF",
           "borderColor": "#377DFF"
         }]
@@ -83,9 +96,8 @@ export class HomeComponent implements OnInit {
       }
     }'></canvas>`);
   }
-
-  ngOnInit() {
-    
-  }
-
 }
+function resolve(arg0: string) {
+  throw new Error('Function not implemented.');
+}
+
