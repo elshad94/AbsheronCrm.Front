@@ -1,0 +1,32 @@
+.typeTable{
+    width: 100%;
+}
+
+.typeTable th, td{
+    color: black;
+    border: 1px solid #b2bec3;
+    font-family: 'Lexend Deca', sans-serif;
+    font-size: 18px;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.typeTable td{
+    font-weight: 200;
+}
+
+.wag{
+    position: absolute;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #377DFF;
+}
+
+.cont{
+    position: absolute;
+    margin-left: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #57DAC2;
+}
