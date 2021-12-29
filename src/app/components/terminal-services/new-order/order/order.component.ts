@@ -20,12 +20,16 @@ export class OrderComponent implements OnInit {
         if(terminalUpdateData) {
             this.terminalWays = terminalUpdateData.terminalWays;
             this.expenses = terminalUpdateData.expenses; 
+            this.expenses.forEach(e => e.isSelected = false);
             logger.info(this.terminalWays);
             logger.info(this.expenses);
-            logger.info('GREAT SUCCESS');
             return;
         }
-        logger.error('NOT IMPLEMENTED!');
+        logger.warning('USING DUMMY DATA FOR DEVELOPMENT!');
+    }
+
+    setExpenseSelected(exp: TerminalExpense) {
+        exp.isSelected = true;
     }
 
 }

@@ -11,6 +11,7 @@ const baseUrl = 'https://localhost:44323/api/TerminalOrder';
     providedIn: 'root'
 })
 export class TerminalService {
+    // used for passing data between first and second terminal order screens
     terminalUpdateData?: TerminalUpdateData;
 
     constructor(private http: HttpClient) {}  

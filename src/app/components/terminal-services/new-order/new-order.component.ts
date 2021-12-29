@@ -63,8 +63,8 @@ export class NewOrderComponent implements OnInit {
         }
         // submit
         this.terminalService.terminalUpdateData = {
-            expenses: this.expenses,
-            terminalWays: this.terminalWays
+            expenses: this.expenses.filter(exp => exp.isSelected),
+            terminalWays: this.terminalWays.filter(tw => this.nvnoList.includes(tw.nvNo))
         };
         this.router.navigate(['/order']);
     }
