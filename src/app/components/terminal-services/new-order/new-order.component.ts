@@ -33,19 +33,6 @@ export class NewOrderComponent implements OnInit {
         this.getNewOrderData();
     }
 
-    // checkTerminalWay(event: Event, nvNo: string) {
-    //     const checkbox = event.target as HTMLInputElement;
-    //     if(checkbox.checked) {
-    //         this.nvnoList.push(nvNo);
-    //         const twIndex = this.terminalWays.indexOf(
-    //             this.terminalWays.filter(tw => tw.nvNo === nvNo)[0]
-    //         );
-    //         this.terminalWays[twIndex].isSelected = true;
-    //         return;
-    //     }
-    //     this.nvnoList = this.nvnoList.filter(nvno => nvno !== nvNo);
-    // }
-
     submit() {
         // check nvNoList not empty
         if(this.terminalWays.filter(tw => tw.isSelected).length === 0) {

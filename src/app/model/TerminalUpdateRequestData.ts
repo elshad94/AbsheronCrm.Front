@@ -1,3 +1,5 @@
+import { FileData } from './returnFileFileData';
+
 export default interface TerminalUpdateRequestData {
     fullRefCode: string,
     emptyRefCode: string,
@@ -13,10 +15,5 @@ export default interface TerminalUpdateRequestData {
             edv: number,
             miqdar: number
         }[],
-    files?: [
-        {
-            fileId: number,
-            nvNo: string
-        }
-    ]
-}
+    files?: FileData[]
+};
