@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ConWag } from 'src/app/model/conWag';
 import { OrderCountService } from 'src/app/services/orderCount.service';
 
@@ -7,27 +7,20 @@ import { OrderCountService } from 'src/app/services/orderCount.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements AfterViewInit {
 
   constructor(private orderCount: OrderCountService) { }
+
+  conWag: ConWag[] = [];
 
   @ViewChild('chart')
   d1!: ElementRef;
 
-  conWag: ConWag[] = [];
-
-  ngOnInit() {
-    this.orderCount.getOrdersCount().subscribe((data: ConWag[]) => {
-      this.conWag = data;
-    });
-  }
-
-
-  chartCon: ConWag[] = []
+  a: number[] = [];
 
   ngAfterViewInit() {
     this.orderCount.getOrdersCount().subscribe((data: ConWag[]) => {
-      this.chartCon = data;
+      this.conWag = data;
       console.log(data)
     });
     this.d1.nativeElement.insertAdjacentHTML('beforeend', `<canvas id="updatingData" style="height: 20rem;"
@@ -37,13 +30,13 @@ export class HomeComponent implements OnInit {
       "data": {
         "labels": ["Yan", "Fev", "Mar", "Apr", "May", "İyn", "İyl", "Avq", "Sen", "Okt","Noy","Dek"],
         "datasets": [{
-          "data": [${this.chartCon.map(x => x.konteynrCount)}],
+          "data": [${this.conWag.map(x => x.konteynrCount)}],
           "backgroundColor": "#57DAC2",
           "hoverBackgroundColor": "#57DAC2",
           "borderColor": "#57DAC2"
         },
         {
-          "data": [${this.chartCon.map(x => x.vaqonCount)}],
+          "data": [${this.conWag.map(x => x.vaqonCount)}],
           "backgroundColor": "#377DFF",
           "borderColor": "#377DFF"
         }]
@@ -96,8 +89,11 @@ export class HomeComponent implements OnInit {
       }
     }'></canvas>`);
   }
+
+  ngOnInit() {
+
+  }
 }
-function resolve(arg0: string) {
-  throw new Error('Function not implemented.');
-}
+
+
 
