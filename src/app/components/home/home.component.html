@@ -16,6 +16,12 @@
           <div class="row mb-4">
           </div>
           <div class="chartjs-custom" #chart>
+            <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [type]="barChartType">
+      </canvas>
           </div>
           <div>
             <table class="typeTable mt-5">
