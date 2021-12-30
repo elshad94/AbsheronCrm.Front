@@ -8,15 +8,12 @@
         <div class="card-header">
           <h3 class="card-header-title font-weight-bold ">ABŞERON LOGİSTİKA MƏRKƏZİNƏ GƏLƏN VAQON KONTEYNERLƏRİNİZ 2021
           </h3>
-          <form action="">
-             <input type="text" class="form-control" #test name="test" [(ngModel)]="a" >
-          </form>
         </div>
         <div class="card-body">
           <div class="row mb-4">
           </div>
-          <div class="chartjs-custom" #chart>
-            <canvas baseChart
+          <div class="chartjs-custom"  #chart>
+            <canvas height="100"  baseChart
                     [data]="barChartData"
                     [options]="barChartOptions"
                     [plugins]="barChartPlugins"
