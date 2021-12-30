@@ -59,7 +59,8 @@
                   <tr>
                     <th scope="col" class="table-column-pr-0">
                       <div class="custom-control custom-checkbox">
-                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
+                        <input id="datatableCheckAll" type="checkbox" class="custom-control-input"
+                          (click)="checkAllTerminalWays()" [(ngModel)]="masterCheck">
                         <label class="custom-control-label" for="datatableCheckAll"></label>
                       </div>
                     </th>
@@ -75,7 +76,7 @@
                     <td class="table-column-pr-0">
                       <div class="custom-control custom-checkbox">
                         <input type="checkbox" 
-                          (click)="checkTerminalWay($event, tw.nvNo)">
+                          [(ngModel)]="tw.isSelected">
                       </div>
                     </td>
 

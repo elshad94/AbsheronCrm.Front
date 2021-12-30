@@ -13,8 +13,8 @@ import Swal from 'sweetalert2';
 export class NewOrderComponent implements OnInit {
     nvNoRadio: NvNoTypeId = 1;
     terminalWays: TerminalWay[] = [];
-    nvnoList: string[] = [];
     expenses: TerminalExpense[] = [];
+    masterCheck = false;
     
     constructor(
         private terminalService: TerminalService,
@@ -33,18 +33,22 @@ export class NewOrderComponent implements OnInit {
         this.getNewOrderData();
     }
 
-    checkTerminalWay(event: Event, nvNo: string) {
-        const checkbox = event.target as HTMLInputElement;
-        if(checkbox.checked) {
-            this.nvnoList.push(nvNo);
-            return;
-        }
-        this.nvnoList = this.nvnoList.filter(nvno => nvno !== nvNo);
-    }
+    // checkTerminalWay(event: Event, nvNo: string) {
+    //     const checkbox = event.target as HTMLInputElement;
+    //     if(checkbox.checked) {
+    //         this.nvnoList.push(nvNo);
+    //         const twIndex = this.terminalWays.indexOf(
+    //             this.terminalWays.filter(tw => tw.nvNo === nvNo)[0]
+    //         );
+    //         this.terminalWays[twIndex].isSelected = true;
+    //         return;
+    //     }
+    //     this.nvnoList = this.nvnoList.filter(nvno => nvno !== nvNo);
+    // }
 
     submit() {
         // check nvNoList not empty
-        if(this.nvnoList.length === 0) {
+        if(this.terminalWays.filter(tw => tw.isSelected).length === 0) {
             Swal.fire(
                 'Error!',
                 'En azı bir vaqon və ya konteynr seçin!',
@@ -64,7 +68,7 @@ export class NewOrderComponent implements OnInit {
         // submit
         this.terminalService.terminalUpdateData = {
             expenses: this.expenses,
-            terminalWays: this.terminalWays.filter(tw => this.nvnoList.includes(tw.nvNo)),
+            terminalWays: this.terminalWays.filter(tw => tw.isSelected),
             transportTypeId: this.nvNoRadio == 1 ? 23 : 24
         };
         this.router.navigate(['/order']);
@@ -75,7 +79,12 @@ export class NewOrderComponent implements OnInit {
             .subscribe(terminalNewData => {
                 this.terminalWays = terminalNewData.terminalWays;
                 this.expenses = terminalNewData.expenses;
-                this.nvnoList = [];
             });
+    }
+
+    checkAllTerminalWays() {
+        for(const tw of this.terminalWays) {
+            tw.isSelected = !this.masterCheck;
+        }
     }
 }
