@@ -35,6 +35,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxCleaveDirectiveModule } from 'ngx-cleave-directive/src';
+
 
 @NgModule({
     declarations: [
@@ -79,7 +81,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
         MatTableModule,
         MatPaginatorModule,
         NgChartsModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        NgxCleaveDirectiveModule
     ],
     providers: [
         {
