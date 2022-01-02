@@ -18,12 +18,19 @@ export class ReportComponent implements OnInit {
   dataSource: MatTableDataSource<ReportAll> = new MatTableDataSource<ReportAll>(this.report);
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  searchText: string = '';
+
   ngOnInit(): void {
     
     this.reportAll.reportAll().subscribe((data: ReportAll[]) =>{
       this.dataSource = new MatTableDataSource<ReportAll>(data);
       this.dataSource.paginator = this.paginator;
     })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

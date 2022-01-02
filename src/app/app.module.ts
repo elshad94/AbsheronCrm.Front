@@ -34,8 +34,8 @@ import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
-import {NgxPaginationModule} from 'ngx-pagination';
-import { NgxCleaveDirectiveModule } from 'ngx-cleave-directive/src';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+
 
 
 @NgModule({
@@ -63,9 +63,8 @@ import { NgxCleaveDirectiveModule } from 'ngx-cleave-directive/src';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        BrokerEditComponent
-
-
+        BrokerEditComponent,
+        FilterPipe
 
     ],
     imports: [
@@ -81,8 +80,6 @@ import { NgxCleaveDirectiveModule } from 'ngx-cleave-directive/src';
         MatTableModule,
         MatPaginatorModule,
         NgChartsModule,
-        NgxPaginationModule,
-        NgxCleaveDirectiveModule
     ],
     providers: [
         {

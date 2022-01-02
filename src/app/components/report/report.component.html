@@ -4,56 +4,11 @@
     <div class="card mb-3 mb-lg-5">
       <!-- Header -->
       <div class="card-header">
-        <div class="row justify-content-between align-items-center flex-grow-1">
-          <div class="col-12 col-md">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3 class="card-header-title font-weight-bold">Hesabat
-              </h3>
-
-              <!-- Datatable Info -->
-
-              <!-- End Datatable Info -->
-            </div>
-          </div>
-          <div class="align-self-md-end">
-            <div class="col-auto">
-              <!-- Filter -->
-              <div class="row align-items-sm-center">
-
-                <div class="col-sm-auto">
-                  <div class="d-flex align-items-center mr-2">
-                    <div class="form-group row">
-
-                      <dd class="col-sm-4 col-md-auto mb-0">
-                        <!-- Flatpickr -->
-                        <div id="invoiceDueDateFlatpickr"
-                          class="js-flatpickr flatpickr-custom input-group input-group-merge" data-hs-flatpickr-options='{
-                                "appendTo": "#invoiceDueDateFlatpickr",
-                                "dateFormat": "d/m/Y",
-                                "wrap": true
-                              }'>
-                          <div class="input-group-prepend" data-toggle>
-                            <div class="input-group-text">
-                              <i class="tio-date-range"></i>
-                            </div>
-                          </div>
-
-                          <input type="text" class="flatpickr-custom-form-control form-control"
-                            placeholder="Select dates" [cleave]="{date: true, delimiter: '.'}">
-                        </div>
-                        <!-- End Flatpickr -->
-                      </dd>
-                      <div class="col-sm-4 col-md-auto mb-0">
-                        <button class="btn newOrder">
-                          Axtar
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div>
+          <h3>Hesabat</h3>
+        </div>
+        <div>
+          <input type="text" class="flatpickr-custom-form-control form-control" placeholder="Axtar..."(keyup)="applyFilter($event)">
 
         </div>
       </div>
@@ -108,28 +63,6 @@
         <!-- Pagination -->
         <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
           <div class="col-sm mb-2 mb-sm-0">
-            <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-              <span class="mr-2">Göstərilir:</span>
-
-              <!-- Select -->
-              <select id="datatableEntries" class="js-select2-custom" data-hs-select2-options='{
-                          "minimumResultsForSearch": "Infinity",
-                          "customClass": "custom-select custom-select-sm custom-select-borderless",
-                          "dropdownAutoWidth": true,
-                          "width": true
-                        }'>
-                <option value="4">4</option>
-                <option value="6">6</option>
-                <option value="8" selected>8</option>
-                <option value="12">12</option>
-              </select>
-              <!-- End Select -->
-
-              <span class="text-secondary mr-2">of</span>
-
-              <!-- Pagination Quantity -->
-              <span id="datatableWithPaginationInfoTotalQty"></span>
-            </div>
           </div>
 
           <div class="col-sm-auto">
