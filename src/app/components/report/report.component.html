@@ -84,170 +84,41 @@
   
         <!-- Table -->
         <div class="table-responsive datatable-custom">
-          <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-                 data-hs-datatables-options='{
-                   "columnDefs": [{
-                      "targets": [0, 1, 4],
-                      "orderable": false
-                    }],
-                   "order": [],
-                   "info": {
-                     "totalQty": "#datatableWithPaginationInfoTotalQty"
-                   },
-                   "search": "#datatableSearch",
-                   "entries": "#datatableEntries",
-                   "pageLength": 8,
-                   "isResponsive": false,
-                   "isShowPaging": false,
-                   "pagination": "datatablePagination"
-                 }'>
+          <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
             <thead class="thead-light">
               <tr>
-                <th scope="col" class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-               
-                  </div>
-                </th>
-                <th class="table-column-pl-0">SİFARİŞ № </th>
+                <th>SİFARİŞ № </th>
+                <th>SİFARİŞ TİPİ</th>
                 <th>TARİX</th>
-                <th>Yük göndərən</th>
-                <th>Yük alan</th>
-                <th>Podkod</th>
-                <th>Vaqon</th>
+                <th>MƏBLƏĞ</th>
+                <th>TRANSPORT №</th>
                 <th>STATUS</th>
               </tr>
             </thead>
   
             <tbody>
-              <tr>
-                <td class="table-column-pr-0">
-                 
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center" >
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">12356 </span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-               02.11.2021
-                </td>
-                <td>
-                  LOREM iPSUM
-  
-  
-                   </td>
-                   <td>
-                      LOREM 
-                       </td>
-                   <td>
-                      12345678
-                       </td>
-                <td>87654321</td>
-                <td><span class="legend-indicator bg-success"></span>Ödənilib</td>
-  
-             
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                  
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center" >
-                  
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">65489</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-               10.12.2021
-                </td>
-                <td>
-                  LOREM İPSUM
-                   </td>
-                   <td>
-                    Lorem
-                       </td>
-                       <td>
-                          12345678
-                           </td>
-                <td>87654321</td>
-                <td><span class="legend-indicator bg-danger"></span>Ödənilməyib</td>
-                
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center" >
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">01235</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-              17.10.2021
-                </td>
-                <td>
-                  LOREM iPSUM
+              <tr *ngFor="let item of report | paginate : { itemsPerPage: 6, currentPage: p }">
+                <td>{{item.orderNo}}</td>
+                <td>{{item.orderTypeId}}</td>
+                <td>{{item.orderDate}}</td>
+                <td>{{item.orderAmount}} ₼</td>
+                <td>{{item.transPortNumber}}</td>
+                <div [ngSwitch]="item.isPaymentPaid">
+                  <div *ngSwitchCase="true">
+                    <td>
+                      <div class="paid">Ödənilib</div>
                     </td>
-                    <td>
-                      LOREM 
-                        </td>
-                    <td>
-                      12345678
-                        </td>
-                <td>87654321</td>
-                <td><span class="legend-indicator bg-danger"></span>Ödənilməyib</td>
-  
-                
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
                   </div>
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center" >
-                  
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0">36527</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-               01.12.2021
-                </td>
-                <td>
-                  LOREM iPSUM
-              </td>
-              <td>
-                  LOREM
-              </td>
-              <td>12345678</td>
-  
-                   <td>
-                      87654321
-                       </td>
-                <td><span class="legend-indicator bg-success"></span>Ödənilib</td>
+                  <div *ngSwitchCase="false">
+                    <td>
+                      <div class="notPaid">Ödənilməyib</div>
+                    </td>
+                  </div>
+                </div>
+
               </tr>
-  
-           
-  
-  
-              
-              
-  
             </tbody>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </table>
         </div>
         <!-- End Table -->
@@ -258,7 +129,7 @@
           <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
             <div class="col-sm mb-2 mb-sm-0">
               <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                <span class="mr-2">Showing:</span>
+                <span class="mr-2">Göstərilir:</span>
   
                 <!-- Select -->
                 <select id="datatableEntries" class="js-select2-custom"

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ReportAll } from 'src/app/model/reportAll';
+import { ReportAllService } from 'src/app/services/reportAll.service';
 
 @Component({
   selector: 'app-report',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportComponent implements OnInit {
 
-  constructor() { }
+  constructor(private reportAll: ReportAllService) { }
+
+  report: ReportAll[] = [];
+
+  p: number = 1;
 
   ngOnInit(): void {
+
+    this.reportAll.reportAll().subscribe((data: ReportAll[]) =>{
+      this.report = data;
+      console.log(data)
+    })
   }
 
 }

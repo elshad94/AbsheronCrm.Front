@@ -1,0 +1,28 @@
+tbody tr td img{
+    width: 50%;
+    margin: 0 2px;
+}
+
+tbody tr td {
+    color: rgba(0, 0, 0, 0.753);
+}
+
+.notPaid:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #ED4C78;
+    border-radius: 100%;
+}
+
+.paid:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #00C9A7;
+    border-radius: 100%;
+}
