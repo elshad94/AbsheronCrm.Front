@@ -26,3 +26,11 @@ tbody tr td {
     background-color: #00C9A7;
     border-radius: 100%;
 }
+
+.ngx-pagination .current{
+    background: red!important;
+}
+
+:root .my-pagination  .ngx-pagination .current {
+    background: red;
+  }
