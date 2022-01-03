@@ -30,9 +30,9 @@ export class ReportComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filterPredicate = (data: ReportAll, filter: string) =>
-      data.orderDate === Date(filter); // BURDA FILTER ELE, this.dataSource.filter, filter paramina pass olunur
     this.dataSource.filter = filterValue.trim().toLowerCase(); // IKI DATE i de bura pass ele obje kimi (example {date1: ...., date2: ....})
+    // this.dataSource.filterPredicate = (data: ReportAll, filter: string) =>
+    //   data.orderDate === Date(filter); // BURDA FILTER ELE, this.dataSource.filter, filter paramina pass olunur
   }
 
 }
