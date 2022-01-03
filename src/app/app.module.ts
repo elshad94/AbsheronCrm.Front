@@ -33,6 +33,10 @@ import {MatInputModule} from '@angular/material/input';
 import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgChartsModule } from 'ng2-charts';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+
+
 
 @NgModule({
     declarations: [
@@ -59,9 +63,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        BrokerEditComponent
-
-
+        BrokerEditComponent,
+        FilterPipe
 
     ],
     imports: [
@@ -75,7 +78,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
         ReactiveFormsModule,
         MatInputModule,
         MatTableModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        NgChartsModule,
     ],
     providers: [
         {

@@ -1,28 +1,54 @@
-
 <main id="content" role="main" class="main pointer-event">
 
   <div class="content container-fluid">
     <div class="">
-        <!-- Card -->
-        <div class="card h-100">
-          <!-- Header -->
-          <div class="card-header">
-               <h3 class="card-header-title font-weight-bold ">ABŞERON LOGİSTİKA MƏRKƏZİNƏ GƏLƏN VAQON KONTEYNERLƏRİNİZ 2021</h3>
-
-            <!-- Nav -->
-           
-            <!-- End Nav -->
+      <!-- Card -->
+      <div class="card h-100">
+        <!-- Header -->
+        <div class="card-header">
+          <h3 class="card-header-title font-weight-bold ">ABŞERON LOGİSTİKA MƏRKƏZİNƏ GƏLƏN VAQON KONTEYNERLƏRİNİZ 2021
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="row mb-4">
           </div>
-          <!-- End Header -->
+          <div class="chartjs-custom"  #chart>
+            <canvas height="100"  baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    [plugins]="barChartPlugins"
+                    [type]="barChartType">
+      </canvas>
+          </div>
+          <div>
+            <table class="typeTable mt-5">
+              <thead>
+                <tr>
+                  <th style="visibility: hidden; border: none;"></th>
+                  <th>Yan</th>
+                  <th>Fev</th>
+                  <th>Mart</th>
+                  <th>Apr</th>
+                  <th>May</th>
+                  <th>İyn</th>
+                  <th>İyl</th>
+                  <th>Avq</th>
+                  <th>Sen</th>
+                  <th>Okt</th>
+                  <th>Noy</th>
+                  <th>Dek</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="wag"></div>Vaqon</td>
+                  <td *ngFor="let item of conWag">{{item.vaqonCount}}</td>
+                </tr>
+                <tr>
+                  <td><div class="cont"></div>Konteyner</td>
+                  <td *ngFor="let item of conWag">{{item.konteynrCount}}</td>
 
-          <!-- Body -->
-          <div class="card-body">
-            <div class="row mb-4">
-            
-           
-            </div>
-            <!-- End Row -->
-
+<<<<<<< HEAD
             <!-- Bar Chart -->
             <div class="chartjs-custom">
               <canvas id="updatingData" style="height: 20rem;"
@@ -91,11 +117,18 @@
                       }'></canvas>
             </div>
             <!-- End Bar Chart -->
+=======
+                </tr>
+              </tbody>
+            </table>
+>>>>>>> 08d3c04ec5ef09cb2917b301186ebcfefd2f9015
           </div>
-          <!-- End Body -->
+          <!-- End Bar Chart -->
         </div>
-        <!-- End Card -->
+        <!-- End Body -->
       </div>
+      <!-- End Card -->
+    </div>
   </div>
 
 </main>
