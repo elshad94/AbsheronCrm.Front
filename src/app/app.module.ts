@@ -35,6 +35,9 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
 import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -80,6 +83,9 @@ import { FilterPipe } from 'src/app/pipes/filter.pipe';
         MatTableModule,
         MatPaginatorModule,
         NgChartsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule
     ],
     providers: [
         {

@@ -7,9 +7,18 @@
         <div>
           <h3>Hesabat</h3>
         </div>
-        <div>
+        <div class="searching">
           <input type="text" class="flatpickr-custom-form-control form-control" placeholder="Axtar..."(keyup)="applyFilter($event)">
-
+          <mat-form-field appearance="legacy" class="mat-form-field">
+              <mat-label class="plchldr">Tarix aralığına görə axtarış</mat-label>
+            <mat-date-range-input [rangePicker]="picker" [formGroup]="dateRange" class="range">
+              <input matStartDate formControlName="start" placeholder="Başlama tarixi">
+              <input matEndDate formControlName="end" placeholder="Bitmə tarixi">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+          <button class="searchBtn" (click)="forDate()">Axtar</button>
         </div>
       </div>
       <!-- End Header -->
@@ -34,7 +43,7 @@
           </ng-container>
           <ng-container matColumnDef="orderDate">
             <th mat-header-cell *matHeaderCellDef>tarİx</th>
-            <td mat-cell *matCellDef="let order">{{order.orderDate | date:'dd-MM-yyyy'}} </td>
+            <td mat-cell *matCellDef="let order">{{order.orderDate | date:'MM/dd/yyyy'}} </td>
           </ng-container>
           <ng-container matColumnDef="orderAmount">
             <th mat-header-cell *matHeaderCellDef>məbləğ</th>

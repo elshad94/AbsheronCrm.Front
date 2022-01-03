@@ -1,8 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDatepickerModule } from '@angular/material/datepicker'
 import { ReportAll } from 'src/app/model/reportAll';
 import { ReportAllService } from 'src/app/services/reportAll.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-report',
@@ -11,14 +14,17 @@ import { ReportAllService } from 'src/app/services/reportAll.service';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(private reportAll: ReportAllService) { }
+  constructor(private reportAll: ReportAllService) {
+  }
 
-  columnsToDisplay = ['orderNo', 'orderTypeId', 'orderDate', 'orderAmount', 'transPortNumber', 'isPaymentPaid'];
   report: ReportAll[] = [];
+  columnsToDisplay = ['orderNo', 'orderTypeId', 'orderDate', 'orderAmount', 'transPortNumber', 'isPaymentPaid'];
   dataSource: MatTableDataSource<ReportAll> = new MatTableDataSource<ReportAll>(this.report);
+  pipe!: DatePipe;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  searchText = '';
+  searchText: string = '';
 
   ngOnInit(): void {
 
@@ -28,11 +34,28 @@ export class ReportComponent implements OnInit {
     });
   }
 
+  dateRange = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl()
+  });
+
+  get start(): any { return this.dateRange.get('start'); }
+  get end(): any { return this.dateRange.get('end'); }
+
+  forDate() {
+    this.dataSource.filterPredicate = (data: ReportAll, filter: string) => {
+      if (this.start && this.end) {
+        return data.orderDate >= this.start && data.orderDate <= this.end;
+      }
+      return true;
+    }
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase(); // IKI DATE i de bura pass ele obje kimi (example {date1: ...., date2: ....})
-    // this.dataSource.filterPredicate = (data: ReportAll, filter: string) =>
-    //   data.orderDate === Date(filter); // BURDA FILTER ELE, this.dataSource.filter, filter paramina pass olunur
-  }
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  };
+
+
 
 }
