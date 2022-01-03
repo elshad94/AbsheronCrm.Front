@@ -9,11 +9,10 @@ export default interface TerminalUpdateRequestData {
     xidmetler:
         {
             nvNo: string,
-            qaime: string,
             expenseId: number,
             qiymet: number,
             edv: number,
             miqdar: number
         }[],
     files?: FileData[]
-};
+}

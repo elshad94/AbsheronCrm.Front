@@ -18,8 +18,8 @@ export type NvNoTypeId = 1 | 2
 
 export interface TerminalWay {
     nvNo: string,
-    qaimeNo: string,
-    yuk: string,
+    qaimeNo?: string,
+    yuk?: string,
     amount?: number,
     isSelected?: boolean
 }

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
 import { successAlert, errorAlert } from 'src/utils/alerts';
 import errorCodes from 'src/utils/errorCodes';
 import logger from 'src/utils/logger';
+import { Location } from '@angular/common';
+import { TerminalDataForUpdate, TerminalXidmet } from 'src/app/model/TerminalUpdateData';
+import { FileData } from 'src/app/model/returnFileFileData';
 
-interface Xidmet {
+export interface Xidmet {
     expenseId: number,
     expenseText: string,
     temrinalWay: TerminalWay,
@@ -32,10 +35,18 @@ export class OrderComponent implements OnInit {
     fullRefCode = '';
     emptyRefCode = '';
     transportTypeId!: number;
+    orderId?: number;
+    files: FileData[] = [];
 
     constructor(
         private terminalService: TerminalService,
-        private router: Router) {}
+        private router: Router,
+        private route: ActivatedRoute,
+        private location: Location) {}
+
+    goBack() {
+        this.location.back();
+    }
 
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
@@ -49,49 +60,64 @@ export class OrderComponent implements OnInit {
             this.transportTypeId = terminalUpdateData.transportTypeId;
             return;
         }
-        // TODO: get data for orderId
-        logger.warning('USING DUMMY DATA FOR DEVELOPMENT!');
-        this.expenses = [{
-            id: 1,
-            isSelected: false,
-            text: 'Bob'
-        }, {
-            id: 2,
-            isSelected: true,
-            text: 'Tommy'
-        },{
-            id: 3,
-            isSelected: true,
-            text: 'blahblah'
-        }];
+        this.route.queryParams
+            .subscribe(params => {
+                this.orderId = params['orderId'];
+                const fromReturnFile = params['fromReturnFile'];
+                if(this.orderId !== undefined && fromReturnFile === undefined) {
+                    this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
+                        this.setXidmetlerUpdate(updateTerminalData);
+                    });
+                    return;
+                }
+                this.setXidmetlerFromUpdateRequestData();
+            });
+    }
 
-        const terminalWays = [
-            {
-                nvNo: '53551842',
-                qaimeNo: '31874135',
-                yuk: '73063072 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
-                amount: 0
+    private setXidmetlerFromUpdateRequestData() {
+        const updateReqData = this.terminalService.terminalUpdateRequestData!;
+        this.transportTypeId = updateReqData.transportTypeId!;
+        this.expenses = this.terminalService.expenses!;
+        this.fullRefCode = updateReqData.fullRefCode;
+        this.emptyRefCode = updateReqData.emptyRefCode;
+        this.notes = updateReqData.notes;
+        this.total = this.terminalService.totalAmount!;
+        this.totalEdv = this.terminalService.totalEdv!;
+        this.xidmetler = this.terminalService.xidmetler!;
+        this.files = updateReqData.files!;
+    }
+
+    private setXidmetlerUpdate(updateTerminalData: TerminalDataForUpdate) {
+        this.transportTypeId = updateTerminalData.transPortTypeId;
+        this.expenses = updateTerminalData.expenses;
+        this.fullRefCode = updateTerminalData.fullRefCode;
+        this.emptyRefCode = updateTerminalData.emptyRefCode;
+        this.notes = updateTerminalData.notes;
+        this.total = updateTerminalData.total;
+        this.totalEdv = updateTerminalData.endTotal;
+        this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
+            count: x.miqdar,
+            edv: x.edv,
+            expenseId: x.expenseId,
+            totalAmount: x.cemi,
+            temrinalWay: {
+                nvNo: x.nvNo,
+                amount: x.qiymet,
+                isSelected: true,
             },
-            {
-                nvNo: '53553842',
-                qaimeNo: '32874135',
-                yuk: '73063232 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
-                amount: 0
-            },
-            {
-                nvNo: '53553342',
-                qaimeNo: '32324135',
-                yuk: '73063234 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
-                amount: 0
-            }
-        ];
-        this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
+            expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
+        };});
+        this.files = updateTerminalData.filelar.map(f => {return {
+            id: f.id,
+            nvNo: f.nvNo,
+            uri: f.uri
+        };});
     }
 
     private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
         const xidmetler_: Xidmet[] = [];
         for(const tw of terminalWays) {
-            tw.amount = 5;
+            tw.amount = 1;
             for(const exp of expenses) {
                 xidmetler_.push({
                     expenseId: exp.id,
@@ -130,8 +156,6 @@ export class OrderComponent implements OnInit {
             count: 1,
             temrinalWay: {
                 nvNo: '',
-                qaimeNo: '',
-                yuk: '',
                 amount: 0
             },
             totalAmount: 0,
@@ -148,21 +172,34 @@ export class OrderComponent implements OnInit {
     }
 
     toReturnFile() {
-        if(!this.terminalService.terminalUpdateRequestData) {
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
             this.terminalService.terminalUpdateRequestData = {
                 emptyRefCode: this.emptyRefCode,
                 fullRefCode: this.fullRefCode,
                 notes: this.notes,
+                files: this.files,
                 xidmetler: this.xidmetler.map(x => {return {
                     edv: x.edv,
                     expenseId: x.expenseId,
                     miqdar: x.count,
                     nvNo: x.temrinalWay.nvNo,
-                    qaime: x.temrinalWay.qaimeNo,
                     qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
                 };}),
                 transportTypeId: this.transportTypeId
             };
+            if(this.orderId !== undefined) {
+                this.terminalService.expenses = this.expenses;
+                this.terminalService.totalEdv = this.totalEdv;
+                this.terminalService.totalAmount = this.total;
+                this.terminalService.xidmetler = this.xidmetler;
+                const navigationExtras: NavigationExtras = {
+                    queryParams: {
+                        orderId: this.orderId
+                    }
+                };
+                this.router.navigate(['/returnFile'], navigationExtras);
+                return;
+            }
             this.router.navigate(['/returnFile']);
             return;
         }
@@ -175,10 +212,23 @@ export class OrderComponent implements OnInit {
             expenseId: x.expenseId,
             miqdar: x.count,
             nvNo: x.temrinalWay.nvNo,
-            qaime: x.temrinalWay.qaimeNo,
             qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
         };});
         this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+        this.terminalService.terminalUpdateRequestData.files = this.files;
+        if(this.orderId !== undefined) {
+            this.terminalService.expenses = this.expenses;
+            this.terminalService.totalEdv = this.totalEdv;
+            this.terminalService.totalAmount = this.total;
+            this.terminalService.xidmetler = this.xidmetler;
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId
+                }
+            };
+            this.router.navigate(['/returnFile'], navigationExtras);
+            return;
+        }
         this.router.navigate(['/returnFile']);
     }
 
@@ -196,7 +246,6 @@ export class OrderComponent implements OnInit {
                 expenseId: x.expenseId,
                 miqdar: x.count,
                 nvNo: x.temrinalWay.nvNo,
-                qaime: x.temrinalWay.qaimeNo,
                 qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
             };});
             this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
@@ -205,18 +254,30 @@ export class OrderComponent implements OnInit {
                 expenseId: x.expenseId,
                 miqdar: x.count,
                 nvNo: x.temrinalWay.nvNo,
-                qaime: x.temrinalWay.qaimeNo,
                 qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
             };});
             this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
             this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
+            this.terminalService.terminalUpdateRequestData.files = this.files;
+            if(this.orderId === undefined) {
+                this.terminalService
+                    .createTerminalOrder()
+                    .subscribe({
+                        next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                        error: res => {
+                            logger.error(res.error);
+                            errorAlert(res.error.error, 'Uğursuz');
+                        }
+                    });
+                return;
+            }
             this.terminalService
-                .createTerminalOrder()
+                .updateTerminalOrder(this.orderId)
                 .subscribe({
-                    next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                    next: () => successAlert('Terminal sifarişi guncellendi', 'Uğurlu'),
                     error: res => {
                         logger.error(res.error);
-                        errorAlert(res.error.error, 'Uğursuz'); // TODO: double check errror.error exists
+                        errorAlert(res.error.error, 'Uğursuz');
                     }
                 });
         } catch(exception) {
@@ -248,6 +309,9 @@ export class OrderComponent implements OnInit {
     }
 
     deleteXidmet(i: number) {
+        const xidmetToDelete = this.xidmetler[i];
         this.xidmetler.splice(i, 1);
+        this.total -= xidmetToDelete.temrinalWay.amount!;
+        this.totalEdv -= (xidmetToDelete.edv + xidmetToDelete.temrinalWay.amount!);
     }
 }

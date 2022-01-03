@@ -6,7 +6,8 @@ import { errorAlert, successAlert } from 'src/utils/alerts';
 import errorCodes from 'src/utils/errorCodes';
 import logger from 'src/utils/logger';
 import { saveAs } from 'file-saver';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-return-file',
@@ -19,14 +20,25 @@ export class ReturnFileComponent implements OnInit {
     fileToUploadNvNo!: string;
     fileToUpload?: File;
     fileName = '';
+    orderId?: number;
 
     constructor(
       private terminalService: TerminalService,
       private fileService: FileService,
-      private router: Router) {
+      private router: Router,
+      private route: ActivatedRoute,
+      private location: Location) {
+    }
+
+    goBack() {
+        this.location.back();
     }
 
     ngOnInit(): void {
+        this.route.queryParams
+            .subscribe(params => {
+                this.orderId = params['orderId'];
+            });
         this.nvNoList = this.terminalService.terminalUpdateRequestData!
             .xidmetler.map(x => x.nvNo);
         this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
@@ -73,12 +85,23 @@ export class ReturnFileComponent implements OnInit {
                 return;
             }
             this.terminalService.terminalUpdateRequestData.files = this.files;
-            logger.info(this.files);
             this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
+            if(this.orderId === undefined) {
+                this.terminalService
+                    .createTerminalOrder()
+                    .subscribe({
+                        next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                        error: res => {
+                            logger.error(res.error);
+                            errorAlert(res.error.error, 'Uğursuz');
+                        }
+                    });
+                return;
+            }
             this.terminalService
-                .createTerminalOrder()
+                .updateTerminalOrder(this.orderId)
                 .subscribe({
-                    next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                    next: () => successAlert('Terminal sifarişi guncellendi', 'Uğurlu'),
                     error: res => {
                         logger.error(res.error);
                         errorAlert(res.error.error, 'Uğursuz');
@@ -114,6 +137,16 @@ export class ReturnFileComponent implements OnInit {
 
     toXidmetler() {
         this.terminalService.terminalUpdateRequestData!.files = this.files;
+        if(this.orderId !== undefined) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId,
+                    fromReturnFile: true
+                }
+            };
+            this.router.navigate(['/order'], navigationExtras);
+            return;
+        }
         this.router.navigate(['/order']);
     }
 

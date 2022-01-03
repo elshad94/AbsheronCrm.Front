@@ -76,7 +76,8 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let order">
-                <a href="/neworder">
+                <a [routerLink]="['/order']"
+                   [queryParams]="{ orderId: order.orderId}">
                   <img src="assets/icon/Frame 8pen.png" alt="">
                 </a>
                 <img src="assets/icon/Frame 6trash.png" alt="" (click)="openDialog(order.orderId, order.orderNo)" >
