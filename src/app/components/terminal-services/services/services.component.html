@@ -88,64 +88,6 @@
           <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                  showFirstLastButtons >
           </mat-paginator>
-<<<<<<< HEAD
-
-          <!-- <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-                 data-hs-datatables-options='{
-                   "columnDefs": [{
-                      "targets": [0, 1, 4],
-                      "orderable": false
-                    }],
-                   "order": [],
-                   "info": {
-                     "totalQty": "#datatableWithPaginationInfoTotalQty"
-                   },
-                   "search": "#datatableSearch",
-                   "entries": "#datatableEntries",
-                   "pageLength": 8,
-                   "isResponsive": false,
-                   "isShowPaging": true,
-                   "pagination": "datatablePagination"
-                 }'
-                 >
-            <thead class="thead-light">
-              <tr>
-                <th scope="col" class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
-                    <label class="custom-control-label" for="datatableCheckAll"></label>
-                  </div>
-                </th>
-                <th class="table-column-pl-0">SİFARİŞ № </th>
-                <th>TARİX</th>
-                <th>MƏBLƏĞ</th>
-                <th>STATUS</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr *ngFor="let terminalOrder of terminalOrders">
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
-                    <label class="custom-control-label" for="usersDataCheck2"></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                  <div class="media-body">
-                    <span class="h5 text-hover-primary mb-0">{{terminalOrder.orderNo}}</span>
-                  </div>
-                </td>
-                <td>
-                  {{terminalOrder.date | date:'yyyy-MM-dd'}}
-                </td>
-                <td>{{terminalOrder.amount}} AZN</td>
-                <td>{{terminalOrder.orderStatus.statusText}}</td>
-              </tr>
-            </tbody>
-          </table> -->
-=======
->>>>>>> 08d3c04ec5ef09cb2917b301186ebcfefd2f9015
         </div>
         <!-- End Table -->
       </div>
