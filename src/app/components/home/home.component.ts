@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit {
             this.barChartData = {
                 labels: conwags.map(c => c.orderMonthText),
                 datasets: [
-                    { data: conwags.map(c => c.vaqonCount), label: 'Vaqonlar', backgroundColor: '#57dac2' , hoverBackgroundColor: '#57dac2' , barThickness: 15},
-                    { data: conwags.map(c => c.konteynrCount), label: 'Konteynerler', backgroundColor: '#377dff', hoverBackgroundColor: '#377dff', barThickness: 15 }
+                    { data: conwags.map(c => c.vaqonCount), label: 'Vaqonlar', backgroundColor: '#57dac2' , hoverBackgroundColor: '#57dac2' , barThickness: 15, borderRadius: 5, borderColor: '#57dac2'},
+                    { data: conwags.map(c => c.konteynrCount), label: 'Konteynerler', backgroundColor: '#377dff', hoverBackgroundColor: '#377dff', barThickness: 15, borderRadius: 5, borderColor: '#377dff' }
                 ]
             };
         });
