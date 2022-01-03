@@ -38,6 +38,10 @@
     height: 45px;
 }
 
+tr.mat-row td {
+    border-bottom-color: transparent;
+}
+
 .card-header h3{
     font-weight: 600;
     font-family: "Lexend Deca", sans-serif !important;

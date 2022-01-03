@@ -61,156 +61,49 @@
   
         <!-- Table -->
         <div class="table-responsive datatable-custom">
-          <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-                 data-hs-datatables-options='{
-                   "columnDefs": [{
-                      "targets": [0, 1, 4],
-                      "orderable": false
-                    }],
-                   "order": [],
-                   "info": {
-                     "totalQty": "#datatableWithPaginationInfoTotalQty"
-                   },
-                   "search": "#datatableSearch",
-                   "entries": "#datatableEntries",
-                   "pageLength": 8,
-                   "isResponsive": false,
-                   "isShowPaging": false,
-                   "pagination": "datatablePagination"
-                 }'>
-            <thead class="thead-light">
-              <tr>
-                <th scope="col" class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-               
-                  </div>
-                </th>
-                <th class="table-column-pl-0"> XİdmətİN növü</th>
-                <th>SİFARİŞ №</th>
-                <th>MƏBLƏĞ</th>
-                <th>ödəmə</th>
-              </tr>
-            </thead>
-  
-            <tbody>
-              <tr>
-                <td class="table-column-pr-0">
-                 
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center" >
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-warning"></span>Broker </span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-                  123456879
-                </td>
-                <td>₼ 786.00</td>
-                <td><div >
-                  <button class="btn newChech bg-success text-light" (click)="openDialog()">
-                     ÖDƏ
-                  </button>
-                </div></td>
-             
-              </tr>
-  
-              <tr>
-                <td class="table-column-pr-0">
-                  <div class="custom-control custom-checkbox">
-                  
-                  </div>
-                </td>
-                <td class="table-column-pl-0">
-                  <a class="media align-items-center">
-                  
-                    <div class="media-body">
-                      <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-success"></span>Terminal xidməti</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-                  362159847
-                </td>
-                <td>₼ 256.00</td>
-                <td><div >
-                  <button class="btn newChech bg-success text-light " (click)="openDialog()">
-                     ÖDƏ
-                  </button>
-                </div></td>
-              </tr>
-  
-              <tr>
-                  <td class="table-column-pr-0">
-                   
-                  </td>
-                  <td class="table-column-pl-0">
-                    <a class="media align-items-center">
-                      <div class="media-body">
-                        <span class="h5 text-hover-primary mb-0"><span class="legend-indicator bg-warning"></span>Broker </span>
-                      </div>
-                    </a>
-                  </td>
-                  <td>
-                      357196842
-                  </td>
-                  <td>₼ 1500.00</td>
-                  <td><div>
-                    <button class="btn newChech bg-success text-light " (click)="openDialog()" >
-                       ÖDƏ
-                    </button>
-                  </div></td>
-               
-                </tr>
-    
-    
-                
-           
-  
-  
-              
-              
-  
-            </tbody>
-          </table>
+          <table id="datatable"
+          class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" mat-table
+          [dataSource]="dataSource">
+          <ng-container matColumnDef="orderTypeText">
+            <th mat-header-cell *matHeaderCellDef>XİDMƏTİN NÖVÜ</th>
+            <td mat-cell *matCellDef="let order">
+              <div [ngSwitch]="order.orderTypeText">
+                <div *ngSwitchCase="'Terminal'"><span class="term">Terminal</span></div>
+                <div *ngSwitchCase="'Broker'"><span class="brkr">Broker</span></div>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="orderNo">
+            <th mat-header-cell *matHeaderCellDef>SİFARİŞ №</th>
+            <td mat-cell *matCellDef="let order"> {{order.orderNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>MƏBLƏĞ</th>
+            <td mat-cell *matCellDef="let order">{{order.amount}} ₼</td>
+          </ng-container>
+          <ng-container matColumnDef="orderId">
+            <th mat-header-cell *matHeaderCellDef>ÖDƏMƏ</th>
+            <td mat-cell *matCellDef="let order"> 
+              <span class="payBtn" (click)="openDialog()">Ödə</span> #{{order.orderId}}</td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+        </table>
         </div>
         <!-- End Table -->
   
         <!-- Footer -->
         <div class="card-footer">
           <!-- Pagination -->
-          <div class="row justify-content-center justify-content-sm-between align-items-sm-center">
-            <div class="col-sm mb-2 mb-sm-0">
-              <div class="d-flex justify-content-center justify-content-sm-start align-items-center">
-                <span class="mr-2">Showing:</span>
-  
-                <!-- Select -->
-                <select id="datatableEntries" class="js-select2-custom"
-                        data-hs-select2-options='{
-                          "minimumResultsForSearch": "Infinity",
-                          "customClass": "custom-select custom-select-sm custom-select-borderless",
-                          "dropdownAutoWidth": true,
-                          "width": true
-                        }'>
-                  <option value="4">4</option>
-                  <option value="6">6</option>
-                  <option value="8" selected>8</option>
-                  <option value="12">12</option>
-                </select>
-                <!-- End Select -->
-  
-                <span class="text-secondary mr-2">of</span>
-  
-                <!-- Pagination Quantity -->
-                <span id="datatableWithPaginationInfoTotalQty"></span>
-              </div>
-            </div>
+          <div class="row justify-content-center justify-content-sm-end align-items-sm-center">
   
             <div class="col-sm-auto">
               <div class="d-flex justify-content-center justify-content-sm-end">
                 <!-- Pagination -->
-                <nav id="datatablePagination" aria-label="Activity pagination"></nav>
+                <nav id="datatablePagination" aria-label="Activity pagination">
+                  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+                  </mat-paginator>
+                </nav>
               </div>
             </div>
           </div>
