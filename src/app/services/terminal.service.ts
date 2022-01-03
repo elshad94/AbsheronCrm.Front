@@ -57,6 +57,6 @@ export class TerminalService {
         if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
             throw errorCodes.XIDMETLER_EMPTY;
         }
-        return this.http.post(baseUrl + '/Create', this.terminalUpdateData, {observe: 'response', headers});
+        return this.http.post(baseUrl + '/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
     }
 }

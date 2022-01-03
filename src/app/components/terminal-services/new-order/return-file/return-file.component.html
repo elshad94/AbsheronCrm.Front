@@ -75,7 +75,9 @@
             <div class="row fileDetails" *ngFor="let file of files; let i = index">
               <div class="col-12 col-sm-auto col-md-3 col-lg-6">
                 <select class="form-control mb-3" name="" id="">
-                  <option *ngFor="let nvNo of nvNoList">{{nvNo}}</option>
+                  <option *ngFor="let nvNo of nvNoList"
+                    [selected]="file.nvNo === nvNo"
+                    (click)="changeFileNvNo(i, nvNo)">{{nvNo}}</option>
                 </select>
               </div>
 
@@ -174,7 +176,7 @@
                   Yadda saxla
               </a>
 
-              <a class="btn btn-block newAccept mb-3" href="javascript:;">
+              <a class="btn btn-block newAccept mb-3" href="javascript:;" (click)="createTerminalOrder(false)">
                   Təsdiqlə
               </a>
 

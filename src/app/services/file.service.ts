@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import ErrorResponse from '../model/ErrorResponse';
 import FileCreationResponse from '../model/FileCreationTerminalResponse';
@@ -14,7 +14,11 @@ export class FileService {
     createFile(file: File, nvNo: string) {
         const formData = new FormData();
         formData.append('files', file);
-        return this.http.post<FileCreationResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData);
+        const headers = new HttpHeaders({
+            'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',
+            'Access-Control-Allow-Origin': '*'
+        });
+        return this.http.post<FileCreationResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData, {headers});
     }
 
     getFile(id: number) {

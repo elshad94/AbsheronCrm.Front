@@ -30,18 +30,6 @@ export class ReturnFileComponent implements OnInit {
         this.nvNoList = this.terminalService.terminalUpdateRequestData!
             .xidmetler.map(x => x.nvNo);
         this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
-        this.files = [ // TODO: TEMPORARY
-            {
-                id: 0,
-                nvNo: 'efef',
-                uri: 'sfeg'
-            },
-            {
-                id: 1,
-                nvNo: 'efef',
-                uri: 'wsgregtr'
-            }
-        ];
     }
 
     setFile(event: Event) {
@@ -78,18 +66,24 @@ export class ReturnFileComponent implements OnInit {
         });
     }
 
-    createTerminalOrder() {
+    createTerminalOrder(save = true) {
         try {
-          this.terminalService.terminalUpdateRequestData!.files = this.files;
-          this.terminalService
-              .createTerminalOrder()
-              .subscribe({
-                  next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
-                  error: res => {
-                      logger.error(res.error);
-                      errorAlert(res.error.error, 'Uğursuz'); // TODO: double check errror.error exists
-                  }
-              });
+            if(!this.terminalService.terminalUpdateRequestData) {
+                errorAlert('Faylları doldurun!');
+                return;
+            }
+            this.terminalService.terminalUpdateRequestData.files = this.files;
+            logger.info(this.files);
+            this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
+            this.terminalService
+                .createTerminalOrder()
+                .subscribe({
+                    next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                    error: res => {
+                        logger.error(res.error);
+                        errorAlert(res.error.error, 'Uğursuz');
+                    }
+                });
         } catch(exception) {
             switch(exception) {
             case errorCodes.REQUEST_DATA_UNDEFINED:
@@ -125,5 +119,9 @@ export class ReturnFileComponent implements OnInit {
 
     deleteFile(i: number) {
         this.files.splice(i, 1);
+    }
+
+    changeFileNvNo(index: number, nvNo: string) {
+        this.files[index].nvNo = nvNo;
     }
 }
