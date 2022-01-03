@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { isErrorResponse } from 'src/app/model/ErrorResponse';
 import { FileData } from 'src/app/model/returnFileFileData';
 import { FileService } from 'src/app/services/file.service';
 import { TerminalService } from 'src/app/services/terminal.service';
+import { errorAlert, successAlert } from 'src/utils/alerts';
+import errorCodes from 'src/utils/errorCodes';
 import logger from 'src/utils/logger';
+import Swal from 'sweetalert2';
 
 @Component({
     selector: 'app-return-file',
@@ -23,8 +25,7 @@ export class ReturnFileComponent implements OnInit {
 
     ngOnInit(): void {
         if(!this.terminalService.terminalUpdateRequestData) {
-            // TODO: redirect to first part of the terminal update screen if there is id
-            // if there is no id, redirect
+            // TODO: if there is no id, redirect to first part of terminal creation
             logger.error('NOT IMPLEMNETED!');
             return;
         }
@@ -41,25 +42,63 @@ export class ReturnFileComponent implements OnInit {
     }
 
     uploadFile() {
-        logger.info(this.fileToUpload);
         if(!this.fileToUpload) {
-        //TODO: show popup
             logger.error('FILE UNDEFINED');
         }
         this.fileService.createFile(this.fileToUpload!, this.fileToUploadNvNo)
-            .subscribe(res => {
-                if(isErrorResponse(res)) {
-                    // TODO: show popup
+            .subscribe({
+                next: res => {
+                    logger.info(res);
+                    this.files.push({
+                        id: res.fileId,
+                        nvNo: this.fileToUploadNvNo,
+                        uri: res.uri.split('!@#$%^&').pop() ?? ''
+                    });
+                },
+                error: res => {
+                    errorAlert('Server problemi');
                     logger.error('FILE UNDEFINED: ', res.error);
-                    return;
                 }
-                logger.info(res);
-                this.files.push({
-                    id: res.fileId,
-                    nvNo: this.fileToUploadNvNo,
-                    //uri: res.uri // TODO: remove everything before \\
-                    uri: res.uri.split('!@#$%^&').pop()!
-                });
             });
+    }
+
+    createTerminalOrder() {
+        try {
+          this.terminalService.terminalUpdateRequestData!.files = this.files;
+          this.terminalService
+              .createTerminalOrder()
+              .subscribe({
+                  next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                  error: res => {
+                      logger.error(res.error);
+                      errorAlert(res.error.error, 'Uğursuz'); // TODO: double check errror.error exists
+                  }
+              });
+        } catch(exception) {
+            switch(exception) {
+            case errorCodes.REQUEST_DATA_UNDEFINED:
+                logger.error('REQUEST_DATA_UNDEFINED');
+                errorAlert('Bütün xanaları doldurun!');
+                break;
+            case errorCodes.EMPTY_REF_CODE_EMPTY:
+                logger.error('EMPTY_REF_CODE_EMPTY');
+                errorAlert('Boş yükdaşıma kodunu daxil edin!');
+                break;
+            case errorCodes.FILES_EMPTY:
+                logger.error('FILES_EMPTY');
+                errorAlert('Ən azı bir fayl seçin!');
+                break;
+            case errorCodes.FULL_REF_CODE_EMPTY:
+                logger.error('FULL_REF_CODE_EMPTY');
+                errorAlert('Dolu yükdaşıma kodunu daxil edin!');
+                break;
+            case errorCodes.XIDMETLER_EMPTY:
+                logger.error('XIDMETLER_EMPTY');
+                errorAlert('Ən azı bir xidmət seçin!');
+                break;
+            default:
+                throw exception;
+            }
+        }
     }
 }

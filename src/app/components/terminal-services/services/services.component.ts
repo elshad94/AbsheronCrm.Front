@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import TerminalItem from 'src/app/model/terminal-item';
 import { TerminalService } from 'src/app/services/terminal.service';
+import { errorAlert, successAlert } from 'src/utils/alerts';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -48,26 +49,14 @@ export class ServicesComponent implements OnInit {
             .deleteTerminalOrder(orderId)
             .subscribe({
                 next: () => {
-                    this.getTerminalorders(() => Swal.fire(
-                        'Silindi!',
-                        `Sifariş No ${orderNo} silindi`,
-                        'success'
-                    ));
+                    this.getTerminalorders(() => successAlert(`Sifariş No ${orderNo} silindi`, 'Silindi!'));
                 },
                 error: error => {
                     if(error.status === 404) {
-                        Swal.fire(
-                            'Error!',
-                            `Order No ${orderNo} artıq silinib!`,
-                            'error'
-                        );
+                        errorAlert(`Order No ${orderNo} artıq silinib!`);
                         return;
                     }
-                    Swal.fire(
-                        'Error!',
-                        'Server problemi',
-                        'error'
-                    );
+                    errorAlert('Server problemi');
                 }
             });
     }

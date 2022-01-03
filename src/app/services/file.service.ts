@@ -14,6 +14,6 @@ export class FileService {
     createFile(file: File, nvNo: string) {
         const formData = new FormData();
         formData.append('files', file);
-        return this.http.post<FileCreationResponse | ErrorResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData);
+        return this.http.post<FileCreationResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData);
     }
 }
