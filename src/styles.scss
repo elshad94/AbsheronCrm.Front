@@ -75,3 +75,42 @@ body {
     border-radius: 50%;
     background: white;
 }
+
+.error_notif {
+    color: red;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.success_notif {
+    color: green;
+    background: lightgrey;
+    font-size: 20px;
+    border-style: solid;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.custom_checkbox {
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    display: inline-block;
+    box-sizing: border-box;
+    color-adjust: exact;
+    word-wrap: break-word;
+    font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: normal;
+    color: #677788;
+    text-align: left;
+}
+
+.cursor_pointer {
+  cursor: pointer;
+}

@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import TerminalItem from 'src/app/model/terminal-item';
 import { TerminalService } from 'src/app/services/terminal.service';
+import { errorAlert, successAlert } from 'src/utils/alerts';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -46,45 +47,35 @@ export class ServicesComponent implements OnInit {
     private deleteTerminalOrder(orderId: number, orderNo: string) {
         this.terminalService
             .deleteTerminalOrder(orderId)
-            .subscribe(response => {
-                switch(response.status) {
-                case 404:
-                    Swal.fire(
-                        'Error!',
-                        `Order No ${orderNo} artıq silinib!`,
-                        'error'
-                    );
-                    break;
-                case 400: case 500:
-                    Swal.fire(
-                        'Error!',
-                        'Server problemi',
-                        'error'
-                    );
-                    break;
-                default:
-                    Swal.fire(
-                        'Silindi!',
-                        `Sifariş No ${orderNo} silindi`,
-                        'success'
-                    );
-                    this.getTerminalorders();
+            .subscribe({
+                next: () => {
+                    this.getTerminalorders(() => successAlert(`Sifariş No ${orderNo} silindi`, 'Silindi!'));
+                },
+                error: error => {
+                    if(error.status === 404) {
+                        errorAlert(`Order No ${orderNo} artıq silinib!`);
+                        return;
+                    }
+                    errorAlert('Server problemi');
                 }
             });
     }
 
-    private getTerminalorders() {
+    private getTerminalorders(callback?: () => void) {
         this.terminalService
             .getTerminalOrders()
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
                 this.orderStatuses = [...new Set(terminalItems.map(ti => ti.orderStatus.statusText))];
+                if(callback) {
+                    callback();
+                }
             });
     }
 
     filterTableByStatus(status: string) {
-        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) => 
+        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) =>
             data.orderStatus.statusText === filter;
         this.dataSource.filter = status.trim();
     }
