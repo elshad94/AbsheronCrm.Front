@@ -5,6 +5,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Payments } from 'src/app/model/payments';
 import { PaymentService } from 'src/app/services/payment.service';
 import { PayModalComponent } from './pay-modal/pay-modal.component';
+import Swal from 'sweetalert2';
+import { successAlert } from 'src/utils/alerts';
+
 
 
 @Component({
@@ -14,8 +17,8 @@ import { PayModalComponent } from './pay-modal/pay-modal.component';
 })
 export class PayComponent implements OnInit {
 
-  constructor(private dialogRef:MatDialog,
-              private payService: PaymentService) { }
+  constructor(private dialogRef: MatDialog,
+    private payService: PaymentService) { }
 
   payments: Payments[] = [];
   columnsToDisplay = ['orderTypeText', 'orderNo', 'amount', 'orderId'];
@@ -23,11 +26,43 @@ export class PayComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  openDialog(){
-    this.dialogRef.open(PayModalComponent,{
-      height: '100px',
-      width: '600px'
-    })
+  openDialog(orderId: number, orderNo: string) {
+    Swal.fire({
+      title: `<h2 style='font-family: "Lexend Deca", sans-serif !important; margin: 0;'>${orderNo} nömrəli sifariş üçün ödəmə üsulu seçin.</h2>`,
+      html: `<div >
+      <div>
+        <select class="custom-select">
+          <option disabled selected>Ödəmə üsulu</option>
+          <option value="1">Avansdan</option>
+          <option value="2">Bank</option>
+          <option value="3">Kartla</option>
+        </select>
+      </div>
+    </div>`,
+      showCancelButton: true,
+      confirmButtonColor: '#4299BF',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Növbəti',
+      cancelButtonText: 'Geri'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          html: `<div class="all-modal p-5">
+          <div class="modal-image d-flex justify-content-center">
+            <img src="../../../../assets/icon/Group 648.png" alt="" />
+          </div>
+          <p class="text-center p-3">
+            Bu halda ödəniş ”Absheron Logistika” tərəfdən təsdiqlənir.
+          </p>
+        </div>`,
+          showCancelButton: true,
+          confirmButtonColor: '#4299BF',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'Növbəti',
+          cancelButtonText: 'Geri'
+        });
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -36,6 +71,6 @@ export class PayComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
     });
   }
-  
+
 }
 
