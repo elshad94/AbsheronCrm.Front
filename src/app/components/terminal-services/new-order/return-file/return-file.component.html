@@ -11,8 +11,8 @@
                 <div class="row align-items-center">
 
 
-                  <a class="ml-5 orderBtn " routerLink="/order">Xidmətlər</a>
-                  <a class="ml-5 orderBtn line">Geridönüş sənədi</a>
+                  <a class="ml-5 orderBtn cursor_pointer" (click)="toXidmetler()">Xidmətlər</a>
+                  <a class="ml-5 orderBtn line cursor_pointer">Geridönüş sənədi</a>
                 </div>
                 <!-- End Row -->
 
@@ -79,14 +79,17 @@
                 </select>
               </div>
 
-              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3">
+              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3" (click)="openFile(file.id)">
                 <p  type="text" class="form-control selectfileInputCopy file_picker " name="weightName" id="weightLabel" aria-label="0.0">
                   {{file.uri}}
                 </p>
 
-                <input  type="file" class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0">
+                <!-- <input  class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0"> -->
 
-                <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                <label for="" class="selectfileLabel Scan">
+                  <i class="fas fa-eye"></i>
+                  <!-- <img src="assets/icon/Union.png" alt=""> -->
+                </label>
                 <!-- End Input Group -->
               </div>
             </div>

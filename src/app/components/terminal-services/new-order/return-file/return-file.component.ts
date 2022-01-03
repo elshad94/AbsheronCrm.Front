@@ -5,7 +5,8 @@ import { TerminalService } from 'src/app/services/terminal.service';
 import { errorAlert, successAlert } from 'src/utils/alerts';
 import errorCodes from 'src/utils/errorCodes';
 import logger from 'src/utils/logger';
-import Swal from 'sweetalert2';
+import { saveAs } from 'file-saver';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-return-file',
@@ -21,23 +22,19 @@ export class ReturnFileComponent implements OnInit {
 
     constructor(
       private terminalService: TerminalService,
-      private fileService: FileService) { }
-
-    ngOnInit(): void {
-        if(!this.terminalService.terminalUpdateRequestData) {
-            // TODO: if there is no id, redirect to first part of terminal creation
-            logger.error('NOT IMPLEMNETED!');
-            return;
-        }
-        this.nvNoList = this.terminalService.terminalUpdateRequestData
-            .xidmetler.map(x => x.nvNo);
-        this.files = this.terminalService.terminalUpdateRequestData.files ?? [];
+      private fileService: FileService,
+      private router: Router) {
     }
 
-    // TODO: fill terminalUpdateRequestData before redirecting to Xidmetler screen
+    ngOnInit(): void {
+        this.nvNoList = this.terminalService.terminalUpdateRequestData!
+            .xidmetler.map(x => x.nvNo);
+        this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
+    }
 
-    setFile(event: any) {
-        this.fileToUpload = event.target.files[0];
+    setFile(event: Event) {
+        const target = event.target as HTMLInputElement;
+        this.fileToUpload = target.files![0];
         this.fileName = this.fileToUpload?.name ?? '';
     }
 
@@ -48,18 +45,25 @@ export class ReturnFileComponent implements OnInit {
         this.fileService.createFile(this.fileToUpload!, this.fileToUploadNvNo)
             .subscribe({
                 next: res => {
-                    logger.info(res);
                     this.files.push({
                         id: res.fileId,
                         nvNo: this.fileToUploadNvNo,
                         uri: res.uri.split('!@#$%^&').pop() ?? ''
                     });
+                    successAlert('Fayl yüklənildi', 'Uğurlu');
                 },
                 error: res => {
                     errorAlert('Server problemi');
                     logger.error('FILE UNDEFINED: ', res.error);
                 }
             });
+    }
+
+    openFile(id: number) {
+        this.fileService.getFile(id).subscribe((response: any) => {
+            const blob = new Blob([response], { type: response.type });
+            saveAs(blob);
+        });
     }
 
     createTerminalOrder() {
@@ -100,5 +104,10 @@ export class ReturnFileComponent implements OnInit {
                 throw exception;
             }
         }
+    }
+
+    toXidmetler() {
+        this.terminalService.terminalUpdateRequestData!.files = this.files;
+        this.router.navigate(['/order']);
     }
 }

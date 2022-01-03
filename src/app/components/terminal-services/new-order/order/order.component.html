@@ -11,7 +11,7 @@
 
 
               <a class="ml-5 orderBtn line" routerLink="/order">Xidmətlər</a>
-              <a class="ml-5 orderBtn" (click)="toReturnFile()">Geridönüş sənədi</a>
+              <a class="ml-5 orderBtn cursor_pointer" (click)="toReturnFile()">Geridönüş sənədi</a>
             </div>
             <!-- End Row -->
 
@@ -30,7 +30,7 @@
                 <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3"
                   placeholder="Dolu yükdaşıma kodu" [(ngModel)]="fullRefCode">
                 <div class="col-sm-1"></div>
-                <input type="text" class="form-control col-sm-4 mb-3" 
+                <input type="text" class="form-control col-sm-4 mb-3"
                   placeholder="Boş yükdaşıma kodu" [(ngModel)]="emptyRefCode">
               </div>
               <div class="bg-light border-bottom p-2 mb-3">
@@ -163,7 +163,7 @@
                 <div class="form-group">
 
                   <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
-                    aria-label="Who is this invoice to?" rows="3" 
+                    aria-label="Who is this invoice to?" rows="3"
                     [(ngModel)]="notes"></textarea>
                 </div>
               </div>

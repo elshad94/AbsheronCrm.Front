@@ -27,6 +27,7 @@ export class OrderComponent implements OnInit {
     notes = '';
     fullRefCode = '';
     emptyRefCode = '';
+    transportTypeId!: number;
 
     constructor(
         private terminalService: TerminalService,
@@ -34,12 +35,15 @@ export class OrderComponent implements OnInit {
 
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
+        logger.info(this.terminalService.terminalUpdateRequestData);
         if(terminalUpdateData) {
-            const terminalWays = terminalUpdateData.terminalWays; 
-            this.expenses = terminalUpdateData.expenses; 
+            const terminalWays = terminalUpdateData.terminalWays;
+            this.expenses = terminalUpdateData.expenses;
             this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
+            this.transportTypeId = terminalUpdateData.transportTypeId;
             return;
         }
+        // TODO: get data for orderId
         logger.warning('USING DUMMY DATA FOR DEVELOPMENT!');
         this.expenses = [{
             id: 1,
@@ -54,19 +58,19 @@ export class OrderComponent implements OnInit {
             isSelected: true,
             text: 'blahblah'
         }];
-        
+
         const terminalWays = [
-            { 
+            {
                 nvNo: '53551842',
                 qaimeNo: '31874135',
                 yuk: '73063072 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
             },
-            { 
+            {
                 nvNo: '53553842',
                 qaimeNo: '32874135',
                 yuk: '73063232 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
             },
-            { 
+            {
                 nvNo: '53553342',
                 qaimeNo: '32324135',
                 yuk: '73063234 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
@@ -91,7 +95,7 @@ export class OrderComponent implements OnInit {
                     edv: 0
                 });
             }
-        }        
+        }
         this.xidmetler = xidmetler_;
     }
 
@@ -129,20 +133,37 @@ export class OrderComponent implements OnInit {
     }
 
     toReturnFile() {
-        this.terminalService.terminalUpdateRequestData = {
-            emptyRefCode: this.emptyRefCode,
-            fullRefCode: this.fullRefCode,
-            notes: this.notes,
-            xidmetler: this.xidmetler.map(x => {return {
-                edv: x.edv,
-                expenseId: x.expenseId,
-                miqdar: x.count,
-                nvNo: x.temrinalWay.nvNo,
-                qaime: x.temrinalWay.qaimeNo,
-                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount      
-            };}),
-            transportTypeId: this.terminalService.terminalUpdateData?.transportTypeId            
-        };
-        this.router.navigate(['/returnFile']);   
+        if(!this.terminalService.terminalUpdateRequestData) {
+            this.terminalService.terminalUpdateRequestData = {
+                emptyRefCode: this.emptyRefCode,
+                fullRefCode: this.fullRefCode,
+                notes: this.notes,
+                xidmetler: this.xidmetler.map(x => {return {
+                    edv: x.edv,
+                    expenseId: x.expenseId,
+                    miqdar: x.count,
+                    nvNo: x.temrinalWay.nvNo,
+                    qaime: x.temrinalWay.qaimeNo,
+                    qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+                };}),
+                transportTypeId: this.transportTypeId
+            };
+            this.router.navigate(['/returnFile']);
+            return;
+        }
+        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
+        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
+        this.terminalService.terminalUpdateRequestData.notes = this.notes;
+        this.terminalService.terminalUpdateRequestData.xidmetler =
+        this.xidmetler.map(x => {return {
+            edv: x.edv,
+            expenseId: x.expenseId,
+            miqdar: x.count,
+            nvNo: x.temrinalWay.nvNo,
+            qaime: x.temrinalWay.qaimeNo,
+            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+        };});
+        this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+        this.router.navigate(['/returnFile']);
     }
 }

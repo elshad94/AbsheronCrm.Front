@@ -83,7 +83,7 @@ body {
     padding: 10px;
     margin-bottom: 10px;
 }
-  
+
 .success_notif {
     color: green;
     background: lightgrey;
@@ -106,5 +106,9 @@ body {
     font: 400 14px/20px Roboto, "Helvetica Neue", sans-serif;
     letter-spacing: normal;
     color: #677788;
-    text-align: left;   
+    text-align: left;
+}
+
+.cursor_pointer {
+  cursor: pointer;
 }

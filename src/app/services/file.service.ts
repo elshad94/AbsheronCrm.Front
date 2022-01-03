@@ -16,4 +16,8 @@ export class FileService {
         formData.append('files', file);
         return this.http.post<FileCreationResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData);
     }
+
+    getFile(id: number) {
+        return this.http.get(`${BASE_URL}/File/${id}`, {responseType: 'blob' as 'json'});
+    }
 }
