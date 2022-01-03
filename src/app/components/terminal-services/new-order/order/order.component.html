@@ -70,11 +70,11 @@
                     <input type="number" class="js-result form-control input-group-quantity-counter-control" [(ngModel)]="xidmet.count">
 
                     <div class="input-group-quantity-counter-toggle">
-                      <a class="js-minus input-group-quantity-counter-btn" href="javascript:;">
-                        <i class="tio-remove" (click)="decreaseCount(xidmet)"></i>
+                      <a class="js-minus input-group-quantity-counter-btn" href="javascript:;" (click)="decreaseCount(xidmet)">
+                        <i class="tio-remove"></i>
                       </a>
-                      <a class="js-plus input-group-quantity-counter-btn" href="javascript:;">
-                        <i class="tio-add" (click)="increaseCount(xidmet)"></i>
+                      <a class="js-plus input-group-quantity-counter-btn" href="javascript:;" (click)="increaseCount(xidmet)">
+                        <i class="tio-add"></i>
                       </a>
                     </div>
                   </div>
@@ -172,7 +172,7 @@
                   <dt class="col-sm-6">Cəmi:</dt>
                   <dd class="col-sm-6">₼ {{total}}</dd>
                   <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
-                  <dd class="col-sm-6">₼ {{totalEdv}}</dd>
+                  <dd class="col-sm-6">₼ {{totalEdv | number : '1.2-2' }}</dd>
                 </dl>
                 <!-- End Row -->
               </div>
@@ -196,11 +196,13 @@
                    "endPoint": "#stickyBlockEndPoint",
                    "stickyOffsetTop": 20
                  }'>
-          <button class="btn btn-block newOrder mb-3" href="javascript:;">
+          <button class="btn btn-block newOrder mb-3" href="javascript:;"
+            (click)="createTerminalOrder()">
             Yadda saxla
           </button>
 
-          <button class="btn btn-block newAccept mb-3" href="javascript:;">
+          <button class="btn btn-block newAccept mb-3" href="javascript:;"
+          (click)="createTerminalOrder(false)">
             Təsdiqlə
           </button>
 
@@ -214,16 +216,16 @@
           <hr class="my-4">
 
           <!-- Form Group -->
+          <!-- TODO: show only in update -->
           <div class="form-group">
             <dl>
-              <dt>Sənəd nömrəsi:</dt>
-              <dd>1234567890</dd>
-              <dt>Müştəri:</dt>
-              <dd>Lorem İpsum LLC</dd>
-              <dt>Tarix:</dt>
-              <dd>26.11.2021</dd>
+              <dt >Sənəd nömrəsi:</dt>
+              <dd >1234567890</dd>
+              <dt >Müştəri:</dt>
+              <dd >Lorem İpsum LLC</dd>
+              <dt >Tarix:</dt>
+              <dd >26.11.2021</dd>
             </dl>
-
           </div>
         </div>
       </div>

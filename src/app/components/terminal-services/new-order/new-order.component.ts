@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NvNoTypeId, TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
+import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,14 +16,14 @@ export class NewOrderComponent implements OnInit {
     terminalWays: TerminalWay[] = [];
     expenses: TerminalExpense[] = [];
     masterCheck = false;
-    
+
     constructor(
         private terminalService: TerminalService,
         private router: Router) {
     }
 
     ngOnInit() {
-        document.addEventListener('DOMContentLoaded', () => { 
+        document.addEventListener('DOMContentLoaded', () => {
             const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
             vaqonRadio.checked = true;
         });
@@ -48,7 +49,7 @@ export class NewOrderComponent implements OnInit {
             Swal.fire(
                 'Error!',
                 'En azı bir xidmət seçin!',
-                'error'       
+                'error'
             );
             return;
         }

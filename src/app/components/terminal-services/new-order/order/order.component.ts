@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
+import { successAlert, errorAlert } from 'src/utils/alerts';
+import errorCodes from 'src/utils/errorCodes';
 import logger from 'src/utils/logger';
 
 interface Xidmet {
@@ -14,6 +16,8 @@ interface Xidmet {
     edv: number
 }
 
+const EDV_MULTIPLIER = 0.18;
+
 @Component({
     selector: 'app-order',
     templateUrl: './order.component.html',
@@ -22,8 +26,8 @@ interface Xidmet {
 export class OrderComponent implements OnInit {
     expenses!: TerminalExpense[];
     xidmetler!: Xidmet[];
-    total!: number;
-    totalEdv!: number;
+    total = 0;
+    totalEdv = 0;
     notes = '';
     fullRefCode = '';
     emptyRefCode = '';
@@ -35,8 +39,10 @@ export class OrderComponent implements OnInit {
 
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
-        logger.info(this.terminalService.terminalUpdateRequestData);
         if(terminalUpdateData) {
+            for(const tw of terminalUpdateData.terminalWays) {
+                tw.amount = 0;
+            }
             const terminalWays = terminalUpdateData.terminalWays;
             this.expenses = terminalUpdateData.expenses;
             this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
@@ -63,22 +69,23 @@ export class OrderComponent implements OnInit {
             {
                 nvNo: '53551842',
                 qaimeNo: '31874135',
-                yuk: '73063072 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+                yuk: '73063072 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
+                amount: 0
             },
             {
                 nvNo: '53553842',
                 qaimeNo: '32874135',
-                yuk: '73063232 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+                yuk: '73063232 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
+                amount: 0
             },
             {
                 nvNo: '53553342',
                 qaimeNo: '32324135',
-                yuk: '73063234 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные'
+                yuk: '73063234 Трубы,трубки сварные,круглого сечения,из железа или нелегированной стали,наружным диаметром не более 168.3мм,оцинкованные',
+                amount: 0
             }
         ];
         this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
-        this.total = 0;
-        this.totalEdv = 0;
     }
 
     private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
@@ -92,7 +99,7 @@ export class OrderComponent implements OnInit {
                     temrinalWay: tw,
                     count: 1,
                     totalAmount: tw.amount,
-                    edv: 0
+                    edv: tw.amount * EDV_MULTIPLIER
                 });
             }
         }
@@ -102,11 +109,18 @@ export class OrderComponent implements OnInit {
     increaseCount(xidmet: Xidmet) {
         xidmet.count++;
         xidmet.totalAmount += xidmet.temrinalWay.amount!;
+        this.total += xidmet.temrinalWay.amount!;
+        this.totalEdv += (xidmet.edv + xidmet.temrinalWay.amount!);
     }
 
     decreaseCount(xidmet: Xidmet) {
+        if(xidmet.count === 1) {
+            return;
+        }
         xidmet.count--;
         xidmet.totalAmount -= xidmet.temrinalWay.amount!;
+        this.total -= xidmet.temrinalWay.amount!;
+        this.totalEdv -= (xidmet.edv + xidmet.temrinalWay.amount!);
     }
 
     addXidmet() {
@@ -129,6 +143,7 @@ export class OrderComponent implements OnInit {
         for(const x of this.xidmetler) {
             this.totalEdv += x.edv;
             this.totalEdv += x.totalAmount;
+            this.total += x.totalAmount;
         }
     }
 
@@ -165,5 +180,70 @@ export class OrderComponent implements OnInit {
         };});
         this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
         this.router.navigate(['/returnFile']);
+    }
+
+    createTerminalOrder(save = true) {
+        try {
+            if(!this.terminalService.terminalUpdateRequestData) {
+                errorAlert('Faylları doldurun!');
+                return;
+            }
+            this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
+            this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
+            this.terminalService.terminalUpdateRequestData.notes = this.notes;
+            this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
+                edv: x.edv,
+                expenseId: x.expenseId,
+                miqdar: x.count,
+                nvNo: x.temrinalWay.nvNo,
+                qaime: x.temrinalWay.qaimeNo,
+                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+            };});
+            this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+            this.xidmetler.map(x => {return {
+                edv: x.edv,
+                expenseId: x.expenseId,
+                miqdar: x.count,
+                nvNo: x.temrinalWay.nvNo,
+                qaime: x.temrinalWay.qaimeNo,
+                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+            };});
+            this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+            this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
+            this.terminalService
+                .createTerminalOrder()
+                .subscribe({
+                    next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                    error: res => {
+                        logger.error(res.error);
+                        errorAlert(res.error.error, 'Uğursuz'); // TODO: double check errror.error exists
+                    }
+                });
+        } catch(exception) {
+            switch(exception) {
+            case errorCodes.REQUEST_DATA_UNDEFINED:
+                logger.error('REQUEST_DATA_UNDEFINED');
+                errorAlert('Bütün xanaları doldurun!');
+                break;
+            case errorCodes.EMPTY_REF_CODE_EMPTY:
+                logger.error('EMPTY_REF_CODE_EMPTY');
+                errorAlert('Boş yükdaşıma kodunu daxil edin!');
+                break;
+            case errorCodes.FILES_EMPTY:
+                logger.error('FILES_EMPTY');
+                errorAlert('Ən azı bir fayl seçin!');
+                break;
+            case errorCodes.FULL_REF_CODE_EMPTY:
+                logger.error('FULL_REF_CODE_EMPTY');
+                errorAlert('Dolu yükdaşıma kodunu daxil edin!');
+                break;
+            case errorCodes.XIDMETLER_EMPTY:
+                logger.error('XIDMETLER_EMPTY');
+                errorAlert('Ən azı bir xidmət seçin!');
+                break;
+            default:
+                throw exception;
+            }
+        }
     }
 }

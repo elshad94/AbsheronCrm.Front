@@ -41,6 +41,7 @@ export class ReturnFileComponent implements OnInit {
     uploadFile() {
         if(!this.fileToUpload) {
             logger.error('FILE UNDEFINED');
+            return;
         }
         this.fileService.createFile(this.fileToUpload!, this.fileToUploadNvNo)
             .subscribe({
@@ -53,8 +54,7 @@ export class ReturnFileComponent implements OnInit {
                     successAlert('Fayl yüklənildi', 'Uğurlu');
                 },
                 error: res => {
-                    errorAlert('Server problemi');
-                    logger.error('FILE UNDEFINED: ', res.error);
+                    errorAlert(res.error.error);
                 }
             });
     }
