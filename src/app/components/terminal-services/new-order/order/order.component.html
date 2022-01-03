@@ -225,12 +225,12 @@
           <!-- Form Group -->
           <div class="form-group" *ngIf="orderId !== undefined">
             <dl>
-              <dt >Sənəd nömrəsi:</dt>
-              <dd >1234567890</dd>
-              <dt >Müştəri:</dt>
-              <dd >Lorem İpsum LLC</dd>
-              <dt >Tarix:</dt>
-              <dd >26.11.2021</dd>
+              <dt>Sənəd nömrəsi:</dt>
+              <dd>{{orderNo}}</dd>
+              <dt>Müştəri:</dt>
+              <dd>{{customer}}</dd>
+              <dt>Tarix:</dt>
+              <dd>{{orderDate | date: 'dd.MM.yyyy'}}</dd>
             </dl>
           </div>
         </div>

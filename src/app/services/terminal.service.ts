@@ -30,6 +30,9 @@ export class TerminalService {
     totalAmount?: number;
     totalEdv?: number;
     xidmetler?: Xidmet[];
+    customer?: string;
+    orderDate?: Date;
+    orderNo?: string;
 
     constructor(private http: HttpClient) {}
 

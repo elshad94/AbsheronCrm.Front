@@ -9,7 +9,7 @@ const errorAlert = (text: string, heading?: string) => {
 };
 
 const successAlert = (text: string, heading?: string) => {
-    Swal.fire(
+    return Swal.fire(
         heading ?? 'Error!',
         text,
         'success'

@@ -26,5 +26,8 @@ export interface TerminalDataForUpdate {
   total: number,
   notes: string,
   expenses: TerminalExpense[],
-  filelar: TerminalFile[]
+  filelar: TerminalFile[],
+  customer: string,
+  orderDate: Date,
+  orderNo: string
 }

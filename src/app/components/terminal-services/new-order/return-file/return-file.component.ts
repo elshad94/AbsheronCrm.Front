@@ -80,7 +80,7 @@ export class ReturnFileComponent implements OnInit {
 
     createTerminalOrder(save = true) {
         try {
-            if(!this.terminalService.terminalUpdateRequestData) {
+            if(this.terminalService.terminalUpdateRequestData === undefined) {
                 errorAlert('Faylları doldurun!');
                 return;
             }
@@ -90,7 +90,13 @@ export class ReturnFileComponent implements OnInit {
                 this.terminalService
                     .createTerminalOrder()
                     .subscribe({
-                        next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                        next: () => {
+                            successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu').then(res => {
+                                if(res.isConfirmed) {
+                                    this.router.navigate(['//services']);
+                                }
+                            });
+                        },
                         error: res => {
                             logger.error(res.error);
                             errorAlert(res.error.error, 'Uğursuz');
@@ -101,7 +107,13 @@ export class ReturnFileComponent implements OnInit {
             this.terminalService
                 .updateTerminalOrder(this.orderId)
                 .subscribe({
-                    next: () => successAlert('Terminal sifarişi guncellendi', 'Uğurlu'),
+                    next: () => {
+                        successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(res => {
+                            if(res.isConfirmed) {
+                                this.router.navigate(['//services']);
+                            }
+                        });
+                    },
                     error: res => {
                         logger.error(res.error);
                         errorAlert(res.error.error, 'Uğursuz');

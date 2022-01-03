@@ -37,12 +37,26 @@ export class OrderComponent implements OnInit {
     transportTypeId!: number;
     orderId?: number;
     files: FileData[] = [];
+    customer?: string;
+    orderDate?: Date;
+    orderNo?: string;
 
     constructor(
         private terminalService: TerminalService,
         private router: Router,
         private route: ActivatedRoute,
-        private location: Location) {}
+        private location: Location) {
+        this.route.queryParams.subscribe(params => {
+            this.orderId = params['orderId'];
+            const fromReturnFile = params['fromReturnFile'];
+            if(this.orderId !== undefined && fromReturnFile === undefined) {
+                this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
+                    this.setXidmetlerUpdate(updateTerminalData);
+                });
+                return;
+            }
+        });
+    }
 
     goBack() {
         this.location.back();
@@ -64,13 +78,9 @@ export class OrderComponent implements OnInit {
             .subscribe(params => {
                 this.orderId = params['orderId'];
                 const fromReturnFile = params['fromReturnFile'];
-                if(this.orderId !== undefined && fromReturnFile === undefined) {
-                    this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
-                        this.setXidmetlerUpdate(updateTerminalData);
-                    });
-                    return;
+                if(this.orderId === undefined && fromReturnFile !== undefined) {
+                    this.setXidmetlerFromUpdateRequestData();
                 }
-                this.setXidmetlerFromUpdateRequestData();
             });
     }
 
@@ -85,6 +95,9 @@ export class OrderComponent implements OnInit {
         this.totalEdv = this.terminalService.totalEdv!;
         this.xidmetler = this.terminalService.xidmetler!;
         this.files = updateReqData.files!;
+        this.customer = this.terminalService.customer;
+        this.orderDate = this.terminalService.orderDate;
+        this.orderNo = this.terminalService.orderNo;
     }
 
     private setXidmetlerUpdate(updateTerminalData: TerminalDataForUpdate) {
@@ -112,6 +125,10 @@ export class OrderComponent implements OnInit {
             nvNo: f.nvNo,
             uri: f.uri
         };});
+        this.customer = updateTerminalData.customer;
+        this.orderDate = updateTerminalData.orderDate;
+        this.orderNo = updateTerminalData.orderNo;
+        logger.info(this.orderDate);
     }
 
     private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
@@ -234,36 +251,53 @@ export class OrderComponent implements OnInit {
 
     createTerminalOrder(save = true) {
         try {
-            if(!this.terminalService.terminalUpdateRequestData) {
-                errorAlert('Faylları doldurun!');
-                return;
+            if(this.orderId !== undefined) {
+                this.terminalService.terminalUpdateRequestData = {
+                    emptyRefCode: this.emptyRefCode,
+                    fullRefCode: this.fullRefCode,
+                    notes: this.notes,
+                    files: this.files,
+                    xidmetler: this.xidmetler.map(x => {return {
+                        edv: x.edv,
+                        expenseId: x.expenseId,
+                        miqdar: x.count,
+                        nvNo: x.temrinalWay.nvNo,
+                        qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+                    };}),
+                    transportTypeId: this.transportTypeId,
+                    statusId: save ? 4 : 5
+                };
+            } else {
+                if(this.terminalService.terminalUpdateRequestData === undefined) {
+                    errorAlert('Faylları doldurun!');
+                    return;
+                }
+                this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
+                this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
+                this.terminalService.terminalUpdateRequestData.notes = this.notes;
+                this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
+                    edv: x.edv,
+                    expenseId: x.expenseId,
+                    miqdar: x.count,
+                    nvNo: x.temrinalWay.nvNo,
+                    qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+                };});
+                this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+                this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
+                this.terminalService.terminalUpdateRequestData.files = this.files;
             }
-            this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
-            this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
-            this.terminalService.terminalUpdateRequestData.notes = this.notes;
-            this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
-                edv: x.edv,
-                expenseId: x.expenseId,
-                miqdar: x.count,
-                nvNo: x.temrinalWay.nvNo,
-                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-            };});
-            this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
-            this.xidmetler.map(x => {return {
-                edv: x.edv,
-                expenseId: x.expenseId,
-                miqdar: x.count,
-                nvNo: x.temrinalWay.nvNo,
-                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-            };});
-            this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
-            this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
-            this.terminalService.terminalUpdateRequestData.files = this.files;
             if(this.orderId === undefined) {
                 this.terminalService
                     .createTerminalOrder()
                     .subscribe({
-                        next: () => successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu'),
+                        next: () => {
+                            successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu')
+                                .then(res => {
+                                    if(res.isConfirmed) {
+                                        this.router.navigate(['//services']);
+                                    }
+                                });
+                        },
                         error: res => {
                             logger.error(res.error);
                             errorAlert(res.error.error, 'Uğursuz');
@@ -274,7 +308,13 @@ export class OrderComponent implements OnInit {
             this.terminalService
                 .updateTerminalOrder(this.orderId)
                 .subscribe({
-                    next: () => successAlert('Terminal sifarişi guncellendi', 'Uğurlu'),
+                    next: () => {
+                        successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(res => {
+                            if(res.isConfirmed) {
+                                this.router.navigate(['//services']);
+                            }
+                        });
+                    },
                     error: res => {
                         logger.error(res.error);
                         errorAlert(res.error.error, 'Uğursuz');
