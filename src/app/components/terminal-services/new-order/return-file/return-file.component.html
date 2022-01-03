@@ -72,25 +72,26 @@
             <!-- End Title -->
 
             <!-- Content -->
-            <div class="row" *ngFor="let file of files">
-              <div class="col-md-5 col-lg-6 mb-3">
-                <select class="custom-select">
-                    <option *ngFor="let nvNo of nvNoList">{{nvNo}}</option>
+            <div class="row fileDetails" *ngFor="let file of files; let i = index">
+              <div class="col-12 col-sm-auto col-md-3 col-lg-6">
+                <select class="form-control mb-3" name="" id="">
+                  <option *ngFor="let nvNo of nvNoList">{{nvNo}}</option>
                 </select>
               </div>
 
-              <div class="col-12 col-sm col-md-2 col-lg-6 mb-3" (click)="openFile(file.id)">
+              <div class="col-12 col-sm col-md-2 col-lg-5">
                 <p  type="text" class="form-control selectfileInputCopy file_picker " name="weightName" id="weightLabel" aria-label="0.0">
                   {{file.uri}}
                 </p>
-
-                <!-- <input  class="form-control selectfileInput " name="weightName" id="weightLabel" aria-label="0.0"> -->
-
                 <label for="" class="selectfileLabel Scan">
                   <i class="fas fa-eye"></i>
-                  <!-- <img src="assets/icon/Union.png" alt=""> -->
                 </label>
-                <!-- End Input Group -->
+              </div>
+              <div  *ngIf="i > 0"
+                class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center align-items-center text-danger">
+                <div class="deletetdiv ">
+                  <a type="button" (click)="deleteFile(i)">X</a>
+                </div>
               </div>
             </div>
             <!-- End Content -->

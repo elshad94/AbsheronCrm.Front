@@ -30,6 +30,18 @@ export class ReturnFileComponent implements OnInit {
         this.nvNoList = this.terminalService.terminalUpdateRequestData!
             .xidmetler.map(x => x.nvNo);
         this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
+        this.files = [ // TODO: TEMPORARY
+            {
+                id: 0,
+                nvNo: 'efef',
+                uri: 'sfeg'
+            },
+            {
+                id: 1,
+                nvNo: 'efef',
+                uri: 'wsgregtr'
+            }
+        ];
     }
 
     setFile(event: Event) {
@@ -109,5 +121,9 @@ export class ReturnFileComponent implements OnInit {
     toXidmetler() {
         this.terminalService.terminalUpdateRequestData!.files = this.files;
         this.router.navigate(['/order']);
+    }
+
+    deleteFile(i: number) {
+        this.files.splice(i, 1);
     }
 }

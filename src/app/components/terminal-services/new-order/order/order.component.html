@@ -55,13 +55,13 @@
               <!-- End Title -->
 
               <!-- Content -->
-              <div *ngFor="let xidmet of xidmetler" class="row">
+              <div *ngFor="let xidmet of xidmetler; let i = index" class="row">
                 <div class="col-md-5">
                   <select class="form-control mb-3" name="" id="">
                     <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">{{exp.text}}</option>
                   </select>
-                  <input type="text" class="form-control mb-3 readonly_input" placeholder="N/V №" aria-label="Description"
-                    value="{{xidmet.temrinalWay.nvNo}}" readonly>
+                  <input type="text" class="form-control mb-3" placeholder="N/V №" aria-label="Description"
+                    [(ngModel)]="xidmet.temrinalWay.nvNo">
                 </div>
 
                 <div class="col-12 col-sm-auto col-md-3">
@@ -77,8 +77,13 @@
                         <i class="tio-add"></i>
                       </a>
                     </div>
+
+
                   </div>
                   <!-- End Quantity Counter -->
+                  <div class="mb-3 delete_div" *ngIf="i > 0">
+                    <a type="button" (click)="deleteXidmet(i)">X</a>
+                  </div>
                 </div>
 
                 <div class="col-12 col-sm col-md-2">
@@ -92,6 +97,7 @@
                 <div class="col col-md-2">
                   <p>₼ {{xidmet.totalAmount}}</p>
                 </div>
+
 
               </div>
               <!-- End Content -->

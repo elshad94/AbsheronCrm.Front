@@ -246,4 +246,8 @@ export class OrderComponent implements OnInit {
             }
         }
     }
+
+    deleteXidmet(i: number) {
+        this.xidmetler.splice(i, 1);
+    }
 }
