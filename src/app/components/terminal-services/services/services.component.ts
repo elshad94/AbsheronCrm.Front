@@ -46,45 +46,47 @@ export class ServicesComponent implements OnInit {
     private deleteTerminalOrder(orderId: number, orderNo: string) {
         this.terminalService
             .deleteTerminalOrder(orderId)
-            .subscribe(response => {
-                switch(response.status) {
-                case 404:
-                    Swal.fire(
-                        'Error!',
-                        `Order No ${orderNo} artıq silinib!`,
-                        'error'
-                    );
-                    break;
-                case 400: case 500:
+            .subscribe({
+                next: () => {
+                    this.getTerminalorders(() => Swal.fire(
+                        'Silindi!',
+                        `Sifariş No ${orderNo} silindi`,
+                        'success'
+                    ));
+                },
+                error: error => {
+                    if(error.status === 404) {
+                        Swal.fire(
+                            'Error!',
+                            `Order No ${orderNo} artıq silinib!`,
+                            'error'
+                        );
+                        return;
+                    }
                     Swal.fire(
                         'Error!',
                         'Server problemi',
                         'error'
                     );
-                    break;
-                default:
-                    Swal.fire(
-                        'Silindi!',
-                        `Sifariş No ${orderNo} silindi`,
-                        'success'
-                    );
-                    this.getTerminalorders();
                 }
             });
     }
 
-    private getTerminalorders() {
+    private getTerminalorders(callback?: () => void) {
         this.terminalService
             .getTerminalOrders()
             .subscribe(terminalItems => {
                 this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
                 this.dataSource.paginator = this.paginator;
                 this.orderStatuses = [...new Set(terminalItems.map(ti => ti.orderStatus.statusText))];
+                if(callback) {
+                    callback();
+                }
             });
     }
 
     filterTableByStatus(status: string) {
-        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) => 
+        this.dataSource.filterPredicate = (data: TerminalItem, filter: string) =>
             data.orderStatus.statusText === filter;
         this.dataSource.filter = status.trim();
     }
