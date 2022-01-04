@@ -38,9 +38,15 @@ export class ReturnFileComponent implements OnInit {
             .subscribe(params => {
                 this.orderId = params['orderId'];
             });
-        this.nvNoList = [...new Set(this.terminalService.terminalUpdateRequestData!
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'terminalUpdateRequestData is undefined';
+        }
+        this.nvNoList = [...new Set(this.terminalService.terminalUpdateRequestData
             .xidmetler.map(x => x.nvNo))];
-        this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
+        if(this.terminalService.terminalUpdateRequestData.files === undefined) {
+            throw 'files is undefined';
+        }
+        this.files = this.terminalService.terminalUpdateRequestData.files;
     }
 
     ngOnInit() {
@@ -54,16 +60,19 @@ export class ReturnFileComponent implements OnInit {
 
     setFile(event: Event) {
         const target = event.target as HTMLInputElement;
-        this.fileToUpload = target.files![0];
+        if(target.files === null) {
+            throw 'event files is undefined';
+        }
+        this.fileToUpload = target.files[0];
         this.fileName = this.fileToUpload?.name ?? '';
     }
 
     uploadFile() {
         if(!this.fileToUpload) {
-            logger.error('FILE UNDEFINED');
+            throw 'FILE UNDEFINED';
             return;
         }
-        this.fileService.createFile(this.fileToUpload!, this.fileToUploadNvNo)
+        this.fileService.createFile(this.fileToUpload, this.fileToUploadNvNo)
             .subscribe({
                 next: res => {
                     this.files.push({
@@ -156,7 +165,10 @@ export class ReturnFileComponent implements OnInit {
     }
 
     toXidmetler() {
-        this.terminalService.terminalUpdateRequestData!.files = this.files;
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'terminalUpdateRequestData is undefined';
+        }
+        this.terminalService.terminalUpdateRequestData.files = this.files;
         if(this.orderId !== undefined) {
             const navigationExtras: NavigationExtras = {
                 queryParams: {

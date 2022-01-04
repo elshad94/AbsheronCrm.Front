@@ -69,8 +69,8 @@ export class OrderComponent implements OnInit {
                     });
                     return;
                 }
-                if(this.orderId === undefined && fromReturnFile !== undefined) {
-                    this.setXidmetlerFromUpdateRequestData();
+                if(this.orderId !== undefined && fromReturnFile !== undefined) {
+                    this.fromFiles();
                 }
             });
     }
@@ -138,6 +138,14 @@ export class OrderComponent implements OnInit {
         this.orderNo = updateTerminalData.orderNo;
     }
 
+    toReturnFile() {
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            this.toFilesInitial();
+            return;
+        }
+        this.toFiles();
+    }
+
     private toFilesInitial() {
         // switching to return-files component tab for the first time
         this.terminalService.terminalUpdateRequestData = {
@@ -169,11 +177,52 @@ export class OrderComponent implements OnInit {
     }
 
     private toFiles() {
-        logger.warning('TO FILES NOT IMPLEMENTED');
+        // switching to return-files component tab for subsequent times
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'terminalUpdateRequestData is undefined';
+        }
+        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
+        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
+        this.terminalService.terminalUpdateRequestData.notes = this.notes;
+        this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
+            edv: x.edv,
+            expenseId: x.expenseId,
+            miqdar: x.count,
+            nvNo: x.temrinalWay.nvNo,
+            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+        };});
+        this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+        this.terminalService.terminalUpdateRequestData.files = this.files;
+        this.copyExtraFieldsToService();
+        if(this.orderId !== undefined) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId
+                }
+            };
+            this.router.navigate(['/returnFile'], navigationExtras);
+            return;
+        }
+        this.router.navigate(['/returnFile']);
     }
 
     private fromFiles() {
-        logger.warning('FROM FILES NOT IMPLEMENTED');
+        // switching tabs from return-file component
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'temrinalUpdateRequestData is undefined';
+        }
+        if(this.terminalService.terminalUpdateRequestData.transportTypeId === undefined) {
+            throw 'transportTypeId is undefined';
+        }
+        this.transportTypeId = this.terminalService.terminalUpdateRequestData.transportTypeId;
+        this.fullRefCode = this.terminalService.terminalUpdateRequestData.fullRefCode;
+        this.emptyRefCode = this.terminalService.terminalUpdateRequestData.emptyRefCode;
+        this.notes = this.terminalService.terminalUpdateRequestData.notes;
+        if(this.terminalService.terminalUpdateRequestData.files === undefined) {
+            throw 'files is undefined';
+        }
+        this.files = this.terminalService.terminalUpdateRequestData.files;
+        this.copyExtraFieldsFromService();
     }
 
     private copyExtraFieldsToService() {
@@ -184,9 +233,6 @@ export class OrderComponent implements OnInit {
         this.terminalService.customer = this.customer;
         this.terminalService.orderDate = this.orderDate;
         this.terminalService.orderNo = this.orderNo;
-        this.terminalService.fullRefCode = this.fullRefCode;
-        this.terminalService.emptyRefCode = this.emptyRefCode;
-        this.terminalService.notes = this.notes;
     }
 
     private copyExtraFieldsFromService() {
@@ -198,28 +244,6 @@ export class OrderComponent implements OnInit {
         this.total = this.terminalService.totalAmount;
         if(this.terminalService.xidmetler === undefined) {throw 'xidmetler is undefined';}
         this.xidmetler = this.terminalService.xidmetler;
-        this.customer = this.terminalService.customer;
-        this.orderDate = this.terminalService.orderDate;
-        this.orderNo = this.terminalService.orderNo;
-        if(this.terminalService.fullRefCode === undefined) {throw 'fullRefCode is undefined';}
-        this.fullRefCode = this.terminalService.fullRefCode;
-        if(this.terminalService.emptyRefCode === undefined) {throw 'emptyRefCode is undefined';}
-        this.emptyRefCode = this.terminalService.emptyRefCode;
-        if(this.terminalService.notes === undefined) {throw 'notes is undefined';}
-        this.notes = this.terminalService.notes;
-    }
-
-    private setXidmetlerFromUpdateRequestData() {
-        const updateReqData = this.terminalService.terminalUpdateRequestData!;
-        this.transportTypeId = updateReqData.transportTypeId!;
-        this.expenses = this.terminalService.expenses!;
-        this.fullRefCode = updateReqData.fullRefCode;
-        this.emptyRefCode = updateReqData.emptyRefCode;
-        this.notes = updateReqData.notes;
-        this.total = this.terminalService.totalAmount!;
-        this.totalEdv = this.terminalService.totalEdv!;
-        this.xidmetler = this.terminalService.xidmetler!;
-        this.files = updateReqData.files!;
         this.customer = this.terminalService.customer;
         this.orderDate = this.terminalService.orderDate;
         this.orderNo = this.terminalService.orderNo;
@@ -262,40 +286,6 @@ export class OrderComponent implements OnInit {
             this.totalEdv += x.totalAmount;
             this.total += x.totalAmount;
         }
-    }
-
-    toReturnFile() {
-        if(this.terminalService.terminalUpdateRequestData === undefined) {
-            this.toFilesInitial();
-            return;
-        }
-        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
-        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
-        this.terminalService.terminalUpdateRequestData.notes = this.notes;
-        this.terminalService.terminalUpdateRequestData.xidmetler =
-        this.xidmetler.map(x => {return {
-            edv: x.edv,
-            expenseId: x.expenseId,
-            miqdar: x.count,
-            nvNo: x.temrinalWay.nvNo,
-            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-        };});
-        this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
-        this.terminalService.terminalUpdateRequestData.files = this.files;
-        if(this.orderId !== undefined) {
-            this.terminalService.expenses = this.expenses;
-            this.terminalService.totalEdv = this.totalEdv;
-            this.terminalService.totalAmount = this.total;
-            this.terminalService.xidmetler = this.xidmetler;
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    orderId: this.orderId
-                }
-            };
-            this.router.navigate(['/returnFile'], navigationExtras);
-            return;
-        }
-        this.router.navigate(['/returnFile']);
     }
 
     createTerminalOrder(save = true) {
