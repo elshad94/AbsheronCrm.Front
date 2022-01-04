@@ -14,13 +14,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ReportComponent implements OnInit {
 
   constructor(private reportAll: ReportAllService) {
-    this.pipe = new DatePipe('en');
-    this.dataSource.filterPredicate = (data, filter) =>{
-      if (this.start && this.end) {
-        return data.orderDate >= this.start && data.orderDate <= this.end;
-      }
-      return true;
-    }
+
   }
 
   report: ReportAll[] = [];
@@ -59,9 +53,17 @@ export class ReportComponent implements OnInit {
   }
 
   applyFilter() {
+    this.pipe = new DatePipe('en');
+    
+    this.dataSource.filterPredicate = (data, filter) =>{
+      if (this.start && this.end) {
+        return data.orderDate >= this.start && data.orderDate <= this.end;
+      }
+      return true;
+    }
     // const filterValue = (event.target as HTMLInputElement).value;
     // this.dataSource.filter = filterValue.trim().toLowerCase();
-console.log(this.start , this.end)
+    console.log(this.start , this.end)
   };
 
 
