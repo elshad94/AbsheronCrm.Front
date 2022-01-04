@@ -6,10 +6,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import Swal from 'sweetalert2'
-import 'sweetalert2/dist/sweetalert2.js'
+import Swal from 'sweetalert2';
+import 'sweetalert2/dist/sweetalert2.js';
 
-import 'sweetalert2/src/sweetalert2.scss'
+import 'sweetalert2/src/sweetalert2.scss';
 
 
 
@@ -20,129 +20,129 @@ enum CheckBoxType {
 }
 
 @Component({
-  selector: 'app-broker',
-  templateUrl: './broker.component.html',
-  styleUrls: ['./broker.component.scss'],
+    selector: 'app-broker',
+    templateUrl: './broker.component.html',
+    styleUrls: ['./broker.component.scss'],
 })
 export class BrokerComponent implements OnInit {
-  id: any;
-  isChecked: any;
-  Temp: any;
-  orderStatusId: any;
-  BrokerLength: any = 0;
-  BrokerChecked: any = [];
-  broker: BrokerItem[] = [];
-  last: any;
-  Broker = {};
-  BrokerStatusTexts: string[] = [];
-  item:any
-  BrokerItem:BrokerItem[]=[]
-  BrokerItems!:BrokerItem
-  columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText','edit','delete'];
+    id: any;
+    isChecked: any;
+    Temp: any;
+    orderStatusId: any;
+    BrokerLength: any = 0;
+    BrokerChecked: any = [];
+    broker: BrokerItem[] = [];
+    last: any;
+    Broker = {};
+    BrokerStatusTexts: string[] = [];
+    item:any;
+    BrokerItem:BrokerItem[]=[];
+    BrokerItems!:BrokerItem;
+    columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText','edit','delete'];
 
-    @ViewChild(MatPaginator) paginator!: MatPaginator
-  dataSource = new MatTableDataSource<BrokerItem>(this.BrokerItem);
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    dataSource = new MatTableDataSource<BrokerItem>(this.BrokerItem);
 
-  constructor(
+    constructor(
     private Brokerservice: BrokerItemService,
     private route: ActivatedRoute,
     public dialog: MatDialog
-  ) {}
+    ) {}
 
-  ngOnInit(): void {
-    this.getBroker();
-    this.putBroker();
-  }
-  onclickBtnDelete(){
-    console.log('dskdjskdjskdj')
-  }
-
-openDialog(item: BrokerItem, itemNo: string){
-  Swal.fire({
-    title: `Sifariş No ${itemNo} silinsin?`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Bəli',
-    cancelButtonText: 'Xeyr'
-  }).then((result) => {
-    if (result.isConfirmed) {
-     this.deleteBrokerItem(item, itemNo)
-    }
-  })
-}
-
-  getBroker() {
-    this.Brokerservice.getBrokerItem().subscribe((res) => {
-      this.BrokerStatusTexts = [...new Set(res.map(res => res.statusText ))];
-      res.map(res=>{
-        this.id=res.orderId
-      })
-      this.dataSource = new MatTableDataSource<BrokerItem>(res);
-      this.dataSource.paginator = this.paginator;
-    });
-  }
-  putBroker() {
-    this.Brokerservice.updateBrokerItem1(this.id).subscribe((res) => {
-      console.log(res);
-    });
-  }
-  onChangeList($event: any) {
-    this.id = $event.target.value;
-    this.isChecked = $event.target.checked;
-
-    if (this.isChecked == true) {
-      this.BrokerChecked.push(this.id);
-      this.BrokerLength++;
-      if (this.BrokerLength > 1) {
-        this.BrokerChecked.shift();
-      }
-    } else {
-      this.BrokerChecked.splice(this.BrokerChecked.indexOf(this.id), 1);
-      this.BrokerLength--;
-    }
-    console.log(this.BrokerChecked);
-  }
-
-  deleteBrokerItem(id:any, orderNo: string) {
-
-    this.Brokerservice.deleteBrokerItem1(id).subscribe(
-      (res:any) => {
-        Swal.fire(
-          'Silindi!',
-          `Sifariş No ${orderNo} silindi`,
-          'success'
-      );
+    ngOnInit(): void {
         this.getBroker();
-      },
-      (error: any) => {
-        const status = error.status;
-        switch(status) {
-          case 404:
-              Swal.fire(
-                  'Error!',
-                  `Order No ${orderNo} artıq silinib!`,
-                  'error'
-              );
-              break;
-          case 400: case 500:
-              Swal.fire(
-                  'Error!',
-                  'Server problemi',
-                  'error'
-              );
-              break;
-        }
-      }
-    );
-  }
+        this.putBroker();
+    }
+    onclickBtnDelete(){
+        console.log('dskdjskdjskdj');
+    }
 
-  filterTableByStatus(event: Event) {
-    const elem = event.target as HTMLInputElement;
-    const status = elem.value;
-    this.dataSource.filterPredicate = (data: BrokerItem, filter: string) =>
-        data.statusText.trim().toLowerCase() === filter;
-    this.dataSource.filter = status.trim().toLowerCase();
-  }
+    openDialog(item: BrokerItem, itemNo: string){
+        Swal.fire({
+            title: `Sifariş No ${itemNo} silinsin?`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Bəli',
+            cancelButtonText: 'Xeyr'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.deleteBrokerItem(item, itemNo);
+            }
+        });
+    }
+
+    getBroker() {
+        this.Brokerservice.getBrokerItem().subscribe((res) => {
+            this.BrokerStatusTexts = [...new Set(res.map(res => res.statusText ))];
+            res.map(res=>{
+                this.id=res.orderId;
+            });
+            this.dataSource = new MatTableDataSource<BrokerItem>(res);
+            this.dataSource.paginator = this.paginator;
+        });
+    }
+    putBroker() {
+        this.Brokerservice.updateBrokerItem1(this.id).subscribe((res) => {
+            console.log(res);
+        });
+    }
+    onChangeList($event: any) {
+        this.id = $event.target.value;
+        this.isChecked = $event.target.checked;
+
+        if (this.isChecked == true) {
+            this.BrokerChecked.push(this.id);
+            this.BrokerLength++;
+            if (this.BrokerLength > 1) {
+                this.BrokerChecked.shift();
+            }
+        } else {
+            this.BrokerChecked.splice(this.BrokerChecked.indexOf(this.id), 1);
+            this.BrokerLength--;
+        }
+        console.log(this.BrokerChecked);
+    }
+
+    deleteBrokerItem(id:any, orderNo: string) {
+
+        this.Brokerservice.deleteBrokerItem1(id).subscribe(
+            (res:any) => {
+                Swal.fire(
+                    'Silindi!',
+                    `Sifariş No ${orderNo} silindi`,
+                    'success'
+                );
+                this.getBroker();
+            },
+            (error: any) => {
+                const status = error.status;
+                switch(status) {
+                case 404:
+                    Swal.fire(
+                        'Error!',
+                        `Order No ${orderNo} artıq silinib!`,
+                        'error'
+                    );
+                    break;
+                case 400: case 500:
+                    Swal.fire(
+                        'Error!',
+                        'Server problemi',
+                        'error'
+                    );
+                    break;
+                }
+            }
+        );
+    }
+
+    filterTableByStatus(event: Event) {
+        const elem = event.target as HTMLInputElement;
+        const status = elem.value;
+        this.dataSource.filterPredicate = (data: BrokerItem, filter: string) =>
+            data.statusText.trim().toLowerCase() === filter;
+        this.dataSource.filter = status.trim().toLowerCase();
+    }
 }
