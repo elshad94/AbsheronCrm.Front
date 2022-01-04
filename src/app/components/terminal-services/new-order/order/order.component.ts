@@ -132,6 +132,7 @@ export class OrderComponent implements OnInit {
     }
 
     private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
+        // xidmetler
         const xidmetler_: Xidmet[] = [];
         for(const tw of terminalWays) {
             tw.amount = 1;
@@ -147,6 +148,11 @@ export class OrderComponent implements OnInit {
             }
         }
         this.xidmetler = xidmetler_;
+        // total amount and total amount with EDV
+        for(const x of xidmetler_) {
+            this.total += x.totalAmount;
+            this.totalEdv += x.totalAmount + x.edv;
+        }
     }
 
     increaseCount(xidmet: Xidmet) {
