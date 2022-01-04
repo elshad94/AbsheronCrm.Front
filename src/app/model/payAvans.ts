@@ -1,4 +1,4 @@
-export class PayAvans {
-    orderTypeId!: number;
-    orderId!: number;
+export interface PayAvans {
+    orderType: number;
+    orderId: number;
 }

@@ -38,11 +38,15 @@ export class NextModalComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  newPay: PayAvans = new Payments();
 
 
   paymentAv(){
-    this.payAv.payAvansMet(this.newPay).subscribe(success =>{
+  const newPayAv: PayAvans = {
+    orderId: this.order.orderId,
+    orderType: this.order.orderTypeId
+  };
+
+    this.payAv.payAvansMet(newPayAv).subscribe(success =>{
       Swal.fire({
         position: 'center',
         icon: 'success',
