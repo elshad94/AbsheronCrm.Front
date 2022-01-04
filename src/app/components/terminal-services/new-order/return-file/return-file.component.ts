@@ -31,9 +31,10 @@ export class ReturnFileComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private location: Location) {
-        this.orderDate = this.terminalService.orderDate;
-        this.customer = this.terminalService.customer;
-        this.orderNo = this.terminalService.orderNo;
+    }
+
+    ngOnInit() {
+        this.copyExtraFieldsFromService();
         this.route.queryParams
             .subscribe(params => {
                 this.orderId = params['orderId'];
@@ -47,11 +48,9 @@ export class ReturnFileComponent implements OnInit {
             throw 'files is undefined';
         }
         this.files = this.terminalService.terminalUpdateRequestData.files;
-    }
-
-    ngOnInit() {
-        logger.info(this.terminalService.terminalUpdateRequestData);
-        logger.info(this.terminalService.orderDate);
+        for(const file of this.files) {
+            file.uri =  file.uri.split('!@#$%^&').pop() ?? '';
+        }
     }
 
     goBack() {
@@ -164,22 +163,24 @@ export class ReturnFileComponent implements OnInit {
         }
     }
 
+    private copyExtraFieldsFromService() {
+        this.customer = this.terminalService.customer;
+        this.orderDate = this.terminalService.orderDate;
+        this.orderNo = this.terminalService.orderNo;
+    }
+
     toXidmetler() {
         if(this.terminalService.terminalUpdateRequestData === undefined) {
             throw 'terminalUpdateRequestData is undefined';
         }
         this.terminalService.terminalUpdateRequestData.files = this.files;
-        if(this.orderId !== undefined) {
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    orderId: this.orderId,
-                    fromReturnFile: true
-                }
-            };
-            this.router.navigate(['/order'], navigationExtras);
-            return;
-        }
-        this.router.navigate(['/order']);
+        const navigationExtras: NavigationExtras = {
+            queryParams: {
+                orderId: this.orderId,
+                fromReturnFile: true
+            }
+        };
+        this.router.navigate(['/order'], navigationExtras);
     }
 
     deleteFile(i: number) {

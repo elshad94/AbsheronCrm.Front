@@ -55,22 +55,23 @@ export class OrderComponent implements OnInit {
 
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
-        if(terminalUpdateData) {
+        if(terminalUpdateData !== undefined) {
             this.initialCreateLoad(terminalUpdateData);
+            this.terminalService.terminalUpdateData = undefined;
             return;
         }
         this.route.queryParams
             .subscribe(params => {
+                const fromReturnFile: boolean = params['fromReturnFile'];
+                if(fromReturnFile) {
+                    this.fromFiles();
+                    return;
+                }
                 this.orderId = params['orderId'];
-                const fromReturnFile = params['fromReturnFile'];
                 if(this.orderId !== undefined && fromReturnFile === undefined) {
                     this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
                         this.initialUpdateLoad(updateTerminalData);
                     });
-                    return;
-                }
-                if(this.orderId !== undefined && fromReturnFile !== undefined) {
-                    this.fromFiles();
                 }
             });
     }
@@ -173,7 +174,6 @@ export class OrderComponent implements OnInit {
             return;
         }
         this.router.navigate(['/returnFile']);
-        return;
     }
 
     private toFiles() {
