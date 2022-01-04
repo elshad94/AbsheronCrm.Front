@@ -65,9 +65,6 @@ export class OrderComponent implements OnInit {
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
         if(terminalUpdateData) {
-            for(const tw of terminalUpdateData.terminalWays) {
-                tw.amount = 0;
-            }
             const terminalWays = terminalUpdateData.terminalWays;
             this.expenses = terminalUpdateData.expenses;
             this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
@@ -135,7 +132,7 @@ export class OrderComponent implements OnInit {
         // xidmetler
         const xidmetler_: Xidmet[] = [];
         for(const tw of terminalWays) {
-            tw.amount = 1;
+            // tw.amount = 1;
             for(const exp of expenses) {
                 xidmetler_.push({
                     expenseId: exp.id,

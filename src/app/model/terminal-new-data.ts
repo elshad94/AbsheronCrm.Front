@@ -20,6 +20,6 @@ export interface TerminalWay {
     nvNo: string,
     qaimeNo?: string,
     yuk?: string,
-    amount?: number,
+    amount: number,
     isSelected?: boolean
 }
