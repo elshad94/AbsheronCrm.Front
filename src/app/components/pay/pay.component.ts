@@ -28,8 +28,11 @@ export class PayComponent implements OnInit {
 
   openDialog(orderId: number, orderNo: string) {
     Swal.fire({
+      customClass:{
+        title: 'test'
+      },
       title: `<h2 style='font-family: "Lexend Deca", sans-serif !important; margin: 0;'>${orderNo} nömrəli sifariş üçün ödəmə üsulu seçin.</h2>`,
-      html: `<div >
+      html: `<div>
       <div>
         <select class="custom-select">
           <option disabled selected>Ödəmə üsulu</option>
@@ -39,11 +42,10 @@ export class PayComponent implements OnInit {
         </select>
       </div>
     </div>`,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonColor: '#4299BF',
-      cancelButtonColor: '#3085d6',
       confirmButtonText: 'Növbəti',
-      cancelButtonText: 'Geri'
+      cancelButtonText: 'Çıx',
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
@@ -57,9 +59,9 @@ export class PayComponent implements OnInit {
         </div>`,
           showCancelButton: true,
           confirmButtonColor: '#4299BF',
-          cancelButtonColor: '#3085d6',
           confirmButtonText: 'Növbəti',
-          cancelButtonText: 'Geri'
+          cancelButtonText: 'Çıx',
+
         });
       }
     });

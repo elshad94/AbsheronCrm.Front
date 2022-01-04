@@ -1,7 +1,8 @@
 <!-- <div class="closeModal row justify-content-sm-end">
   <a routerLink="/pay">X</a>
 </div> -->
-<div class="row">
+<div class="row select">
+  <h2 mat-cell *matCellDef="let order">{{order.orderNo}}</h2>
   <div class="col-lg-9">
     <select class="custom-select">
       <option disabled selected>Ödəmə üsulu</option>
