@@ -47,18 +47,6 @@ export class OrderComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location) {
-        // this.customer = this.terminalService.customer;
-        // this.orderDate = this.terminalService.orderDate;
-        // this.route.queryParams.subscribe(params => {
-        //     this.orderId = params['orderId'];
-        //     const fromReturnFile = params['fromReturnFile'];
-        //     if(this.orderId !== undefined && fromReturnFile === undefined) {
-        //         this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
-        //             this.setXidmetlerUpdate(updateTerminalData);
-        //         });
-        //         return;
-        //     }
-        // });
     }
 
     goBack() {
@@ -75,16 +63,15 @@ export class OrderComponent implements OnInit {
             .subscribe(params => {
                 this.orderId = params['orderId'];
                 const fromReturnFile = params['fromReturnFile'];
-                if(this.orderId === undefined && fromReturnFile !== undefined) {
-                    this.setXidmetlerFromUpdateRequestData();
-                }
                 if(this.orderId !== undefined && fromReturnFile === undefined) {
                     this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
-                        this.setXidmetlerUpdate(updateTerminalData);
+                        this.initialUpdateLoad(updateTerminalData);
                     });
                     return;
                 }
-                logger.info(this.terminalService.terminalUpdateRequestData);
+                if(this.orderId === undefined && fromReturnFile !== undefined) {
+                    this.setXidmetlerFromUpdateRequestData();
+                }
             });
     }
 
@@ -120,8 +107,35 @@ export class OrderComponent implements OnInit {
         }
     }
 
-    private initalUpdateLoad() {
-        logger.warning('INITIAL UPDATE LOAD NOT IMPLEMENTED');
+    private initialUpdateLoad(updateTerminalData: TerminalDataForUpdate) {
+        // coming from services component
+        this.transportTypeId = updateTerminalData.transPortTypeId;
+        this.expenses = updateTerminalData.expenses;
+        this.fullRefCode = updateTerminalData.fullRefCode;
+        this.emptyRefCode = updateTerminalData.emptyRefCode;
+        this.notes = updateTerminalData.notes;
+        this.total = updateTerminalData.total;
+        this.totalEdv = updateTerminalData.endTotal;
+        this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
+            count: x.miqdar,
+            edv: x.edv,
+            expenseId: x.expenseId,
+            totalAmount: x.cemi,
+            temrinalWay: {
+                nvNo: x.nvNo,
+                amount: x.qiymet,
+                isSelected: true,
+            },
+            expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
+        };});
+        this.files = updateTerminalData.filelar.map(f => {return {
+            id: f.id,
+            nvNo: f.nvNo,
+            uri: f.uri
+        };});
+        this.customer = updateTerminalData.customer;
+        this.orderDate = updateTerminalData.orderDate;
+        this.orderNo = updateTerminalData.orderNo;
     }
 
     private toFIlesInitial() {
@@ -152,61 +166,6 @@ export class OrderComponent implements OnInit {
         this.customer = this.terminalService.customer;
         this.orderDate = this.terminalService.orderDate;
         this.orderNo = this.terminalService.orderNo;
-    }
-
-    private setXidmetlerUpdate(updateTerminalData: TerminalDataForUpdate) {
-        this.transportTypeId = updateTerminalData.transPortTypeId;
-        this.expenses = updateTerminalData.expenses;
-        this.fullRefCode = updateTerminalData.fullRefCode;
-        this.emptyRefCode = updateTerminalData.emptyRefCode;
-        this.notes = updateTerminalData.notes;
-        this.total = updateTerminalData.total;
-        this.totalEdv = updateTerminalData.endTotal;
-        this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
-            count: x.miqdar,
-            edv: x.edv,
-            expenseId: x.expenseId,
-            totalAmount: x.cemi,
-            temrinalWay: {
-                nvNo: x.nvNo,
-                amount: x.qiymet,
-                isSelected: true,
-            },
-            expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
-        };});
-        this.files = updateTerminalData.filelar.map(f => {return {
-            id: f.id,
-            nvNo: f.nvNo,
-            uri: f.uri
-        };});
-        this.customer = updateTerminalData.customer;
-        this.orderDate = updateTerminalData.orderDate;
-        this.orderNo = updateTerminalData.orderNo;
-        logger.info(this.orderDate);
-    }
-
-    private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
-        // xidmetler
-        const xidmetler_: Xidmet[] = [];
-        for(const tw of terminalWays) {
-            // tw.amount = 1;
-            for(const exp of expenses) {
-                xidmetler_.push({
-                    expenseId: exp.id,
-                    expenseText: exp.text,
-                    temrinalWay: tw,
-                    count: 1,
-                    totalAmount: tw.amount,
-                    edv: tw.amount * EDV_MULTIPLIER
-                });
-            }
-        }
-        this.xidmetler = xidmetler_;
-        // total amount and total amount with EDV
-        for(const x of xidmetler_) {
-            this.total += x.totalAmount;
-            this.totalEdv += x.totalAmount + x.edv;
-        }
     }
 
     increaseCount(xidmet: Xidmet) {
