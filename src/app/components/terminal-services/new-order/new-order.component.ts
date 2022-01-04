@@ -22,6 +22,14 @@ export class NewOrderComponent implements OnInit {
         private router: Router) {
     }
 
+    checkTerminalWayCheckbox(tw: TerminalWay) {
+        tw.isSelected = !tw.isSelected;
+    }
+
+    checkExpenseCheckbox(ex: TerminalExpense) {
+        ex.isSelected = !ex.isSelected;
+    }
+
     ngOnInit() {
         document.addEventListener('DOMContentLoaded', () => {
             const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
