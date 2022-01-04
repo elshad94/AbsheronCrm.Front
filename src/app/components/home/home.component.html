@@ -12,13 +12,10 @@
         <div class="card-body">
           <div class="row mb-4">
           </div>
-          <div class="chartjs-custom"  #chart>
-            <canvas height="100"  baseChart
-                    [data]="barChartData"
-                    [options]="barChartOptions"
-                    [plugins]="barChartPlugins"
-                    [type]="barChartType">
-      </canvas>
+          <div class="chartjs-custom" #chart>
+            <canvas height="100" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+              [type]="barChartType">
+            </canvas>
           </div>
           <div>
             <table class="typeTable mt-5">
@@ -41,16 +38,21 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><div class="wag"></div>Vaqon</td>
+                  <td>
+                    <div class="wag"></div>Vaqon
+                  </td>
                   <td *ngFor="let item of conWag">{{item.vaqonCount}}</td>
                 </tr>
                 <tr>
-                  <td><div class="cont"></div>Konteyner</td>
+                  <td>
+                    <div class="cont"></div>Konteyner
+                  </td>
                   <td *ngFor="let item of conWag">{{item.konteynrCount}}</td>
 
                 </tr>
               </tbody>
             </table>
+<<<<<<< HEAD
             <!-- Bar Chart -->
             <!-- <div class="chartjs-custom">
               <canvas id="updatingData" style="height: 20rem;"
@@ -119,6 +121,8 @@
                       }'></canvas>
             </div> -->
             <!-- End Bar Chart -->
+=======
+>>>>>>> 1333415995b364717cfc0d3e2409fe0d58d11846
           </div>
           <!-- End Bar Chart -->
         </div>
