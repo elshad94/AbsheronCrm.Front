@@ -21,6 +21,9 @@ export class ReturnFileComponent implements OnInit {
     fileToUpload?: File;
     fileName = '';
     orderId?: number;
+    orderDate?: Date;
+    customer?: string;
+    orderNo?: string;
 
     constructor(
       private terminalService: TerminalService,
@@ -28,20 +31,25 @@ export class ReturnFileComponent implements OnInit {
       private router: Router,
       private route: ActivatedRoute,
       private location: Location) {
-    }
-
-    goBack() {
-        this.location.back();
-    }
-
-    ngOnInit(): void {
+        this.orderDate = this.terminalService.orderDate;
+        this.customer = this.terminalService.customer;
+        this.orderNo = this.terminalService.orderNo;
         this.route.queryParams
             .subscribe(params => {
                 this.orderId = params['orderId'];
             });
-        this.nvNoList = this.terminalService.terminalUpdateRequestData!
-            .xidmetler.map(x => x.nvNo);
+        this.nvNoList = [...new Set(this.terminalService.terminalUpdateRequestData!
+            .xidmetler.map(x => x.nvNo))];
         this.files = this.terminalService.terminalUpdateRequestData!.files ?? [];
+    }
+
+    ngOnInit() {
+        logger.info(this.terminalService.terminalUpdateRequestData);
+        logger.info(this.terminalService.orderDate);
+    }
+
+    goBack() {
+        this.location.back();
     }
 
     setFile(event: Event) {

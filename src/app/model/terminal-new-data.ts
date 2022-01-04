@@ -4,7 +4,9 @@ export interface TerminalNewData {
     terminalWays: TerminalWay[],
     expenses: TerminalExpense[],
     transportTypeId: number,
-    transportTypeText: string
+    transportTypeText: string,
+    customer: string,
+    orderDate: Date
 }
 
 export interface TerminalNewDataRequest {

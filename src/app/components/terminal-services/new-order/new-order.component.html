@@ -103,10 +103,10 @@
                     <div class="row ">
                       <div class="col-lg-6" *ngFor="let exp of expenses"
                         [hidden]="!exp.isSelected">
-                        <div title="Fəhlə xidmətləri" contenteditable="false" spellcheck="false" tabindex="-1"
-                          class="tagify__tag tagify--noAnim" __isvalid="true" value="white">
-                          <p title="" class="tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
-                          <div><span class="tagify__tag-text">{{exp.text}}</span></div>
+                        <div title="{{exp.text}}" contenteditable="false" spellcheck="false" tabindex="-1"
+                          class="tagify__tag tagify--noAnim expense_box" __isvalid="true" value="white">
+                          <p title="" class=" tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
+                          <div class="expense_box"><span class="tagify__tag-text">{{exp.text}}</span></div>
                         </div>
                       </div>
                     </div>

@@ -75,6 +75,8 @@ export class NewOrderComponent implements OnInit {
             .subscribe(terminalNewData => {
                 this.terminalWays = terminalNewData.terminalWays;
                 this.expenses = terminalNewData.expenses;
+                this.terminalService.customer = terminalNewData.customer;
+                this.terminalService.orderDate = terminalNewData.orderDate;
             });
     }
 
