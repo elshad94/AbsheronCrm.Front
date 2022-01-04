@@ -32,6 +32,7 @@ export class PayModalComponent implements OnInit {
       })
     }
     if (this.paymentType == 1) {
+      this.dialogRef.closeAll()
       this.dialogRef.open(NextModalComponent, {
         data:{
           orderId: this.data.orderId,
@@ -43,9 +44,10 @@ export class PayModalComponent implements OnInit {
       
     }
     if (this.paymentType == 2) {
+      this.dialogRef.closeAll()
       this.dialogRef.open(LastModalComponent,{
-        height: '100px',
-        width: '600px'
+        height: '176px',
+        width: '520px'
       })
     }
 

@@ -31,7 +31,6 @@ export class NextModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    alert(this.data.orderTypeId)
   }
 
 }
