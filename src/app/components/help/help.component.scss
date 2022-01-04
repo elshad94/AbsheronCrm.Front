@@ -1,0 +1,11 @@
+.question_text_area {
+  min-height: 300px;
+  width: 100%;
+}
+
+@media screen and (min-width: 575px) {
+  .email_subject_type {
+    display: flex;
+    flex-direction: row;
+  }
+}

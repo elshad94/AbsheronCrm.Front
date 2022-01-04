@@ -20,6 +20,7 @@ import { ReturnFileComponent } from './components/terminal-services/new-order/re
 import { ServicesComponent } from './components/terminal-services/services/services.component';
 import { TerminalServicesComponent } from './components/terminal-services/terminal-services.component';
 import { TrackComponent } from './components/track/track.component';
+import { HelpComponent } from './components/help/help.component';
 
 const routes: Routes = [
     {path:'',component:HomeComponent},
@@ -41,6 +42,7 @@ const routes: Routes = [
     {path:'nextModal',component:NextModalComponent},
     {path:'login',component:LoginComponent},
     {path:'brokerEdit/:id',component:BrokerEditComponent},
+    {path:'help',component:HelpComponent},
 
 ];
 

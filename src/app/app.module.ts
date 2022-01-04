@@ -34,6 +34,7 @@ import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
     declarations: [
@@ -60,7 +61,8 @@ import { NgChartsModule } from 'ng2-charts';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        BrokerEditComponent
+        BrokerEditComponent,
+        HelpComponent
 
 
 
