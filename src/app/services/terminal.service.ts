@@ -33,6 +33,9 @@ export class TerminalService {
     customer?: string;
     orderDate?: Date;
     orderNo?: string;
+    fullRefCode?: string;
+    emptyRefCode?: string;
+    notes?: string;
 
     constructor(private http: HttpClient) {}
 

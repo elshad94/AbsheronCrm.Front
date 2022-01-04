@@ -81,7 +81,7 @@ export class OrderComponent implements OnInit {
         this.orderDate = this.terminalService.orderDate;
         this.expenses = initialLoadData.expenses;
         this.transportTypeId = initialLoadData.transportTypeId;
-
+        this.files = [];
         const terminalWays = initialLoadData.terminalWays;
         const expenses = this.expenses.filter(e => e.isSelected);
         // xidmetler
@@ -138,8 +138,34 @@ export class OrderComponent implements OnInit {
         this.orderNo = updateTerminalData.orderNo;
     }
 
-    private toFIlesInitial() {
-        logger.warning('TO FILES INITIAL NOT IMPLEMENTED');
+    private toFilesInitial() {
+        // switching to return-files component tab for the first time
+        this.terminalService.terminalUpdateRequestData = {
+            emptyRefCode: this.emptyRefCode,
+            fullRefCode: this.fullRefCode,
+            notes: this.notes,
+            files: this.files,
+            xidmetler: this.xidmetler.map(x => {return {
+                edv: x.edv,
+                expenseId: x.expenseId,
+                miqdar: x.count,
+                nvNo: x.temrinalWay.nvNo,
+                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+            };}),
+            transportTypeId: this.transportTypeId
+        };
+        this.copyExtraFieldsToService();
+        if(this.orderId !== undefined) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId
+                }
+            };
+            this.router.navigate(['/returnFile'], navigationExtras);
+            return;
+        }
+        this.router.navigate(['/returnFile']);
+        return;
     }
 
     private toFiles() {
@@ -150,7 +176,38 @@ export class OrderComponent implements OnInit {
         logger.warning('FROM FILES NOT IMPLEMENTED');
     }
 
+    private copyExtraFieldsToService() {
+        this.terminalService.expenses = this.expenses;
+        this.terminalService.totalEdv = this.totalEdv;
+        this.terminalService.totalAmount = this.total;
+        this.terminalService.xidmetler = this.xidmetler;
+        this.terminalService.customer = this.customer;
+        this.terminalService.orderDate = this.orderDate;
+        this.terminalService.orderNo = this.orderNo;
+        this.terminalService.fullRefCode = this.fullRefCode;
+        this.terminalService.emptyRefCode = this.emptyRefCode;
+        this.terminalService.notes = this.notes;
+    }
 
+    private copyExtraFieldsFromService() {
+        if(this.terminalService.expenses === undefined) {throw 'expenses is undefined';}
+        this.expenses = this.terminalService.expenses;
+        if(this.terminalService.totalEdv === undefined) {throw 'totalEdv is undefined';}
+        this.totalEdv = this.terminalService.totalEdv;
+        if(this.terminalService.totalAmount === undefined) {throw 'totalAmount is undefined';}
+        this.total = this.terminalService.totalAmount;
+        if(this.terminalService.xidmetler === undefined) {throw 'xidmetler is undefined';}
+        this.xidmetler = this.terminalService.xidmetler;
+        this.customer = this.terminalService.customer;
+        this.orderDate = this.terminalService.orderDate;
+        this.orderNo = this.terminalService.orderNo;
+        if(this.terminalService.fullRefCode === undefined) {throw 'fullRefCode is undefined';}
+        this.fullRefCode = this.terminalService.fullRefCode;
+        if(this.terminalService.emptyRefCode === undefined) {throw 'emptyRefCode is undefined';}
+        this.emptyRefCode = this.terminalService.emptyRefCode;
+        if(this.terminalService.notes === undefined) {throw 'notes is undefined';}
+        this.notes = this.terminalService.notes;
+    }
 
     private setXidmetlerFromUpdateRequestData() {
         const updateReqData = this.terminalService.terminalUpdateRequestData!;
@@ -209,34 +266,7 @@ export class OrderComponent implements OnInit {
 
     toReturnFile() {
         if(this.terminalService.terminalUpdateRequestData === undefined) {
-            this.terminalService.terminalUpdateRequestData = {
-                emptyRefCode: this.emptyRefCode,
-                fullRefCode: this.fullRefCode,
-                notes: this.notes,
-                files: this.files,
-                xidmetler: this.xidmetler.map(x => {return {
-                    edv: x.edv,
-                    expenseId: x.expenseId,
-                    miqdar: x.count,
-                    nvNo: x.temrinalWay.nvNo,
-                    qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-                };}),
-                transportTypeId: this.transportTypeId
-            };
-            if(this.orderId !== undefined) {
-                this.terminalService.expenses = this.expenses;
-                this.terminalService.totalEdv = this.totalEdv;
-                this.terminalService.totalAmount = this.total;
-                this.terminalService.xidmetler = this.xidmetler;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        orderId: this.orderId
-                    }
-                };
-                this.router.navigate(['/returnFile'], navigationExtras);
-                return;
-            }
-            this.router.navigate(['/returnFile']);
+            this.toFilesInitial();
             return;
         }
         this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
