@@ -22,6 +22,14 @@ export class NewOrderComponent implements OnInit {
         private router: Router) {
     }
 
+    checkTerminalWayCheckbox(tw: TerminalWay) {
+        tw.isSelected = !tw.isSelected;
+    }
+
+    checkExpenseCheckbox(ex: TerminalExpense) {
+        ex.isSelected = !ex.isSelected;
+    }
+
     ngOnInit() {
         document.addEventListener('DOMContentLoaded', () => {
             const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
@@ -67,6 +75,8 @@ export class NewOrderComponent implements OnInit {
             .subscribe(terminalNewData => {
                 this.terminalWays = terminalNewData.terminalWays;
                 this.expenses = terminalNewData.expenses;
+                this.terminalService.customer = terminalNewData.customer;
+                this.terminalService.orderDate = terminalNewData.orderDate;
             });
     }
 

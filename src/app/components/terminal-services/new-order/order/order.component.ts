@@ -9,6 +9,7 @@ import logger from 'src/utils/logger';
 import { Location } from '@angular/common';
 import { TerminalDataForUpdate, TerminalXidmet } from 'src/app/model/TerminalUpdateData';
 import { FileData } from 'src/app/model/returnFileFileData';
+import { TerminalUpdateData } from 'src/app/model/terminal-update-data';
 
 export interface Xidmet {
     expenseId: number,
@@ -46,16 +47,6 @@ export class OrderComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private location: Location) {
-        this.route.queryParams.subscribe(params => {
-            this.orderId = params['orderId'];
-            const fromReturnFile = params['fromReturnFile'];
-            if(this.orderId !== undefined && fromReturnFile === undefined) {
-                this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
-                    this.setXidmetlerUpdate(updateTerminalData);
-                });
-                return;
-            }
-        });
     }
 
     goBack() {
@@ -64,43 +55,61 @@ export class OrderComponent implements OnInit {
 
     ngOnInit() {
         const terminalUpdateData = this.terminalService.terminalUpdateData;
-        if(terminalUpdateData) {
-            for(const tw of terminalUpdateData.terminalWays) {
-                tw.amount = 0;
-            }
-            const terminalWays = terminalUpdateData.terminalWays;
-            this.expenses = terminalUpdateData.expenses;
-            this.setXidmetlerNew(terminalWays, this.expenses.filter(e => e.isSelected));
-            this.transportTypeId = terminalUpdateData.transportTypeId;
+        if(terminalUpdateData !== undefined) {
+            this.initialCreateLoad(terminalUpdateData);
+            this.terminalService.terminalUpdateData = undefined;
             return;
         }
         this.route.queryParams
             .subscribe(params => {
+                const fromReturnFile: boolean = params['fromReturnFile'];
+                if(fromReturnFile) {
+                    this.fromFiles();
+                    return;
+                }
                 this.orderId = params['orderId'];
-                const fromReturnFile = params['fromReturnFile'];
-                if(this.orderId === undefined && fromReturnFile !== undefined) {
-                    this.setXidmetlerFromUpdateRequestData();
+                if(this.orderId !== undefined && fromReturnFile === undefined) {
+                    this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
+                        this.initialUpdateLoad(updateTerminalData);
+                    });
                 }
             });
     }
 
-    private setXidmetlerFromUpdateRequestData() {
-        const updateReqData = this.terminalService.terminalUpdateRequestData!;
-        this.transportTypeId = updateReqData.transportTypeId!;
-        this.expenses = this.terminalService.expenses!;
-        this.fullRefCode = updateReqData.fullRefCode;
-        this.emptyRefCode = updateReqData.emptyRefCode;
-        this.notes = updateReqData.notes;
-        this.total = this.terminalService.totalAmount!;
-        this.totalEdv = this.terminalService.totalEdv!;
-        this.xidmetler = this.terminalService.xidmetler!;
-        this.files = updateReqData.files!;
+    private initialCreateLoad(initialLoadData: TerminalUpdateData) {
+        // coming from new-order component
         this.customer = this.terminalService.customer;
         this.orderDate = this.terminalService.orderDate;
-        this.orderNo = this.terminalService.orderNo;
+        this.expenses = initialLoadData.expenses;
+        this.transportTypeId = initialLoadData.transportTypeId;
+        this.files = [];
+        const terminalWays = initialLoadData.terminalWays;
+        const expenses = this.expenses.filter(e => e.isSelected);
+        // xidmetler
+        const xidmetler_: Xidmet[] = [];
+        for(const tw of terminalWays) {
+            // tw.amount = 1;
+            for(const exp of expenses) {
+                xidmetler_.push({
+                    expenseId: exp.id,
+                    expenseText: exp.text,
+                    temrinalWay: tw,
+                    count: 1,
+                    totalAmount: tw.amount,
+                    edv: tw.amount * EDV_MULTIPLIER
+                });
+            }
+        }
+        this.xidmetler = xidmetler_;
+        // total amount and total amount with EDV
+        for(const x of xidmetler_) {
+            this.total += x.totalAmount;
+            this.totalEdv += x.totalAmount + x.edv;
+        }
     }
 
-    private setXidmetlerUpdate(updateTerminalData: TerminalDataForUpdate) {
+    private initialUpdateLoad(updateTerminalData: TerminalDataForUpdate) {
+        // coming from services component
         this.transportTypeId = updateTerminalData.transPortTypeId;
         this.expenses = updateTerminalData.expenses;
         this.fullRefCode = updateTerminalData.fullRefCode;
@@ -128,25 +137,116 @@ export class OrderComponent implements OnInit {
         this.customer = updateTerminalData.customer;
         this.orderDate = updateTerminalData.orderDate;
         this.orderNo = updateTerminalData.orderNo;
-        logger.info(this.orderDate);
     }
 
-    private setXidmetlerNew(terminalWays: TerminalWay[], expenses: TerminalExpense[]) {
-        const xidmetler_: Xidmet[] = [];
-        for(const tw of terminalWays) {
-            tw.amount = 1;
-            for(const exp of expenses) {
-                xidmetler_.push({
-                    expenseId: exp.id,
-                    expenseText: exp.text,
-                    temrinalWay: tw,
-                    count: 1,
-                    totalAmount: tw.amount,
-                    edv: tw.amount * EDV_MULTIPLIER
-                });
-            }
+    toReturnFile() {
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            this.toFilesInitial();
+            return;
         }
-        this.xidmetler = xidmetler_;
+        this.toFiles();
+    }
+
+    private toFilesInitial() {
+        // switching to return-files component tab for the first time
+        this.terminalService.terminalUpdateRequestData = {
+            emptyRefCode: this.emptyRefCode,
+            fullRefCode: this.fullRefCode,
+            notes: this.notes,
+            files: this.files,
+            xidmetler: this.xidmetler.map(x => {return {
+                edv: x.edv,
+                expenseId: x.expenseId,
+                miqdar: x.count,
+                nvNo: x.temrinalWay.nvNo,
+                qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+            };}),
+            transportTypeId: this.transportTypeId
+        };
+        this.copyExtraFieldsToService();
+        if(this.orderId !== undefined) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId
+                }
+            };
+            this.router.navigate(['/returnFile'], navigationExtras);
+            return;
+        }
+        this.router.navigate(['/returnFile']);
+    }
+
+    private toFiles() {
+        // switching to return-files component tab for subsequent times
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'terminalUpdateRequestData is undefined';
+        }
+        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
+        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
+        this.terminalService.terminalUpdateRequestData.notes = this.notes;
+        this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
+            edv: x.edv,
+            expenseId: x.expenseId,
+            miqdar: x.count,
+            nvNo: x.temrinalWay.nvNo,
+            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+        };});
+        this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
+        this.terminalService.terminalUpdateRequestData.files = this.files;
+        this.copyExtraFieldsToService();
+        if(this.orderId !== undefined) {
+            const navigationExtras: NavigationExtras = {
+                queryParams: {
+                    orderId: this.orderId
+                }
+            };
+            this.router.navigate(['/returnFile'], navigationExtras);
+            return;
+        }
+        this.router.navigate(['/returnFile']);
+    }
+
+    private fromFiles() {
+        // switching tabs from return-file component
+        if(this.terminalService.terminalUpdateRequestData === undefined) {
+            throw 'temrinalUpdateRequestData is undefined';
+        }
+        if(this.terminalService.terminalUpdateRequestData.transportTypeId === undefined) {
+            throw 'transportTypeId is undefined';
+        }
+        this.transportTypeId = this.terminalService.terminalUpdateRequestData.transportTypeId;
+        this.fullRefCode = this.terminalService.terminalUpdateRequestData.fullRefCode;
+        this.emptyRefCode = this.terminalService.terminalUpdateRequestData.emptyRefCode;
+        this.notes = this.terminalService.terminalUpdateRequestData.notes;
+        if(this.terminalService.terminalUpdateRequestData.files === undefined) {
+            throw 'files is undefined';
+        }
+        this.files = this.terminalService.terminalUpdateRequestData.files;
+        this.copyExtraFieldsFromService();
+    }
+
+    private copyExtraFieldsToService() {
+        this.terminalService.expenses = this.expenses;
+        this.terminalService.totalEdv = this.totalEdv;
+        this.terminalService.totalAmount = this.total;
+        this.terminalService.xidmetler = this.xidmetler;
+        this.terminalService.customer = this.customer;
+        this.terminalService.orderDate = this.orderDate;
+        this.terminalService.orderNo = this.orderNo;
+    }
+
+    private copyExtraFieldsFromService() {
+        if(this.terminalService.expenses === undefined) {throw 'expenses is undefined';}
+        this.expenses = this.terminalService.expenses;
+        if(this.terminalService.totalEdv === undefined) {throw 'totalEdv is undefined';}
+        this.totalEdv = this.terminalService.totalEdv;
+        if(this.terminalService.totalAmount === undefined) {throw 'totalAmount is undefined';}
+        this.total = this.terminalService.totalAmount;
+        if(this.terminalService.xidmetler === undefined) {throw 'xidmetler is undefined';}
+        this.xidmetler = this.terminalService.xidmetler;
+        this.customer = this.terminalService.customer;
+        this.orderDate = this.terminalService.orderDate;
+        this.orderNo = this.terminalService.orderNo;
     }
 
     increaseCount(xidmet: Xidmet) {
@@ -186,67 +286,6 @@ export class OrderComponent implements OnInit {
             this.totalEdv += x.totalAmount;
             this.total += x.totalAmount;
         }
-    }
-
-    toReturnFile() {
-        if(this.terminalService.terminalUpdateRequestData === undefined) {
-            this.terminalService.terminalUpdateRequestData = {
-                emptyRefCode: this.emptyRefCode,
-                fullRefCode: this.fullRefCode,
-                notes: this.notes,
-                files: this.files,
-                xidmetler: this.xidmetler.map(x => {return {
-                    edv: x.edv,
-                    expenseId: x.expenseId,
-                    miqdar: x.count,
-                    nvNo: x.temrinalWay.nvNo,
-                    qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-                };}),
-                transportTypeId: this.transportTypeId
-            };
-            if(this.orderId !== undefined) {
-                this.terminalService.expenses = this.expenses;
-                this.terminalService.totalEdv = this.totalEdv;
-                this.terminalService.totalAmount = this.total;
-                this.terminalService.xidmetler = this.xidmetler;
-                const navigationExtras: NavigationExtras = {
-                    queryParams: {
-                        orderId: this.orderId
-                    }
-                };
-                this.router.navigate(['/returnFile'], navigationExtras);
-                return;
-            }
-            this.router.navigate(['/returnFile']);
-            return;
-        }
-        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
-        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
-        this.terminalService.terminalUpdateRequestData.notes = this.notes;
-        this.terminalService.terminalUpdateRequestData.xidmetler =
-        this.xidmetler.map(x => {return {
-            edv: x.edv,
-            expenseId: x.expenseId,
-            miqdar: x.count,
-            nvNo: x.temrinalWay.nvNo,
-            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-        };});
-        this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
-        this.terminalService.terminalUpdateRequestData.files = this.files;
-        if(this.orderId !== undefined) {
-            this.terminalService.expenses = this.expenses;
-            this.terminalService.totalEdv = this.totalEdv;
-            this.terminalService.totalAmount = this.total;
-            this.terminalService.xidmetler = this.xidmetler;
-            const navigationExtras: NavigationExtras = {
-                queryParams: {
-                    orderId: this.orderId
-                }
-            };
-            this.router.navigate(['/returnFile'], navigationExtras);
-            return;
-        }
-        this.router.navigate(['/returnFile']);
     }
 
     createTerminalOrder(save = true) {
@@ -351,7 +390,7 @@ export class OrderComponent implements OnInit {
     deleteXidmet(i: number) {
         const xidmetToDelete = this.xidmetler[i];
         this.xidmetler.splice(i, 1);
-        this.total -= xidmetToDelete.temrinalWay.amount!;
-        this.totalEdv -= (xidmetToDelete.edv + xidmetToDelete.temrinalWay.amount!);
+        this.total -= xidmetToDelete.totalAmount!;
+        this.totalEdv -= (xidmetToDelete.edv * xidmetToDelete.totalAmount + xidmetToDelete.totalAmount!);
     }
 }

@@ -81,7 +81,7 @@
                 </select>
               </div>
 
-              <div class="col-12 col-sm col-md-2 col-lg-5">
+              <div class="col-12 col-sm col-md-2 col-lg-5 cursor_pointer" (click)="openFile(file.id)">
                 <p  type="text" class="form-control selectfileInputCopy file_picker " name="weightName" id="weightLabel" aria-label="0.0">
                   {{file.uri}}
                 </p>
@@ -89,7 +89,7 @@
                   <i class="fas fa-eye"></i>
                 </label>
               </div>
-              <div  *ngIf="i > 0"
+              <div  *ngIf="files.length > 1"
                 class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center align-items-center text-danger">
                 <div class="deletetdiv ">
                   <a type="button" (click)="deleteFile(i)">X</a>
@@ -190,18 +190,16 @@
               <hr class="my-4">
 
               <!-- Form Group -->
-              <!-- TODO: show only in update -->
               <div class="form-group">
-                  <dl >
-                      <dt >Sənəd nömrəsi:</dt>
-                      <dd >1234567890</dd>
-                      <dt >Müştəri:</dt>
-                      <dd >Lorem İpsum LLC</dd>
-                      <dt >Tarix:</dt>
-                      <dd >26.11.2021</dd>
-                    </dl>
-
-            </div>
+                <dl>
+                  <dt *ngIf="orderNo !== undefined">Sənəd nömrəsi:</dt>
+                  <dd *ngIf="orderNo !== undefined">{{orderNo}}</dd>
+                  <dt *ngIf="customer !== undefined">Müştəri:</dt>
+                  <dd *ngIf="customer !== undefined">{{customer}}</dd>
+                  <dt *ngIf="orderDate !== undefined">Tarix:</dt>
+                  <dd *ngIf="orderDate !== undefined">{{orderDate | date: 'dd.MM.yyyy'}}</dd>
+                </dl>
+              </div>
           </div>
         </div>
 

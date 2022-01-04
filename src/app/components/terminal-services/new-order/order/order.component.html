@@ -10,7 +10,7 @@
             <div class="row align-items-center">
 
 
-              <a class="ml-5 orderBtn line" routerLink="/order">Xidmətlər</a>
+              <a class="ml-5 orderBtn line">Xidmətlər</a>
               <a class="ml-5 orderBtn cursor_pointer" (click)="toReturnFile()">Geridönüş sənədi</a>
             </div>
             <!-- End Row -->
@@ -81,7 +81,7 @@
 
                   </div>
                   <!-- End Quantity Counter -->
-                  <div class="mb-3 delete_div" *ngIf="i > 0">
+                  <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1">
                     <a type="button" (click)="deleteXidmet(i)">X</a>
                   </div>
                 </div>
@@ -223,14 +223,14 @@
           <hr class="my-4">
 
           <!-- Form Group -->
-          <div class="form-group" *ngIf="orderId !== undefined">
+          <div class="form-group">
             <dl>
-              <dt>Sənəd nömrəsi:</dt>
-              <dd>{{orderNo}}</dd>
-              <dt>Müştəri:</dt>
-              <dd>{{customer}}</dd>
-              <dt>Tarix:</dt>
-              <dd>{{orderDate | date: 'dd.MM.yyyy'}}</dd>
+              <dt *ngIf="orderNo !== undefined">Sənəd nömrəsi:</dt>
+              <dd *ngIf="orderNo !== undefined">{{orderNo}}</dd>
+              <dt *ngIf="customer !== undefined">Müştəri:</dt>
+              <dd *ngIf="customer !== undefined">{{customer}}</dd>
+              <dt *ngIf="orderDate !== undefined">Tarix:</dt>
+              <dd *ngIf="orderDate !== undefined">{{orderDate | date: 'dd.MM.yyyy'}}</dd>
             </dl>
           </div>
         </div>
