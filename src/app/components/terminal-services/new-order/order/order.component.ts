@@ -390,7 +390,7 @@ export class OrderComponent implements OnInit {
     deleteXidmet(i: number) {
         const xidmetToDelete = this.xidmetler[i];
         this.xidmetler.splice(i, 1);
-        this.total -= xidmetToDelete.temrinalWay.amount!;
-        this.totalEdv -= (xidmetToDelete.edv + xidmetToDelete.temrinalWay.amount!);
+        this.total -= xidmetToDelete.totalAmount!;
+        this.totalEdv -= (xidmetToDelete.edv * xidmetToDelete.totalAmount + xidmetToDelete.totalAmount!);
     }
 }
