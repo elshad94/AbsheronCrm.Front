@@ -24,24 +24,17 @@
                 <div class="d-flex align-items-center mr-2">
                   <span class="text-secondary mr-2">Status:</span>
 
-                  <!-- Select -->
-                  <select class="
-                      js-select2-custom js-datatable-filter
-                      custom-select-sm
-                    " size="1" style="opacity: 0" data-target-column-index="2" data-hs-select2-options='{
+                  <select class="select2-selection custom-select custom-select-sm custom-select-borderless" size="1"
+                    style="opacity: 1;" data-target-column-index="2" data-hs-select2-options='{
                               "minimumResultsForSearch": "Infinity",
                               "customClass": "custom-select custom-select-sm custom-select-borderless",
                               "dropdownAutoWidth": true,
                               "width": true
-                            }'>
-                    <option value="">Lorem</option>
+                            }' (change)="filterTableByStatus($event)">
+                    <option value="">Hamısı</option>
+                    <option *ngFor="let status of BrokerStatusTexts" value="{{status}}">{{status}}</option>
                   </select>
-                  <a *ngFor="let item of BrokerChecked" style="cursor:'pointer'" routerLink="/brokerEdit/{{item}}"> <img
-                      src="assets/icon/Frame 8pen.png " alt=" " />
-                  </a>
-                  <a (click)="deleteBrokerItem() " class="ml-2 " style="cursor:'pointer'"><img
-                      src="assets/icon/Frame 6trash.png " alt=" " /></a>
-                  <div class="col-sm-auto ">
+                  <div class="col-sm-auto">
                     <button class="btn newOrder m-0" routerLink="/brokerOrder">
                       + Yeni sifariş
                     </button>
@@ -57,242 +50,105 @@
       <!-- End Header -->
 
       <!-- Table -->
-      <div class="table-responsive datatable-custom ">
-        <table id="datatable "
-          class=" table table-borderless table-thead-bordered table-nowrap table-align-middle card-table "
-          data-hs-datatables-options='{
-                   "columnDefs ": [{
-                      "targets ": [0, 1, 4],
-                      "orderable ": false
-                    }],
-                   "order ": [],
-                   "info ": {
-                     "totalQty ": "#datatableWithPaginationInfoTotalQty "
-                   },
-                   "search ": "#datatableSearch ",
-                   "entries ": "#datatableEntries ",
-                   "pageLength ": 8,
-                   "isResponsive ": false,
-                   "isShowPaging ": false,
-                   "pagination ": "datatablePagination "
-                 }'>
-          <thead class="thead-light ">
+
+      <div class="table-responsive datatable-custom">
+        <table id="datatable"
+          class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" mat-table
+          [dataSource]="dataSource">
+          <ng-container matColumnDef="docNo">
+            <th mat-header-cell *matHeaderCellDef>SƏNƏD №</th>
+            <td mat-cell *matCellDef="let order">{{ order.docNo }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>TARİX</th>
+            <td mat-cell *matCellDef="let order">{{ order.date }}</td>
+          </ng-container>
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>MÜŞTƏRİ</th>
+            <td mat-cell *matCellDef="let order">{{ order.customer }}</td>
+          </ng-container>
+          <ng-container matColumnDef="gbNo">
+            <th mat-header-cell *matHeaderCellDef>gbNo</th>
+            <td mat-cell *matCellDef="let order">{{ order.gbNo }}</td>
+          </ng-container>
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>MEBLEQ</th>
+            <td mat-cell *matCellDef="let order">{{ order.amount }}</td>
+          </ng-container>
+          <ng-container matColumnDef="orderStatusText">
+            <th mat-header-cell *matHeaderCellDef>STATUS</th>
+          <td mat-cell *matCellDef="let order" >
+            <p> {{ order.statusText }}</p>
+           </td>
+          </ng-container>
+          <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let order">
+              <a routerLink="/brokerOrder" [queryParams]="{ orderId: order.orderId }">
+                <img src="assets/icon/Frame 8pen.png" alt="" />
+              </a>
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td style="cursor: pointer" mat-cell *matCellDef="let order"
+              (click)="openDialog(order.orderId, order.docNo)">
+              <img src="assets/icon/Frame 6trash.png" alt="" />
+            </td>
+          </ng-container>
+          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+          <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+        </mat-paginator>
+
+        <!-- <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+               data-hs-datatables-options=' { "columnDefs": [{ "targets": [0, 1, 4], "orderable": false }], "order": [], "info": { "totalQty": "#datatableWithPaginationInfoTotalQty" }, "search": "#datatableSearch", "entries": "#datatableEntries",
+                            "pageLength": 8, "isResponsive": false, "isShowPaging": true, "pagination": "datatablePagination" } '
+               >
+          <thead class="thead-light">
             <tr>
-              <th scope="col " class="table-column-pr-0 ">
-                <div class="custom-control d-flex ">
+              <th scope="col" class="table-column-pr-0">
+                <div class="custom-control custom-checkbox">
+                  <input id="datatableCheckAll" type="checkbox" class="custom-control-input">
+                  <label class="custom-control-label" for="datatableCheckAll"></label>
                 </div>
               </th>
-              <th class="table-column-pl-0 ">SİFARİŞ №</th>
+              <th class="table-column-pl-0">SİFARİŞ № </th>
               <th>TARİX</th>
-              <th>MÜŞTƏRİ</th>
-              <th>GB №</th>
               <th>MƏBLƏĞ</th>
               <th>STATUS</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let brokeritem of broker " let i=index;>
-              <td class="table-column-pr-0 ">
-                <div class="custom-control customs-checkbox ">
-                  <input name='myRadios' type="radio" value='{{brokeritem.orderId}}' checked="{{brokeritem.select}} "
-                    (change)='onChangeList($event)' />
-                  <span class="checkmark "></span>
-                  <!-- <label class="custom-control-label "></label> -->
+            <tr *ngFor="let terminalOrder of terminalOrders">
+              <td class="table-column-pr-0">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="usersDataCheck2">
+                  <label class="custom-control-label" for="usersDataCheck2"></label>
                 </div>
               </td>
-              <td class="table-column-pl-0 ">
-                <a class="media align-items-center ">
-                  <div class="media-body ">
-                    <span class="h5 mb-0 "> {{ brokeritem.docNo }} </span>
-                  </div>
-                </a>
+              <td class="table-column-pl-0">
+                <div class="media-body">
+                  <span class="h5 text-hover-primary mb-0">{{terminalOrder.orderNo}}</span>
+                </div>
               </td>
               <td>
-                {{ brokeritem.date }}
+                {{terminalOrder.date | date:'yyyy-MM-dd '}}
               </td>
-              <td>
-                {{ brokeritem.customer }}
-              </td>
-              <td>
-                {{ brokeritem.gbNo }}
-              </td>
-              <td>{{ brokeritem.amount }}</td>
-              <td *ngIf="brokeritem.orderStatusId==3 ">
-                <p> <span class="legend-indicator bg-danger "> </span> Ləğv</p>
-              </td>
-              <td *ngIf="brokeritem.orderStatusId==4 ">
-                <p> <span class="legend-indicator bg-danger "> </span> Qaralama</p>
-              </td>
-              <td *ngIf="brokeritem.orderStatusId==5 ">
-                <p> <span class="legend-indicator bg-success "> </span> Gözləmə</p>
-              </td>
-              <td *ngIf="brokeritem.orderStatusId==6 ">
-                <p> <span class="legend-indicator bg-success "> </span> Təstiqlənib
-
-
-
-                </p>
-              </td>
+              <td>{{terminalOrder.amount}} AZN</td>
+              <td>{{terminalOrder.orderStatus.statusText}}</td>
             </tr>
-
-            <!-- <tr>
-                <td class="table-column-pr-0 ">
-                  <div class="custom-control custom-checkbox ">
-                    <input type="checkbox " class="custom-control-input " id="usersDataCheck1 ">
-                    <label class="custom-control-label " for="usersDataCheck1 "></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0 ">
-                  <a class="media align-items-center " >
-                    <div class="media-body ">
-                      <span class="h5 mb-0 ">12356 </span>
-            </div>
-            </a>
-            </td>
-            <td>
-                02.11.2021
-            </td>
-            <td>
-                LOREM iPSUM
-
-
-            </td>
-            <td>
-                12356
-            </td>
-            <td>465 AZN</td>
-            <td><span class="legend-indicator bg-success "></span>Ödənilib</td>
-
-
-            </tr> -->
-            <!--
-              <tr>
-                <td class="table-column-pr-0 ">
-                  <div class="custom-control custom-checkbox ">
-                    <input type="checkbox " class="custom-control-input " id="usersDataCheck2 ">
-                    <label class="custom-control-label " for="usersDataCheck2 "></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0 ">
-                  <a class="media align-items-center " >
-
-                    <div class="media-body ">
-                      <span class="h5 mb-0 ">65489</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-               10.12.2021
-                </td>
-                <td>
-                  LOREM İPSUM
-                   </td>
-                   <td>
-                      65489
-                       </td>
-                <td>123 AZN</td>
-                <td><span class="legend-indicator bg-danger "></span>Ödənilməyib</td>
-
-              </tr>
-
-              <tr>
-                <td class="table-column-pr-0 ">
-                  <div class="custom-control custom-checkbox ">
-                    <input type="checkbox " class="custom-control-input " id="usersDataCheck3 ">
-                    <label class="custom-control-label " for="usersDataCheck3 "></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0 ">
-                  <a class="media align-items-center " >
-                    <div class="media-body ">
-                      <span class="h5 mb-0 ">01235</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-              17.10.2021
-                </td>
-                <td>
-                  LOREM iPSUM
-
-
-                    </td>
-                    <td>
-                      01235
-                        </td>
-                <td>753 AZN</td>
-                <td><span class="legend-indicator bg-danger "></span>Ödənilməyib</td>
-
-
-              </tr>
-
-              <tr>
-                <td class="table-column-pr-0 ">
-                  <div class="custom-control custom-checkbox ">
-                    <input type="checkbox " class="custom-control-input " id="usersDataCheck4 ">
-                    <label class="custom-control-label " for="usersDataCheck4 "></label>
-                  </div>
-                </td>
-                <td class="table-column-pl-0 ">
-                  <a class="media align-items-center " >
-
-                    <div class="media-body ">
-                      <span class="h5 mb-0 ">36527</span>
-                    </div>
-                  </a>
-                </td>
-                <td>
-               01.12.2021
-                </td>
-                <td>
-                  LOREM iPSUM
-              </td>
-                   <td>
-                      36527
-                       </td>
-                <td>23 AZN</td>
-                <td><span class="legend-indicator bg-success "></span>Ödənilib</td>
-              </tr> -->
           </tbody>
-        </table>
+        </table> -->
       </div>
+
       <!-- End Table -->
 
       <!-- Footer -->
-      <div class="card-footer ">
-        <!-- Pagination -->
-        <div class=" row justify-content-center justify-content-sm-between align-items-sm-center ">
-          <div class="col-sm mb-2 mb-sm-0 ">
-            <div class=" d-flex justify-content-center justify-content-sm-start align-items-center ">
-              <span class="mr-2 ">Showing:</span>
 
-              <!-- Select -->
-              <select id="datatableEntries" data-hs-select2-options='{ "minimumResultsForSearch ": "Infinity ", "customClass ": "custom-select custom-select-sm custom-select-borderless ", "dropdownAutoWidth ": true,
-                                        "width ": true }'>
-                <option value="4 ">4</option>
-                <option value="6 ">6</option>
-                <option value="8 " selected>8</option>
-                <option value="12 ">12</option>
-              </select>
-              <!-- End Select -->
-
-              <span class="text-secondary mr-2 ">of</span>
-
-              <!-- Pagination Quantity -->
-              <span id="datatableWithPaginationInfoTotalQty "></span>
-            </div>
-          </div>
-
-          <div class="col-sm-auto ">
-            <div class="d-flex justify-content-center justify-content-sm-end ">
-              <!-- Pagination -->
-              <nav id="datatablePagination " aria-label="Activity pagination "></nav>
-            </div>
-          </div>
-        </div>
-        <!-- End Pagination -->
-      </div>
       <!-- End Footer -->
     </div>
   </div>

@@ -30,7 +30,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HttpClientModule, HttpHeaders } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
-import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
@@ -61,7 +60,6 @@ import { HelpComponent } from './components/help/help.component';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        BrokerEditComponent,
         HelpComponent
 
 

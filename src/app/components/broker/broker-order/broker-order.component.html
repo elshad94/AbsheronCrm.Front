@@ -1,184 +1,243 @@
 <main id="content" role="main" class="main pointer-event">
-    <div class="content container-fluid">
+  <div class="content container-fluid">
+    <!-- Card -->
+
+    <form class="row mb-4" #brokerPost="ngForm">
+      <div class="col-lg-9 mb-5 mb-lg-0">
         <!-- Card -->
+        <div class="card card-lg">
+          <!-- Body -->
 
-        <form class="row mb-4 " #brokerPost="ngForm">
-            <div class=" col-lg-9 mb-5 mb-lg-0 ">
+          <div class="card-body">
+            <div class="d-flex justif y-content-between align-items-center">
+              <h3 class="card-header-title font-weight-bold">Yeni sifariş</h3>
 
-                <!-- Card -->
-                <div class="card card-lg ">
-                    <!-- Body -->
+              <!-- Datatable Info -->
 
-                    <div class="card-body ">
-                        <div class="d-flex justify-content-between align-items-center ">
-                            <h3 class="card-header-title font-weight-bold ">Yeni sifariş
-                            </h3>
+              <!-- End Datatable Info -->
+            </div>
+            <hr />
+            <div class="input-group-add-field">
+              <div class="row my-3">
+                <div class="col-lg-4" style="border-right: 1px solid #e7eaf3">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <select [(ngModel)]="brokerItemModel.transportTypeId" class="form-control mb-3"
+                        name="transportTypeId">
+                        <option *ngFor="let item of transportTypes" [value]="item.id">
+                          {{ item.text }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="col-lg-12">
+                      <input type="text " class="form-control mb-3" placeholder="N/V № " aria-label="Description "
+                        name="transportNo" [(ngModel)]="brokerItemModel.transportNo" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-8">
+                  <div class="form-group p-0">
+                    <!-- Checkbox -->
 
-                            <!-- Datatable Info -->
-
-                            <!-- End Datatable Info -->
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <h3 class="card-header-title font-weight-bold m-0">
+                          Xidmətlər
+                        </h3>
+                      </div>
+                      <div class="col-lg-6 pb-3" *ngFor="let checkbox of expenses">
+                        <div class="d-flex align-items-center">
+                          <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
+                          <input id='cb1'  type="checkbox" name="{{ checkbox.id }}" [(ngModel)]="checkbox.isSelected"
+                            value=" {{ checkbox.id }} " [checked]="checkbox.isSelected"
+                            (change)="onChangeInput(checkbox, $event)" />
+                          <label class="" for="customCheck12 " class="m-0 pl-1">{{ checkbox.text }}</label>
                         </div>
-                        <hr>
-                        <div class="input-group-add-field ">
-                            <div class="row my-3 ">
-                                <div class="col-lg-4 " style="border-right: 1px solid #E7EAF3; ">
-                                    <div class="row ">
-                                        <div class="col-lg-12 ">
-                                            <select [(ngModel)]='brokerItemModel.transportTypes' class="form-control mb-3 " name="transportTypes">
+                      </div>
+                    </div>
+                    <!-- End Checkbox -->
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-md-between"></div>
+              <div class="js-add-field" data-hs-add-field-options='{
+                      "template ": "#addInvoiceItemTemplate ",
+                      "container ": "#addInvoiceItemContainer ",
+                      "defaultCreated ": 0
+                    }'>
+                <!-- Title -->
+                <div class="bg-light border-bottom p-2 mb-3">
+                  <div class="row">
+                    <div class="col-sm-3 col-lg-6 d-none d-sm-inline-block">
+                      <h6 class="card-title text-cap">SƏNƏD NÖVÜ</h6>
+                    </div>
+                    <div class="col-sm-2 col-lg-6 d-none d-sm-inline-block">
+                      <h6 class="card-title text-cap">fAYL</h6>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Title -->
 
-                                            <option [ngValue]="null">Nəqliyyat növü</option>
-                                            <option *ngFor="let item of transportTypes" [value]="item.id">{{item.text}}</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-12 ">
-                                            <input type="text " class="form-control mb-3 " placeholder="N/V № " aria-label="Description " name="transportNo" [(ngModel)]='brokerItemModel.transportNo'>
+                <!-- Content -->
+                <!-- <div
+                  class="row"
+                  *ngFor="let document of brokerItemModel.documents"
+                >
+                  <div class="col-12 col-sm-auto col-md-3 col-lg-6">
+                    <select
+                      class="form-control mb-3"
+                      name="documentTypesId "
+                      [(ngModel)]="docTypeId"
+                    >
+                      <option [ngValue]="null">Seçin</option>
+                      <option
+                        *ngFor="let item of documentTypes"
+                        [value]="item.documentTypeId"
+                      >
+                        {{item.name}}
+                      </option>
+                    </select>
+                  </div>
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-8 ">
-                                    <div class="form-group p-0 ">
-                                        <!-- Checkbox -->
+                  <div class="col-12 col-sm col-md-2 col-lg-5">
+                    <input
+                      type="text"
+                      class="form-control selec tfileInputCopy"
+                      name="weightName "
+                      id="weightLabel "
+                      placeholder="scan.pdf "
+                      value="{{ document.uri }}"
+                      aria-label="0.0 "
+                    />
 
-                                        <div class="row ">
-                                            <div class="col-lg-12 ">
-                                                <h3 class="card-header-title font-weight-bold m-0 ">Xidmətlər</h3>
-                                            </div>
-                                            <div class="col-lg-6 pb-3 " *ngFor="let checkbox of expenses ">
-                                                <div class="d-flex align-items-center ">
-                                                    <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
-                                                    <input type="checkbox" name="option{{checkbox.id}} " [(ngModel)]='checkbox.id && checkbox.isSelected' value="{{checkbox.id}} " [checked]="checkbox.isSelected " (change)="onChangeInput(checkbox.id, $event) " />
-                                                    <label class=" " for="customCheck12 " class='m-0 pl-1'>{{checkbox.text}}</label>
+                    <input
+                      type="file"
+                      (change)="fileChange($event)"
+                      accept=".pdf,.doc,.docx"
+                      [(ngModel)]="document.uri"
+                      class="form-control selectfileInput"
+                      name="documents "
+                      id="Document.fileId "
+                      aria-label="0.0 "
+                    />
+
+                    <label for=" " class="selectfileLabel Scan"
+                      ><img src="assets/icon/Union.png " alt=" "
+                    /></label>
+
                                                 </div>
-                                            </div>
+                                                <div class="col-12 col-sm col-md-2 col-lg-1 d-none">
+                                                    <div class="deletetdiv"><span>X </span></div>
 
-                                        </div>
-                                        <!-- End Checkbox -->
-                                    </div>
-                                </div>
+                                                </div>
+                                            </div> -->
 
+                <div class="row fileDetails" *ngFor="let file of files; let i = index">
+                  <div class="col-12 col-sm-auto col-md-3 col-lg-6">
+                    <select class="form-control mb-3" name="" id=""
+                      (change)="selectDocTypeId(i, $event)">
+                      <option *ngFor="let docType of documentTypes" [selected]="file.docTypeId === docType.documentTypeId"
+                       value="{{docType.documentTypeId}}">{{docType.name}}</option>
+                    </select>
+                  </div>
 
+                  <div class="col-12 col-sm col-md-2 col-lg-5">
+                    <!-- <input type="text" class="form-control selec tfileInputCopy" name="weightName " id="weightLabel " placeholder="{{documents.uri}}scan.pdf" aria-label="0.0 " /> -->
+                    <!-- <input type="text" class="form-control selec tfileInputCopy" name="weightName "
+                      placeholder="scan.pdf" value="{{url }}" aria-label="0.0 " /> -->
+                    <p type="text" class="form-control selectfileInputCopy file_picker " name="weightName"
+                      id="weightLabel" aria-label="0.0">
+                      {{file.uri}}
+                    </p>
 
-                            </div>
-                            <div class="row justify-content-md-between ">
-                            </div>
-                            <div class="js-add-field " data-hs-add-field-options='{
-                        "template ": "#addInvoiceItemTemplate ",
-                        "container ": "#addInvoiceItemContainer ",
-                        "defaultCreated ": 0
-                      }'>
-                                <!-- Title -->
-                                <div class="bg-light border-bottom p-2 mb-3 ">
-                                    <div class="row ">
+                    <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx "
+                      class="form-control selectfileInput " name="documents " aria-label="0.0 " />
 
-                                        <div class="col-sm-3 col-lg-6 d-none d-sm-inline-block ">
-                                            <h6 class="card-title text-cap ">SƏNƏD NÖVÜ</h6>
-                                        </div>
-                                        <div class="col-sm-2 col-lg-6 d-none d-sm-inline-block ">
-                                            <h6 class="card-title text-cap ">fAYL</h6>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <!-- End Title -->
-
-                                <!-- Content -->
-                                <div class="row ">
-
-                                    <div class="col-12 col-sm-auto col-md-3 col-lg-6 ">
-                                        <select class="form-control mb-3 " name="documentTypes" [(ngModel)]='brokerItemModel.documentTypes'>
-
-                                        <option [ngValue]="null">Seçin</option>
-                                        <option *ngFor="let item of documentTypes" [value]="item.documentTypeId">{{item.name}}</option>
-                                        </select>
-                                        <!-- End Quantity Counter -->
-                                    </div>
-
-                                    <div class="col-12 col-sm col-md-2 col-lg-6 ">
-                                        <input type="text " class="form-control selectfileInputCopy " name="weightName " id="weightLabel " placeholder="scan.pdf " aria-label="0.0 ">
-
-                                        <input type="file" [(ngModel)]='Document.uri' class="form-control selectfileInput " name="documents" id="Document.fileId " aria-label="0.0 " (click)="CreateFile()">
-
-                                        <label for=" " class="selectfileLabel Scan "><img src="assets/icon/Union.png " alt=" "></label>
-                                        <!-- End Input Group -->
-                                    </div>
-
-
-
-                                </div>
-                                <!-- End Content -->
-
-                                <!-- Container For Input Field -->
-                                <div id="addInvoiceItemContainer "></div>
-
-                                <a href="javascript:; " class="js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary ">
-                       + Əlavə sənəd
-                  </a>
-
-                                <!-- Add Phone Input Field -->
-
-                                <!-- End Content -->
-                            </div>
-                            <!-- End Add Phone Input Field -->
-                        </div>
-
-                        <hr class="my-5 ">
-                        <div class="form-group ">
-
-                            <textarea class="form-control " [(ngModel)]="brokerItemModel.notes" placeholder="Qeyd " id="notes " aria-label="Who is this invoice to? " rows="3 " name="notes"> </textarea>
-                        </div>
-
-                        <!-- End Row -->
-
-                        <!-- Form Group -->
-
-                        <!-- End Form Group -->
-
+                    <label for=" " class="selectfileLabel Scan "><img src="assets/icon/Union.png " alt=" " /></label>
+                  </div>
+                  <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1">
+                    <div class="deletetdiv ">
+                      <a type="button" (click)="Delete(i) ">X</a>
                     </div>
-                    <!-- End Body -->
+
+
+                  </div>
                 </div>
-                <!-- End Body -->
+
+
+                <div id="addInvoiceItemContainer "></div>
+
+                <a type="button " (click)="append() "
+                  class=" js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary ">
+                  + Əlavə sənəd
+                </a>
+
+                <!-- Add Phone Input Field -->
+
+                <!-- End Content -->
+              </div>
+              <!-- End Add Phone Input Field -->
             </div>
-            <!-- End Card -->
 
-            <!-- Sticky Block End Point -->
-            <div id="stickyBlockEndPoint "></div>
+            <hr class="my-5 " />
+            <div class="form-group ">
+              <textarea class="form-control " [(ngModel)]="brokerPostItem.notes " placeholder=" Qeyd " rows="3 "
+                name="notes ">
+              </textarea>
+            </div>
 
-            <div id="stickyBlockStartPoint " class="col-lg-3 ">
-                <div class="js-sticky-block " data-hs-sticky-block-options=' { "parentSelector ": "#stickyBlockStartPoint ", "breakpoint ": "lg ", "startPoint ": "#stickyBlockStartPoint ", "endPoint ": "#stickyBlockEndPoint ", "stickyOffsetTop ": 20
+            <!-- End Row -->
+
+            <!-- Form Group -->
+
+            <!-- End Form Group -->
+          </div>
+          <!-- End Body -->
+        </div>
+        <!-- End Body -->
+      </div>
+      <!-- End Card -->
+
+      <!-- Sticky Block End Point -->
+      <div id="stickyBlockEndPoint "></div>
+
+      <div id="stickyBlockStartPoint " class="col-lg-3 ">
+        <div class="js-sticky-block " data-hs-sticky-block-options=' { "parentSelector ": "#stickyBlockStartPoint ", "breakpoint ": "lg ", "startPoint ": "#stickyBlockStartPoint ", "endPoint ": "#stickyBlockEndPoint ", "stickyOffsetTop ": 20
                                             } '>
-                    <button data-dismis='modal ' class="btn btn-block newOrder mb-3 " href="javascript:; " type="submit " (click)="onSubmitSave(brokerPost.value)">
-                  Yadda saxla
-              </button>
+          <button data-dismis="modal " class="btn btn-block newOrder mb-3 " href="javascript:; " type="submit "
+            (click)="onSaveOrApprove(brokerPost.value, 4) " >
+            Yadda saxla
+          </button>
 
-                    <button class=" btn btn-block newAccept mb-3 " href="javascript:; " (click)="onSubmitApproval(brokerPost.value) ">
-                  Təsdiqlə
-              </button>
+          <button class="btn btn-block newAccept mb-3 " href="javascript:; "
+            (click)="onSaveOrApprove(brokerPost.value, 5) ">
+            Təsdiqlə
+          </button>
 
-                    <button class="btn btn-block back mb-3 " routerLink="/broker">
-                  Geri
-              </button>
+          <button class="btn btn-block back mb-3 " routerLink="/broker">
+            Geri
+          </button>
 
+          <!-- End Row -->
 
-                    <!-- End Row -->
+          <hr class="my-4 " />
 
-                    <hr class="my-4 ">
-
-                    <!-- Form Group -->
-                    <div class="form-group ">
-                        <dl>
-                            <dt>Sənəd nömrəsi:</dt>
-                            <dd>1234567890</dd>
-                            <dt>Müştəri:</dt>
-                            <dd>Lorem İpsum LLC</dd>
-                            <dt>Tarix:</dt>
-                            <dd>26.11.2021</dd>
-                        </dl>
-
-                    </div>
-                </div>
-            </div>
-        </form>
-
-
-    </div>
+          <!-- Form Group -->
+          <div class="form-group ">
+            <dl>
+              <dt *ngIf="orderIdQueryParam">Sənəd nömrəsi:</dt>
+              <dd>{{ brokerItemModel.docNo }}</dd>
+              <dt *ngIf="orderIdQueryParam">Müştəri:</dt>
+              <dd>{{ brokerItemModel.customerName }}</dd>
+              <dt>Tarix:</dt>
+              <dd>{{ brokerItemModel.date || date }}</dd>
+              <dt>Xidmət haqqı:</dt>
+              <dd *ngIf="orderIdQueryParam">{{brokerItemModel.totalCost || 'Qiymət təyin olunmayıb' }}</dd>
+              <dd *ngIf="orderIdQueryParam==null">Qiymət təyin olunmayıb</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>

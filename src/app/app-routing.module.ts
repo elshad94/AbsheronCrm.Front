@@ -1,4 +1,3 @@
-import { BrokerEditComponent } from './components/broker/broker-edit/broker-edit.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrokerOrderComponent } from './components/broker/broker-order/broker-order.component';
@@ -41,7 +40,6 @@ const routes: Routes = [
     {path:'legalAccount',component:LegalAccountComponent},
     {path:'nextModal',component:NextModalComponent},
     {path:'login',component:LoginComponent},
-    {path:'brokerEdit/:id',component:BrokerEditComponent},
     {path:'help',component:HelpComponent},
 
 ];
