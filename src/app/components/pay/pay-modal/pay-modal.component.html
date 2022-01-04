@@ -2,10 +2,9 @@
   <a routerLink="/pay">X</a>
 </div> -->
 <div class="row select">
-  <h2 mat-cell *matCellDef="let order">{{order.orderNo}}</h2>
   <div class="col-lg-9">
-    <select class="custom-select">
-      <option disabled selected>Ödəmə üsulu</option>
+    <select class="custom-select" name="paymentType" [(ngModel)]="paymentType">
+      <option disabled selected value="-1">Ödəmə üsulu</option>
       <option value="1">Avansdan</option>
       <option value="2">Bank</option>
       <option value="3">Kartla</option>

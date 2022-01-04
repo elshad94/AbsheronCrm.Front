@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NextModalComponent } from '../next-modal/next-modal.component';
+import { PayModalComponent } from '../pay-modal/pay-modal.component';
 
 @Component({
   selector: 'app-last-modal',
@@ -13,8 +13,8 @@ export class LastModalComponent implements OnInit {
 
   openDialogNext(){
     this.dialogRef.closeAll();
-    this.dialogRef.open(NextModalComponent,{
-      height: '400px',
+    this.dialogRef.open(PayModalComponent,{
+      height: '100px',
       width: '600px'
     })
   }
