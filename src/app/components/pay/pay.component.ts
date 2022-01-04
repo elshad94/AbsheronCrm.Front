@@ -27,18 +27,16 @@ export class PayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   
 
-  public openDialog(orderId: number, orderTypeId: string) {
+  public openDialog(orderId: number, orderTypeId: number, orderNo: string) {
     this.dialogRef.open(PayModalComponent,{
       data:{
         orderId: orderId,
-        orderTypeId: orderTypeId
+        orderTypeId: orderTypeId,
+        orderNo: orderNo
       },
-      height: '100px',
+      height: '150px',
       width: '600px',
-
     })
-
-    return orderId;
   }
 
   ngOnInit(): void {

@@ -84,7 +84,7 @@
           <ng-container matColumnDef="orderId">
             <th mat-header-cell *matHeaderCellDef>ÖDƏMƏ</th>
             <td mat-cell *matCellDef="let order"> 
-              <span class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId)">Ödə</span></td>
+              <span class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo)">Ödə</span></td>
           </ng-container>
           <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
           <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>

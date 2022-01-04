@@ -36,10 +36,11 @@ export class PayModalComponent implements OnInit {
       this.dialogRef.open(NextModalComponent, {
         data:{
           orderId: this.data.orderId,
-          orderTypeId: this.data.orderTypeId
+          orderTypeId: this.data.orderTypeId,
+          orderNo: this.data.orderNo
         },
-        height: '400px',
-        width: '600px'
+        height: '341px',
+        width: '435px'
       })
       
     }
@@ -50,7 +51,15 @@ export class PayModalComponent implements OnInit {
         width: '520px'
       })
     }
-
+    if (this.paymentType == 3) {
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Tezliklə istifadəyə veriləcək',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
 
   }
 

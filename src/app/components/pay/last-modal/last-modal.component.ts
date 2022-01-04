@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Payments } from 'src/app/model/payments';
 import { PayModalComponent } from '../pay-modal/pay-modal.component';
 
 @Component({
@@ -9,15 +10,9 @@ import { PayModalComponent } from '../pay-modal/pay-modal.component';
 })
 export class LastModalComponent implements OnInit {
 
-  constructor(private dialogRef:MatDialog) { }
-
-  openDialogNext(){
-    this.dialogRef.closeAll();
-    this.dialogRef.open(PayModalComponent,{
-      height: '100px',
-      width: '600px'
-    })
-  }
+  constructor(private dialogRef:MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: Payments) {
+   }
 
   ngOnInit(): void {
   }
