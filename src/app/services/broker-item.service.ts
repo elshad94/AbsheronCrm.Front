@@ -49,7 +49,6 @@ export class BrokerItemService {
         return this.http.get('https://localhost:44323/api/Broker');
     }
     postBrokerCreateFile(data:fileDetails): Observable<any>{
-        debugger;
         const httpHeaders = new HttpHeaders();
         httpHeaders.append('content-type', 'application/json');
         return this.http.post('https://localhost:44323/api/File',{

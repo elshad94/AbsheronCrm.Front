@@ -13,6 +13,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { formatDate } from '@angular/common';
 import { ThrowStmt } from '@angular/compiler';
 import Swal from 'sweetalert2';
+import {errorAlert} from '../../../../utils/alerts';
 
 import 'sweetalert2/dist/sweetalert2.js';
 
@@ -120,10 +121,10 @@ export class BrokerOrderComponent implements OnInit {
     };
 
     constructor(
-    private http: HttpClient,
-    private service: BrokerItemService,
-    private route: ActivatedRoute,
-    private router:Router
+      private http: HttpClient,
+      private service: BrokerItemService,
+      private route: ActivatedRoute,
+      private router:Router
     ) { }
     //clone div
     public append() {
@@ -277,6 +278,14 @@ export class BrokerOrderComponent implements OnInit {
             docTypeId: f.docTypeId!,
             fileId: f.fileId!
         };});
+
+        if(this.files === undefined ||
+            this.files.some(f =>
+                f.docTypeId === undefined || f.fileId === undefined
+                || f.uri === undefined)) {
+            errorAlert('En azi bir fayl yükləyin!', 'Uğursuz');
+            return;
+        }
 
         if (this.orderIdQueryParam != undefined) {
             this.PutSaveOrApprove();
