@@ -246,6 +246,8 @@ function HSDemo() {
     document.getElementById('headerDouble').parentNode.removeChild(document.getElementById('headerDouble'));
     document.getElementById('sidebarMain').parentNode.removeChild(document.getElementById('sidebarMain'));
     document.getElementById('sidebarCompact').parentNode.removeChild(document.getElementById('sidebarCompact'));
+
+
 }
 
 HSDemo();

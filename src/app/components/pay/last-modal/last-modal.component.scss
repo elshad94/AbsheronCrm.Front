@@ -16,10 +16,61 @@
     color: white;
     margin-left: 10px;
 }
-.content{
+.content {
     width: 100%;
     display: flex;
     align-items: center;
     margin-top: 40px;
     padding-bottom: 10px;
+}
+
+#formBank {
+    width: 400px;
+}
+
+.file-upload-wrapper {
+    $defaultColor: #4daf7c;
+    $height: 40px;
+
+    position: relative;
+    width: 100%;
+    height: $height;
+    border: 1px solid #e7e6e6;
+    border-radius: 6px;
+
+    &:after {
+        font-family: "Lexend Deca", sans-serif !important;
+        content: attr(data-text);
+        font-size: 16px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #fff;
+        padding: 10px 15px;
+        display: block;
+        width: calc(100% - 40px);
+        pointer-events: none;
+        z-index: 20;
+        height: $height - 20px;
+        line-height: $height - 20px;
+        color: #999;
+        border-radius: 5px 10px 10px 5px;
+        font-weight: 300;
+    }
+
+    input {
+        opacity: 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        height: 40px;
+        margin: 0;
+        padding: 0;
+        display: block;
+        cursor: pointer;
+        width: 100%;
+    }
 }
