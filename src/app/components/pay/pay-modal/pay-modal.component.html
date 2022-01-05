@@ -1,16 +1,17 @@
 <!-- <div class="closeModal row justify-content-sm-end">
   <a routerLink="/pay">X</a>
 </div> -->
-<div class="row">
-  <div class="col-lg-6">
-    <select class="custom-select">
-      <option selected="">Ödəmə üsulu</option>
+<div class="row select">
+  <h2 class="title">{{data.orderNo}} nömrəli sifariş üçün ödəmə üsulu seçin</h2>
+  <div class="col-lg-9">
+    <select class="custom-select" name="paymentType" [(ngModel)]="paymentType">
+      <option disabled selected value="-1">Ödəmə üsulu</option>
       <option value="1">Avansdan</option>
       <option value="2">Bank</option>
       <option value="3">Kartla</option>
     </select>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-3">
     <a class="btn btn-block newOrder" (click)="openDialogNext()">
      Növbəti
      </a>

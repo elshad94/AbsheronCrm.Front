@@ -1,0 +1,43 @@
+.form-group {
+    width: 70%;
+    margin: 0;
+    padding: 0;
+}
+
+.selectfileLabel {
+    position: absolute;
+    right: 170px;
+}
+
+.nextB {
+    padding: 10px 40px;
+    background: #4299bf;
+    border-radius: 7px;
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+.content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+    padding-bottom: 10px;
+}
+
+.formModel{
+    width: 100%;
+}
+
+.selectfileInputPay{
+    position: absolute;
+    width: 60%;
+    top: 40px;
+    opacity: 0;
+}
+
+.selectfileLabelPay{
+    position: absolute;
+    top: 50px;
+    right: 170px;
+}
