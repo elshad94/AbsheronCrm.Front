@@ -17,4 +17,8 @@ export class ReportAllService {
   reportAll(): Observable<ReportAll[]> {
     return this.http.get<ReportAll[]>(baseUrl);
   }
+
+  getDate(startDate: string, endDate: string): Observable<ReportAll[]>{
+    return this.http.get<ReportAll[]>(`${baseUrl}?startDate=${startDate}&endDate=${endDate}`);
+  }
 }

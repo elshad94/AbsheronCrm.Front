@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -13,21 +13,24 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReportComponent implements OnInit {
 
-  constructor(private reportAll: ReportAllService) {
+  constructor(private reportAll: ReportAllService,
+    public datepipe: DatePipe) {
 
   }
 
   report: ReportAll[] = [];
   columnsToDisplay = ['orderNo', 'orderTypeId', 'orderDate', 'orderAmount', 'transPortNumber', 'isPaymentPaid'];
   dataSource: MatTableDataSource<ReportAll> = new MatTableDataSource<ReportAll>(this.report);
-  pipe!: DatePipe;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  searchText: string = '';
+
+  pipe = new DatePipe('en-US');
+
+  startDate: string = '';
+  endDate: string = '';
 
   ngOnInit(): void {
-
     this.reportAll.reportAll().subscribe((data: ReportAll[]) => {
       this.dataSource = new MatTableDataSource<ReportAll>(data);
       this.dataSource.paginator = this.paginator;
@@ -39,31 +42,17 @@ export class ReportComponent implements OnInit {
     end: new FormControl()
   });
 
-  get start(): any { return this.dateRange.get('start')?.value; }
-  get end(): any { return this.dateRange.get('end')?.value; }
-
-
-  forDate() {
-    this.dataSource.filterPredicate = (data: ReportAll, filter: string) => {
-      if (this.start && this.end) {
-        return data.orderDate >= this.start && data.orderDate <= this.end;
-      }
-      return true;
-    }
-  }
-
   applyFilter() {
-    this.pipe = new DatePipe('en');
-    
-    this.dataSource.filterPredicate = (data, filter) =>{
-      if (this.start && this.end) {
-        return data.orderDate >= this.start && data.orderDate <= this.end;
-      }
-      return true;
-    }
-    // const filterValue = (event.target as HTMLInputElement).value;
-    // this.dataSource.filter = filterValue.trim().toLowerCase();
-    console.log(this.start , this.end)
+    console.log(this.startDate)
+    const startDate = this.pipe.transform(this.startDate, 'yyyy-MM-dd');
+    const endDate = this.pipe.transform(this.endDate, 'yyyy-MM-dd');
+
+
+    this.reportAll.getDate(startDate!, endDate!).subscribe((data: ReportAll[]) => {
+      this.dataSource = new MatTableDataSource<ReportAll>(data);
+      this.dataSource.paginator = this.paginator;
+    });
+
   };
 
 
