@@ -47,6 +47,11 @@ export class PayModalComponent implements OnInit {
     if (this.paymentType == 2) {
       this.dialogRef.closeAll()
       this.dialogRef.open(LastModalComponent,{
+        data:{
+          orderId: this.data.orderId,
+          orderTypeId: this.data.orderTypeId,
+          orderNo: this.data.orderNo
+        },
         height: '176px',
         width: '520px'
       })

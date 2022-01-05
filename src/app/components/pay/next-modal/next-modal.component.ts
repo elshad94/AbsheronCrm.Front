@@ -33,8 +33,6 @@ export class NextModalComponent implements OnInit {
     })
   }
 
-
-
   ngOnInit(): void {
   }
 

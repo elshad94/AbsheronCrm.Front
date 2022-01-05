@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import ErrorResponse from '../model/ErrorResponse';
 import FileCreationResponse from '../model/FileCreationTerminalResponse';
+import { PayBankFile } from '../model/payBankFile';
 
 const BASE_URL = 'https://localhost:44323/api';
 
@@ -15,5 +16,11 @@ export class FileService {
         const formData = new FormData();
         formData.append('files', file);
         return this.http.post<FileCreationResponse>(`${BASE_URL}/File?nvNo=${nvNo}`, formData);
+    }
+
+    createFilePank(file: File) {
+        const formData = new FormData();
+        formData.append('files', file);
+        return this.http.post<PayBankFile>(`${BASE_URL}/File`, formData);
     }
 }
