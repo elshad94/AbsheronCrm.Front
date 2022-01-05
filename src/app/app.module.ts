@@ -34,6 +34,12 @@ import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgChartsModule } from 'ng2-charts';
 import { HelpComponent } from './components/help/help.component';
+import { FilterPipe } from 'src/app/pipes/filter.pipe';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+
+
 
 @NgModule({
     declarations: [
@@ -60,9 +66,9 @@ import { HelpComponent } from './components/help/help.component';
         LastModalComponent,
         LoginComponent,
         RegisterComponent,
-        HelpComponent
-
-
+        HelpComponent,
+        BrokerEditComponent,
+        FilterPipe
 
     ],
     imports: [
@@ -77,7 +83,10 @@ import { HelpComponent } from './components/help/help.component';
         MatInputModule,
         MatTableModule,
         MatPaginatorModule,
-        NgChartsModule
+        NgChartsModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatNativeDateModule
     ],
     providers: [
         {
