@@ -11,6 +11,7 @@ const baseUrl = 'https://localhost:44323/api/Payment/PayAvans';
   providedIn: 'root'
 })
 export class PayAvansService {
+  isPaymentSuccesfull = false;
 
 constructor(private http: HttpClient) { }
 

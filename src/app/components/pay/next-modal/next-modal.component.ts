@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { PayAvans } from 'src/app/model/payAvans';
 import { Payments } from 'src/app/model/payments';
 import { PayAvansService } from 'src/app/services/payAvans.service';
@@ -17,7 +18,8 @@ export class NextModalComponent implements OnInit {
 
   constructor(private dialogRef:MatDialog,
     @Inject(MAT_DIALOG_DATA) public order: Payments,
-    private payAv: PayAvansService) { }
+    private payAv: PayAvansService,
+    private router: Router,) { }
 
   public openDialog(orderId: number, orderTypeId: number,  orderNo: string) {
     console.log(orderNo)
@@ -34,9 +36,8 @@ export class NextModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
-
-
 
   paymentAv(){
   const newPayAv: PayAvans = {
@@ -52,7 +53,9 @@ export class NextModalComponent implements OnInit {
         showConfirmButton: false,
         timer: 2500
       })
+      this.payAv.isPaymentSuccesfull = true;
       this.dialogRef.closeAll()
+
     },
     error =>{
       Swal.fire({

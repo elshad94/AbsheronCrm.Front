@@ -3,7 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Payments } from 'src/app/model/payments';
+import { PayAvansService } from 'src/app/services/payAvans.service';
 import { PaymentService } from 'src/app/services/payment.service';
+import logger from 'src/utils/logger';
 import { PayModalComponent } from './pay-modal/pay-modal.component';
 
 
@@ -16,11 +18,15 @@ import { PayModalComponent } from './pay-modal/pay-modal.component';
 export class PayComponent implements OnInit {
 
   constructor(private dialogRef: MatDialog,
-    private payService: PaymentService) { 
+    private payService: PaymentService,
+    private payAvService: PayAvansService) { 
       
     }
 
   payments: Payments[] = [];
+
+  orderTypeText: string[] = [];
+
   columnsToDisplay = ['orderTypeText', 'orderNo', 'amount', 'orderId'];
   dataSource: MatTableDataSource<Payments> = new MatTableDataSource<Payments>(this.payments);
 
@@ -37,12 +43,23 @@ export class PayComponent implements OnInit {
       height: '150px',
       width: '600px',
     })
+    this.dialogRef.afterAllClosed.subscribe(res => {
+      if(this.payAvService.isPaymentSuccesfull) {
+        this.getData()
+        this.payAvService.isPaymentSuccesfull = false;
+      }
+    })
   }
 
   ngOnInit(): void {
+    this.getData()
+  }
+
+  private getData() {
     this.payService.payAll().subscribe((data: Payments[]) => {
       this.dataSource = new MatTableDataSource<Payments>(data);
       this.dataSource.paginator = this.paginator;
+      this.orderTypeText = [...new Set(data.map(d => d.orderTypeText))]
     });
   }
 
@@ -50,6 +67,14 @@ export class PayComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   };
+
+  filterTableByStatus(event: Event) {
+    const elem = event.target as HTMLInputElement;
+    const status = elem.value;
+    this.dataSource.filterPredicate = (data: Payments, filter: string) =>
+        data.orderTypeText.trim().toLowerCase() === filter;
+    this.dataSource.filter = status.trim().toLowerCase();
+}
 
 }
 
