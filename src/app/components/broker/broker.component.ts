@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
+import logger from 'src/utils/logger';
 
 
 
@@ -51,10 +52,6 @@ export class BrokerComponent implements OnInit {
 
     ngOnInit(): void {
         this.getBroker();
-        this.putBroker();
-    }
-    onclickBtnDelete(){
-        console.log('dskdjskdjskdj');
     }
 
     openDialog(item: BrokerItem, itemNo: string){
@@ -75,19 +72,16 @@ export class BrokerComponent implements OnInit {
 
     getBroker() {
         this.Brokerservice.getBrokerItem().subscribe((res) => {
-            this.BrokerStatusTexts = [...new Set(res.map(res => res.statusText ))];
-            res.map(res=>{
+            logger.info(res);
+            this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
+            res.map(res => {
                 this.id=res.orderId;
             });
             this.dataSource = new MatTableDataSource<BrokerItem>(res);
             this.dataSource.paginator = this.paginator;
         });
     }
-    putBroker() {
-        this.Brokerservice.updateBrokerItem1(this.id).subscribe((res) => {
-            console.log(res);
-        });
-    }
+
     onChangeList($event: any) {
         this.id = $event.target.value;
         this.isChecked = $event.target.checked;
@@ -142,7 +136,7 @@ export class BrokerComponent implements OnInit {
         const elem = event.target as HTMLInputElement;
         const status = elem.value;
         this.dataSource.filterPredicate = (data: BrokerItem, filter: string) =>
-            data.statusText.trim().toLowerCase() === filter;
+            data.orderStatusText.trim().toLowerCase() === filter;
         this.dataSource.filter = status.trim().toLowerCase();
     }
 }

@@ -1,28 +1,28 @@
 export class BrokerItem {
-  "orderId": 0
-  "docNo": string
-  "date": string
-  "customer": string
-  "gbNo": string
-  "amount": string
-  "invoiceNotesLabel": string
-  "orderStatusId": number
-  'statusText': string
-  "select":boolean
-  "notes": "string"
-  "transportTypeId": 0
-  "transportNumber": "string"
-  "expenses": [
+    'orderId': number;
+    'docNo': string;
+    'date': string;
+    'customer': string;
+    'gbNo': string;
+    'amount': number;
+    'invoiceNotesLabel': string;
+    'orderStatusId': number;
+    'orderStatusText': string;
+    'select':boolean;
+    'notes': 'string';
+    'transportTypeId': number;
+    'transportNumber': 'string';
+    'expenses': [
     {
-      "id": 0
+      'id': number
     }
-  ]
-  "fileDetails": [
+  ];
+    'fileDetails': [
     {
-      "fileId": 0
-      "docTypeId": 0
+      'fileId': number
+      'docTypeId': number
     }
-  ]
+  ];
 }
 
 
