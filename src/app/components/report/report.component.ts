@@ -13,12 +13,6 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class ReportComponent implements OnInit {
 
-<<<<<<< HEAD
-    constructor() { }
-
-    ngOnInit(): void {
-    }
-=======
   constructor(private reportAll: ReportAllService) {
 
   }
@@ -57,7 +51,6 @@ export class ReportComponent implements OnInit {
       return true;
     }
   }
->>>>>>> reportPage
 
   applyFilter() {
     this.pipe = new DatePipe('en');

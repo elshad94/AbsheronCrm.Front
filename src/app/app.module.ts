@@ -67,9 +67,7 @@ import { MatNativeDateModule } from '@angular/material/core';
         LoginComponent,
         RegisterComponent,
         HelpComponent,
-        BrokerEditComponent,
-        FilterPipe
-
+        BrokerOrderComponent
     ],
     imports: [
         BrowserModule,
