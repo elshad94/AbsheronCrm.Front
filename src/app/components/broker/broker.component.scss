@@ -8,3 +8,27 @@
         }
     }
 }
+
+.mat-table{
+    font-family: "Lexend Deca", sans-serif !important;
+
+}
+
+.mat-column-actions  {
+    text-align: left !important;
+}
+
+.mat-header-row th{
+    vertical-align: middle!important;
+    background-color: #f8fafd;
+    color: #677788;
+    width: 15%;
+}
+
+.mat-header-row{
+    height: 45px;
+}
+
+tr.mat-row td {
+    border-bottom-color: transparent;
+}
