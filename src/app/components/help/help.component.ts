@@ -39,7 +39,7 @@ export class HelpComponent {
             next: () => {
                 successAlert('Sualınız göndərildi', 'Uğurlu').then(res => {
                     if(res.isConfirmed) {
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/home']);
                     }
                 });
             },

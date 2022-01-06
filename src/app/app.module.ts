@@ -28,7 +28,7 @@ import { NextModalComponent } from './components/pay/next-modal/next-modal.compo
 import { LastModalComponent } from './components/pay/last-modal/last-modal.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HttpClientModule, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule, HttpHeaders, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from '@angular/material/table';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -38,6 +38,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { RedirectUnauthorizedInterceptor } from './services/redirectUnAuthorizedInterceptor.service';
 
 
 
@@ -108,8 +109,11 @@ import { DatePipe } from '@angular/common';
         {
             provide:'PutBrokerItem',
             useValue:'https://localhost:44323/api/Broker/'
-
-
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: RedirectUnauthorizedInterceptor,
+            multi: true
         }
     ],
     bootstrap: [AppComponent]
