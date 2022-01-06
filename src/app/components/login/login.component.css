@@ -1,10 +1,8 @@
 /* No CSS *//*# sourceMappingURL=login.component.css.map */
-
-.navbar-vertical-fixed {
-    z-index: -1 !important;
+.padding_100 {
+  padding: 100px;
 }
 
-#header {
-    z-index: -1;
+input[type="checkbox"] {
+  margin-right: 10px;
 }
-
