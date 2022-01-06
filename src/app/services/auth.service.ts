@@ -1,41 +1,41 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
+import LoginRequestData from '../model/loginRequestData';
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  public headers?: HttpHeaders ;
-  
-  baseUrl:string = "https://localhost:44383/api/Account/"
-  constructor(private http: HttpClient) {
-    this.headers = new HttpHeaders({'Content-Type': 'application/json'})
-   }
+    public headers?: HttpHeaders ;
 
-  register(model:any){
-    return this.http.post<any>(this.baseUrl,model);
-  }
+    baseUrl = 'https://localhost:44383/api/Account/';
+    constructor(private http: HttpClient) {
+        this.headers = new HttpHeaders({'Content-Type': 'application/json'});
+    }
 
-  login( model: any){
-    return this.http.post<any>(this.baseUrl+"signin",model);
-    
-  }
+    register(model:any){
+        return this.http.post<any>(this.baseUrl,model);
+    }
 
-  uploadFile(fileData: FormData,UId:number){
-    return  this.http.post(this.baseUrl+"UploadFile?Uid="+UId,fileData)
-  }
+    login( model: LoginRequestData){
+        return this.http.post(this.baseUrl+'signin', model);
+    }
 
-  sendEmail(){
-    var UId:number = Number(localStorage.getItem('uId')?.toString()) 
-    return this.http.post(this.baseUrl+"SendEmail",UId)
-  }
+    uploadFile(fileData: FormData,UId:number){
+        return  this.http.post(this.baseUrl+'UploadFile?Uid='+UId,fileData);
+    }
 
-  chagePass(){
-    return this.http.post(this.baseUrl+"forgotpassword","fs")
-  }
+    sendEmail(){
+        const UId = Number(localStorage.getItem('uId')?.toString());
+        return this.http.post(this.baseUrl+'SendEmail',UId);
+    }
 
-  updatePass(model:any){
-    console.log(model)
-    return this.http.post(this.baseUrl+"ChangePass",model)
-  }
+    chagePass(){
+        return this.http.post(this.baseUrl+'forgotpassword','fs');
+    }
+
+    updatePass(model:any){
+        console.log(model);
+        return this.http.post(this.baseUrl+'ChangePass',model);
+    }
 }

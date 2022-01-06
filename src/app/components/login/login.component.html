@@ -8,14 +8,16 @@
       <div class="top-logo">
         <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
       </div>
-      <form class="login-form" #login=ngForm (ngSubmit)="signin(login.value)">
+      <form class="login-form">
         <div class="form-group">
           <label class="input-label" for="exampleFormControlInput1">E-mail</label>
-          <input type="email" ngModel name="UEmail" id="mail" class="form-control">
+          <input type="email" [(ngModel)]="loginRequestData.uEmail"
+            name="uEmail"  class="form-control">
         </div>
         <div class="form-group">
           <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-          <input type="password" ngModel name="UPassword" id="psw" class="form-control" value="">
+          <input type="password" [(ngModel)]="loginRequestData.uPassword"
+            name="uPassword" class="form-control" value="">
         </div>
         <div class="row">
           <div class="col-lg-6">
@@ -26,7 +28,7 @@
             <a (click)="changePasword()" style="cursor: pointer;" class="link-primary">Şifrəni unutmuşam</a>
           </div>
         </div>
-        <button type="submit" class="form-control col-sm-4 mb-3 btn btn-block newOrder mb-3">
+        <button type="submit" (click)="signin()" class="form-control col-sm-4 mb-3 btn btn-block newOrder mb-3">
           Daxil ol
         </button>
 
