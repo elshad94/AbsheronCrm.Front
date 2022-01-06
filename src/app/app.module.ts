@@ -38,7 +38,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
-
+import { ChangepassComponent } from './components/register/changepass/changepass.component';
+import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
+import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator-directive';
 
 
 @NgModule({
@@ -68,6 +70,11 @@ import { DatePipe } from '@angular/common';
         RegisterComponent,
         HelpComponent,
         BrokerOrderComponent,
+        RegisterComponent,
+        LoginComponent,
+        ConfirmEqualValidatorDirective,
+        VerifyEmailComponent,
+        ChangepassComponent
     ],
     imports: [
         BrowserModule,

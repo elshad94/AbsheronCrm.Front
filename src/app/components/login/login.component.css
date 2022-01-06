@@ -1,1 +1,10 @@
 /* No CSS *//*# sourceMappingURL=login.component.css.map */
+
+.navbar-vertical-fixed {
+    z-index: -1 !important;
+}
+
+#header {
+    z-index: -1;
+}
+

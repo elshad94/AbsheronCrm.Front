@@ -1,81 +1,115 @@
 <main id="content" role="main" class="main pointer-event"> 
-    <div class="content container-fluid">
-     
+  <div class="content container-fluid">
+    <form #changePass="ngForm" (ngSubmit)="changePass.valid && UpdatePass(changePass.value)">
+    
       <div class="row">
-          <div class="col-lg-12">
-            <!-- Card -->
-            <div class="card mb-3 mb-lg-5">
-              <!-- Header -->
-              <div class="card-header">
-                <h3 class="card-header-title font-weight-bold">Şifrəni dəyiş</h3>
-              </div>
-              <!-- End Header -->
-  
-              <!-- Body -->
-              <div class="card-body">
-                <!-- Form Group -->
-              
-                <!-- End Form Group -->
-  
-                <div class="row">
-                
-                    <div class="col-sm-7">
-                        <!-- Form Group -->
-                      <div class="form-group">
-                        <label for="SKULabel" class="input-label">Əvvəlki şifrə</label>
-      
-                        <input type="text" class="form-control" name="SKU" id="SKULabel" aria-label="eg. 348121032">
-                      </div>
-                      <!-- End Form Group -->
-                      </div>
-                      <div class="col-sm-7">
-                        <!-- Form Group -->
-                      <div class="form-group">
-                        <label for="SKULabel" class="input-label">Yeni şifrə</label>
-      
-                        <input type="text" class="form-control" name="SKU" id="SKULabel"  aria-label="eg. 348121032">
-                      </div>
-                      <!-- End Form Group -->
-                      </div>
-                    
-                     
-                      <div class="col-sm-7">
-                        <!-- Form Group -->
-                      <div class="form-group">
-                        <label for="SKULabel" class="input-label">Yeni şifrənin təkrarı</label>
-      
-                        <input type="text" class="form-control" name="SKU" id="SKULabel" >
-                      </div>
-                      <!-- End Form Group -->
-                      </div>
-                    
-  
-                </div>
-                <!-- End Row -->
-                
-                <div class="col-sm-auto">
-                  <a class="btn newOrder" href="users-add-user.html">
-                     Dəyiş
-                  </a>
-                </div>
-  
-                <!-- Quill -->
-                <div class="quill-custom">
-                  <div class="js-quill" style="min-height: 15rem;"
-                       data-hs-quill-options='{
-                          "placeholder": "Type your description..."
-                         }'>
-                  </div>
-                </div>
-                <!-- End Quill -->
-              </div>
-              <!-- Body -->
+        
+        <div class="col-lg-12">
+          <!-- Card -->
+          <div class="card mb-3 mb-lg-5">
+            <!-- Header -->
+            <div class="card-header">
+              <h3 class="card-header-title font-weight-bold">Şifrəni dəyiş</h3>
             </div>
-            <!-- End Card -->
-  
-            <!-- End Card -->
+            <!-- End Header -->
+
+            <!-- Body -->
+            <div class="card-body">
+              <!-- Form Group -->
+            
+              <!-- End Form Group -->
+              <div class="row">
+              
+                  <div class="col-sm-7">
+                      <!-- Form Group -->
+                    
+    
+                      <div class="form-group">
+                        <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+                        <input 
+                             ngModel
+                             #password="ngModel"
+                             name="Password"
+                             type="password"
+                             id="password" 
+                             required
+                             class="form-control">
+                             <!-- <div class="alert alert-soft-danger" 
+                             *ngIf="Password.touched && !Password.valid ">*Şifrə tələb olunur</div> -->
+                    </div>
+                    </div>
+                    <!-- End Form Group -->
+                  
+                    <div class="col-sm-7">
+                      <!-- Form Group -->
+                      <div class="form-group">
+                        <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
+                        <input 
+                             ngModel
+                             #newPassword="ngModel"
+                             name="newPassword"
+                             type="password"
+                             id="password" 
+                             required
+                             class="form-control">
+                             <!-- <div class="alert alert-soft-danger" 
+                             *ngIf="newPassword.touched && !newPassword.valid ">*Şifrə tələb olunur</div> -->
+                    </div>
+                    <!-- End Form Group -->
+                   
+                  
+                   
+                    <div class="col-sm-7">
+                      <!-- Form Group -->
+                      <div class="form-group">
+                        <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+                        <input 
+                            type="password"
+                            id="confirmPassword"
+                            ngModel
+                            #confirmPassword="ngModel"
+                            required
+                            name="confirmPassword"
+                            class="form-control"
+                            appConfirmEqualValidator="newPassword"
+                            >
+                            <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
+                    </div>
+                    <!-- End Form Group -->
+                    </div>
+                  
+                  
+
+              </div>
+              <!-- End Row -->
+              
+              <div class="col-sm-auto">
+                <a class="btn newOrder" (click)="UpdatePass(changePass.value)">
+                   Dəyiş
+                </a>
+              </div>
+              </div>  
+              <!-- Quill -->
+              <div class="quill-custom">
+                <div class="js-quill" style="min-height: 15rem;"
+                     data-hs-quill-options='{
+                        "placeholder": "Type your description..."
+                       }'>
+                </div>
+              </div>
+              <!-- End Quill -->
+            </div>
+            <!-- Body -->
           </div>
-  
+          <!-- End Card -->
+
+          <!-- End Card -->
         </div>
+
+      </div>
+ 
+ 
+ 
+    </form> 
     </div>
-  </main>
+</main>
