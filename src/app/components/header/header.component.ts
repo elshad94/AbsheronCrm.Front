@@ -16,6 +16,10 @@ export class HeaderComponent implements OnInit {
       $( "#collapse" ).toggleClass( "tio-last-page")
       $( ".logo" ).toggleClass( "brandLogoCol")
     })
+
+    $('#term').click(function() {
+      $( ".term" ).toggleClass("termcol")
+    })
   }
 
 }
