@@ -40,6 +40,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
 import { RedirectUnauthorizedInterceptor } from './services/redirectUnAuthorizedInterceptor.service';
 
+import { ChangepassComponent } from './components/register/changepass/changepass.component';
+import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
+import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator-directive';
 
 
 @NgModule({
@@ -69,6 +72,11 @@ import { RedirectUnauthorizedInterceptor } from './services/redirectUnAuthorized
         RegisterComponent,
         HelpComponent,
         BrokerOrderComponent,
+        RegisterComponent,
+        LoginComponent,
+        ConfirmEqualValidatorDirective,
+        VerifyEmailComponent,
+        ChangepassComponent
     ],
     imports: [
         BrowserModule,

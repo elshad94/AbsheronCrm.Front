@@ -39,7 +39,7 @@ const routes: Routes = [
     {path:'returnFile',component:ReturnFileComponent},
     {path:'legalAccount',component:LegalAccountComponent},
     {path:'nextModal',component:NextModalComponent},
-    {path:'login',component:LoginComponent},
+    {path:'',component:LoginComponent},
     {path:'help',component:HelpComponent},
 
 ];
