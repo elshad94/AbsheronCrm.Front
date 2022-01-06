@@ -1,5 +1,10 @@
 .head {
     position: fixed;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: 20px;
+    align-items: center;
     width: 83%;
     top: 0px;
     margin-left: 17%;
@@ -7,6 +12,30 @@
     z-index: 1000;
     background: #ffffff;
     box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s;
+}
+
+.fullHead {
+    width: 95%;
+    margin-left: 5%;
+    transition: all 0.4s;
+}
+
+.tio-first-page:hover {
+    cursor: pointer;
+    color: #4299bf;
+    transition: all 0.4s;
+}
+
+.user {
+    background-color: #4299bf;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
 }
 
 .asideMain {
@@ -17,4 +46,48 @@
     height: 100vh;
     background: #f9fafc;
     z-index: 10000;
+    padding: 0 25px;
+    transition: all 0.4s;
+}
+
+.brandLogo {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.brandLogoCol{
+    width: 210%!important;
+}
+
+.sidebarMenu {
+    margin-top: 40px;
+}
+
+.asideCol {
+    width: 5%;
+    transition: all 0.4s;
+}
+
+.sideUl {
+    list-style: none;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0;
+}
+
+.sideUl > li {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 16px;
+    height: 38px;
+}
+
+.sideUl > li >img{
+    padding-right: 13px;
 }
