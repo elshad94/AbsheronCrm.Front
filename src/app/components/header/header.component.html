@@ -5,19 +5,19 @@
         </div>
         <div class="sidebarMenu">
             <ul class="sideUl">
-                <li><img src="../../../assets/icon/Vector (2).png">Ana səhifə</li>
+                <li [routerLink]="['/home']" routerLinkActive="router-link-active"  ><img src="../../../assets/icon/Vector (2).png">Ana səhifə</li>
                 <li class="term" >
                     <div id="term"><img src="../../../assets/icon/Vector.png">Terminal xidmətlər</div>
                     <ul class="subCat">
-                        <li>Terminal xidmətlərim</li>
-                        <li>Yeni sifariş</li>
+                        <li [routerLink]="['/services']" routerLinkActive="router-link-active">Terminal xidmətlərim</li>
+                        <li [routerLink]="['/neworder']" routerLinkActive="router-link-active">Yeni sifariş</li>
                     </ul>
                 </li>
-                <li><img src="../../../assets/icon/Vectorbroker.png">Broker</li>
-                <li><img src="../../../assets/icon/Vectorodeme.png">Ödəmə</li>
-                <li><img src="../../../assets/icon/Vector 18izleme.png">İzləmə</li>
-                <li><img src="../../../assets/icon/Vectorhesabat.png">Hesabat</li>
-                <li><img src="../../../assets/icon/Vector.png">Kömək</li>
+                <li [routerLink]="['/broker']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vectorbroker.png">Broker</li>
+                <li [routerLink]="['/pay']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vectorodeme.png">Ödəmə</li>
+                <li [routerLink]="['/track']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vector 18izleme.png">İzləmə</li>
+                <li [routerLink]="['/report']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vectorhesabat.png">Hesabat</li>
+                <li [routerLink]="['/help']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vector.png">Kömək</li>
                 <li><img src="../../../assets/icon/Vectortenzimleme.png">Tənzimləmə</li>
             </ul>
         </div>

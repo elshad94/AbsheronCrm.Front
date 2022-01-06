@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
       $( "div.asideMain" ).toggleClass( "asideCol")
       $( "#collapse" ).toggleClass( "tio-last-page")
       $( ".logo" ).toggleClass( "brandLogoCol")
+      $( ".pointer-event" ).toggleClass( "pointer-eventCol")
     })
 
     $('#term').click(function() {
