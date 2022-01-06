@@ -11,9 +11,10 @@ export class RedirectUnauthorizedInterceptor implements HttpInterceptor {
 
     intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         httpRequest = httpRequest.clone({
-            setHeaders: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            },
+            headers: httpRequest.headers
+                .set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+                .set('Access-Control-Allow-Origin', '*')
+                .set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT')
         });
         return next.handle(httpRequest).pipe(
             catchError(err => {
