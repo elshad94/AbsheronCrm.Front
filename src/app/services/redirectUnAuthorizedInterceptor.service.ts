@@ -10,7 +10,6 @@ export class RedirectUnauthorizedInterceptor implements HttpInterceptor {
     constructor(private router: Router) {}
 
     intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // httpRequest.headers.append('Authorization', `Bearer ${localStorage.getItem('token')}`);
         httpRequest = httpRequest.clone({
             setHeaders: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,

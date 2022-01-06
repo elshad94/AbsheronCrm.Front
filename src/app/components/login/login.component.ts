@@ -55,15 +55,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
         this.authService.login(this.loginRequestData).subscribe({
             next: (res: any) => {
-                localStorage.setItem('token', res);
-                localStorage.setItem('Userid',this.getDecodedAccessToken(res.toString()).UserId);
-                localStorage.setItem('Username',this.getDecodedAccessToken(res.toString()).Username);
+                logger.info(res);
+                localStorage.setItem('token', res.data);
+                localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
+                localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
                 this.router.navigate(['home']);
             },
             error: res => {
                 logger.info(res.error);
-                if(res.status === 400){
-                    errorAlert(res.error, 'Xəta');
+                if(res.error.data == '1' || res.error.data == '0'){
+                    errorAlert(res.error.programMessage,'Xəta');
                     return;
                 }
                 errorAlert('Serverdə hər hansı bir xəta baş verir', 'Xəta');
