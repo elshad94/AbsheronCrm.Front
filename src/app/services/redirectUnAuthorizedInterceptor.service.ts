@@ -18,6 +18,7 @@ export class RedirectUnauthorizedInterceptor implements HttpInterceptor {
         });
         return next.handle(httpRequest).pipe(
             catchError(err => {
+                logger.info(err);
                 if(err.status === 401) {
                     errorAlert('Login sehifesinden daxil olun!', 'Unauthorized').then(res => {
                         this.router.navigate(['']);

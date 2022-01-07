@@ -20,6 +20,9 @@ import { ServicesComponent } from './components/terminal-services/services/servi
 import { TerminalServicesComponent } from './components/terminal-services/terminal-services.component';
 import { TrackComponent } from './components/track/track.component';
 import { HelpComponent } from './components/help/help.component';
+import { RegisterComponent } from './components/register/register.component';
+import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
+import { SignoutComponent } from './components/login/signout/signout.component';
 
 const routes: Routes = [
     {path:'home',component:HomeComponent},
@@ -41,7 +44,9 @@ const routes: Routes = [
     {path:'nextModal',component:NextModalComponent},
     {path:'',component:LoginComponent},
     {path:'help',component:HelpComponent},
-
+    {path:'register',component:RegisterComponent},
+    {path:'verify',component:VerifyEmailComponent},
+    {path:'signout',component:SignoutComponent}
 ];
 
 @NgModule({

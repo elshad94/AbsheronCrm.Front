@@ -1,4 +1,5 @@
 export default interface LoginRequestData {
-  uEmail: string,
-  uPassword: string
-};
+    uEmail: string,
+    uPassword: string
+  }
+

@@ -43,6 +43,8 @@ import { RedirectUnauthorizedInterceptor } from './services/redirectUnAuthorized
 import { ChangepassComponent } from './components/register/changepass/changepass.component';
 import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator-directive';
+import { SignoutComponent } from './components/login/signout/signout.component';
+
 
 
 @NgModule({
@@ -76,7 +78,8 @@ import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator
         LoginComponent,
         ConfirmEqualValidatorDirective,
         VerifyEmailComponent,
-        ChangepassComponent
+        ChangepassComponent,
+        SignoutComponent
     ],
     imports: [
         BrowserModule,

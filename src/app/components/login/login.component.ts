@@ -12,7 +12,7 @@ import { errorAlert } from 'src/utils/alerts';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent  {
+export class LoginComponent implements OnInit, OnDestroy {
     loginRequestData: LoginRequestData = {
         uEmail: '',
         uPassword: ''
