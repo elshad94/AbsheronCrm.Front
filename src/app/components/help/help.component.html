@@ -1,39 +1,37 @@
-<main id="content" role="main" class="main pointer-event">
-  <div class="content container-fluid">
-    <!-- Card -->
-    <div class="row">
-      <div class="col-lg-9 mb-5 mb-lg-0">
-        <!-- Card -->
-        <div class="card card-lg">
-          <!-- Body -->
-          <div class="card-body">
-            <div>
-              <div class="email_subject_type">
-                <input type="text" class="form-control col-sm-4 mb-3"
-                  placeholder="Mövzu" [(ngModel)]="email.emailSubject">
-                <div class="col-sm-1"></div>
-                <input type="text" class="form-control col-sm-4 mb-3"
-                  placeholder="Sual Növü" [(ngModel)]="email.emailType">
-              </div>
-              <div class="form-group">
-                <textarea class="form-control question_text_area" placeholder="Sualınızı daxil edin"
-                  aria-label="Who is this invoice to?"
-                  [(ngModel)]="email.emailText"></textarea>
-              </div>
-              <button class="form-control col-sm-4 mb-3 btn btn-block newOrder mb-3"
-                (click)="sendEmail()">
-                Göndər
-              </button>
+<div class="content container-fluid">
+  <!-- Card -->
+  <div class="row">
+    <div class="col-lg-9 mb-5 mb-lg-0">
+      <!-- Card -->
+      <div class="card card-lg">
+        <!-- Body -->
+        <div class="card-body">
+          <div>
+            <div class="email_subject_type">
+              <input type="text" class="form-control col-sm-4 mb-3"
+                placeholder="Mövzu" [(ngModel)]="email.emailSubject">
+              <div class="col-sm-1"></div>
+              <input type="text" class="form-control col-sm-4 mb-3"
+                placeholder="Sual Növü" [(ngModel)]="email.emailType">
             </div>
+            <div class="form-group">
+              <textarea class="form-control question_text_area" placeholder="Sualınızı daxil edin"
+                aria-label="Who is this invoice to?"
+                [(ngModel)]="email.emailText"></textarea>
+            </div>
+            <button class="form-control col-sm-4 mb-3 btn btn-block newOrder mb-3"
+              (click)="sendEmail()">
+              Göndər
+            </button>
           </div>
-          <!-- End Body -->
         </div>
-        <!-- End Card -->
-
-        <!-- Sticky Block End Point -->
-        <div id="stickyBlockEndPoint"></div>
+        <!-- End Body -->
       </div>
+      <!-- End Card -->
 
+      <!-- Sticky Block End Point -->
+      <div id="stickyBlockEndPoint"></div>
     </div>
+
   </div>
-</main>
+</div>
