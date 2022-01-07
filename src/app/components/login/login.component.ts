@@ -12,7 +12,7 @@ import { errorAlert } from 'src/utils/alerts';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent  {
     loginRequestData: LoginRequestData = {
         uEmail: '',
         uPassword: ''
@@ -20,20 +20,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     constructor(private authService: AuthService,
               private router: Router) {}
-
-    ngOnInit(): void {
-      document.getElementById('left_panel')!.style.zIndex = '-1';
-      document.getElementById('left_panel')!.style.display = 'none';
-      document.getElementById('header_')!.style.zIndex = '-1';
-      document.getElementById('header_')!.style.display = 'none';
-    }
-
-    ngOnDestroy() {
-      document.getElementById('left_panel')!.style.zIndex = '0';
-      document.getElementById('left_panel')!.style.display = 'block';
-      document.getElementById('header_')!.style.zIndex = '0';
-      document.getElementById('header_')!.style.display = 'block';
-    }
 
     getDecodedAccessToken(token?: any): any {
         try{

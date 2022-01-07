@@ -167,6 +167,13 @@ select option {
 .main,
 .pointer-event {
   margin-top: 59px;
+  margin-left: 17%;
+  transition: all 0.3;
+}
+
+.pointer-eventCol{
+  margin-left: 5%!important;
+  transition: all 0.3;
 }
 
 .orderBtn {
