@@ -58,8 +58,8 @@
     align-items: center;
 }
 
-.brandLogoCol{
-    width: 210%!important;
+.brandLogoCol {
+    width: 210% !important;
 }
 
 .sidebarMenu {
@@ -86,49 +86,78 @@
     cursor: pointer;
 }
 
-.sideUl > li >img{
+.sideUl > li > img {
     padding-right: 13px;
 }
 
-.subCat{
+.subCat {
     margin-top: 10px;
     list-style: none;
+    width: max-content;
     white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s;
     margin-left: -17px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 3px;
+
 }
 
-.subCat>li::before{
-    content: '';
+.term:hover .subCat {
+    display: block;
+    z-index: 1000;
+    position: absolute;
+    background-color: white;
+    margin-top: -20px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    border-radius: 3px;
+    padding: 10px 14px;
+    margin-left: 25px;
+    opacity: 1;
+}
+
+.subCat > li::before {
+    content: "";
     display: inline-block;
     width: 7px;
     height: 7px;
     margin-right: 7px;
     border-radius: 100%;
-    background-color: #9A9A9A   ;
+    background-color: #9a9a9a;
 }
 
-.subCat>li{
+.subCat > li {
     line-height: 25px;
 }
 
-.term{
+.term {
     overflow: hidden;
     transition: all 0.3s;
 }
 
-.term>div>img{
+.term > div > img {
     padding-right: 13px;
 }
 
-.term>div{
+.term > div {
     cursor: pointer;
 }
 
-.termcol{
-    height: 90px!important;
-    transition: all 0.3s;
+
+
+.router-link-active {
+    color: #4299bf !important;
 }
 
-.router-link-active{
-    color: #4299BF!important;
+.router-link-active::before{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 7px;
+    margin-top: 10px;
+    margin-left: -12px;
+    margin: 10px 0 0 -12;
+    height: 7px;
+    border-radius: 100%;
+    background-color: #4299bf!important;
 }

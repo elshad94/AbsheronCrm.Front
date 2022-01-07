@@ -18,9 +18,6 @@ export class HeaderComponent implements OnInit {
       $( ".pointer-event" ).toggleClass( "pointer-eventCol")
     })
 
-    $('#term').click(function() {
-      $( ".term" ).toggleClass("termcol")
-    })
   }
 
 }

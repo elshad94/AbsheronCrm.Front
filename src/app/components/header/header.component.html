@@ -7,7 +7,7 @@
             <ul class="sideUl">
                 <li [routerLink]="['/home']" routerLinkActive="router-link-active"  ><img src="../../../assets/icon/Vector (2).png">Ana səhifə</li>
                 <li class="term" >
-                    <div id="term"><img src="../../../assets/icon/Vector.png">Terminal xidmətlər</div>
+                    <div><img src="../../../assets/icon/Vector.png">Terminal xidmətlər</div>
                     <ul class="subCat">
                         <li [routerLink]="['/services']" routerLinkActive="router-link-active">Terminal xidmətlərim</li>
                         <li [routerLink]="['/neworder']" routerLinkActive="router-link-active">Yeni sifariş</li>
@@ -18,7 +18,12 @@
                 <li [routerLink]="['/track']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vector 18izleme.png">İzləmə</li>
                 <li [routerLink]="['/report']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vectorhesabat.png">Hesabat</li>
                 <li [routerLink]="['/help']" routerLinkActive="router-link-active"><img src="../../../assets/icon/Vector.png">Kömək</li>
-                <li><img src="../../../assets/icon/Vectortenzimleme.png">Tənzimləmə</li>
+                <li class="term"><div ><img src="../../../assets/icon/Vectortenzimleme.png">Tənzimləmə</div>
+                 <ul class="subCat">
+                        <li [routerLink]="['/profileAccount']" routerLinkActive="router-link-active">Profil hesabı</li>
+                        <li [routerLink]="['/changepwd']" routerLinkActive="router-link-active">Şifrəni dəyiş</li>
+                        <li [routerLink]="['/notification']" routerLinkActive="router-link-active">Bildiriş</li>
+                    </ul></li>
             </ul>
         </div>
     </div>
