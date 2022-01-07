@@ -48,7 +48,7 @@ export class ProfileAccountComponent implements OnInit {
     this.accountService.updateProfile(value).subscribe((response) => {
       console.log(response);
       this.OnUpload(Number(localStorage.getItem('Userid')));
-      Swal.fire('Yadda saxlanıldı!', 'Şifrəniz dəyişdirildi', 'success');
+      Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
       this.accountService.getUser(Number(localStorage.getItem("Userid"))).subscribe((response) => {
         this.model = response;
         this.loadFile();

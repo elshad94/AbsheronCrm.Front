@@ -1,5 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,12 @@ export class AuthService {
    }
 
   register(model:any){
-    return this.http.post<any>(this.baseUrl,model);
+    console.log(model)
+    return this.http.post<any>(this.baseUrl+"signup",model);
   }
 
-  login( model: any){
-    return this.http.post<any>(this.baseUrl+"signin",model);
+  login( model: any):Observable<any>{
+    return this.http.post<any>(this.baseUrl+"SignIn",model);
     
   }
 
@@ -37,5 +39,9 @@ export class AuthService {
   updatePass(model:any){
     console.log(model)
     return this.http.post(this.baseUrl+"ChangePass",model)
+  }
+
+  logout(){
+    return this.http.get(this.baseUrl+"LogOut");
   }
 }
