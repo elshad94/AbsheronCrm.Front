@@ -1,78 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import jwt_decode from 'jwt-decode';
+import logger from 'src/utils/logger';
+import LoginRequestData from 'src/app/model/loginRequestData';
+import { errorAlert } from 'src/utils/alerts';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  model: any = {};
-  constructor(private authService: AuthService,
+export class LoginComponent implements OnInit, OnDestroy {
+    loginRequestData: LoginRequestData = {
+        uEmail: '',
+        uPassword: ''
+    };
+
+    constructor(private authService: AuthService,
               private router: Router) {}
 
-  ngOnInit(): void {}
-
-  getDecodedAccessToken(token?: any): any {
-    try{
-        return jwt_decode(token?.toString());
+    ngOnInit(): void {
+      document.getElementById('left_panel')!.style.zIndex = '-1';
+      document.getElementById('left_panel')!.style.display = 'none';
+      document.getElementById('header_')!.style.zIndex = '-1';
+      document.getElementById('header_')!.style.display = 'none';
     }
-    catch(Error){
-        return null;
+
+    ngOnDestroy() {
+      document.getElementById('left_panel')!.style.zIndex = '0';
+      document.getElementById('left_panel')!.style.display = 'block';
+      document.getElementById('header_')!.style.zIndex = '0';
+      document.getElementById('header_')!.style.display = 'block';
     }
-  }
 
-  signin(value:any) {
+    getDecodedAccessToken(token?: any): any {
+        try{
+            return jwt_decode(token?.toString());
+        }
+        catch(Error){
+            return null;
+        }
+    }
 
-    console.log(value)
-    this.authService.login(value).subscribe(
-      (res)=>{
-        console.log("Burda")
-        console.log(res)
-        if(res.status){
-          localStorage.setItem("token",res.data)
+    signin() {
+        if(this.loginRequestData.uEmail.trim().length === 0) {
+            errorAlert('Email-i daxil edin!');
+            return;
         }
-       var data = localStorage.getItem("token")
-         localStorage.setItem("Userid",this.getDecodedAccessToken(data?.toString()).UserId);
-         localStorage.setItem("Username",this.getDecodedAccessToken(data?.toString()).Username);
-       this.router.navigate(['home']);
-      },
-        
-      (err) => {
-        console.log(err.error)
-        if(err.error.data == "0"){
-          Swal.fire({
-            icon: 'error',
-            title:'Xəta',
-            text: `${err.error.programMessage}`,
-          })
+        if(this.loginRequestData.uPassword.trim().length === 0) {
+            errorAlert('Şifrəni daxil edin!');
+            return;
         }
-        else if(err.error.data == "1"){
-          Swal.fire({
-            icon: 'error',
-            title:'Xəta',
-            text: `${err.error.programMessage}`,
-          })
-        }
-        else {
-          Swal.fire({
-            icon: 'error',
-            title:'Xəta',
-            text: 'Serverdə hər hansı bir xəta baş verir',
-          })
-        }
-      }
-    );
-  }
+        this.authService.login(this.loginRequestData).subscribe({
+            next: (res: any) => {
+              logger.info(res)
+                localStorage.setItem('token', res.data);
+                localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
+                localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
+                this.router.navigate(['home']);
+            },
+            error: res => {
+                logger.info(res.error);
+                if(res.error.data == "1" || res.error.data == "0"){
+                  errorAlert(res.error.programMessage,"Xəta")
+                  return
+                }
+                errorAlert('Serverdə hər hansı bir xəta baş verir', 'Xəta');
+            }
+        });
+    }
 
-  changePasword(){
-    console.log("change")
-    this.authService.chagePass().subscribe((res)=>{
-      this.router.navigate(['/verify'])
-      console.log('changed')
-    })
-  }
+    changePasword(){
+        console.log('change');
+        this.authService.chagePass().subscribe((res)=>{
+            this.router.navigate(['/verify']);
+            console.log('changed');
+        });
+    }
 }
