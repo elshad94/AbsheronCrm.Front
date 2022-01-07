@@ -1,288 +1,118 @@
-<div class="content container-fluid">
+
+  <div class="content container-fluid">
  
-  <div class="card mb-3 mb-lg-5">
-      <!-- Header -->
-      <div class="card-header">
-        <div class="row justify-content-between align-items-center flex-grow-1">
-          <div class="col-12 col-md">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3 class="card-header-title font-weight-bold">Bildirişlər</h3>
+    <div class="card mb-3 mb-lg-5">
+        <!-- Header -->
+        <div class="card-header">
+          <div class="row justify-content-between align-items-center flex-grow-1">
+            <div class="col-12 col-md">
+              <div class="d-flex justify-content-between align-items-center">
+                <h3 class="card-header-title font-weight-bold">Bildirişlər</h3>
 
-              <!-- Datatable Info -->
-             
-              <!-- End Datatable Info -->
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <!-- End Header -->
-
-      <!-- Table -->
-      <div class="table-responsive datatable-custom">
-        <div class="row">
-            <div class="col-lg-6">
-              <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
-              data-hs-datatables-options='{
-                "columnDefs": [{
-                   "targets": [0, 1, 4],
-                   "orderable": false
-                 }],
-                "order": [],
-                "info": {
-                  "totalQty": "#datatableWithPaginationInfoTotalQty"
-                },
-                "search": "#datatableSearch",
-                "entries": "#datatableEntries",
-                "pageLength": 8,
-                "isResponsive": false,
-                "isShowPaging": false,
-                "pagination": "datatablePagination"
-              }'>
-      
-
-         <tbody>
-           <tr>
-             <td class="table-column-pr-0">
-               <div class="custom-control custom-checkbox">
-                 <input type="checkbox" 
-                        class="custom-control-input" 
-                        id="usersDataCheck2"
-                        [(ngModel)]="model[0].nuNId"
-                        >
-                 <label class="custom-control-label" for="usersDataCheck2"></label>
-               </div>
-             </td>
-             <td>Bütün uğursuz əməliyyatlar haqqında məlumat almaq istəyirəm</td>
-             
-           </tr>
-
-           <tr>
-             <td class="table-column-pr-0">
-               <div class="custom-control custom-checkbox">
-                 <input type="checkbox" 
-                        class="custom-control-input" 
-                        id="usersDataCheck3"
-                        [(ngModel)]="model[1].nuNId"
-                        >
-                 <label class="custom-control-label" for="usersDataCheck3"></label>
-               </div>
-             </td>
-           
-             <td>Bütün uğurlu əməliyyatlar haqqında məlumat almaq istəyirəm</td>
-           </tr>
-
-           <tr>
-             <td class="table-column-pr-0">
-               <div class="custom-control custom-checkbox">
-                 <input type="checkbox" 
-                        class="custom-control-input" 
-                        id="usersDataCheck4"
-                        [(ngModel)]="model[2].nuNId"
-                        >
-
-                 <label class="custom-control-label" for="usersDataCheck4"></label>
-               </div>
-             </td>
-         
-             <td>Bütün  əməliyyatlar haqqında məlumat almaq istəyirəm</td>
-           </tr>
-
-           <tr>
-             <td class="table-column-pr-0">
-               <div class="custom-control custom-checkbox">
-                 <input type="checkbox" class="custom-control-input" id="usersDataCheck5">
-                 <label class="custom-control-label" for="usersDataCheck5"></label>
-               </div>
-             </td>
-             <td>Bütün uğurlu əməliyyatlar haqqında məlumat almaq istəyirəm</td>
-           
-           </tr>
-
-           <tr>
-             <td class="table-column-pr-0">
-               <div class="custom-control custom-checkbox">
-                 <input type="checkbox" class="custom-control-input" id="usersDataCheck6">
-                 <label class="custom-control-label" for="usersDataCheck6"></label>
-               </div>
-             </td>
-             <td>Bütün uğurlu əməliyyatlar haqqında məlumat almaq istəyirəm</td>
-           
-           </tr>
-         </tbody>
-       </table>
-            </div>
-            <div class="col-lg-6 allCheckbox" >
-                <div class="row checkBox">
-                    <div class="col-lg-5 ">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch1">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch1" 
-                                 [(ngModel)]="model[0].nuSms"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">Sms</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch2">
-
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch2" 
-                                 [(ngModel)]="model[0].nuEmail"
-                                 >
-
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">E-mail</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch3">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch3" 
-                                 [(ngModel)]="model[1].nuSms"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">Sms</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch4">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch4"
-                                 [(ngModel)]="model[1].nuEmail"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">E-mail</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item1">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch5">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch5" 
-                                 [(ngModel)]="model[2].nuSms"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">Sms</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item2">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch6">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch6" 
-                                 [(ngModel)]="model[2].nuEmail"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">E-mail</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item1">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch7">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch7" 
-                                 [(ngModel)]="model[3].nuSms"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">Sms</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item2">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch8">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch8" 
-                                 [(ngModel)]="model[3].nuEmail"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">E-mail</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item1">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch9">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch9" 
-                                 [(ngModel)]="model[4].nuSms"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">Sms</span>
-                          </span>
-                        </label>
-                    </div>
-                    <div class="col-lg-5 checkbox-item2">
-                      <label class="toggle-switch d-flex align-items-center mb-3" for="customSwitch10">
-                          <input type="checkbox" 
-                                 class="toggle-switch-input" 
-                                 id="customSwitch10" 
-                                 [(ngModel)]="model[4].nuEmail"
-                                 >
-                          <span class="toggle-switch-label">
-                            <span class="toggle-switch-indicator"></span>
-                          </span>
-                          <span class="toggle-switch-content">
-                            <span class="d-block">E-mail</span>
-                          </span>
-                        </label>
-                    </div>
-                </div>
-            
+                <!-- Datatable Info -->
                
+                <!-- End Datatable Info -->
+              </div>
             </div>
+
+          </div>
+        </div>
+        <!-- End Header -->
+
+        <!-- Table -->
+        <div class="table-responsive datatable-custom row">
+              <div class="col-lg-6">
+                <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+                data-hs-datatables-options='{
+                  "columnDefs": [{
+                     "targets": [0, 1, 4],
+                     "orderable": false
+                   }],
+                  "order": [],
+                  "info": {
+                    "totalQty": "#datatableWithPaginationInfoTotalQty"
+                  },
+                  "search": "#datatableSearch",
+                  "entries": "#datatableEntries",
+                  "pageLength": 8,
+                  "isResponsive": false,
+                  "isShowPaging": false,
+                  "pagination": "datatablePagination"
+                }'>
+        
+
+           <tbody>
+            <tr *ngFor="let item of model; let i = index">
+              <td class="table-column-pr-0">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" 
+                         class="custom-control-input" 
+                         
+                         [(ngModel)]="item.nuNId"
+                         >
+                  <label class="custom-control-label" ></label>
+                </div>
+              </td>
+              <td>{{notifTexts[i]}}</td>
+              
+            </tr>
+           </tbody>
+         </table>
+              </div>
+              <div class="col-lg-6 allCheckbox" >
+                  <div class="row checkBox" *ngFor="let item of model">
+                    
+                      <div class="col-lg-5 ">
+                        <label class="toggle-switch d-flex align-items-center mb-3">
+                            <input type="checkbox" 
+                                   class="toggle-switch-input" 
+                                   
+                                   [(ngModel)]="item.nuSms"
+                                   >
+                            <span class="toggle-switch-label">
+                              <span class="toggle-switch-indicator"></span>
+                            </span>
+                            <span class="toggle-switch-content">
+                              <span class="d-block">Sms</span>
+                            </span>
+                          </label>
+                      </div>
+                      <div class="col-lg-5">
+                        <label class="toggle-switch d-flex align-items-center mb-3" >
+  
+                            <input type="checkbox" 
+                                   class="toggle-switch-input" 
+                                   
+                                   [(ngModel)]="item.nuEmail"
+                                   >
+  
+                            <span class="toggle-switch-label">
+                              <span class="toggle-switch-indicator"></span>
+                            </span>
+                            <span class="toggle-switch-content">
+                              <span class="d-block">E-mail</span>
+                            </span>
+                          </label>
+                      
+                    </div>
+                    
+                      
+                  </div>
+              
+                 
+              </div>
+        </div>
+        <!-- End Table -->
+
+        <!-- Footer -->
+     
+        <!-- End Footer -->
+        <div class="col-sm-auto">
+          <a class="btn newOrder" (click)="sendNot()">
+            Yadda saxla
+          </a>
         </div>
       </div>
-      <!-- End Table -->
 
-      <!-- Footer -->
-   
-      <!-- End Footer -->
-      <div class="col-sm-auto">
-        <a class="btn newOrder" (click)="sendNot()">
-          Yadda saxla
-        </a>
-      </div>
-    </div>
-
-  
-</div>
+    
+  </div>

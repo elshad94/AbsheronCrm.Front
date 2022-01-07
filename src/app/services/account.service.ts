@@ -36,7 +36,7 @@ import { Observable } from 'rxjs';
     }
 
     getNotById(id:number){
-      return this.http.get<any>("https://localhost:44383/api/Account/GetNotifications?id="+78)
+      return this.http.get<any>("https://localhost:44383/api/Account/GetNotifications?id="+id)
     }
 
   }

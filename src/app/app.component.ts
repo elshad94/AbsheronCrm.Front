@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'AbsLog';
+//    public tk:any;
+   
+
+//     onload(){
+//         var arrayFromStroage  = JSON.parse(localStorage.getItem("token") ?? "");
+//         this.tk = arrayFromStroage.length;
+//     }
 }
 

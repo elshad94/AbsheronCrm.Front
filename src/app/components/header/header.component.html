@@ -40,6 +40,17 @@
 <header>
     <div class="head">
         <div><i class="tio-first-page" id="collapse"></i></div>
-        <div class="user"><i class="tio-user"></i></div>
+        <div class="user">
+            <i class="tio-user"></i>
+            <div class="userSetting">
+                <ul>
+                    <li [routerLink]="['/profileAccount']">Profil hesabı</li>
+                    <li [routerLink]="['/changepwd']">Şifrəni dəyiş</li>
+                    <li [routerLink]="['/notification']">Bildiriş</li>
+                    <li (click)="signOut()">Çıxış et</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </header>

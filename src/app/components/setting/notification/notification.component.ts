@@ -10,14 +10,22 @@ import Swal from 'sweetalert2';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
+  notifTexts = [
+    'Bütün uğurlu əməliyyatlar haqqında məlumat almaq istəyirəm',
+    'Bütün uğursuz əməliyyatlar haqqında məlumat almaq istəyirəm',
+    'Bütün əməliyyatlar haqqında məlumat almaq istəyirəm',
+    'Yemiliklər və dəyişikliklər haqqında məlumat almaq istəyirəm',
+    'Sistemə daxil olmalar haqqında məlumat almaq istəyirəm'
+  ]
   
   public model?:any =[]
   constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
-      this.accountService.getNotById(Number(localStorage.getItem("token"))).subscribe((res)=> {
-        console.log(res)
+      this.accountService.getNotById(Number(localStorage.getItem("Userid"))).subscribe((res)=> {
+        console.log('model')
         this.model=res;
+        console.log(this.model)
       })
   }
 
@@ -36,7 +44,5 @@ export class NotificationComponent implements OnInit {
       })
      })
   }
-
-
   
 }

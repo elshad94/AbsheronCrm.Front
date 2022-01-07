@@ -1,10 +1,9 @@
-<body class="login-body">
-  <div class="row">
-    <div class="col-lg-6 ">
+<div class="login-body row">
+    <div class="col-lg-6 leftCont" >
       <h1 class="position-absolute text-light  font-weight-bold login-text">Daxil ol</h1>
       <img class="full-image " src="assets/img/AL.png" alt="">
     </div>
-    <div class="col-lg-6 padding_100">
+    <div class="col-lg-6 rightCont">
       <div class="top-logo">
         <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
       </div>
@@ -35,9 +34,7 @@
       </form>
       <div class="row d-flex justify-content-center  ">
         <p class="d-block text-center  position-absolute bottom-0 end-50">
-          Hesabınız yoxdur? <a href="/">Qeydiyyatdan keçin</a></p>
+          Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
       </div>
     </div>
-
-  </div>
-</body>
+</div>
