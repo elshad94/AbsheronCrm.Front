@@ -15,11 +15,13 @@ export class AuthService {
     }
 
     register(model:any){
+        console.log(model);
         return this.http.post<any>(this.baseUrl+'signup',model);
     }
 
-    login( model: LoginRequestData){
-        return this.http.post(this.baseUrl+'signin', model);
+    login( model: any):Observable<any>{
+        return this.http.post<any>(this.baseUrl+'SignIn',model);
+
     }
 
     uploadFile(fileData: FormData,UId:number){
@@ -31,7 +33,12 @@ export class AuthService {
         return this.http.post(this.baseUrl+'SendEmail',UId);
     }
 
+    chagePass(){
+        return this.http.post(this.baseUrl+'forgotpassword','fs');
+    }
+
     updatePass(model:any){
+        console.log(model);
         return this.http.post(this.baseUrl+'ChangePass',model);
     }
 
