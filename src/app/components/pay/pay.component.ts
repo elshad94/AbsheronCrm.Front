@@ -21,9 +21,9 @@ export class PayComponent implements OnInit {
   constructor(private dialogRef: MatDialog,
     private payService: PaymentService,
     private payAvService: PayAvansService,
-    private payBankService: PayBankService) { 
-      
-    }
+    private payBankService: PayBankService) {
+
+  }
 
   payments: Payments[] = [];
 
@@ -33,7 +33,7 @@ export class PayComponent implements OnInit {
   dataSource: MatTableDataSource<Payments> = new MatTableDataSource<Payments>(this.payments);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
+
 
   public openDialog(orderId: number, orderTypeId: number, orderNo: string) {
     this.dialogRef.open(PayModalComponent,{
@@ -44,43 +44,43 @@ export class PayComponent implements OnInit {
       },
       height: '150px',
       width: '600px',
-    })
+    });
     this.dialogRef.afterAllClosed.subscribe(res => {
       if(this.payAvService.isPaymentSuccesfull) {
-        this.getData()
+        this.getData();
         this.payAvService.isPaymentSuccesfull = false;
       }
       if(this.payBankService.isPaymentSuccesfull) {
-        this.getData()
+        this.getData();
         this.payBankService.isPaymentSuccesfull = false;
       }
-    })
+    });
   }
 
   ngOnInit(): void {
-    this.getData()
+    this.getData();
   }
 
   private getData() {
     this.payService.payAll().subscribe((data: Payments[]) => {
       this.dataSource = new MatTableDataSource<Payments>(data);
       this.dataSource.paginator = this.paginator;
-      this.orderTypeText = [...new Set(data.map(d => d.orderTypeText))]
+      this.orderTypeText = [...new Set(data.map(d => d.orderTypeText))];
     });
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  };
+  }
 
-  filterTableByStatus(event: Event) {
-    const elem = event.target as HTMLInputElement;
-    const status = elem.value;
-    this.dataSource.filterPredicate = (data: Payments, filter: string) =>
-        data.orderTypeText.trim().toLowerCase() === filter;
-    this.dataSource.filter = status.trim().toLowerCase();
-}
+  // filterTableByStatus(event: Event) {
+  //   const elem = event.target as HTMLInputElement;
+  //   const status = elem.value;
+  //   this.dataSource.filterPredicate = (data: Payments, filter: string) =>
+  //     data.orderTypeText.trim().toLowerCase() === filter;
+  //   this.dataSource.filter = status.trim().toLowerCase();
+  // }
 
 }
 

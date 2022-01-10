@@ -14,20 +14,20 @@ export class ChangepassComponent implements OnInit {
     private router: Router
   ) {}
 
-  
+
   public id?: number;
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: { [x: string]: number | undefined; }) => (this.id = params['uId'])); // fiction
   }
 
   reset(value: any) {
-    var changePassDto: any = {};
+    const changePassDto: any = {};
     changePassDto.UserId = this.id;
     changePassDto.UPassword = value.UPassword;
     console.log(changePassDto);
     this.authService.updatePass(changePassDto).subscribe((res: any) => {
       console.log('success');
-      this.router.navigate([''])
+      this.router.navigate(['']);
     });
   }
 }
