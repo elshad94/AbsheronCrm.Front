@@ -10,6 +10,7 @@ export interface BrokerRequestItem {
   customerName:    string;
   date:            string;
   totalCost:       number;
+  orderStatus?:    number;
 }
 
 export interface DocumentType {

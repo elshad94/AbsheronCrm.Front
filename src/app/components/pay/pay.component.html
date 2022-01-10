@@ -17,26 +17,6 @@
        <div class="col-auto">
          <!-- Filter -->
          <div class="row align-items-sm-center">
-           <div class="col-sm-auto">
-             <div class="d-flex align-items-center mr-2">
-               <span class="text-secondary mr-2">Status:</span>
-
-               <!-- Select -->
-               <select class="select2-selection custom-select custom-select-sm custom-select-borderless" size="1"
-               style="opacity: 1;" data-target-column-index="2" data-hs-select2-options='{
-                         "minimumResultsForSearch": "Infinity",
-                         "customClass": "custom-select custom-select-sm custom-select-borderless",
-                         "dropdownAutoWidth": true,
-                         "width": true
-                       }' >
-                        <!-- (change)="filterTableByStatus($event)"> -->
-               <option value="">Hamısı</option>
-               <option *ngFor="let data of orderTypeText" value="{{data}}">{{data}}</option>
-             </select>
-               <!-- End Select -->
-             </div>
-           </div>
-
            <div class="col-md">
              <form>
                <!-- Search -->

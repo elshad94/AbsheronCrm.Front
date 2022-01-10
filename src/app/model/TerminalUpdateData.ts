@@ -29,5 +29,6 @@ export interface TerminalDataForUpdate {
   filelar: TerminalFile[],
   customer: string,
   orderDate: Date,
-  orderNo: string
+  orderNo: string,
+  orderStatus: number
 }

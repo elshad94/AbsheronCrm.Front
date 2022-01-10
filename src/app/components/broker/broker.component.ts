@@ -21,25 +21,25 @@ enum CheckBoxType {
 }
 
 @Component({
-    selector: 'app-broker',
-    templateUrl: './broker.component.html',
-    styleUrls: ['./broker.component.scss'],
+  selector: 'app-broker',
+  templateUrl: './broker.component.html',
+  styleUrls: ['./broker.component.scss'],
 })
 export class BrokerComponent implements OnInit {
-    id: any;
-    isChecked: any;
-    Temp: any;
-    orderStatusId: any;
-    BrokerLength: any = 0;
-    BrokerChecked: any = [];
-    broker: BrokerItem[] = [];
-    last: any;
-    Broker = {};
-    BrokerStatusTexts: string[] = [];
-    item:any;
-    BrokerItem:BrokerItem[]=[];
-    BrokerItems!:BrokerItem;
-    columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText', 'delete'];
+  id: any;
+  isChecked: any;
+  Temp: any;
+  orderStatusId: any;
+  BrokerLength: any = 0;
+  BrokerChecked: any = [];
+  broker: BrokerItem[] = [];
+  last: any;
+  Broker = {};
+  BrokerStatusTexts: string[] = [];
+  item:any;
+  BrokerItem:BrokerItem[]=[];
+  BrokerItems!:BrokerItem;
+  columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText', 'delete'];
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     dataSource = new MatTableDataSource<BrokerItem>(this.BrokerItem);
@@ -51,92 +51,92 @@ export class BrokerComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.getBroker();
+      this.getBroker();
     }
 
     openDialog(item: BrokerItem, itemNo: string){
-        Swal.fire({
-            title: `Sifariş No ${itemNo} silinsin?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#d33',
-            cancelButtonColor: '#3085d6',
-            confirmButtonText: 'Bəli',
-            cancelButtonText: 'Xeyr'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.deleteBrokerItem(item, itemNo);
-            }
-        });
+      Swal.fire({
+        title: `Sifariş No ${itemNo} silinsin?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Bəli',
+        cancelButtonText: 'Xeyr'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteBrokerItem(item, itemNo);
+        }
+      });
     }
 
     getBroker() {
-        this.Brokerservice.getBrokerItem().subscribe((res) => {
-            logger.info(res);
-            this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
-            res.map(res => {
-                this.id=res.orderId;
-            });
-            this.dataSource = new MatTableDataSource<BrokerItem>(res);
-            this.dataSource.paginator = this.paginator;
+      this.Brokerservice.getBrokerItem().subscribe((res) => {
+        logger.info(res);
+        this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
+        res.map(res => {
+          this.id=res.orderId;
         });
+        this.dataSource = new MatTableDataSource<BrokerItem>(res);
+        this.dataSource.paginator = this.paginator;
+      });
     }
 
     onChangeList($event: any) {
-        this.id = $event.target.value;
-        this.isChecked = $event.target.checked;
+      this.id = $event.target.value;
+      this.isChecked = $event.target.checked;
 
-        if (this.isChecked == true) {
-            this.BrokerChecked.push(this.id);
-            this.BrokerLength++;
-            if (this.BrokerLength > 1) {
-                this.BrokerChecked.shift();
-            }
-        } else {
-            this.BrokerChecked.splice(this.BrokerChecked.indexOf(this.id), 1);
-            this.BrokerLength--;
+      if (this.isChecked == true) {
+        this.BrokerChecked.push(this.id);
+        this.BrokerLength++;
+        if (this.BrokerLength > 1) {
+          this.BrokerChecked.shift();
         }
-        console.log(this.BrokerChecked);
+      } else {
+        this.BrokerChecked.splice(this.BrokerChecked.indexOf(this.id), 1);
+        this.BrokerLength--;
+      }
+      console.log(this.BrokerChecked);
     }
 
     deleteBrokerItem(id:any, orderNo: string) {
 
-        this.Brokerservice.deleteBrokerItem1(id).subscribe(
-            (res:any) => {
-                Swal.fire(
-                    'Silindi!',
-                    `Sifariş No ${orderNo} silindi`,
-                    'success'
-                );
-                this.getBroker();
-            },
-            (error: any) => {
-                const status = error.status;
-                switch(status) {
-                case 404:
-                    Swal.fire(
-                        'Error!',
-                        `Order No ${orderNo} artıq silinib!`,
-                        'error'
-                    );
-                    break;
-                case 400: case 500:
-                    Swal.fire(
-                        'Error!',
-                        'Server problemi',
-                        'error'
-                    );
-                    break;
-                }
-            }
-        );
+      this.Brokerservice.deleteBrokerItem1(id).subscribe(
+        (res:any) => {
+          Swal.fire(
+            'Silindi!',
+            `Sifariş No ${orderNo} silindi`,
+            'success'
+          );
+          this.getBroker();
+        },
+        (error: any) => {
+          const status = error.status;
+          switch(status) {
+          case 404:
+            Swal.fire(
+              'Error!',
+              `Order No ${orderNo} artıq silinib!`,
+              'error'
+            );
+            break;
+          case 400: case 500:
+            Swal.fire(
+              'Error!',
+              'Server problemi',
+              'error'
+            );
+            break;
+          }
+        }
+      );
     }
 
     filterTableByStatus(event: Event) {
-        const elem = event.target as HTMLInputElement;
-        const status = elem.value;
-        this.dataSource.filterPredicate = (data: BrokerItem, filter: string) =>
-            data.orderStatusText.trim().toLowerCase() === filter;
-        this.dataSource.filter = status.trim().toLowerCase();
+      const elem = event.target as HTMLInputElement;
+      const status = elem.value;
+      this.dataSource.filterPredicate = (data: BrokerItem, filter: string) =>
+        data.orderStatusText.trim().toLowerCase() === filter;
+      this.dataSource.filter = status.trim().toLowerCase();
     }
 }

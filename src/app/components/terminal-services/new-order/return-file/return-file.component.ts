@@ -24,6 +24,7 @@ export class ReturnFileComponent implements OnInit {
   orderDate?: Date;
   customer?: string;
   orderNo?: string;
+  orderStatus?: number;
 
   constructor(
       private terminalService: TerminalService,
@@ -42,6 +43,7 @@ export class ReturnFileComponent implements OnInit {
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }
+    this.orderStatus = this.terminalService.orderStatus;
     this.nvNoList = [...new Set(this.terminalService.terminalUpdateRequestData
       .xidmetler.map(x => x.nvNo))];
     if(this.terminalService.terminalUpdateRequestData.files === undefined) {
@@ -170,6 +172,7 @@ export class ReturnFileComponent implements OnInit {
   }
 
   toXidmetler() {
+    this.terminalService.orderStatus = this.orderStatus;
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }

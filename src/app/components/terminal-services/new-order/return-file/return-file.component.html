@@ -172,11 +172,13 @@
                    "endPoint": "#stickyBlockEndPoint",
                    "stickyOffsetTop": 20
                  }'>
-              <a class="btn btn-block newOrder mb-3" href="javascript:;" (click)="createTerminalOrder()">
+              <a class="btn btn-block newOrder mb-3" href="javascript:;" (click)="createTerminalOrder()"
+                *ngIf="orderStatus === undefined || orderStatus === 4">
                   Yadda saxla
               </a>
 
-              <a class="btn btn-block newAccept mb-3" href="javascript:;" (click)="createTerminalOrder(false)">
+              <a class="btn btn-block newAccept mb-3" href="javascript:;" (click)="createTerminalOrder(false)"
+                *ngIf="orderStatus === undefined || orderStatus === 4">
                   Təsdiqlə
               </a>
 

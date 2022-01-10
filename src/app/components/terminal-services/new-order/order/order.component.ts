@@ -41,6 +41,7 @@ export class OrderComponent implements OnInit {
   customer?: string;
   orderDate?: Date;
   orderNo?: string;
+  orderStatus?: number;
 
   constructor(
         private terminalService: TerminalService,
@@ -110,6 +111,7 @@ export class OrderComponent implements OnInit {
 
   private initialUpdateLoad(updateTerminalData: TerminalDataForUpdate) {
     // coming from services component
+    this.orderStatus = updateTerminalData.orderStatus;
     this.transportTypeId = updateTerminalData.transPortTypeId;
     this.expenses = updateTerminalData.expenses;
     this.fullRefCode = updateTerminalData.fullRefCode;
@@ -148,6 +150,7 @@ export class OrderComponent implements OnInit {
   }
 
   private toFilesInitial() {
+    this.terminalService.orderStatus = this.orderStatus;
     // switching to return-files component tab for the first time
     this.terminalService.terminalUpdateRequestData = {
       emptyRefCode: this.emptyRefCode,
@@ -178,6 +181,7 @@ export class OrderComponent implements OnInit {
 
   private toFiles() {
     // switching to return-files component tab for subsequent times
+    this.terminalService.orderStatus = this.orderStatus;
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }
@@ -207,6 +211,7 @@ export class OrderComponent implements OnInit {
   }
 
   private fromFiles() {
+    this.orderStatus = this.terminalService.orderStatus;
     // switching tabs from return-file component
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'temrinalUpdateRequestData is undefined';

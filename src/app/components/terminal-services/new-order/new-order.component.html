@@ -24,13 +24,13 @@
           <div class="col-sm-auto">
             <div class="d-flex align-items-center mr-2">
               <div class="checkBox">
-                <input type="radio" aria-label="Radio button for following text input" [(ngModel)]="nvNoRadio"
-                  value="1" name="nvNoRadioButton" (change)="changeVaqonType()"
+                <input type="radio" aria-label="Radio button for following text input"
+                  value="1" name="nvNoRadioButton" (change)="changeVaqonType(1)" checked
                   id="nvNoRadio_vaqon"> Vaqon
               </div>
               <div class="CheckBox">
-                <input type="radio" aria-label="Radio button for following text input" [(ngModel)]="nvNoRadio"
-                  value="2" name="nvNoRadioButton" (change)="changeVaqonType()">Konteyner
+                <input type="radio" aria-label="Radio button for following text input"
+                  value="2" name="nvNoRadioButton" (change)="changeVaqonType(2)">Konteyner
               </div>
               <!-- End Select -->
             </div>

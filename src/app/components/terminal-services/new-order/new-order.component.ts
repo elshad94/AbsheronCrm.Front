@@ -30,15 +30,18 @@ export class NewOrderComponent implements OnInit {
     ex.isSelected = !ex.isSelected;
   }
 
+  public isCheck?:boolean=true;
   ngOnInit() {
-    document.addEventListener('DOMContentLoaded', () => {
-      const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
-      vaqonRadio.checked = true;
-    });
+    // document.addEventListener('DOMContentLoaded', () => {
+    // const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
+    // vaqonRadio.checked = true;
+    // logger.info('YOLO');
+    // });
     this.getNewOrderData();
   }
 
-  changeVaqonType() {
+  changeVaqonType(vaqonType: number) {
+    this.nvNoRadio = vaqonType as NvNoTypeId;
     this.getNewOrderData();
   }
 
