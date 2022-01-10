@@ -57,12 +57,4 @@ export class LoginComponent {
             }
         });
     }
-
-    changePasword(){
-        console.log('change');
-        this.authService.chagePass().subscribe((res)=>{
-            this.router.navigate(['/verify']);
-            console.log('changed');
-        });
-    }
 }

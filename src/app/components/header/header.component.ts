@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   }
 
   signOut(){
-    this.authService.logout().subscribe(res =>{
+    this.authService.logout().subscribe((res: any) =>{
       localStorage.removeItem("token");
       var arrayFromStroage  = JSON.parse(localStorage.getItem("token") ?? "");
       this.tk = arrayFromStroage.length;

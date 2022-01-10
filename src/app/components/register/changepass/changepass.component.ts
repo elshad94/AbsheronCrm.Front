@@ -17,7 +17,7 @@ export class ChangepassComponent implements OnInit {
   
   public id?: number;
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => (this.id = params['uId'])); // fiction
+    this.route.queryParams.subscribe((params: { [x: string]: number | undefined; }) => (this.id = params['uId'])); // fiction
   }
 
   reset(value: any) {
@@ -25,9 +25,9 @@ export class ChangepassComponent implements OnInit {
     changePassDto.UserId = this.id;
     changePassDto.UPassword = value.UPassword;
     console.log(changePassDto);
-    this.authService.updatePass(changePassDto).subscribe((res) => {
+    this.authService.updatePass(changePassDto).subscribe((res: any) => {
       console.log('success');
-      this.router.navigate(['/signin']);
+      this.router.navigate([''])
     });
   }
 }

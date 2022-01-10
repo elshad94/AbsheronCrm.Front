@@ -42,6 +42,7 @@ import { RedirectUnauthorizedInterceptor } from './services/redirectUnAuthorized
 import { ChangepassComponent } from './components/register/changepass/changepass.component';
 import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator-directive';
+import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.component';
 
 
 
@@ -78,6 +79,7 @@ import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator
         ConfirmEqualValidatorDirective,
         VerifyEmailComponent,
         ChangepassComponent,
+        ForgotPasComponent
     ],
     imports: [
         BrowserModule,

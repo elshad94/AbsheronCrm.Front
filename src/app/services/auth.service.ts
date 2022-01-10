@@ -33,8 +33,11 @@ export class AuthService {
         return this.http.post(this.baseUrl+'SendEmail',UId);
     }
 
-    chagePass(){
-        return this.http.post(this.baseUrl+'forgotpassword','fs');
+    chagePass(email:string){
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json'})
+          }
+        return this.http.post(this.baseUrl+'forgotpassword', {email}, httpOptions);
     }
 
     updatePass(model:any){

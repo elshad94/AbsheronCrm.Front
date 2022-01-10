@@ -1,14 +1,15 @@
-<div class="login-body row">
-        <div class="col-lg-6 leftCont">
+<div class="login-body row w-100">
+        <div class="col-lg-6 leftCont w-100">
             <h1 class="position-absolute text-light  font-weight-bold login-text">Qeydiyyat</h1>
             <img class="full-image " src="../assets/img/AL.png" alt="">
         </div>
-        <div class="col-lg-6 rightCont">
+        <div class="col-lg-6 rightCont w-100">
             <div class="top-logo">
                 <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
             </div>
             <form class="login-form" #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && OnSubmit(signUpForm.value)">
                 <div class="form-group">
+                    <label  for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
                     <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
                         <option value=1>Fiziki şəxs</option>
                         <option value=2>Hüquqi şəxs</option>
@@ -173,17 +174,18 @@
                         >
                         <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
                 </div>
-                <div class="row">
-                    <div class="col-lg-6">
+                <div class="row form-group" >
+                    <div class="col-lg-12 custom-control custom-checkbox ml-3">
                         <input 
                             ngModel
                             type="checkbox" 
                             name="UTerms"
-                            id="term">
-                        <label for="">I accept the <a href="" >Terms and Conditions</a></label>
+                            id="term"
+                            class="custom-control-input indeterminate-checkbox">
+                        <label class="custom-control-label" for="term">I accept the <a href="" >Terms and Conditions</a></label>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-login" >Sign up</button>
+                <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3" >Qeydiyyatdan keç</button>
             </form>
         </div>
     </div>

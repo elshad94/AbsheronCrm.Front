@@ -1,9 +1,9 @@
-<div class="row">
-    <div class="col-lg-6 ">
-      <h1 class="position-absolute text-light  font-weight-bold login-text">Daxil ol</h1>
+<div class="login-body row">
+    <div class="col-lg-6 leftCont">
+      <h1 class="position-absolute text-light  font-weight-bold login-text">Şifrəni dəyiş</h1>
         <img class="full-image " src="assets/img/AL.png" alt="">
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 rightCont">
         <div class="top-logo">
             <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
         </div>
@@ -12,7 +12,7 @@
                 <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
                 <input 
                      ngModel
-                      #password="ngModel"
+                     #password="ngModel"
                      name="UPassword"
                      type="password"
                      id="password" 
@@ -36,7 +36,7 @@
                     >
                     <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
             </div>
-           <button type="submit"  class="btn btn-login">Daxil ol</button>
+           <button type="button" (click)="reset(login.value)"   class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Daxil ol</button>
          </form>
     </div>
 </div>

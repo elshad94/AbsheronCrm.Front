@@ -66,6 +66,7 @@ export class LastModalComponent implements OnInit {
           showConfirmButton: false,
           timer: 2500
         })
+        this.payBank.isPaymentSuccesfull = true;
         this.dialogRef.closeAll()
       },
       error =>{

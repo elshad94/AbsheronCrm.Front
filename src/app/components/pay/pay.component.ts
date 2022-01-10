@@ -7,6 +7,7 @@ import { PayAvansService } from 'src/app/services/payAvans.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import logger from 'src/utils/logger';
 import { PayModalComponent } from './pay-modal/pay-modal.component';
+import { PayBankService } from 'src/app/services/payBank.service';
 
 
 
@@ -19,7 +20,8 @@ export class PayComponent implements OnInit {
 
   constructor(private dialogRef: MatDialog,
     private payService: PaymentService,
-    private payAvService: PayAvansService) { 
+    private payAvService: PayAvansService,
+    private payBankService: PayBankService) { 
       
     }
 
@@ -47,6 +49,10 @@ export class PayComponent implements OnInit {
       if(this.payAvService.isPaymentSuccesfull) {
         this.getData()
         this.payAvService.isPaymentSuccesfull = false;
+      }
+      if(this.payBankService.isPaymentSuccesfull) {
+        this.getData()
+        this.payBankService.isPaymentSuccesfull = false;
       }
     })
   }
