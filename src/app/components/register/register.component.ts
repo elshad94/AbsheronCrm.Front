@@ -81,6 +81,10 @@ export class RegisterComponent implements OnInit {
         });
     }
 
+    openModal(){
+
+    }
+
 
 
 

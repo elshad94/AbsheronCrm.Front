@@ -17,46 +17,42 @@
             <!-- Form Group -->
 
             <!-- End Form Group -->
-            <div class="row">
-
-              <div class="col-sm-7">
-                <!-- Form Group -->
-
-
-                <div class="form-group">
-                  <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-                  <input ngModel #password="ngModel" name="Password" type="password" id="password" required
-                    class="form-control">
-                  <!-- <div class="alert alert-soft-danger" 
-                           *ngIf="Password.touched && !Password.valid ">*Şifrə tələb olunur</div> -->
-                </div>
+            <div class="col-sm-6">
+              <!-- Form Group -->
+              <div class="form-group">
+                <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+                <input ngModel #password="ngModel" name="Password" type="password" id="password" required
+                  class="form-control">
+                <!-- <div class="alert alert-soft-danger" 
+                         *ngIf="Password.touched && !Password.valid ">*Şifrə tələb olunur</div> -->
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <!-- Form Group -->
+              <div class="form-group">
+                <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
+                <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="password" required
+                  class="form-control">
+                <!-- <div class="alert alert-soft-danger" 
+                         *ngIf="newPassword.touched && !newPassword.valid ">*Şifrə tələb olunur</div> -->
               </div>
               <!-- End Form Group -->
 
-              <div class="col-sm-7">
+<div class="row">
+
+              <div class="col-sm-12">
                 <!-- Form Group -->
                 <div class="form-group">
-                  <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
-                  <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="password" required
-                    class="form-control">
-                  <!-- <div class="alert alert-soft-danger" 
-                           *ngIf="newPassword.touched && !newPassword.valid ">*Şifrə tələb olunur</div> -->
+                  <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+                  <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
+                    name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword">
+                  <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
                 </div>
                 <!-- End Form Group -->
-
-
-
-                <div class="col-sm-7">
-                  <!-- Form Group -->
-                  <div class="form-group">
-                    <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
-                    <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
-                      name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword">
-                    <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
-                  </div>
-                  <!-- End Form Group -->
-                </div>
               </div>
+            </div>
+            </div>
+            <div class="ROW">
               <div class="col-sm-auto">
                 <a class="btn newOrder" (click)="UpdatePass(changePass.value)">
                   Dəyiş

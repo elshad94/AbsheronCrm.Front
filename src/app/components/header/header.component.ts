@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from 'src/app/services/auth.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -30,6 +31,12 @@ export class HeaderComponent implements OnInit {
       this.router.navigate([""])
       localStorage.removeItem("Userid");
       localStorage.removeItem("Username");
+    },err =>{
+      Swal.fire({
+        icon: 'error',
+        title:'Xəta',
+        text: 'Serverdə hər hansı bir xəta baş verdi',
+      })
     })
   }
 

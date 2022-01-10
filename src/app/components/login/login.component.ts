@@ -47,13 +47,15 @@ export class LoginComponent {
                 localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
                 this.router.navigate(['home']);
             },
-            error: res => {
+             error:res => {
                 logger.info(res.error);
                 if(res.error.data == '1' || res.error.data == '0'){
+                    debugger
                     errorAlert(res.error.programMessage,'Xəta');
                     return;
                 }
                 errorAlert('Serverdə hər hansı bir xəta baş verir', 'Xəta');
+               
             }
         });
     }

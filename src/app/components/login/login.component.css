@@ -3,7 +3,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10000000;
+    z-index: 1059;
     width: 100%;
     height: 100vh;
     margin: 0!important;
@@ -16,7 +16,7 @@
     width: 100%;
     margin: 0!important;
     right: 0;
-    padding: 70px 150px;
+    padding: 70px 180px;
     background-color: white;
 }
 
