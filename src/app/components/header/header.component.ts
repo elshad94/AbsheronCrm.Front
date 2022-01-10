@@ -21,12 +21,15 @@ export class HeaderComponent implements OnInit {
 
   signOut(){
     this.authService.logout().subscribe((res: any) =>{
+      console.log(res)  
+      this.router.navigate([""])
+
       localStorage.removeItem("token");
       var arrayFromStroage  = JSON.parse(localStorage.getItem("token") ?? "");
       this.tk = arrayFromStroage.length;
+      this.router.navigate([""])
       localStorage.removeItem("Userid");
       localStorage.removeItem("Username");
-      this.router.navigate([""])
     })
   }
 
