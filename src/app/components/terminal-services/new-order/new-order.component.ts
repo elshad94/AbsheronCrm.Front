@@ -32,11 +32,6 @@ export class NewOrderComponent implements OnInit {
 
   public isCheck?:boolean=true;
   ngOnInit() {
-    // document.addEventListener('DOMContentLoaded', () => {
-    // const vaqonRadio = document.getElementById('nvNoRadio_vaqon') as HTMLInputElement;
-    // vaqonRadio.checked = true;
-    // logger.info('YOLO');
-    // });
     this.getNewOrderData();
   }
 
