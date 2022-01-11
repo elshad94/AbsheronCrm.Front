@@ -123,8 +123,24 @@ select option {
   background-color: #00C9A7;
   height: 6px !important;
   top: 1.3125rem;
-  left: 2.5625rem !important;
-  width: calc(21pc - 7.5625rem) !important;
+  left: 2.6rem!important;
+  width: calc(21pc - 10rem)!important;
+  height: 1.0625rem;
+  border-top: 0.125rem solid #e7eaf3;
+  border: none;
+}
+
+.step-icon-unchecked {
+  background-color: #b8f2e8 !important;
+  color: #fff !important;
+}
+
+.step-icon-unchecked::after {
+  background-color: #b8f2e8;
+  height: 6px !important;
+  top: 1.3125rem;
+  left: 2.6rem!important;
+  width: calc(21pc - 10rem)!important;
   height: 1.0625rem;
   border-top: 0.125rem solid #e7eaf3;
   border: none;

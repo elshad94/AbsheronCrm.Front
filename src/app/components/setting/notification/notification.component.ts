@@ -16,33 +16,33 @@ export class NotificationComponent implements OnInit {
     'Bütün əməliyyatlar haqqında məlumat almaq istəyirəm',
     'Yemiliklər və dəyişikliklər haqqında məlumat almaq istəyirəm',
     'Sistemə daxil olmalar haqqında məlumat almaq istəyirəm'
-  ]
-  
-  public model?:any =[]
+  ];
+
+  public model?:any =[];
   constructor(private accountService:AccountService) { }
 
   ngOnInit(): void {
-      this.accountService.getNotById(Number(localStorage.getItem("Userid"))).subscribe((res)=> {
-        console.log('model')
-        this.model=res;
-        console.log(this.model)
-      })
+    this.accountService.getNotById(Number(localStorage.getItem('Userid'))).subscribe((res)=> {
+      console.log('model');
+      this.model=res;
+      console.log(this.model);
+    });
   }
 
-  
+
   sendNot(){
-     this.accountService.sendNot(this.model).subscribe((res)=>{
+    this.accountService.sendNot(this.model).subscribe((res)=>{
       Swal.fire({
         icon: 'success',
         title: 'Yadda Saxlanildi',
-      })
-     },(err) =>{
+      });
+    },(err) =>{
       Swal.fire({
         icon: 'error',
         title:'Xəta',
         text: 'Serverdə hər hansı bir xəta baş verid',
-      })
-     })
+      });
+    });
   }
-  
+
 }

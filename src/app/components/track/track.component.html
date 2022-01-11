@@ -1,145 +1,103 @@
 <div class="content container-fluid">
   <!-- Card -->
   <div class="card mb-3 mb-lg-5">
-   <!-- Header -->
-   <div class="card-header">
-     <div class="row justify-content-between align-items-center flex-grow-1">
-       <div class="col-12 col-md">
-         <div class="d-flex justify-content-between align-items-center">
-           <h3 class="card-header-title font-weight-bold">İzləmə </h3>
+    <!-- Header -->
+    <div class="card-header">
+      <div class="row justify-content-between align-items-center flex-grow-1">
+        <div class="col-12 col-md">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="card-header-title font-weight-bold">İzləmə </h3>
 
-           <!-- Datatable Info -->
-           
-           <!-- End Datatable Info -->
-         </div>
-       </div>
+            <!-- Datatable Info -->
 
-     </div>
-   </div>
-   <!-- End Header -->
+            <!-- End Datatable Info -->
+          </div>
+        </div>
 
-   <!-- Table -->
-   <div class="table-responsive datatable-custom p-3">
-     <div class="col-auto">
-       <!-- Filter -->
-       <div class="row align-items-sm-center">
-         <div class="col-sm-auto">
-           <div class="d-flex align-items-center mr-2">
-               <div class="checkBox">
-                   <input type="radio" aria-label="Radio button for following text input">Vaqon
-                   </div>
-                   <div class="CheckBox">
-                       <input type="radio" aria-label="Radio button for following text input"> Konteyner
-                       </div>
-             <!-- End Select -->
-           </div>
-         </div>
+      </div>
+    </div>
+    <!-- End Header -->
 
-         <div class="col-md">
-           <form class="row">
-             <!-- Search -->
-             <div class="input-group input-group-merge input-group-flush col-lg-4">
-               <div class="input-group-prepend">
-                 <div class="input-group-text">
-                   <i class="tio-search"></i>
-                 </div>
-               </div>
-               <input id="datatableSearch" type="search" placeholder="132456789" class="form-control" aria-label="Search users">
-             </div>
-             <!-- End Search -->
-         
-             <div class=" col-lg-8">
-               <a class="btn newOrder" href="users-add-user.html">
+    <!-- Table -->
+    <div class="p-3">
+      <div class="col-auto">
+        <!-- Filter -->
+        <div class="row align-items-sm-center">
+          <div class="col-sm-auto">
+            <div class="d-flex align-items-center mr-2">
+              <div class="checkBox">
+                <input type="radio" aria-label="Radio button for following text input"
+                  (click)="setTransportType(0)" name="transType">Vaqon
+              </div>
+              <div class="CheckBox">
+                <input type="radio" aria-label="Radio button for following text input"
+                  (click)="setTransportType(1)" name="transType"> Konteyner
+              </div>
+              <!-- End Select -->
+            </div>
+          </div>
+
+          <div class="col-md">
+            <form class="row">
+              <!-- Search -->
+              <div class="input-group input-group-merge input-group-flush col-lg-4">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <i class="tio-search"></i>
+                  </div>
+                </div>
+                <input id="datatableSearch" type="search" placeholder="132456789" class="form-control"
+                  aria-label="Search users" [(ngModel)]="transportNumber" name="transportNumber">
+              </div>
+              <!-- End Search -->
+
+              <div class=" col-lg-8">
+                <a class="btn newOrder" (click)="getTrackingState()">
                   Axtar
- 
-               </a>
-             </div>
-           </form>
-         </div>
-         
-       </div>
-       <!-- End Filter -->
-     </div>
-     <!-- Step -->
-     <div class="d-flex justify-content-between align-items-center interest-Div">
-       <p class="card-header-title"><span class="interest">40 %</span> of process is done  </p>
-        
+                </a>
+              </div>
+            </form>
+          </div>
 
-       <!-- Datatable Info -->
-       
-       <!-- End Datatable Info -->
-     </div>
-<ul class="step step-md">
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Yük yoldadır</h4>
+        </div>
+        <!-- End Filter -->
+      </div>
+      <!-- Step -->
+      <div class="d-flex justify-content-between align-items-center interest-Div" *ngIf="showProgress">
+        <p class="card-header-title">
+          Prosessin <span class="interest">{{percentage}} %</span> - i bitib.
+        </p>
 
-   </div>
- </div>
-</li>
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Yük terminaldadır</h4>
-   
-   </div>
- </div>
-</li>
 
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Sifariş qəbulu-
-       terminal</h4>
-   
-   </div>
- </div>
-</li>
+        <!-- Datatable Info -->
 
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Gömrük 
-       rəsmilləşdirməsi 
-       başladı</h4>
-  
-   </div>
- </div>
-</li>
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Gömrük 
-       rəsmilləşdirməsi 
-       bitdi</h4>
-   
-   </div>
- </div>
-</li>
-<li class="step-item">
- <div class="step-content-wrapper">
-   <span class="step-icon step-icon-soft-primary lastStep"><img src="assets/icon/Layer 1.png" alt=""></span>
-   <div class="step-content">
-     <h4 class="step-title">Vaqon/konteyner
-       stansiyadan gedib</h4>
-    
-   </div>
- </div>
-</li>
-</ul>
-<!-- End Step -->
-   
-   </div>
-   <!-- End Table -->
+        <!-- End Datatable Info -->
+      </div>
+      <ul class="step step-md" *ngIf="showProgress">
+        <li class="step-item" *ngFor="let styleClass of checkClasses; let i = index">
+          <div class="step-content-wrapper" >
+            <span class="step-icon step-icon-soft-primary" [ngClass]="styleClass" *ngIf="i < 5">
+              <i class="far fa-check-circle" *ngIf="styleClass === 'step-icon'"></i>
+              <i class="far fa-circle" *ngIf="styleClass === 'step-icon-unchecked'"></i>
+            </span>
+            <span class="step-icon step-icon-soft-primary lastStep" [ngClass]="styleClass" *ngIf="i === 5">
+              <i class="far fa-check-circle" *ngIf="styleClass === 'step-icon'"></i>
+              <i class="far fa-circle" *ngIf="styleClass === 'step-icon-unchecked'"></i>
+            </span>
+            <div class="step-content">
+              <h4 class="step-title">{{checkTexts[i]}}</h4>
 
-   <!-- Footer -->
-   
-   <!-- End Footer -->
- </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!-- End Step -->
+
+    </div>
+    <!-- End Table -->
+
+    <!-- Footer -->
+
+    <!-- End Footer -->
+  </div>
 </div>
