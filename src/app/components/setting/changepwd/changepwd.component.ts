@@ -9,10 +9,24 @@ import Swal from 'sweetalert2';
 })
 export class ChangepwdComponent {
     public model!: any;
+    public nwPsw="";
+    public confrmPsw="";
+    public submitted: boolean=false;
+
     constructor(private accountService: AccountService) {}
 
-    UpdatePass(value: any) {
-        console.log(value);
+    UpdatePass(pass: any) {
+        this.submitted = true;
+
+        if(!pass.valid) {
+            return;
+        }
+        this.changingPassword(pass.value)
+       
+    }
+
+
+    changingPassword(value:any){
         this.model = value;
         this.model.UserId = localStorage.getItem('Userid');
 
@@ -44,6 +58,5 @@ export class ChangepwdComponent {
             }
         });
     }
-
     openDialog(orderId: number, orderNo: string) {}
 }

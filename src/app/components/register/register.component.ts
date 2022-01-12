@@ -15,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class RegisterComponent implements OnInit {
     public model: any = {};
-
+    public submitted:boolean = false;
     public selectedFile! :File;
     public arr: File[] = [];
 
@@ -29,6 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
+  
 
   public isNameSelected?: boolean;
   selectInput(event:any) {
@@ -48,15 +49,25 @@ export class RegisterComponent implements OnInit {
 
   }
 
-    OnSubmit(value:any){
+    OnSubmit(data:any){
 
-        logger.info(value)
-        const id = 0;
+        logger.info(data)
         debugger
+        this.submitted = true;
+        if(!data.valid) {
+            return;
+        }
+        this.CreateUser(data.value)
+
+    }
+
+    CreateUser(value:any){
         value.USubtype = value.USubtype=="" ? 2 :  value.USubtype
-        this.auhtService.register(value).subscribe( res=>{
-            localStorage.setItem('uId', res.data.uId);
-            this.OnUpload(res.data.uId);
+        this.auhtService
+            .register(value)
+            .subscribe( res=>{
+                localStorage.setItem('uId', res.data.uId);
+                this.OnUpload(res.data.uId);
 
         },err=>{
            logger.info(err)
@@ -74,20 +85,28 @@ export class RegisterComponent implements OnInit {
                 });
             }  
         });
-
     }
 
     OnUpload(uId:number){
         const fileData = new FormData();
         for (let i = 0; i < this.fileList.length; i++) {
-            console.log(this.fileList[i].name);
-            fileData.append(this.typeList[i],this.fileList[i],this.fileList[i].name);
+            fileData
+                .append(
+                        this.typeList[i],
+                        this.fileList[i],
+                        this.fileList[i].name
+                       );
         }
         this.auhtService.uploadFile(fileData,uId).subscribe(() =>{
             console.log('success');
-            this.router.navigate(['/verify']);
+            this.router
+                .navigate(['/verify']);
         },err =>{
-  
+            Swal.fire({
+                icon: 'error',
+                title:'Xəta',
+                text: err.error.programMessage
+            });
         });
     }
 }

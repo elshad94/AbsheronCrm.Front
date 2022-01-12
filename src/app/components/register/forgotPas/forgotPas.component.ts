@@ -8,16 +8,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgotPas.component.scss']
 })
 export class ForgotPasComponent implements OnInit {
-
+  public submitted: boolean =false;
+  public email:string="";
   constructor(private authService:AuthService, private router: Router ){ 
    
   }
-  public email:string="";
+
   ngOnInit() {
   }
   
   SendCode(){
-    console.log("salama")
+    this.submitted = true;
+        if(!(this.email=='') || !(this.email.includes("@"))) {
+            return;
+        }
+
     this.authService.chagePass(this.email).subscribe((res: any) =>{
         this.router.navigate(['verify']);
     })

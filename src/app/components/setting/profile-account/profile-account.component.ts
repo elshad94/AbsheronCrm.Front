@@ -9,11 +9,14 @@ import Swal from 'sweetalert2';
 })
 export class ProfileAccountComponent implements OnInit {
   constructor(private accountService: AccountService) {}
-
+  public submitted: boolean=false;
   public model: any;
   public pathReyester!: string;
   public pathEtibar!: string;
   public pathBank!: string;
+  public selectedFile!: File;
+  public fileList?: any = [];
+  public typeList?: any = [];
   ngOnInit(): void {
     this.accountService.getUser(Number(localStorage.getItem("Userid"))).subscribe((response) => {
       this.model = response;
@@ -40,33 +43,47 @@ export class ProfileAccountComponent implements OnInit {
     });
   }
 
-  OnSubmit(value: any) {
-    console.log(value);
-    this.model = value;
+  OnSubmit(user: any) {
+    this.submitted = true;
+
+    if(!user.valid) {
+        return;
+    }
+    this.model = user.value;
     this.model.uId = Number(localStorage.getItem('Userid'));
     console.log(this.model);
+    this.changeUser(user.value)
+  }
+
+
+  changeUser(value:any){
     this.accountService.updateProfile(value).subscribe((response) => {
-      console.log(response);
-      this.OnUpload(Number(localStorage.getItem('Userid')));
-      Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
-      this.accountService.getUser(Number(localStorage.getItem("Userid"))).subscribe((response) => {
-        this.model = response;
-        this.loadFile();
-      });
-    },err =>{
-      Swal.fire({
-        icon: 'error',
-        title:'Xəta',
-        text: 'Serverdə hər hansı bir xəta baş verdi',
-      })
+      
+        this.OnUpload(Number(localStorage.getItem('Userid')));
+        Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
+        this.accountService
+          .getUser(Number(localStorage
+                    .getItem("Userid")))
+                    .subscribe((response) => 
+                    {
+                      this.model = response;
+                      this.loadFile();
+                    });
+      },err =>{
+            Swal.fire({
+              icon: 'error',
+              title:'Xəta',
+              text: 'Serverdə hər hansı bir xəta baş verdi',
+            })
     });
   }
-  public selectedFile!: File;
-  public fileList?: any = [];
-  public typeList?: any = [];
+
   uploadFile(event: any, type: number) {
-    this.selectedFile = <File>event.target.files[0];
+    this.selectedFile = <File>event
+                              .target
+                              .files[0];
     this.typeList.push(type.toString());
+    
     this.fileList.push(<File>event.target.files[0]);
   }
 
@@ -85,13 +102,15 @@ export class ProfileAccountComponent implements OnInit {
     for (let i = 0; i < this.fileList.length; i++) {
       console.log(this.fileList[i]);
       fileData.append(
-        this.typeList[i],
-        this.fileList[i],
-        this.fileList[i].name
-      );
+                        this.typeList[i],
+                        this.fileList[i],
+                        this.fileList[i].name
+                     );
     }
 
-    this.accountService.uploadFile(fileData, uId).subscribe(() => {
+    this.accountService
+        .uploadFile(fileData, uId)
+        .subscribe(() => {
       console.log('success');
     });
   }

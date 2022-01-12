@@ -7,7 +7,8 @@
             <div class="top-logo">
                 <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
             </div>
-            <form class="login-form" #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && OnSubmit(signUpForm.value)">
+            <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
+               
                 <div class="form-group">
                     <label  for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
                     <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
@@ -30,7 +31,8 @@
                     required
                     [(ngModel)]="model.UVoen"
                     >
-                     <div class="alert  alert-soft-danger" *ngIf="voen.touched && !voen.valid">*Vöen tələb olunur</div>
+                     <div class="alert  alert-soft-danger" *ngIf="voen.touched || submitted && !voen.valid">*Vöen tələb olunur</div>
+                     
                 </div>
 
                 <div class="form-group">
@@ -42,7 +44,7 @@
                     class="form-control"
                     required
                     id="FullName">
-                    <div class="alert  alert-soft-danger" *ngIf="custname.touched && !custname.valid">*Fiziki şəxsin adı, soyadı tələb olunur</div>
+                    <div class="alert  alert-soft-danger" *ngIf="custname.touched || submitted && !custname.valid">*Fiziki şəxsin adı, soyadı tələb olunur</div>
                 </div>
 
             <div ngModelGroup="FileResponseDto">   
@@ -59,7 +61,7 @@
                             required
                             (change)="uploadFile( $event,1)">
                     <label class="custom-file-label" for="RCixaris">Choose file</label>
-                    <div class="alert alert-soft-danger" *ngIf="rfile.touched && !rfile.valid">*Reyestrdən çıxarış</div>    
+                    <div class="alert alert-soft-danger" *ngIf="rfile.touched || submitted && !rfile.valid">*Reyestrdən çıxarış</div>    
                 </div>
                 </div>
 
@@ -76,7 +78,7 @@
                             required
                             (change)="uploadFile( $event,2)">
                     <label class="custom-file-label"  for="BankRekvizit">Choose file</label>
-                    <div class="alert alert-soft-danger" *ngIf="bfile.touched && !bfile.valid">*Reyestrdən çıxarış</div>
+                    <div class="alert alert-soft-danger" *ngIf="bfile.touched || submitted && !bfile.valid">*Reyestrdən çıxarış</div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -91,7 +93,7 @@
                            (change)="uploadFile( $event,3)"
                            class="custom-file-input">
                     <label class="custom-file-label" for="etibarnamə"><img src="/src/assets/icon/Vector.png" alt=""></label>
-                    <div class="alert alert-soft-danger" *ngIf="efile.touched && !efile.valid">*Səlahiyyətli nümayəndə/etibarnamə</div>
+                    <div class="alert alert-soft-danger" *ngIf="efile.touched || submitted && !efile.valid">*Səlahiyyətli nümayəndə/etibarnamə</div>
                 </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@
                                     class="form-control"  
                                     required
                                     id="SKULabel" placeholder="Ad" >
-                                    <div class="alert alert-soft-danger" *ngIf="name.touched && !name.valid">*Ad tələb olunur</div>
+                                    <div class="alert alert-soft-danger" *ngIf="name.touched || submitted && !name.valid">*Ad tələb olunur</div>
                         </div>
 
                         <div class="col-lg-6">
@@ -117,7 +119,7 @@
                                     class="form-control" 
                                     id="SKULabel" 
                                     placeholder="Soyad">
-                                    <div class="alert alert-soft-danger" *ngIf="surname.touched && !surname.valid">*Soyad tələb olunur</div>
+                                    <div class="alert alert-soft-danger" *ngIf="surname.touched || submitted && !surname.valid">*Soyad tələb olunur</div>
                         </div>
                     </div>
                 </div>
@@ -132,7 +134,7 @@
                         class="form-control" 
                         required
                         id="Mobile">
-                        <div class="alert alert-soft-danger" *ngIf="phone.touched && !phone.valid">*Telefon tələb olunur</div>
+                        <div class="alert alert-soft-danger" *ngIf="phone.touched || submitted && !phone.valid">*Telefon tələb olunur</div>
                 </div>
                 <div class="form-group">
                     <label for="SKULabel" class="input-label">E-mail</label>
@@ -147,7 +149,7 @@
                         class="form-control" 
                         [(ngModel)]="model.UEmail"
                         id="SKULabel" >
-                        <div class="alert alert-soft-danger" *ngIf="mail.touched && !mail.valid ">*Telefon tələb olunur</div>
+                        <div class="alert alert-soft-danger" *ngIf="mail.touched || submitted && !mail.valid ">*Telefon tələb olunur</div>
                         <div class="text-danger" *ngif="mail.errors?.pattern">Email address is required</div>
                         
                        
@@ -166,7 +168,7 @@
                          [(ngModel)]="model.UPassword"
                         >
                          <div class="alert alert-soft-danger" 
-                         *ngIf="UPassword.touched  && !UPassword.valid ">*Şifrə tələb olunur</div>
+                         *ngIf="UPassword.touched || submitted && !UPassword.valid ">*Şifrə tələb olunur</div>
 
                          <div class="alert alert-soft-danger" *ngIf="UPassword.touched && !(model.UPassword.length > 5) ">
                                 *Şifrəniz 5 simvoldan kiçik olmamalıdır
@@ -188,7 +190,7 @@
                         appConfirmEqualValidator="UPassword"
                         [(ngModel)]="model.ConfirmPassword"
                         >
-                        <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil</div>
+                        <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched || submitted && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil</div>
                         <div class="alert alert-soft-danger" *ngIf="!(model.UPassword == model.ConfirmPassword) && confirmPassword.touched    ">*Şifrə düzgün deyil</div>
 
                        
@@ -205,8 +207,17 @@
                             class="custom-control-input indeterminate-checkbox">
                         <label class="custom-control-label" for="term">I accept the </label>
                         <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable" > Terms and Conditions</a>
-                        <div *ngIf="!model.UTerms && UTerms.touched " class="text-danger">Qəbul edin</div>
+                        <div *ngIf="!model.UTerms && UTerms.touched || submitted " class="text-danger">Qəbul edin</div>
                     </div> 
+                </div>
+                <div *ngIf="!signUpForm.valid && submitted"
+                      class="alert alert-soft-danger"  
+                >
+                    *Zəhmət olmasa məlumatları doldurun
+                </div>
+                <div>
+                    <label for="">Hesabınz mövcuddur? </label>   
+                     <a [routerLink]="['']"  class="btn-link"> Daxil olun  </a>   
                 </div>
                 <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3" >Qeydiyyatdan keç</button>
             </form>

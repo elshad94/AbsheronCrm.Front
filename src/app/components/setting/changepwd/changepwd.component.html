@@ -1,5 +1,5 @@
 <div class="content container-fluid">
-  <form #changePass="ngForm" (ngSubmit)="changePass.valid && UpdatePass(changePass.value)">
+  <form #changePass="ngForm" (ngSubmit)=" UpdatePass(changePass)">
 
     <div class="row">
 
@@ -23,18 +23,24 @@
                 <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
                 <input ngModel #password="ngModel" name="Password" type="password" id="password" required
                   class="form-control">
-                <!-- <div class="alert alert-soft-danger" 
-                         *ngIf="Password.touched && !Password.valid ">*Şifrə tələb olunur</div> -->
+                <div class="alert alert-soft-danger" 
+                         *ngIf="submitted && !password.valid ">*Şifrə tələb olunur</div>
               </div>
             </div>
             <div class="col-sm-6">
               <!-- Form Group -->
               <div class="form-group">
                 <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
-                <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="password" required
+                <input ngModel
+                       #newPassword="ngModel" 
+                       name="newPassword" 
+                       type="password" 
+                       id="password" 
+                       required
+                       [(ngModel)]="nwPsw"
                   class="form-control">
-                <!-- <div class="alert alert-soft-danger" 
-                         *ngIf="newPassword.touched && !newPassword.valid ">*Şifrə tələb olunur</div> -->
+                <div class="alert alert-soft-danger" 
+                         *ngIf="submitted && !newPassword.valid ">*Şifrə tələb olunur</div>
               </div>
               <!-- End Form Group -->
 
@@ -45,8 +51,12 @@
                 <div class="form-group">
                   <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
                   <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
-                    name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword">
-                  <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
+                    name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword"
+                    [(ngModel)]="confrmPsw">
+                    <div class="alert alert-soft-danger" 
+                    *ngIf="submitted  && !newPassword.valid ">*Yeni Şifrə tələb olunur</div>  
+                    <div class="alert alert-soft-danger" 
+                    *ngIf="nwPsw==confrmPsw && submitted">*Şifrələr eyni deyil</div>
                 </div>
                 <!-- End Form Group -->
               </div>
@@ -54,7 +64,7 @@
             </div>
             <div class="ROW">
               <div class="col-sm-auto">
-                <a class="btn newOrder" (click)="UpdatePass(changePass.value)">
+                <a class="btn newOrder" (click)="UpdatePass(changePass)">
                   Dəyiş
                 </a>
               </div>
