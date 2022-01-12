@@ -41,14 +41,12 @@ export class LoginComponent {
     }
     this.authService.login(this.loginRequestData).subscribe({
       next: (res: any) => {
-        logger.info(res);
         localStorage.setItem('token', res.data);
         localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
         localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
         this.router.navigate(['home']);
       },
       error:res => {
-        logger.info(res.error);
         if(res.error.data == '1' || res.error.data == '0'){
           errorAlert(res.error.programMessage,'Xəta');
           return;

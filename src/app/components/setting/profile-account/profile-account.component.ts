@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 })
 export class ProfileAccountComponent implements OnInit {
   constructor(private accountService: AccountService) {}
-  public submitted: boolean=false;
+  public submitted=false;
   public model: any;
   public pathReyester!: string;
   public pathEtibar!: string;
@@ -18,18 +18,16 @@ export class ProfileAccountComponent implements OnInit {
   public fileList?: any = [];
   public typeList?: any = [];
   ngOnInit(): void {
-    this.accountService.getUser(Number(localStorage.getItem("Userid"))).subscribe((response) => {
+    this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
       this.model = response;
       this.loadFile();
     });
   }
 
   loadFile() {
-    this.accountService.getFile(Number(localStorage.getItem("Userid"))).subscribe((res) => {
-      console.log(res);
+    this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res) => {
 
       for (let index = 0; index < res.length; index++) {
-        console.log(res[index].fileUrl);
         if (res[index].fileType == 12) {
           this.pathBank = 'https://localhost:44383' + res[index].fileUrl;
         }
@@ -47,49 +45,48 @@ export class ProfileAccountComponent implements OnInit {
     this.submitted = true;
 
     if(!user.valid) {
-        return;
+      return;
     }
     this.model = user.value;
     this.model.uId = Number(localStorage.getItem('Userid'));
-    console.log(this.model);
-    this.changeUser(user.value)
+    this.changeUser(user.value);
   }
 
 
   changeUser(value:any){
     this.accountService.updateProfile(value).subscribe((response) => {
-      
-        this.OnUpload(Number(localStorage.getItem('Userid')));
-        Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
-        this.accountService
-          .getUser(Number(localStorage
-                    .getItem("Userid")))
-                    .subscribe((response) => 
-                    {
-                      this.model = response;
-                      this.loadFile();
-                    });
-      },err =>{
-            Swal.fire({
-              icon: 'error',
-              title:'Xəta',
-              text: 'Serverdə hər hansı bir xəta baş verdi',
-            })
+
+      this.OnUpload(Number(localStorage.getItem('Userid')));
+      Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
+      this.accountService
+        .getUser(Number(localStorage
+          .getItem('Userid')))
+        .subscribe((response) =>
+        {
+          this.model = response;
+          this.loadFile();
+        });
+    },err =>{
+      Swal.fire({
+        icon: 'error',
+        title:'Xəta',
+        text: 'Serverdə hər hansı bir xəta baş verdi',
+      });
     });
   }
 
   uploadFile(event: any, type: number) {
     this.selectedFile = <File>event
-                              .target
-                              .files[0];
+      .target
+      .files[0];
     this.typeList.push(type.toString());
-    
+
     this.fileList.push(<File>event.target.files[0]);
   }
 
   public isNameSelected?: boolean;
   selectInput(event: any) {
-    let selected = event.target.value;
+    const selected = event.target.value;
     if (selected == 1) {
       this.isNameSelected = true;
     } else {
@@ -100,18 +97,16 @@ export class ProfileAccountComponent implements OnInit {
   OnUpload(uId: number) {
     const fileData = new FormData();
     for (let i = 0; i < this.fileList.length; i++) {
-      console.log(this.fileList[i]);
       fileData.append(
-                        this.typeList[i],
-                        this.fileList[i],
-                        this.fileList[i].name
-                     );
+        this.typeList[i],
+        this.fileList[i],
+        this.fileList[i].name
+      );
     }
 
     this.accountService
-        .uploadFile(fileData, uId)
-        .subscribe(() => {
-      console.log('success');
-    });
+      .uploadFile(fileData, uId)
+      .subscribe(() => {
+      });
   }
 }

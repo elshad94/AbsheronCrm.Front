@@ -14,10 +14,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    public model: any = {};
-    public submitted:boolean = false;
-    public selectedFile! :File;
-    public arr: File[] = [];
+  public model: any = {};
+  public submitted = false;
+  public selectedFile! :File;
+  public arr: File[] = [];
 
   constructor(private auhtService: AuthService,
     private router: Router)
@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  
+
 
   public isNameSelected?: boolean;
   selectInput(event:any) {
@@ -49,64 +49,60 @@ export class RegisterComponent implements OnInit {
 
   }
 
-    OnSubmit(data:any){
+  OnSubmit(data:any){
+    this.submitted = true;
+    if(!data.valid) {
+      return;
+    }
+    this.CreateUser(data.value);
 
-        logger.info(data)
-        debugger
-        this.submitted = true;
-        if(!data.valid) {
-            return;
+  }
+
+  CreateUser(value:any){
+    value.USubtype = value.USubtype=='' ? 2 :  value.USubtype;
+    this.auhtService
+      .register(value)
+      .subscribe( res=>{
+        localStorage.setItem('uId', res.data.uId);
+        this.OnUpload(res.data.uId);
+
+      },err=>{
+        if(err.error.data == '1')
+          Swal.fire({
+            icon: 'error',
+            title:'Xəta',
+            text: 'Serverdə hər hansı bir xəta baş verir',
+          });
+        else{
+          Swal.fire({
+            icon: 'error',
+            title:'Xəta',
+            text: err.error.programMessage
+          });
         }
-        this.CreateUser(data.value)
+      });
+  }
 
+  OnUpload(uId:number){
+    const fileData = new FormData();
+    for (let i = 0; i < this.fileList.length; i++) {
+      fileData
+        .append(
+          this.typeList[i],
+          this.fileList[i],
+          this.fileList[i].name
+        );
     }
-
-    CreateUser(value:any){
-        value.USubtype = value.USubtype=="" ? 2 :  value.USubtype
-        this.auhtService
-            .register(value)
-            .subscribe( res=>{
-                localStorage.setItem('uId', res.data.uId);
-                this.OnUpload(res.data.uId);
-
-        },err=>{
-           logger.info(err)
-            if(err.error.data == "1")
-                Swal.fire({
-                    icon: 'error',
-                    title:'Xəta',
-                    text: 'Serverdə hər hansı bir xəta baş verir',
-                });
-            else{
-                Swal.fire({
-                    icon: 'error',
-                    title:'Xəta',
-                    text: err.error.programMessage
-                });
-            }  
-        });
-    }
-
-    OnUpload(uId:number){
-        const fileData = new FormData();
-        for (let i = 0; i < this.fileList.length; i++) {
-            fileData
-                .append(
-                        this.typeList[i],
-                        this.fileList[i],
-                        this.fileList[i].name
-                       );
-        }
-        this.auhtService.uploadFile(fileData,uId).subscribe(() =>{
-            console.log('success');
-            this.router
-                .navigate(['/verify']);
-        },err =>{
-            Swal.fire({
-                icon: 'error',
-                title:'Xəta',
-                text: err.error.programMessage
-            });
-        });
-    }
+    this.auhtService.uploadFile(fileData,uId).subscribe(() =>{
+      console.log('success');
+      this.router
+        .navigate(['/verify']);
+    },err =>{
+      Swal.fire({
+        icon: 'error',
+        title:'Xəta',
+        text: err.error.programMessage
+      });
+    });
+  }
 }

@@ -30,7 +30,6 @@ export class AccountService{
     return  this.http.put(this.baseUrl + '/Account/updatefile?Uid='+UId,fileData);
   }
   sendNot(model:any):Observable<any>{
-    console.log(model);
     return  this.http.post<any>(this.baseUrl + '/Account/SendNotification',model);
   }
   updatePassword(model:any){

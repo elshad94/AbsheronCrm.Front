@@ -16,7 +16,6 @@ export class AuthService {
   }
 
   register(model:any){
-    console.log(model);
     return this.http.post<any>(this.baseUrl+'/Account/signup',model);
   }
 
@@ -42,7 +41,6 @@ export class AuthService {
   }
 
   updatePass(model:any){
-    console.log(model);
     return this.http.post(this.baseUrl+'/Account/ChangePass',model);
   }
 
