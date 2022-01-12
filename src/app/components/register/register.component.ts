@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 
 
@@ -29,17 +30,30 @@ export class RegisterComponent implements OnInit {
 
 
     OnSubmit(value:any){
+
+        logger.info(value)
         const id = 0;
+        debugger
+        value.USubtype = value.USubtype=="" ? 2 :  value.USubtype
         this.auhtService.register(value).subscribe( res=>{
             localStorage.setItem('uId', res.data.uId);
             this.OnUpload(res.data.uId);
 
         },err=>{
-            Swal.fire({
-                icon: 'error',
-                title:'Xəta',
-                text: 'Serverdə hər hansı bir xəta baş verid',
-            });
+           logger.info(err)
+            if(err.error.data == "1")
+                Swal.fire({
+                    icon: 'error',
+                    title:'Xəta',
+                    text: 'Serverdə hər hansı bir xəta baş verir',
+                });
+            else{
+                Swal.fire({
+                    icon: 'error',
+                    title:'Xəta',
+                    text: err.error.programMessage
+                });
+            }  
         });
 
     }
@@ -73,11 +87,7 @@ export class RegisterComponent implements OnInit {
             console.log('success');
             this.router.navigate(['/verify']);
         },err =>{
-            Swal.fire({
-                icon: 'error',
-                title:'Xəta',
-                text: 'Serverdə hər hansı bir xəta baş verid',
-            });
+  
         });
     }
 
