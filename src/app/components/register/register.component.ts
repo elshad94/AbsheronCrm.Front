@@ -14,10 +14,10 @@ import Swal from 'sweetalert2';
     styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-    public model: any={};
+    public model: any = {};
 
-    public selectedFile!:File;
-    public arr: File[] =[];
+    public selectedFile! :File;
+    public arr: File[] = [];
 
     constructor(private auhtService: AuthService,
     private router: Router)
