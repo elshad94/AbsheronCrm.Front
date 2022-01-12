@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConWag } from '../model/conWag';
 import { HttpClient } from '@angular/common/http';
-const baseUrl = 'https://localhost:44323/api/TerminalOrder';
+import { ApiUrlsService } from './api-urls.service';
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class OrderCountService {
 
-  constructor(private http: HttpClient) { }
+  baseUrl!: string;
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
+    this.baseUrl = apiUrlService.getCrmAPIURI();
+  }
 
   getOrdersCount(): Observable<ConWag[]> {
-    return this.http.get<ConWag[]>(baseUrl + '/GetOrderCounts');
+    return this.http.get<ConWag[]>(this.baseUrl + '/TerminalOrder' + '/GetOrderCounts');
   }
 }

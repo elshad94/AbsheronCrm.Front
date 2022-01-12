@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PayAvans } from '../model/payAvans';
-
-
-const baseUrl = 'https://localhost:44323/api/Payment/PayAvans';
+import { ApiUrlsService } from './api-urls.service';
 
 
 @Injectable({
@@ -13,10 +11,13 @@ const baseUrl = 'https://localhost:44323/api/Payment/PayAvans';
 export class PayAvansService {
   isPaymentSuccesfull = false;
 
-constructor(private http: HttpClient) { }
+  baseUrl!: string;
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
+    this.baseUrl = apiUrlService.getCrmAPIURI();
+  }
 
-payAvansMet(payAvans: PayAvans): Observable<PayAvans> {
-  return this.http.post<PayAvans>(baseUrl, payAvans );
-}
+  payAvansMet(payAvans: PayAvans): Observable<PayAvans> {
+    return this.http.post<PayAvans>(`${this.baseUrl}/Payment/PayAvans`, payAvans );
+  }
 
 }

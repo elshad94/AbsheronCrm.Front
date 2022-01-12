@@ -29,9 +29,9 @@
                          "customClass": "custom-select custom-select-sm custom-select-borderless",
                          "dropdownAutoWidth": true,
                          "width": true
-                       }' >
-                 <option value="" (click)="filterTableByStatus('')">Hamısı</option>
-                 <option *ngFor="let status of orderStatuses" value="{{status}}" (click)="filterTableByStatus(status)">{{status}}</option>
+                       }' (change)="filterTableByStatus($event)">
+                 <option value="">Hamısı</option>
+                 <option *ngFor="let status of orderStatuses" value="{{status}}">{{status}}</option>
                </select>
                <!-- End Select -->
              </div>
