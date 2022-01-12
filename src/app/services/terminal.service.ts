@@ -10,8 +10,8 @@ import logger from 'src/utils/logger';
 import { TerminalDataForUpdate } from '../model/TerminalUpdateData';
 import { TerminalExpense } from '../model/TerminalExpense';
 import { Xidmet } from '../components/terminal-services/new-order/order/order.component';
+import { ApiUrlsService } from './api-urls.service';
 
-const baseUrl = 'https://localhost:44323/api/TerminalOrder';
 const headers = new HttpHeaders({
   'Content-Type': 'application/json'
 });
@@ -35,14 +35,17 @@ export class TerminalService {
   orderNo?: string;
   orderStatus?: number;
 
-  constructor(private http: HttpClient) {}
+  baseUrl!: string;
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
+    this.baseUrl = apiUrlService.getCrmAPIURI();
+  }
 
   getTerminalOrders(): Observable<TerminalItem[]> {
-    return this.http.get<TerminalItem[]>(baseUrl + '/GetAllTerminalOrders');
+    return this.http.get<TerminalItem[]>(`${this.baseUrl}/TerminalOrder/GetAllTerminalOrders`);
   }
 
   deleteTerminalOrder(orderId: number): Observable<HttpResponse<unknown>> {
-    return this.http.delete(`${baseUrl}/Delete/${orderId}`, {observe: 'response'});
+    return this.http.delete(`${this.baseUrl}/TerminalOrder/Delete/${orderId}`, {observe: 'response'});
   }
 
   getNewTerminalData(nvNoTypeId: NvNoTypeId): Observable<TerminalNewData> {
@@ -50,12 +53,12 @@ export class TerminalService {
       nvNoTypeId
     };
     return this.http
-      .post<TerminalNewData>(`${baseUrl}/GetCreateData`, reqData);
+      .post<TerminalNewData>(`${this.baseUrl}/TerminalOrder/GetCreateData`, reqData);
   }
 
   getUpdateTerminalData(orderId: number): Observable<TerminalDataForUpdate> {
     return this.http
-      .get<TerminalDataForUpdate>(`${baseUrl}/GetUpdateData/${orderId}`);
+      .get<TerminalDataForUpdate>(`${this.baseUrl}/TerminalOrder/GetUpdateData/${orderId}`);
   }
 
   createTerminalOrder(): Observable<HttpResponse<unknown>> {
@@ -74,7 +77,7 @@ export class TerminalService {
     if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
       throw errorCodes.XIDMETLER_EMPTY;
     }
-    return this.http.post(baseUrl + '/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
+    return this.http.post(this.baseUrl + '/TerminalOrder/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
   }
 
   updateTerminalOrder(orderId: number): Observable<HttpResponse<unknown>> {
@@ -94,7 +97,7 @@ export class TerminalService {
       throw errorCodes.XIDMETLER_EMPTY;
     }
     return this.http.put(
-      `${baseUrl}/Update/${orderId}`,
+      `${this.baseUrl}/TerminalOrder/Update/${orderId}`,
       this.terminalUpdateRequestData,
       {observe: 'response', headers}
     );

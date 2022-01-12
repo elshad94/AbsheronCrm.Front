@@ -9,9 +9,9 @@ import Swal from 'sweetalert2';
 
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.component.html',
-    styleUrls: ['./register.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
     public model: any = {};
@@ -19,15 +19,34 @@ export class RegisterComponent implements OnInit {
     public selectedFile! :File;
     public arr: File[] = [];
 
-    constructor(private auhtService: AuthService,
+  constructor(private auhtService: AuthService,
     private router: Router)
-    {
+  {
 
 
+  }
+  ngOnInit(): void {
+  }
+
+
+
+  public isNameSelected?: boolean;
+  selectInput(event:any) {
+    const selected = event.target.value;
+    if (selected == 1) {
+      this.isNameSelected = true;
+    } else {
+      this.isNameSelected = false;
     }
-    ngOnInit(): void {
-    }
+  }
+  public fileList?:any = [];
+  public typeList?:any =[];
+  uploadFile(event:any,type:number){
+    this.selectedFile =<File>event.target.files[0];
+    this.typeList.push(type.toString());
+    this.fileList.push(<File>event.target.files[0]);
 
+  }
 
     OnSubmit(value:any){
 
@@ -58,25 +77,6 @@ export class RegisterComponent implements OnInit {
 
     }
 
-
-
-    public isNameSelected?: boolean;
-    selectInput(event:any) {
-        const selected = event.target.value;
-        if (selected == 1) {
-            this.isNameSelected = true;
-        } else {
-            this.isNameSelected = false;
-        }
-    }
-    public fileList?:any = [];
-    public typeList?:any =[];
-    uploadFile(event:any,type:number){
-        this.selectedFile =<File>event.target.files[0];
-        this.typeList.push(type.toString());
-        this.fileList.push(<File>event.target.files[0]);
-
-    }
     OnUpload(uId:number){
         const fileData = new FormData();
         for (let i = 0; i < this.fileList.length; i++) {

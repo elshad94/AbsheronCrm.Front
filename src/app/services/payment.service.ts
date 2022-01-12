@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Payments } from '../model/payments';
+import { ApiUrlsService } from './api-urls.service';
 const baseUrl = 'https://localhost:44323/api/Payment/GetAll';
 
 @Injectable({
@@ -9,10 +10,13 @@ const baseUrl = 'https://localhost:44323/api/Payment/GetAll';
 })
 export class PaymentService {
 
-constructor(private http: HttpClient) { }
+  baseUrl!: string;
+  constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
+    this.baseUrl = apiUrlService.getCrmAPIURI();
+  }
 
-payAll(): Observable<Payments[]> {
-  return this.http.get<Payments[]>(baseUrl);
-}
+  payAll(): Observable<Payments[]> {
+    return this.http.get<Payments[]>(`${this.baseUrl}/Payment/GetAll`);
+  }
 
 }

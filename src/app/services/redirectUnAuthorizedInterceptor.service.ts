@@ -7,26 +7,26 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class RedirectUnauthorizedInterceptor implements HttpInterceptor {
-    constructor(private router: Router) {}
+  constructor(private router: Router) {}
 
-    intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        httpRequest = httpRequest.clone({
-            headers: httpRequest.headers
-                .set('Authorization', `Bearer ${localStorage.getItem('token')}`)
-                .set('Access-Control-Allow-Origin', '*')
-                .set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT')
-        });
-        return next.handle(httpRequest).pipe(
-            catchError(err => {
-                logger.info(err);
-                if(err.status === 401) {
-                    errorAlert('Login sehifesinden daxil olun!', 'Unauthorized').then(res => {
-                        this.router.navigate(['']);
-                    });
-                    return of(err);
-                }
-                throw err;
-            })
-        );
-    }
+  intercept(httpRequest: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    httpRequest = httpRequest.clone({
+      headers: httpRequest.headers
+        .set('Authorization', `Bearer ${localStorage.getItem('token')}`)
+        .set('Access-Control-Allow-Origin', '*')
+        .set('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT')
+    });
+    return next.handle(httpRequest).pipe(
+      catchError(err => {
+        logger.info(err);
+        if(err.status === 401) {
+          errorAlert('Login sehifesinden daxil olun!', 'Unauthorized').then(res => {
+            this.router.navigate(['']);
+          });
+          return of(err);
+        }
+        throw err;
+      })
+    );
+  }
 }
