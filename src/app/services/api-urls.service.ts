@@ -10,22 +10,15 @@ export class ApiUrlsService {
   private ip = '';
 
   constructor(private http: HttpClient, private router: Router,) {
-    this.ip = '172.25.60.53';
-    let url = this.getAuthAPiURI();
-    this.http.get(`${url}/ping`).subscribe({
-      next: () => {return;},
-      error: () => {
-        this.ip = '85.132.108.234';
-        url = this.getAuthAPiURI();
-        this.http.get(`${url}/ping`).subscribe({
-          next: () => {return;},
-          error: () => {
-            errorAlert('Server Problemi!')
-              .then(() => this.router.navigate(['']));
-          }
-        });
-      }
-    });
+    const browserUri = window.location.href;
+    if(browserUri.includes('172.25.60.53')) {
+      this.ip = '172.25.60.53';
+    } else if(browserUri.includes('85.132.108.234')) {
+      this.ip = '85.132.108.234';
+    } else {
+      errorAlert('Server Problemi!')
+        .then(() => this.router.navigate(['']));
+    }
   }
 
   getAuthAPiURI() {
