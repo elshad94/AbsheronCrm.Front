@@ -5,10 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class ApiUrlsService {
   getAuthAPiURI() {
-    return 'https://localhost:44383/api';
+    return 'http://localhost:92/redirect/reg';
   }
 
   getCrmAPIURI() {
-    return 'https://localhost:44323/api';
+    return 'http://localhost:92/redirect/crm';
   }
 }

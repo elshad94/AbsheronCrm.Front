@@ -72,7 +72,6 @@ export class BrokerComponent implements OnInit {
 
     getBroker() {
       this.Brokerservice.getBrokerItem().subscribe((res) => {
-        logger.info(res);
         this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
         res.map(res => {
           this.id=res.orderId;
