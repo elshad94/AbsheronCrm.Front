@@ -8,7 +8,7 @@
                 <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
             </div>
             <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
-               
+
                 <div class="form-group">
                     <label  for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
                     <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
@@ -21,9 +21,9 @@
 
                 <div class="form-group">
                     <label  for="voen" class="input-label">VÖEN</label>
-                    <input 
-                    type="text" 
-                    class="form-control" 
+                    <input
+                    type="text"
+                    class="form-control"
                     ngModel
                     #voen="ngModel"
                     name="UVoen"
@@ -32,7 +32,7 @@
                     [(ngModel)]="model.UVoen"
                     >
                      <div class="alert  alert-soft-danger" *ngIf="submitted && !voen.valid">*Vöen tələb olunur</div>
-                     
+
                 </div>
 
                 <div class="form-group">
@@ -47,34 +47,34 @@
                     <div class="alert  alert-soft-danger" *ngIf="submitted && !custname.valid">*Fiziki şəxsin adı, soyadı tələb olunur</div>
                 </div>
 
-            <div ngModelGroup="FileResponseDto">   
+            <div ngModelGroup="FileResponseDto">
                 <div class="form-group" *ngIf="!isNameSelected">
                     <label>Reyestrdən çıxarış</label>
-                    
+
                     <div class="custom-file">
                     <input type="file"
                             ngModel
                             #rfile="ngModel"
                             name="ReyesterFile"
-                            id="ReyesterFile" 
+                            id="ReyesterFile"
                             class="custom-file-input"
                             required
                             (change)="uploadFile( $event,1)">
                     <label class="custom-file-label" for="RCixaris">Choose file</label>
-                    <div class="alert alert-soft-danger" *ngIf="submitted && !rfile.valid">*Reyestrdən çıxarış</div>    
+                    <div class="alert alert-soft-danger" *ngIf="submitted && !rfile.valid">*Reyestrdən çıxarış</div>
                 </div>
                 </div>
 
                 <div class="form-group">
                     <label>Bank Rekvizitləri</label>
-                    
+
                     <div class="custom-file">
                     <input type="file"
                             ngModel
                             #bfile="ngModel"
                             name="BankRekFile"
                             id="BankRekvizit"
-                            class="custom-file-input" 
+                            class="custom-file-input"
                             required
                             (change)="uploadFile( $event,2)">
                     <label class="custom-file-label"  for="BankRekvizit">Choose file</label>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <label>Səlahiyyətli nümayəndə/etibarnamə</label>
-                   
+
                     <div class="custom-file">
                     <input type="file"
                            ngModel
@@ -97,7 +97,7 @@
                 </div>
                 </div>
             </div>
-               
+
                 <div class="form-group">
                     <div class="row">
                         <div class="col-lg-6">
@@ -105,19 +105,19 @@
                                     ngModel
                                     #name="ngModel"
                                     name="UPersonname"
-                                    class="form-control"  
+                                    class="form-control"
                                     required
                                     id="SKULabel" placeholder="Ad" >
                                     <div class="alert alert-soft-danger" *ngIf="submitted && !name.valid">*Ad tələb olunur</div>
                         </div>
 
                         <div class="col-lg-6">
-                            <input type="text" 
+                            <input type="text"
                                     ngModel
                                     #surname="ngModel"
                                     name="UPersonsurname"
-                                    class="form-control" 
-                                    id="SKULabel" 
+                                    class="form-control"
+                                    id="SKULabel"
                                     placeholder="Soyad">
                                     <div class="alert alert-soft-danger" *ngIf="submitted && !surname.valid">*Soyad tələb olunur</div>
                         </div>
@@ -126,12 +126,12 @@
                 <div>
                     <label for="SKULabel"class="input-label">Mobil nömrə</label>
 
-                    <input 
+                    <input
                         ngModel
                         #phone="ngModel"
                         name="UPhone"
-                        type="text" 
-                        class="form-control" 
+                        type="text"
+                        class="form-control"
                         required
                         id="Mobile">
                         <div class="alert alert-soft-danger" *ngIf="submitted && !phone.valid">*Telefon tələb olunur</div>
@@ -139,47 +139,47 @@
                 <div class="form-group">
                     <label for="SKULabel" class="input-label">E-mail</label>
 
-                    <input 
+                    <input
                         #mail="ngModel"
-                        type="email" 
+                        type="email"
                         ngModel
                         name="UEmail"
-                        required 
+                        required
                         pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        class="form-control" 
+                        class="form-control"
                         [(ngModel)]="model.UEmail"
                         id="SKULabel" >
                         <div class="alert alert-soft-danger" *ngIf="submitted && !mail.valid ">*Telefon tələb olunur</div>
                         <div class="text-danger" *ngif="mail.errors?.pattern">Email address is required</div>
-                        
-                       
+
+
                 </div>
                 <div class="form-group">
                     <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-                    <input 
+                    <input
                          #UPassword="ngModel"
                          required
                          minlength="5"
                          ngModel
                          name="UPassword"
                          type="password"
-                         id="UPassword" 
+                         id="UPassword"
                          class="form-control"
                          [(ngModel)]="model.UPassword"
                         >
-                         <div class="alert alert-soft-danger" 
+                         <div class="alert alert-soft-danger"
                          *ngIf=" submitted && !UPassword.valid ">*Şifrə tələb olunur</div>
 
                          <div class="alert alert-soft-danger" *ngIf=" !(model.UPassword.length > 5) ">
                                 *Şifrəniz 5 simvoldan kiçik olmamalıdır
                         </div>
-                        
-                      
-                  
+
+
+
                 </div>
                 <div class="form-group">
                     <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
-                    <input 
+                    <input
                         type="password"
                         id="confirmPassword"
                         ngModel
@@ -193,14 +193,14 @@
                         <div class="alert alert-soft-danger" *ngIf=" submitted && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil</div>
                         <div class="alert alert-soft-danger" *ngIf="!(model.UPassword == model.ConfirmPassword) && confirmPassword.touched    ">*Şifrə uyğun deyil</div>
 
-                       
+
                 </div>
                 <div class="row form-group" >
                     <div class="col-lg-12 custom-control custom-checkbox ml-3">
-                        <input 
+                        <input
                             ngModel
                             #UTerms="ngModel"
-                            type="checkbox" 
+                            type="checkbox"
                             name="UTerms"
                             id="term"
                             [(ngModel)]="model.UTerms"
@@ -208,16 +208,16 @@
                         <label class="custom-control-label" for="term">I accept the </label>
                         <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable" > Terms and Conditions</a>
                         <div *ngIf="!model.UTerms && submitted " class="text-danger">Qəbul edin</div>
-                    </div> 
+                    </div>
                 </div>
                 <div *ngIf="!signUpForm.valid && submitted"
-                      class="alert alert-soft-danger"  
+                      class="alert alert-soft-danger"
                 >
                     *Zəhmət olmasa məlumatları doldurun
                 </div>
                 <div>
-                    <label for="">Hesabınz mövcuddur? </label>   
-                     <a [routerLink]="['']"  class="btn-link"> Daxil olun  </a>   
+                    <label for="">Hesabınz mövcuddur? </label>
+                     <a [routerLink]="['']"  class="btn-link"> Daxil olun  </a>
                 </div>
                 <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3" >Qeydiyyatdan keç</button>
             </form>
@@ -228,7 +228,7 @@
         Launch demo modal
       </button>
       <!-- End Button trigger modal -->
-      
+
       <!-- Modal -->
       <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="z-index: 1061;">
         <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -266,3 +266,4 @@
           </div>
         </div>
       </div>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>

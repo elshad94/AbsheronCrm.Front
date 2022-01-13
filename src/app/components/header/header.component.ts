@@ -14,40 +14,38 @@ export class HeaderComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-
-
-    this.collapse()
+    this.collapse();
 
   }
 
   signOut(){
     this.authService.logout().subscribe((res: any) =>{
-      console.log(res)  
-      this.router.navigate([""])
+      console.log(res);
+      this.router.navigate(['']);
 
-      localStorage.removeItem("token");
-      var arrayFromStroage  = JSON.parse(localStorage.getItem("token") ?? "");
+      localStorage.removeItem('token');
+      const arrayFromStroage  = JSON.parse(localStorage.getItem('token') ?? '');
       this.tk = arrayFromStroage.length;
-      this.router.navigate([""])
-      localStorage.removeItem("Userid");
-      localStorage.removeItem("Username");
+      this.router.navigate(['']);
+      localStorage.removeItem('Userid');
+      localStorage.removeItem('Username');
     },err =>{
       Swal.fire({
         icon: 'error',
         title:'Xəta',
         text: 'Serverdə hər hansı bir xəta baş verdi',
-      })
-    })
+      });
+    });
   }
 
   collapse() {
     $('#collapse').click(function () {
-      $("div.head").toggleClass("fullHead")
-      $("div.asideMain").toggleClass("asideCol")
-      $("#collapse").toggleClass("tio-last-page")
-      $(".logo").toggleClass("brandLogoCol")
-      $(".pointer-event").toggleClass("pointer-eventCol")
-    })
+      $('div.head').toggleClass('fullHead');
+      $('div.asideMain').toggleClass('asideCol');
+      $('#collapse').toggleClass('tio-last-page');
+      $('.logo').toggleClass('brandLogoCol');
+      $('.pointer-event').toggleClass('pointer-eventCol');
+    });
   }
 
 }

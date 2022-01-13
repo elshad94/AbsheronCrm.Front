@@ -5,7 +5,6 @@ import { PayAvans } from 'src/app/model/payAvans';
 import { Payments } from 'src/app/model/payments';
 import { PayAvansService } from 'src/app/services/payAvans.service';
 import Swal from 'sweetalert2';
-import { LastModalComponent } from '../last-modal/last-modal.component';
 import { PayModalComponent } from '../pay-modal/pay-modal.component';
 
 

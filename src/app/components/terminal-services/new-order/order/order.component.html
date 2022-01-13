@@ -82,7 +82,7 @@
                   </div>
                   <!-- End Quantity Counter -->
                   <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1">
-                    <a type="button" (click)="deleteXidmet(i)">X</a>
+                    <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
                 </div>
 
@@ -239,3 +239,4 @@
     </div>
   </div>
 
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>

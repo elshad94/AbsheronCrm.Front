@@ -4,6 +4,7 @@ import { OrderCountService } from 'src/app/services/orderCount.service';
 import { ChartConfiguration, ChartData, ChartType, ChartDatasetProperties } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
+import { SpinnerService } from 'src/app/services/spinner.service';
 
 @Component({
     selector: 'app-home',
@@ -12,7 +13,8 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 })
 export class HomeComponent implements OnInit {
 
-    constructor(private orderCount: OrderCountService) { }
+    constructor(private orderCount: OrderCountService,
+                private spinnerService: SpinnerService) { }
 
     conWag: ConWag[] = [];
 
