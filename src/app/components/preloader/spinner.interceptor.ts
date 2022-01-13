@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SpinnerService } from 'src/app/services/spinner.service';
-import { finalize } from 'rxjs/dist/types/operators';
+import { finalize } from 'rxjs/operators';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
@@ -15,9 +15,9 @@ export class SpinnerInterceptor implements HttpInterceptor {
   constructor(public spinner: SpinnerService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.spinner.show()
+    this.spinner.showSpinner();
     return next.handle(request).pipe(
-      finalize(() => this.spinner.hide())
-    );
+      finalize( () => this.spinner.hideSpinner() )
+    )
   }
 }

@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/dist/types/internal/Subject';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpinnerService {
-  constructor() { }
+  constructor(private spinnerService: NgxSpinnerService) { }
 
-  isLoading = new Subject<boolean>();
-  show(){
-    this.isLoading.next(true)
+  public showSpinner() {
+this.spinnerService.show()
   }
 
-  hide(){
-    this.isLoading.next(false)
-  }
+  public hideSpinner() {
+    this.spinnerService.hide()
+      }
 
 }
