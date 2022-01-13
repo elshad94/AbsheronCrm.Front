@@ -336,10 +336,8 @@ export class OrderComponent implements OnInit {
           .subscribe({
             next: () => {
               successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu')
-                .then(res => {
-                  if(res.isConfirmed) {
-                    this.router.navigate(['//services']);
-                  }
+                .then(() => {
+                  this.router.navigate(['//services']);
                 });
             },
             error: res => {
@@ -354,9 +352,7 @@ export class OrderComponent implements OnInit {
         .subscribe({
           next: () => {
             successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(res => {
-              if(res.isConfirmed) {
-                this.router.navigate(['//services']);
-              }
+              this.router.navigate(['//services']);
             });
           },
           error: res => {
