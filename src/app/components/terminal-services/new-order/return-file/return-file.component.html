@@ -24,20 +24,19 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                             <select class="custom-select" [(ngModel)]="fileToUploadNvNo">
+                              <option selected disabled value="-1">Sechin</option>
                               <option *ngFor="let nvNo of nvNoList" value="{{nvNo}}">{{nvNo}}</option>
                             </select>
                           </div>
                     </div>
                 <div class="col-lg-4">
                     <div class="mb-3" >
-                        <p  type="text" class="form-control selectfileInputCopy file_picker"
-                          name="weightName" id="weightLabel" aria-label="0.0">
-                          {{fileName}}
-                        </p>
-                        <input type="file" class="form-control selectfileInput " name="weightName"
-                          id="weightLabel" aria-label="0.0" (change)="setFile($event)">
-
-                        <label for="" class="selectfileLabel Scan"><img src="assets/icon/Union.png" alt=""></label>
+                      <input readonly placeholder="Sənəd seçin" type="text" class="form-control selectfileInputCopy file_picker"
+                      name="weightName" id="weightLabel1" aria-label="0.0" [(ngModel)]="fileName">
+                    <input type="file" class="form-control selectfileInputPay " name="weightName"
+                      id="weightLabel" aria-label="0.0" (change)="setFile($event)" >
+            
+                    <label for="weightLabel" class="selectfileLabelPay Scan"><img src="assets/icon/Union.png" alt=""></label>
                         <!-- End Input Group -->
                       </div>
                 </div>

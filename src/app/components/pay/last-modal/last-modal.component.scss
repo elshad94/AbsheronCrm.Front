@@ -1,13 +1,5 @@
-.form-group {
-    width: 70%;
-    margin: 0;
-    padding: 0;
-}
 
-.selectfileLabel {
-    position: absolute;
-    right: 170px;
-}
+
 
 .nextB {
     padding: 10px 40px;
@@ -29,6 +21,11 @@
     width: 100%;
 }
 
+.selectfileLabel {
+    position: absolute;
+    right: 170px;
+}
+
 .selectfileInputPay{
     position: absolute;
     width: 60%;
@@ -40,4 +37,9 @@
     position: absolute;
     top: 50px;
     right: 170px;
+}
+
+.selectfileLabelPay img{
+    background-color: white;
+    padding-left: 10px;
 }

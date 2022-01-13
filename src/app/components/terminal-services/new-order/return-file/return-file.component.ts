@@ -17,7 +17,7 @@ import { Location } from '@angular/common';
 export class ReturnFileComponent implements OnInit {
   nvNoList!: string[];
   files!: FileData[];
-  fileToUploadNvNo!: string;
+  fileToUploadNvNo: string = '-1';
   fileToUpload?: File;
   fileName = '';
   orderId?: number;

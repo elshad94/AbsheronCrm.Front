@@ -75,7 +75,7 @@ export class BrokerOrderComponent implements OnInit {
   brokerItemModel: BrokerRequestItem = {
     expenses: [],
     transportNo: '',
-    transportTypeId: 0,
+    transportTypeId: -1,
     notes: '',
     documentTypes: [],
     documents: [],

@@ -9,3 +9,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.selectfileLabel {
+  position: absolute;
+  right: 170px;
+}
+
+.selectfileInputPay{
+  position: absolute;
+  width: 60%;
+  top: 0px;
+  opacity: 0;
+}
+
+.selectfileLabelPay{
+  position: absolute;
+
+}
+
+.selectfileLabelPay img{
+  background-color: white;
+  padding: 0 10px;
+  margin-right: -14px;
+}
