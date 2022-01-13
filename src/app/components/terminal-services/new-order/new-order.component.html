@@ -20,17 +20,22 @@
     <!-- Table -->
     <div class="content-btn">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-8 br">
           <div class="col-sm-auto">
             <div class="d-flex align-items-center mr-2">
               <div class="checkBox">
-                <input type="radio" aria-label="Radio button for following text input"
-                  value="1" name="nvNoRadioButton" (change)="changeVaqonType(1)" checked
-                  id="nvNoRadio_vaqon"> Vaqon
+                  <label>
+                    <input type="radio" name="radio" value="1" name="nvNoRadioButton" (change)="changeVaqonType(1)" checked
+                    id="nvNoRadio_vaqon"/>
+                    <span>Vaqon</span>
+                  </label>
               </div>
-              <div class="CheckBox">
-                <input type="radio" aria-label="Radio button for following text input"
-                  value="2" name="nvNoRadioButton" (change)="changeVaqonType(2)">Konteyner
+              <div class="checkBox">
+                <label>
+                  <input type="radio" name="radio" value="2" name="nvNoRadioButton" (change)="changeVaqonType(2)"
+                  id="nvNoRadio_vaqon"/>
+                  <span>Konteyner</span>
+                </label>
               </div>
               <!-- End Select -->
             </div>
@@ -88,10 +93,8 @@
             </table>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="card-header">
-
-
+        <div class="col-lg-4">
+          <div class="card-header-right">
             <div class="row">
               <div class="col-lg-12">
                 <label class="card-header-title d-block">Xidmətlər</label>
@@ -104,7 +107,6 @@
                       [hidden]="!exp.isSelected">
                       <div title="{{exp.text}}" contenteditable="false" spellcheck="false" tabindex="-1"
                         class="tagify__tag tagify--noAnim expense_box" __isvalid="true" value="white">
-                        <p title="" class=" tagify__tag__removeBtn" role="button" aria-label="remove tag"></p>
                         <div class="expense_box"><span class="tagify__tag-text">{{exp.text}}</span></div>
                       </div>
                     </div>
@@ -141,7 +143,7 @@
       </div>
 
       <div class="col-sm-auto">
-        <button class="btn newOrder" (click)="submit()">
+        <button class="btn newOrder mt-5" (click)="submit()">
           Sifariş et
         </button>
       </div>
