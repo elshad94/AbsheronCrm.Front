@@ -157,7 +157,7 @@
                 </div>
                 <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1" *ngIf="files.length > 1">
                   <div class="deletetdiv ">
-                    <a type="button" (click)="Delete(i) ">X</a>
+                    <a type="button" (click)="Delete(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
 
 
@@ -240,3 +240,4 @@
     </div>
   </form>
 </div>
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BrokerOrderComponent } from './components/broker/broker-order/broker-order.component';
 import { BrokerComponent } from './components/broker/broker.component';
-import { HeaderComponent } from './components/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { NextModalComponent } from './components/pay/next-modal/next-modal.component';

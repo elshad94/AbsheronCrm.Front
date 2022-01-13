@@ -43,6 +43,9 @@ import { ChangepassComponent } from './components/register/changepass/changepass
 import { VerifyEmailComponent } from './components/register/verify-email/verify-email.component';
 import { ConfirmEqualValidatorDirective } from './shared/confirm-equal-validator-directive';
 import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.component';
+import { SpinnerService } from './services/spinner.service';
+import { SpinnerInterceptor } from './components/preloader/spinner.interceptor';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -97,10 +100,12 @@ import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.co
         NgChartsModule,
         MatDatepickerModule,
         MatFormFieldModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        NgxSpinnerModule
     ],
     providers: [
         DatePipe,
+        SpinnerService,
         {
             provide:'BrokerItemUrl',
             useValue:'https://localhost:44323/api'
@@ -126,7 +131,8 @@ import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.co
             provide: HTTP_INTERCEPTORS,
             useClass: RedirectUnauthorizedInterceptor,
             multi: true
-        }
+        },
+        {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true}
     ],
     bootstrap: [AppComponent]
 })
