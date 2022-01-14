@@ -13,11 +13,14 @@ import Swal from 'sweetalert2';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   public model: any = {};
   public submitted = false;
   public selectedFile! :File;
   public arr: File[] = [];
+  public fileInput1Label = '';
+  public fileInput2Label = '';
+  public fileInput3Label = '';
 
   constructor(private auhtService: AuthService,
     private router: Router)
@@ -25,11 +28,6 @@ export class RegisterComponent implements OnInit {
 
 
   }
-  ngOnInit(): void {
-  }
-
-
-
 
   public isNameSelected?: boolean;
   selectInput(event:any) {
@@ -43,10 +41,20 @@ export class RegisterComponent implements OnInit {
   public fileList?:any = [];
   public typeList?:any =[];
   uploadFile(event:any,type:number){
-    this.selectedFile =<File>event.target.files[0];
+    this.selectedFile = <File>event.target.files[0];
+    switch(type) {
+    case 1:
+      this.fileInput1Label = this.selectedFile.name.substring(0, 43);
+      break;
+    case 2:
+      this.fileInput2Label = this.selectedFile.name.substring(0, 43);
+      break;
+    case 3:
+      this.fileInput3Label = this.selectedFile.name.substring(0, 43);
+      break;
+    }
     this.typeList.push(type.toString());
     this.fileList.push(<File>event.target.files[0]);
-
   }
 
   OnSubmit(data:any){

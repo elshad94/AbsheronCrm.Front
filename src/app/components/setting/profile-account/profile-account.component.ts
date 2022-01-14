@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
+import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -43,7 +44,8 @@ export class ProfileAccountComponent implements OnInit {
 
   OnSubmit(user: any) {
     this.submitted = true;
-
+    logger.info(user.value);
+    logger.info(user.valid);
     if(!user.valid) {
       return;
     }

@@ -1,269 +1,221 @@
 <div class="login-body row w-100">
-        <div class="col-lg-6 leftCont w-100">
-            <h1 class="position-absolute text-light  font-weight-bold login-text">Qeydiyyat</h1>
-            <img class="full-image " src="../assets/img/AL.png" alt="">
-        </div>
-        <div class="col-lg-6 rightCont w-100">
-            <div class="top-logo">
-                <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
-            </div>
-            <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
-
-                <div class="form-group">
-                    <label  for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
-                    <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
-                        <option value=""  select disabled hidden>Hüquqi şəxs</option>>
-                        <option value=1   >Fiziki şəxs</option>
-                        <option value=2>Hüquqi şəxs</option>
-                    </select>
-                </div>
-
-
-                <div class="form-group">
-                    <label  for="voen" class="input-label">VÖEN</label>
-                    <input
-                    type="text"
-                    class="form-control"
-                    ngModel
-                    #voen="ngModel"
-                    name="UVoen"
-                    id="voen"
-                    required
-                    [(ngModel)]="model.UVoen"
-                    >
-                     <div class="alert  alert-soft-danger" *ngIf="submitted && !voen.valid">*Vöen tələb olunur</div>
-
-                </div>
-
-                <div class="form-group">
-                    <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
-                    <input type="text"
-                    #custname ="ngModel"
-                    ngModel
-                    name="UCustname"
-                    class="form-control"
-                    required
-                    id="FullName">
-                    <div class="alert  alert-soft-danger" *ngIf="submitted && !custname.valid">*Fiziki şəxsin adı, soyadı tələb olunur</div>
-                </div>
-
-            <div ngModelGroup="FileResponseDto">
-                <div class="form-group" *ngIf="!isNameSelected">
-                    <label>Reyestrdən çıxarış</label>
-
-                    <div class="custom-file">
-                    <input type="file"
-                            ngModel
-                            #rfile="ngModel"
-                            name="ReyesterFile"
-                            id="ReyesterFile"
-                            class="custom-file-input"
-                            required
-                            (change)="uploadFile( $event,1)">
-                    <label class="custom-file-label" for="RCixaris">Choose file</label>
-                    <div class="alert alert-soft-danger" *ngIf="submitted && !rfile.valid">*Reyestrdən çıxarış</div>
-                </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Bank Rekvizitləri</label>
-
-                    <div class="custom-file">
-                    <input type="file"
-                            ngModel
-                            #bfile="ngModel"
-                            name="BankRekFile"
-                            id="BankRekvizit"
-                            class="custom-file-input"
-                            required
-                            (change)="uploadFile( $event,2)">
-                    <label class="custom-file-label"  for="BankRekvizit">Choose file</label>
-                    <div class="alert alert-soft-danger" *ngIf="submitted && !bfile.valid">*Reyestrdən çıxarış</div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Səlahiyyətli nümayəndə/etibarnamə</label>
-
-                    <div class="custom-file">
-                    <input type="file"
-                           ngModel
-                           #efile="ngModel"
-                           name="EtibarFile"
-                           id="etibarnamə"
-                           (change)="uploadFile( $event,3)"
-                           class="custom-file-input">
-                    <label class="custom-file-label" for="etibarnamə"><img src="/src/assets/icon/Vector.png" alt=""></label>
-                    <div class="alert alert-soft-danger" *ngIf="submitted && !efile.valid">*Səlahiyyətli nümayəndə/etibarnamə</div>
-                </div>
-                </div>
-            </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <input type="text"
-                                    ngModel
-                                    #name="ngModel"
-                                    name="UPersonname"
-                                    class="form-control"
-                                    required
-                                    id="SKULabel" placeholder="Ad" >
-                                    <div class="alert alert-soft-danger" *ngIf="submitted && !name.valid">*Ad tələb olunur</div>
-                        </div>
-
-                        <div class="col-lg-6">
-                            <input type="text"
-                                    ngModel
-                                    #surname="ngModel"
-                                    name="UPersonsurname"
-                                    class="form-control"
-                                    id="SKULabel"
-                                    placeholder="Soyad">
-                                    <div class="alert alert-soft-danger" *ngIf="submitted && !surname.valid">*Soyad tələb olunur</div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <label for="SKULabel"class="input-label">Mobil nömrə</label>
-
-                    <input
-                        ngModel
-                        #phone="ngModel"
-                        name="UPhone"
-                        type="text"
-                        class="form-control"
-                        required
-                        id="Mobile">
-                        <div class="alert alert-soft-danger" *ngIf="submitted && !phone.valid">*Telefon tələb olunur</div>
-                </div>
-                <div class="form-group">
-                    <label for="SKULabel" class="input-label">E-mail</label>
-
-                    <input
-                        #mail="ngModel"
-                        type="email"
-                        ngModel
-                        name="UEmail"
-                        required
-                        pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                        class="form-control"
-                        [(ngModel)]="model.UEmail"
-                        id="SKULabel" >
-                        <div class="alert alert-soft-danger" *ngIf="submitted && !mail.valid ">*Telefon tələb olunur</div>
-                        <div class="text-danger" *ngif="mail.errors?.pattern">Email address is required</div>
-
-
-                </div>
-                <div class="form-group">
-                    <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-                    <input
-                         #UPassword="ngModel"
-                         required
-                         minlength="5"
-                         ngModel
-                         name="UPassword"
-                         type="password"
-                         id="UPassword"
-                         class="form-control"
-                         [(ngModel)]="model.UPassword"
-                        >
-                         <div class="alert alert-soft-danger"
-                         *ngIf=" submitted && !UPassword.valid ">*Şifrə tələb olunur</div>
-
-                         <div class="alert alert-soft-danger" *ngIf=" !(model.UPassword.length > 5) ">
-                                *Şifrəniz 5 simvoldan kiçik olmamalıdır
-                        </div>
-
-
-
-                </div>
-                <div class="form-group">
-                    <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        ngModel
-                        #confirmPassword="ngModel"
-                        required
-                        name="confirmPassword"
-                        class="form-control"
-                        appConfirmEqualValidator="UPassword"
-                        [(ngModel)]="model.ConfirmPassword"
-                        >
-                        <div class="alert alert-soft-danger" *ngIf=" submitted && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil</div>
-                        <div class="alert alert-soft-danger" *ngIf="!(model.UPassword == model.ConfirmPassword) && confirmPassword.touched    ">*Şifrə uyğun deyil</div>
-
-
-                </div>
-                <div class="row form-group" >
-                    <div class="col-lg-12 custom-control custom-checkbox ml-3">
-                        <input
-                            ngModel
-                            #UTerms="ngModel"
-                            type="checkbox"
-                            name="UTerms"
-                            id="term"
-                            [(ngModel)]="model.UTerms"
-                            class="custom-control-input indeterminate-checkbox">
-                        <label class="custom-control-label" for="term">I accept the </label>
-                        <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable" > Terms and Conditions</a>
-                        <div *ngIf="!model.UTerms && submitted " class="text-danger">Qəbul edin</div>
-                    </div>
-                </div>
-                <div *ngIf="!signUpForm.valid && submitted"
-                      class="alert alert-soft-danger"
-                >
-                    *Zəhmət olmasa məlumatları doldurun
-                </div>
-                <div>
-                    <label for="">Hesabınz mövcuddur? </label>
-                     <a [routerLink]="['']"  class="btn-link"> Daxil olun  </a>
-                </div>
-                <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3" >Qeydiyyatdan keç</button>
-            </form>
-        </div>
+  <div class="col-lg-6 leftCont w-100">
+    <h1 class="position-absolute text-light  font-weight-bold login-text">Qeydiyyat</h1>
+    <img class="full-image " src="../assets/img/AL.png" alt="">
+  </div>
+  <div class="col-lg-6 rightCont w-100">
+    <div class="top-logo">
+      <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
+    <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
-        Launch demo modal
-      </button>
-      <!-- End Button trigger modal -->
+      <div class="form-group">
+        <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
+        <select (change)="selectInput($event)" ngModel name="USubtype" id="TypePerson" class="form-control">
+          <option value="" select disabled hidden>Hüquqi şəxs</option>>
+          <option value=1>Fiziki şəxs</option>
+          <option value=2>Hüquqi şəxs</option>
+        </select>
+      </div>
 
-      <!-- Modal -->
-      <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="z-index: 1061;">
-        <div class="modal-dialog modal-dialog-scrollable" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
-              <button type="button" class="btn btn-xs btn-icon btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
-                <i class="tio-clear tio-lg"></i>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-              <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-              <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-              <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+
+      <div class="form-group">
+        <label for="voen" class="input-label">VÖEN</label>
+        <input type="text" class="form-control" ngModel #voen="ngModel" name="UVoen" id="voen" required
+          [(ngModel)]="model.UVoen">
+        <div class="alert  alert-soft-danger" *ngIf="submitted && !voen.valid">*Vöen tələb olunur</div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
+        <input type="text" #custname="ngModel" ngModel name="UCustname" class="form-control" required id="FullName">
+        <div class="alert  alert-soft-danger" *ngIf="submitted && !custname.valid">*Fiziki şəxsin adı, soyadı tələb
+          olunur</div>
+      </div>
+
+      <div ngModelGroup="FileResponseDto">
+        <div class="form-group" *ngIf="!isNameSelected">
+          <label>Reyestrdən çıxarış</label>
+
+          <div class="custom-file">
+            <input type="file" ngModel #rfile="ngModel" name="ReyesterFile" id="ReyesterFile" class="custom-file-input"
+              required (change)="uploadFile( $event,1)">
+            <label class="custom-file-label" for="ReyesterFile">
+              {{fileInput1Label}}
+            </label>
+            <div class="alert alert-soft-danger" *ngIf="submitted && !rfile.valid">*Reyestrdən çıxarış</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Bank Rekvizitləri</label>
+
+          <div class="custom-file">
+            <input type="file" ngModel #bfile="ngModel" name="BankRekFile" id="BankRekvizit" class="custom-file-input"
+              required (change)="uploadFile( $event,2)">
+            <label class="custom-file-label" for="BankRekvizit">
+              {{fileInput2Label}}
+            </label>
+            <div class="alert alert-soft-danger" *ngIf="submitted && !bfile.valid">*Reyestrdən çıxarış</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Səlahiyyətli nümayəndə/etibarnamə</label>
+
+          <div class="custom-file">
+            <input type="file" ngModel #efile="ngModel" name="EtibarFile" id="etibarnamə"
+              (change)="uploadFile( $event,3)" class="custom-file-input">
+            <!-- <label class="custom-file-label" for="etibarnamə"><img src="/src/assets/icon/Vector.png" alt=""></label> -->
+            <label class="custom-file-label" for="etibarnamə">
+              {{fileInput3Label}}
+            </label>
+            <div class="alert alert-soft-danger" *ngIf="submitted && !efile.valid">*Səlahiyyətli nümayəndə/etibarnamə
             </div>
           </div>
         </div>
       </div>
-    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+
+      <div class="form-group">
+        <div class="row">
+          <div class="col-lg-6">
+            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="SKULabel"
+              placeholder="Ad">
+            <div class="alert alert-soft-danger" *ngIf="submitted && !name.valid">*Ad tələb olunur</div>
+          </div>
+
+          <div class="col-lg-6">
+            <input type="text" ngModel #surname="ngModel" name="UPersonsurname" class="form-control" id="SKULabel"
+              placeholder="Soyad">
+            <div class="alert alert-soft-danger" *ngIf="submitted && !surname.valid">*Soyad tələb olunur</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="SKULabel" class="input-label">Mobil nömrə</label>
+
+        <input ngModel #phone="ngModel" name="UPhone" type="text" class="form-control" required id="Mobile">
+        <div class="alert alert-soft-danger" *ngIf="submitted && !phone.valid">*Telefon tələb olunur</div>
+      </div>
+      <div class="form-group">
+        <label for="SKULabel" class="input-label">E-mail</label>
+
+        <input #mail="ngModel" type="email" ngModel name="UEmail" required
+          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" [(ngModel)]="model.UEmail"
+          id="SKULabel">
+        <div class="alert alert-soft-danger" *ngIf="submitted && !mail.valid ">*Telefon tələb olunur</div>
+        <div class="text-danger" *ngif="mail.errors?.pattern">Email address is required</div>
+
+
+      </div>
+      <div class="form-group">
+        <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+        <input #UPassword="ngModel" required minlength="5" ngModel name="UPassword" type="password" id="UPassword"
+          class="form-control" [(ngModel)]="model.UPassword">
+        <div class="alert alert-soft-danger" *ngIf=" submitted && !UPassword.valid ">*Şifrə tələb olunur</div>
+
+        <div class="alert alert-soft-danger" *ngIf=" !(model.UPassword.length > 5) ">
+          *Şifrəniz 5 simvoldan kiçik olmamalıdır
+        </div>
+
+
+
+      </div>
+      <div class="form-group">
+        <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+        <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required name="confirmPassword"
+          class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword">
+        <div class="alert alert-soft-danger"
+          *ngIf=" submitted && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil
+        </div>
+        <div class="alert alert-soft-danger"
+          *ngIf="!(model.UPassword == model.ConfirmPassword) && confirmPassword.touched    ">*Şifrə uyğun deyil</div>
+
+
+      </div>
+      <div class="row form-group">
+        <div class="col-lg-12 custom-control custom-checkbox ml-3">
+          <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
+            class="custom-control-input indeterminate-checkbox">
+          <label class="custom-control-label" for="term">I accept the </label>
+          <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable"> Terms
+            and Conditions</a>
+          <div *ngIf="!model.UTerms && submitted " class="text-danger">Qəbul edin</div>
+        </div>
+      </div>
+      <div *ngIf="!signUpForm.valid && submitted" class="alert alert-soft-danger">
+        *Zəhmət olmasa məlumatları doldurun
+      </div>
+      <div>
+        <label for="">Hesabınz mövcuddur? </label>
+        <a [routerLink]="['']" class="btn-link"> Daxil olun </a>
+      </div>
+      <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
+    </form>
+  </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalScrollable">
+  Launch demo modal
+</button>
+<!-- End Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="z-index: 1061;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <button type="button" class="btn btn-xs btn-icon btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
+          <i class="tio-clear tio-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget
+          quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet
+          rutrum faucibus dolor auctor.</p>
+        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl
+          consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>
