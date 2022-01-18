@@ -9,9 +9,15 @@ import { GlobalService } from './services/global.service';
 })
 export class AppComponent implements OnInit {
   title = 'AbsLog';
-  tk = false;
+  public tk = false;
 
-  constructor(private globalSrv: GlobalService){}
+  constructor(){
+    if(localStorage.getItem('token')=='' || localStorage.getItem('token')==null){
+      this.tk =false;
+    }else{
+      this.tk=true;
+    }
+  }
 
   ngOnInit(){
     // var arrayFromStroage  = JSON.parse(localStorage.getItem("token") ?? "");
@@ -19,10 +25,10 @@ export class AppComponent implements OnInit {
     // if (arrayFromStroage.length > 0) {
     // this.tk = true;
     // }
-    this.globalSrv.tokenLengthValue.subscribe((tokenLength) => {
-      logger.info(tokenLength);
-      this.tk = tokenLength > 0;
-    });
+    // this.globalSrv.tokenLengthValue.subscribe((tokenLength) => {
+    //     logger.info(tokenLength)
+    //     this.tk = tokenLength > 0
+    //  })
 
   }
 }
