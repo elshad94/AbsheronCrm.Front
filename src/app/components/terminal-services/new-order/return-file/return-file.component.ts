@@ -17,7 +17,7 @@ import { Location } from '@angular/common';
 export class ReturnFileComponent implements OnInit {
   nvNoList!: string[];
   files!: FileData[];
-  fileToUploadNvNo: string = '-1';
+  fileToUploadNvNo = '-1';
   fileToUpload?: File;
   fileName = '';
   orderId?: number;
@@ -99,7 +99,7 @@ export class ReturnFileComponent implements OnInit {
   createTerminalOrder(save = true) {
     try {
       if(this.terminalService.terminalUpdateRequestData === undefined) {
-        errorAlert('Faylları doldurun!');
+        errorAlert('ERROR!');
         return;
       }
       this.terminalService.terminalUpdateRequestData.files = this.files;

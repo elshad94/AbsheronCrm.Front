@@ -295,7 +295,7 @@ export class OrderComponent implements OnInit {
 
   createTerminalOrder(save = true) {
     try {
-      if(this.orderId !== undefined) {
+      if(this.orderId !== undefined || this.terminalService.terminalUpdateRequestData == undefined) {
         this.terminalService.terminalUpdateRequestData = {
           emptyRefCode: this.emptyRefCode,
           fullRefCode: this.fullRefCode,
@@ -312,10 +312,10 @@ export class OrderComponent implements OnInit {
           statusId: save ? 4 : 5
         };
       } else {
-        if(this.terminalService.terminalUpdateRequestData === undefined) {
-          errorAlert('Faylları doldurun!');
-          return;
-        }
+        // if(this.terminalService.terminalUpdateRequestData === undefined) {
+        //   errorAlert('Faylları doldurun!');
+        //   return;
+        // }
         this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
         this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
         this.terminalService.terminalUpdateRequestData.notes = this.notes;

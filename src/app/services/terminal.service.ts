@@ -68,9 +68,9 @@ export class TerminalService {
     if(!this.terminalUpdateRequestData.emptyRefCode) {
       throw errorCodes.EMPTY_REF_CODE_EMPTY;
     }
-    if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
-      throw errorCodes.FILES_EMPTY;
-    }
+    // if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
+    //   throw errorCodes.FILES_EMPTY;
+    // }
     if(!this.terminalUpdateRequestData.fullRefCode) {
       throw errorCodes.FULL_REF_CODE_EMPTY;
     }
@@ -87,9 +87,9 @@ export class TerminalService {
     if(!this.terminalUpdateRequestData.emptyRefCode) {
       throw errorCodes.EMPTY_REF_CODE_EMPTY;
     }
-    if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
-      throw errorCodes.FILES_EMPTY;
-    }
+    // if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
+    //   throw errorCodes.FILES_EMPTY;
+    // }
     if(!this.terminalUpdateRequestData.fullRefCode) {
       throw errorCodes.FULL_REF_CODE_EMPTY;
     }
