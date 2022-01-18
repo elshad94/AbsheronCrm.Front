@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from 'rxjs';   
+import {BehaviorSubject} from 'rxjs';
 
 
 @Injectable({
@@ -10,7 +10,8 @@ export class GlobalService {
   tokenLengthValue = new BehaviorSubject(this.tokenLength);
 
   get tokenLength() {
-    return JSON.parse(localStorage.getItem("token") ?? "").length;
+    // return JSON.parse(localStorage.getItem("token") ?? "").length;
+    return localStorage.getItem('token')?.length ?? 0;
   }
 
 }
