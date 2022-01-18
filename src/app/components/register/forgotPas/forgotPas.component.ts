@@ -19,7 +19,7 @@ export class ForgotPasComponent implements OnInit {
   
   SendCode(){
     this.submitted = true;
-        if(!(this.email=='') || !(this.email.includes("@"))) {
+        if(this.email=='' || !(this.email.includes("@"))) {
             return;
         }
 
