@@ -13,10 +13,12 @@
         <input type="email" 
           name="uEmail" [(ngModel)]="email" class="form-control">
           <div class="alert alert-danger" 
-              *ngIf="email.length>0 && submitted">
-              *Email tələb oluunur
+              *ngIf="email.length == 0 || !email.includes('@')">
+              *Email tələb olunur
           </div>
-      </div>
+     
+
+        </div>
       <button type="button" (click)="SendCode()"  class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
         Şifrəni dəyiş
       </button>
