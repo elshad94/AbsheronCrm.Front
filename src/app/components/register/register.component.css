@@ -33,3 +33,7 @@
     margin-bottom: 0.5rem;
 }
 
+/deep/.mat-typography {
+    overflow-y: visible!important; /* Hide vertical scrollbar */
+    overflow-x: visible!important; /* Hide horizontal scrollbar */
+  }
