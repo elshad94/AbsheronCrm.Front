@@ -91,13 +91,14 @@ export class OrderComponent implements OnInit {
     for(const tw of terminalWays) {
       // tw.amount = 1;
       for(const exp of expenses) {
+        tw.amount = exp.price!;
         xidmetler_.push({
           expenseId: exp.id,
           expenseText: exp.text,
           temrinalWay: tw,
           count: 1,
-          totalAmount: tw.amount,
-          edv: tw.amount * EDV_MULTIPLIER
+          totalAmount: exp.price!,
+          edv: exp.price! * EDV_MULTIPLIER
         });
       }
     }
