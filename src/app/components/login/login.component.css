@@ -38,6 +38,13 @@
     text-align: center;
 }
 
+.login-text{
+    font-family: "Lexend Deca", sans-serif !important;
+    font-size: 36px;
+    position: absolute;
+    top: 30px;
+    left: 60px;
+}
 
 /deep/.mat-typography {
     overflow-y: hidden!important; /* Hide vertical scrollbar */
