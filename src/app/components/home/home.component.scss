@@ -31,4 +31,10 @@
     background-color: #377dff;
 }
 
+@media only screen and (max-width: 768px){
+    .typeTable{
+        display: none;
+    }
+}
+
 

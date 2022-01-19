@@ -8,27 +8,29 @@
         <h3>Hesabat</h3>
       </div>
       <div class="searching">
-          <div class="date-block__list">
-            <mat-form-field>
-              <input matInput
-                [matDatepicker]="start"
-                placeholder="Başlama tarixi"
-                name="startDate"
-                [(ngModel)]="startDate">
-              <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-              <mat-datepicker #start></mat-datepicker>
-            </mat-form-field>
-          </div>
+          <div class="resDate">
             <div class="date-block__list">
-            <mat-form-field>
-              <input matInput
-                [matDatepicker]="end"
-                placeholder="Bitmə tarixi"
-                name="endDate"
-                [(ngModel)]="endDate">
-              <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
-              <mat-datepicker #end></mat-datepicker>
-            </mat-form-field>
+              <mat-form-field>
+                <input matInput
+                  [matDatepicker]="start"
+                  placeholder="Başlama tarixi"
+                  name="startDate"
+                  [(ngModel)]="startDate">
+                <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+                <mat-datepicker #start></mat-datepicker>
+              </mat-form-field>
+            </div>
+              <div class="date-block__list">
+              <mat-form-field>
+                <input matInput
+                  [matDatepicker]="end"
+                  placeholder="Bitmə tarixi"
+                  name="endDate"
+                  [(ngModel)]="endDate">
+                <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+                <mat-datepicker #end></mat-datepicker>
+              </mat-form-field>
+            </div>
           </div>
         <button class="searchBtn" (click)="applyFilter()">Axtar</button>
       </div>

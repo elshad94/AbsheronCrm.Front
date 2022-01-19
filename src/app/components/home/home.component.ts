@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angula
 import { ConWag } from 'src/app/model/conWag';
 import { OrderCountService } from 'src/app/services/orderCount.service';
 import { ChartConfiguration, ChartData, ChartType, ChartDatasetProperties } from 'chart.js';
-import { BaseChartDirective } from 'ng2-charts';
+import * as $ from 'jquery';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { SpinnerService } from 'src/app/services/spinner.service';
 
@@ -76,6 +76,10 @@ export class HomeComponent implements OnInit {
                 ]
             };
         });
+
+        if (window.innerWidth < 768) {
+            $("canvas").attr("height","300");
+        }
     }
 }
 
