@@ -53,7 +53,7 @@
   padding: 10px 0;
 }
 
-.checkBox .col-lg-5 .toggle-switch-input:checked + .toggle-switch-label {
+.checkBox .col-lg-5 .toggle-switch-input:checked+.toggle-switch-label {
   background-color: #4299BF;
 }
 
@@ -63,7 +63,7 @@
   border-radius: 6px;
 }
 
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
+.custom-checkbox .custom-control-input:checked~.custom-control-label::after {
   background-color: #4299BF;
 }
 
@@ -123,8 +123,8 @@ select option {
   background-color: #00C9A7;
   height: 6px !important;
   top: 1.3125rem;
-  left: 2.6rem!important;
-  width: calc(21pc - 10rem)!important;
+  left: 2.6rem !important;
+  width: calc(21pc - 10rem) !important;
   height: 1.0625rem;
   border-top: 0.125rem solid #e7eaf3;
   border: none;
@@ -139,8 +139,8 @@ select option {
   background-color: #b8f2e8;
   height: 6px !important;
   top: 1.3125rem;
-  left: 2.6rem!important;
-  width: calc(21pc - 10rem)!important;
+  left: 2.6rem !important;
+  width: calc(21pc - 10rem) !important;
   height: 1.0625rem;
   border-top: 0.125rem solid #e7eaf3;
   border: none;
@@ -187,10 +187,21 @@ select option {
   transition: all 0.3;
 }
 
-.pointer-eventCol{
-  margin-left: 5%!important;
+.pointer-eventCol {
+  margin-left: 5% !important;
   transition: all 0.3;
 }
+
+@media only screen and (max-width: 768px) {
+  .main,
+  .pointer-event {
+    margin-top: 59px;
+    margin-left: 0;
+    transition: all 0.3;
+  }
+}
+
+
 
 .orderBtn {
   font-family: Averta;
@@ -220,4 +231,5 @@ select option {
 #datatableEntries {
   border: none;
 }
+
 /*# sourceMappingURL=style.css.map */

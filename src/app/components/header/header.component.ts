@@ -38,13 +38,22 @@ export class HeaderComponent implements OnInit {
   }
 
   collapse() {
-    $('#collapse').click(function () {
-      $('div.head').toggleClass('fullHead');
-      $('div.asideMain').toggleClass('asideCol');
-      $('#collapse').toggleClass('tio-last-page');
-      $('.logo').toggleClass('brandLogoCol');
-      $('.pointer-event').toggleClass('pointer-eventCol');
-    });
+    if ( window.innerWidth < 768) {
+      $('#collapse').click(function () {
+        $('div.head').toggleClass('resHead');
+        $('div.asideMain').toggleClass('resAsideMenu');
+        $('#collapse').toggleClass('tio-last-page');
+      });
+   }
+   else{
+     $('#collapse').click(function () {
+       $('div.head').toggleClass('fullHead');
+       $('div.asideMain').toggleClass('asideCol');
+       $('#collapse').toggleClass('tio-last-page');
+       $('.logo').toggleClass('brandLogoCol');
+       $('.pointer-event').toggleClass('pointer-eventCol');
+     });
+   }
   }
 
 }

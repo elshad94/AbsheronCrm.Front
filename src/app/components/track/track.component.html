@@ -26,12 +26,18 @@
           <div class="col-sm-auto">
             <div class="d-flex align-items-center mr-2">
               <div class="checkBox">
-                <input type="radio" aria-label="Radio button for following text input"
-                  (click)="setTransportType(0)" name="transType">Vaqon
+                <label>
+                  <input type="radio" name="radio" value="1" name="nvNoRadioButton" (change)="setTransportType(0)"
+                    checked id="nvNoRadio_vaqon" />
+                  <span>Vaqon</span>
+                </label>
               </div>
-              <div class="CheckBox">
-                <input type="radio" aria-label="Radio button for following text input"
-                  (click)="setTransportType(1)" name="transType"> Konteyner
+              <div class="checkBox">
+                <label>
+                  <input type="radio" name="radio" value="2" name="nvNoRadioButton" (change)="setTransportType(1)"
+                    id="nvNoRadio_vaqon" />
+                  <span>Konteyner</span>
+                </label>
               </div>
               <!-- End Select -->
             </div>
@@ -75,7 +81,7 @@
       </div>
       <ul class="step step-md" *ngIf="showProgress">
         <li class="step-item" *ngFor="let styleClass of checkClasses; let i = index">
-          <div class="step-content-wrapper" >
+          <div class="step-content-wrapper">
             <span class="step-icon step-icon-soft-primary" [ngClass]="styleClass" *ngIf="i < 5">
               <i class="far fa-check-circle" *ngIf="styleClass === 'step-icon'"></i>
               <i class="far fa-circle" *ngIf="styleClass === 'step-icon-unchecked'"></i>
@@ -98,10 +104,12 @@
 
     <!-- Footer -->
 
-   <!-- Footer -->
+    <!-- Footer -->
 
-   <!-- End Footer -->
- </div>
+    <!-- End Footer -->
+  </div>
 </div>
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>
