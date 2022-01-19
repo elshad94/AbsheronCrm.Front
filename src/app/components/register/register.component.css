@@ -37,3 +37,11 @@
     overflow-y: visible!important; /* Hide vertical scrollbar */
     overflow-x: visible!important; /* Hide horizontal scrollbar */
   }
+
+  .login-text{
+    font-family: "Lexend Deca", sans-serif !important;
+    font-size: 36px;
+    position: absolute;
+    top: 30px;
+    left: 60px;
+}
