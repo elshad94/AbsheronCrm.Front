@@ -62,11 +62,11 @@
        </ng-container>
        <ng-container matColumnDef="date">
          <th mat-header-cell *matHeaderCellDef>TARİX</th>
-         <td mat-cell *matCellDef="let order"> {{order.date | date:'yyyy-MM-dd'}} </td>
+         <td mat-cell *matCellDef="let order"> {{order.date | date:'dd-MM-yyyy'}} </td>
        </ng-container>
        <ng-container matColumnDef="amount">
          <th mat-header-cell *matHeaderCellDef>Məbləğ</th>
-         <td mat-cell *matCellDef="let order"> {{order.amount}} </td>
+         <td mat-cell *matCellDef="let order"> {{order.amount | number : '1.2-2'}} ₼</td>
        </ng-container>
        <ng-container matColumnDef="statusText">
          <th mat-header-cell *matHeaderCellDef>STATUS</th>

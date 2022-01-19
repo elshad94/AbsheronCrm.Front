@@ -1,236 +1,240 @@
+<div class="content container-fluid">
+  <!-- Card -->
+  <div class="row">
+    <div class="col-lg-9 mb-5 mb-lg-0">
+      <!-- Card -->
+      <div class="card card-lg">
+        <!-- Body -->
+        <div class="card-body">
+          <div class="row align-items-center">
 
-  <div class="content container-fluid">
-    <!-- Card -->
-    <div class="row">
-      <div class="col-lg-9 mb-5 mb-lg-0">
-        <!-- Card -->
-        <div class="card card-lg">
-          <!-- Body -->
-          <div class="card-body">
-            <div class="row align-items-center">
 
+            <a class="ml-5 orderBtn line">Xidmətlər</a>
+            <a class="ml-5 orderBtn cursor_pointer" (click)="toReturnFile()">Geridönüş sənədi</a>
+          </div>
+          <!-- End Row -->
 
-              <a class="ml-5 orderBtn line">Xidmətlər</a>
-              <a class="ml-5 orderBtn cursor_pointer" (click)="toReturnFile()">Geridönüş sənədi</a>
-            </div>
-            <!-- End Row -->
+          <hr class="my-5">
 
-            <hr class="my-5">
+          <!-- End Row -->
 
-            <!-- End Row -->
-
-            <div class="js-add-field" data-hs-add-field-options='{
+          <div class="js-add-field" data-hs-add-field-options='{
                         "template": "#addInvoiceItemTemplate",
                         "container": "#addInvoiceItemContainer",
                         "defaultCreated": 0
                       }'>
-              <!-- Title -->
-              <!-- <div class="row"> -->
+            <!-- Title -->
+            <!-- <div class="row"> -->
+            <div class="row">
+              <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3" placeholder="Dolu yükdaşıma kodu"
+                [(ngModel)]="fullRefCode">
+              <div class="col-sm-1"></div>
+              <input type="text" class="form-control col-sm-4 mb-3" placeholder="Boş yükdaşıma kodu"
+                [(ngModel)]="emptyRefCode">
+            </div>
+            <div class="bg-light border-bottom p-2 mb-3">
               <div class="row">
-                <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3"
-                  placeholder="Dolu yükdaşıma kodu" [(ngModel)]="fullRefCode">
-                <div class="col-sm-1"></div>
-                <input type="text" class="form-control col-sm-4 mb-3"
-                  placeholder="Boş yükdaşıma kodu" [(ngModel)]="emptyRefCode">
-              </div>
-              <div class="bg-light border-bottom p-2 mb-3">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <h6 class="card-title text-cap">xİdmət</h6>
-                  </div>
-                  <div class="col-sm-3 d-none d-sm-inline-block">
-                    <h6 class="card-title text-cap">Mİqdar</h6>
-                  </div>
-                  <div class="col-sm-2 d-none d-sm-inline-block">
-                    <h6 class="card-title text-cap">QİYMƏT</h6>
-                  </div>
-                  <div class="col-sm-2 d-none d-sm-inline-block">
-                    <h6 class="card-title text-cap">cƏMİ</h6>
-                  </div>
-                  <div class="col-sm-2 d-none d-sm-inline-block">
-                    <h6 class="card-title text-cap"></h6>
-                  </div>
+                <div class="col-sm-5">
+                  <h6 class="card-title text-cap">xİdmət</h6>
+                </div>
+                <div class="col-sm-3 d-none d-sm-inline-block">
+                  <h6 class="card-title text-cap">Mİqdar</h6>
+                </div>
+                <div class="col-sm-2 d-none d-sm-inline-block">
+                  <h6 class="card-title text-cap">QİYMƏT</h6>
+                </div>
+                <div class="col-sm-2 d-none d-sm-inline-block">
+                  <h6 class="card-title text-cap">cƏMİ</h6>
+                </div>
+                <div class="col-sm-2 d-none d-sm-inline-block">
+                  <h6 class="card-title text-cap"></h6>
                 </div>
               </div>
-              <!-- End Title -->
+            </div>
+            <!-- End Title -->
 
+            <!-- Content -->
+            <div *ngFor="let xidmet of xidmetler; let i = index" class="row">
+              <div class="col-md-5">
+                <select class="form-control mb-3" name="" id="">
+                  <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
+                    {{exp.text}}</option>
+                </select>
+                <input type="text" class="form-control mb-3 readonly_input" placeholder="N/V №" aria-label="Description"
+                  [(ngModel)]="xidmet.temrinalWay.nvNo" readonly>
+              </div>
+
+              <div class="col-12 col-sm-auto col-md-3">
+                <!-- Quantity Counter -->
+                <div class="js-quantity-counter input-group-quantity-counter mb-3">
+                  <input type="number" class="js-result form-control input-group-quantity-counter-control"
+                    [(ngModel)]="xidmet.count">
+
+                  <div class="input-group-quantity-counter-toggle">
+                    <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
+                      (click)="decreaseCount(xidmet)">
+                      <i class="tio-remove"></i>
+                    </a>
+                    <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
+                      (click)="increaseCount(xidmet)">
+                      <i class="tio-add"></i>
+                    </a>
+                  </div>
+
+
+                </div>
+                <!-- End Quantity Counter -->
+                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1">
+                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm col-md-2">
+                <!-- Input Group -->
+                <div class="mb-3">
+                  <p>₼ {{xidmet.temrinalWay.amount}}</p>
+                </div>
+                <!-- End Input Group -->
+              </div>
+
+              <div class="col col-md-2">
+                <p>₼ {{xidmet.totalAmount}}</p>
+              </div>
+
+
+            </div>
+            <!-- End Content -->
+
+            <!-- Container For Input Field -->
+            <div id="addInvoiceItemContainer"></div>
+
+            <!-- Add Phone Input Field -->
+            <div id="addInvoiceItemTemplate" style="display: none;">
               <!-- Content -->
-              <div *ngFor="let xidmet of xidmetler; let i = index" class="row">
-                <div class="col-md-5">
-                  <select class="form-control mb-3" name="" id="">
-                    <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">{{exp.text}}</option>
-                  </select>
-                  <input type="text" class="form-control mb-3 readonly_input" placeholder="N/V №" aria-label="Description"
-                    [(ngModel)]="xidmet.temrinalWay.nvNo" readonly>
-                </div>
+              <div class="input-group-add-field">
+                <div class="row">
+                  <div class="col-md-5">
+                    <input type="text" class="form-control mb-3" placeholder="Item name" aria-label="Item name">
+                    <input type="text" class="form-control mb-3" placeholder="Description" aria-label="Description">
+                  </div>
 
-                <div class="col-12 col-sm-auto col-md-3">
-                  <!-- Quantity Counter -->
-                  <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                    <input type="number" class="js-result form-control input-group-quantity-counter-control" [(ngModel)]="xidmet.count">
+                  <div class="col-12 col-sm-auto col-md-3">
+                    <!-- Quantity Counter -->
+                    <div class="js-quantity-counter input-group-quantity-counter mb-3">
+                      <input type="number" class="js-result form-control input-group-quantity-counter-control" value="1"
+                        [(ngModel)]="xidmet.count">
 
-                    <div class="input-group-quantity-counter-toggle">
-                      <a class="js-minus input-group-quantity-counter-btn" href="javascript:;" (click)="decreaseCount(xidmet)">
-                        <i class="tio-remove"></i>
-                      </a>
-                      <a class="js-plus input-group-quantity-counter-btn" href="javascript:;" (click)="increaseCount(xidmet)">
-                        <i class="tio-add"></i>
-                      </a>
+                      <div class="input-group-quantity-counter-toggle">
+                        <a class="js-minus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
+                          <i class="tio-remove"></i>
+                        </a>
+                        <a class="js-plus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
+                          <i class="tio-add"></i>
+                        </a>
+                      </div>
                     </div>
-
-
+                    <!-- End Quantity Counter -->
                   </div>
-                  <!-- End Quantity Counter -->
-                  <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1">
-                    <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
+
+                  <div class="col-12 col-sm col-md-2">
+                    <!-- Input Group -->
+                    <div class="mb-3">
+                      <input type="number" class="form-control" placeholder="00" aria-label="00">
+                    </div>
+                    <!-- End Input Group -->
+                  </div>
+
+                  <div class="col col-md-2">
+                    <input type="number" class="form-control-plaintext mb-3" placeholder="$0.00" aria-label="$0.00">
                   </div>
                 </div>
+                <!-- End Row -->
 
-                <div class="col-12 col-sm col-md-2">
-                  <!-- Input Group -->
-                  <div class="mb-3">
-                    <p>₼ {{xidmet.temrinalWay.amount}}</p>
-                  </div>
-                  <!-- End Input Group -->
-                </div>
-
-                <div class="col col-md-2">
-                  <p>₼ {{xidmet.totalAmount}}</p>
-                </div>
-
-
+                <a class="js-delete-field input-group-add-field-delete" href="javascript:;" data-toggle="tooltip"
+                  data-placement="top" title="Remove item">
+                  <i class="tio-clear"></i>
+                </a>
               </div>
               <!-- End Content -->
-
-              <!-- Container For Input Field -->
-              <div id="addInvoiceItemContainer"></div>
-
-              <!-- Add Phone Input Field -->
-              <div id="addInvoiceItemTemplate" style="display: none;">
-                <!-- Content -->
-                <div class="input-group-add-field">
-                  <div class="row">
-                    <div class="col-md-5">
-                      <input type="text" class="form-control mb-3" placeholder="Item name" aria-label="Item name">
-                      <input type="text" class="form-control mb-3" placeholder="Description" aria-label="Description">
-                    </div>
-
-                    <div class="col-12 col-sm-auto col-md-3">
-                      <!-- Quantity Counter -->
-                      <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                        <input type="number" class="js-result form-control input-group-quantity-counter-control"
-                          value="1">
-
-                        <div class="input-group-quantity-counter-toggle">
-                          <a class="js-minus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
-                            <i class="tio-remove"></i>
-                          </a>
-                          <a class="js-plus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
-                            <i class="tio-add"></i>
-                          </a>
-                        </div>
-                      </div>
-                      <!-- End Quantity Counter -->
-                    </div>
-
-                    <div class="col-12 col-sm col-md-2">
-                      <!-- Input Group -->
-                      <div class="mb-3">
-                        <input type="number" class="form-control" placeholder="00" aria-label="00">
-                      </div>
-                      <!-- End Input Group -->
-                    </div>
-
-                    <div class="col col-md-2">
-                      <input type="number" class="form-control-plaintext mb-3" placeholder="$0.00" aria-label="$0.00">
-                    </div>
-                  </div>
-                  <!-- End Row -->
-
-                  <a class="js-delete-field input-group-add-field-delete" href="javascript:;" data-toggle="tooltip"
-                    data-placement="top" title="Remove item">
-                    <i class="tio-clear"></i>
-                  </a>
-                </div>
-                <!-- End Content -->
-              </div>
-              <!-- End Add Phone Input Field -->
             </div>
-
-            <hr class="my-5">
-
-            <div class="row justify-content-md-end mb-3">
-              <div class="col-lg-6">
-                <div class="form-group">
-
-                  <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
-                    aria-label="Who is this invoice to?" rows="3"
-                    [(ngModel)]="notes"></textarea>
-                </div>
-              </div>
-              <div class="col-md-8 col-lg-6">
-                <dl class="row text-sm-right">
-                  <dt class="col-sm-6">Cəmi:</dt>
-                  <dd class="col-sm-6">₼ {{total}}</dd>
-                  <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
-                  <dd class="col-sm-6">₼ {{totalEdv | number : '1.2-2' }}</dd>
-                </dl>
-                <!-- End Row -->
-              </div>
-            </div>
-
-
+            <!-- End Add Phone Input Field -->
           </div>
-          <!-- End Body -->
+
+          <hr class="my-5">
+
+          <div class="row justify-content-md-end mb-3">
+            <div class="col-lg-6">
+              <div class="form-group">
+
+                <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
+                  aria-label="Who is this invoice to?" rows="3" [(ngModel)]="notes"></textarea>
+              </div>
+            </div>
+            <div class="col-md-8 col-lg-6">
+              <dl class="row text-sm-right">
+                <dt class="col-sm-6">Cəmi:</dt>
+                <dd class="col-sm-6">₼ {{total}}</dd>
+                <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
+                <dd class="col-sm-6">₼ {{totalEdv | number : '1.2-2' }}</dd>
+              </dl>
+              <!-- End Row -->
+            </div>
+          </div>
+
+
         </div>
-        <!-- End Card -->
-
-        <!-- Sticky Block End Point -->
-        <div id="stickyBlockEndPoint"></div>
+        <!-- End Body -->
       </div>
+      <!-- End Card -->
 
-      <div id="stickyBlockStartPoint" class="col-lg-3">
-        <div class="js-sticky-block" data-hs-sticky-block-options='{
+      <!-- Sticky Block End Point -->
+      <div id="stickyBlockEndPoint"></div>
+    </div>
+
+    <div id="stickyBlockStartPoint" class="col-lg-3">
+      <div class="js-sticky-block" data-hs-sticky-block-options='{
                    "parentSelector": "#stickyBlockStartPoint",
                    "breakpoint": "lg",
                    "startPoint": "#stickyBlockStartPoint",
                    "endPoint": "#stickyBlockEndPoint",
                    "stickyOffsetTop": 20
                  }'>
-          <button class="btn btn-block newOrder mb-3" href="javascript:;" *ngIf="orderStatus === undefined || orderStatus === 4"
-            (click)="createTerminalOrder()">
-            Yadda saxla
-          </button>
+        <button class="btn btn-block newOrder mb-3" href="javascript:;"
+          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder()">
+          Yadda saxla
+        </button>
 
-          <button class="btn btn-block newAccept mb-3" href="javascript:;" *ngIf="orderStatus === undefined || orderStatus === 4"
-          (click)="createTerminalOrder(false)">
-            Təsdiqlə
-          </button>
+        <button class="btn btn-block newAccept mb-3" href="javascript:;"
+          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder(false)">
+          Təsdiqlə
+        </button>
 
-          <button class="btn btn-block back mb-3" (click)="goBack()">
-            Geri
-          </button>
+        <button class="btn btn-block back mb-3" (click)="goBack()">
+          Geri
+        </button>
 
 
-          <!-- End Row -->
+        <!-- End Row -->
 
-          <hr class="my-4">
+        <hr class="my-4">
 
-          <!-- Form Group -->
-          <div class="form-group">
-            <dl>
-              <dt *ngIf="orderNo !== undefined">Sənəd nömrəsi:</dt>
-              <dd *ngIf="orderNo !== undefined">{{orderNo}}</dd>
-              <dt *ngIf="customer !== undefined">Müştəri:</dt>
-              <dd *ngIf="customer !== undefined">{{customer}}</dd>
-              <dt *ngIf="orderDate !== undefined">Tarix:</dt>
-              <dd *ngIf="orderDate !== undefined">{{orderDate | date: 'dd.MM.yyyy'}}</dd>
-            </dl>
-          </div>
+        <!-- Form Group -->
+        <div class="form-group">
+          <dl>
+            <dt *ngIf="orderNo !== undefined">Sənəd nömrəsi:</dt>
+            <dd *ngIf="orderNo !== undefined">{{orderNo}}</dd>
+            <dt *ngIf="customer !== undefined">Müştəri:</dt>
+            <dd *ngIf="customer !== undefined">{{customer}}</dd>
+            <dt *ngIf="orderDate !== undefined">Tarix:</dt>
+            <dd *ngIf="orderDate !== undefined">{{orderDate | date: 'dd.MM.yyyy'}}</dd>
+          </dl>
         </div>
       </div>
-
     </div>
-  </div>
 
-  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>

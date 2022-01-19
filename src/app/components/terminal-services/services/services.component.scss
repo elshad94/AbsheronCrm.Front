@@ -1,19 +1,43 @@
-.mat-table{
+.mat-table {
     font-family: "Lexend Deca", sans-serif !important;
-
 }
 
-.mat-column-actions  {
+.mat-column-actions {
     text-align: left !important;
 }
 
-.mat-header-row th{
-    vertical-align: middle!important;
+.mat-header-row th {
+    vertical-align: middle !important;
     background-color: #f8fafd;
     color: #677788;
     width: 25%;
 }
 
-.mat-header-row{
+.mat-header-row {
     height: 45px;
+}
+
+@media only screen and (max-width: 768px) {
+    .mat-header-row th {
+        padding: 0 12px;
+        text-align: center;
+    }
+
+    .mat-row td{
+        padding: 0 8px;
+        text-align: center;
+    }
+
+    ::ng-deep .mat-paginator-range-actions{
+        margin-top: 10px;
+        display: block!important;
+    }
+
+    ::ng-deep .mat-paginator-container{
+        justify-content: center!important;
+    }
+
+    ::ng-deep .mat-paginator-range-label {
+        text-align: center;
+    }
 }

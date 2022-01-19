@@ -11,7 +11,7 @@
 
 .rightCont{
     height: 100vh;
-    padding: 30px 170px;
+    padding: 30px 160px;
     background-color: white;
     position: absolute;
     right: 0;
@@ -37,4 +37,37 @@
     position: absolute;
     top: 30px;
     left: 60px;
+}
+
+.align-self-center h2{
+    font-size: 18px;
+}
+
+.align-self-center p{
+    font-size: 16px;
+}
+
+.btn-outline-primary{
+    width: 200px;
+    border-color: #4299BF;
+    color: #4299BF;
+    font-size: 16px;
+}
+
+.btn-outline-primary:hover{
+    background-color: #4299BF;
+    color: white;
+}
+
+.btn-primary{
+    width: 200px;
+    background-color: #4299BF;
+    font-size: 16px;
+    border-color: #4299BF;
+}
+
+.btn-primary:hover{
+    background-color: transparent;
+    border-color: #4299BF;
+    color: #4299BF;
 }
