@@ -1,5 +1,5 @@
 import TerminalItem from '../model/terminal-item';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { NvNoTypeId, TerminalNewData, TerminalNewDataRequest } from '../model/terminal-new-data';
@@ -38,6 +38,12 @@ export class TerminalService {
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getCrmAPIURI();
+  }
+
+  getExpensePrice(expenseId: number): Observable<number> {
+    const params = new HttpParams()
+      .set('expenseId', expenseId);
+      return this.http.get<number>(`${this.baseUrl}/TerminalOrder/GetExpensePrice`, {params});
   }
 
   getTerminalOrders(): Observable<TerminalItem[]> {
