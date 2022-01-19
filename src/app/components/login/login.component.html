@@ -18,7 +18,7 @@
           <input type="password" [(ngModel)]="loginRequestData.uPassword"
             name="uPassword" class="form-control" value="">
         </div>
-        <div class="row form-group ml-3">
+        <div class="row form-group resBtn">
           <div >
             <!-- Checkbox -->
             <div class="custom-control custom-checkbox">
@@ -27,7 +27,7 @@
             </div>
             <!-- End Checkbox -->
           </div>
-          <div class="col-lg-6 d-flex justify-content-end">
+          <div >
             <a style="cursor: pointer;"  class="link-primary" [routerLink]="['/forgotPas']">Şifrəni unutmuşam</a>
           </div>
         </div>
@@ -35,11 +35,11 @@
           Daxil ol
         </button>
 
+        <div class="row d-flex justify-content-center  ">
+          <p class="d-block text-center  position-absolute">
+            Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
+        </div>
       </form>
-      <div class="row d-flex justify-content-center  ">
-        <p class="d-block text-center  position-absolute bottom-0 end-50">
-          Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
-      </div>
     </div>
     <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
 </div>

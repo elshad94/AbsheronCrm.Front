@@ -1,26 +1,27 @@
-/* No CSS *//*# sourceMappingURL=login.component.css.map */
-.login-body{
+/* No CSS */
+/*# sourceMappingURL=login.component.css.map */
+.login-body {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1059;
     width: 100%;
     height: 100vh;
-    margin: 0!important;
+    margin: 0 !important;
 
 }
 
-.rightCont{
+.rightCont {
     height: 100vh;
     position: absolute;
     width: 100%;
-    margin: 0!important;
+    margin: 0 !important;
     right: 0;
     padding: 70px 180px;
     background-color: white;
 }
 
-.leftCont{
+.leftCont {
     position: fixed;
     background-color: white;
     width: 100%;
@@ -28,17 +29,17 @@
 
 }
 
-.leftCont img{
+.leftCont img {
     width: 100%;
     height: 100vh;
 }
 
-.top-logo{
+.top-logo {
     padding-bottom: 150px;
     text-align: center;
 }
 
-.login-text{
+.login-text {
     font-family: "Lexend Deca", sans-serif !important;
     font-size: 36px;
     position: absolute;
@@ -46,7 +47,26 @@
     left: 60px;
 }
 
+.resBtn{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
 /deep/.mat-typography {
-    overflow-y: hidden!important; /* Hide vertical scrollbar */
-    overflow-x: hidden!important; /* Hide horizontal scrollbar */
-  }
+    overflow-y: hidden !important;
+    /* Hide vertical scrollbar */
+    overflow-x: hidden !important;
+    /* Hide horizontal scrollbar */
+}
+
+@media only screen and (max-width: 768px) {
+    .rightCont {
+        padding: 30px 30px;
+    }
+
+    .top-logo{
+        padding-bottom: 50px;
+    }
+
+}
