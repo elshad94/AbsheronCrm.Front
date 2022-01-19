@@ -35,7 +35,7 @@
                       name="weightName" id="weightLabel1" aria-label="0.0" [(ngModel)]="fileName">
                     <input type="file" class="form-control selectfileInputPay " name="weightName"
                       id="weightLabel" aria-label="0.0" (change)="setFile($event)" >
-            
+
                     <label for="weightLabel" class="selectfileLabelPay Scan"><img src="assets/icon/Union.png" alt=""></label>
                         <!-- End Input Group -->
                       </div>
@@ -88,10 +88,10 @@
                   <i class="fas fa-eye"></i>
                 </label>
               </div>
-              <div  *ngIf="files.length > 1"
+              <div
                 class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center align-items-center text-danger">
                 <div class="deletetdiv ">
-                  <a type="button" (click)="deleteFile(i)">X</a>
+                  <a type="button" (click)="deleteFile(i)"><i class="tio-delete-outlined"></i></a>
                 </div>
               </div>
             </div>
