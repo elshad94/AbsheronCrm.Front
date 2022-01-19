@@ -1,0 +1,90 @@
+.notPaid:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #ED4C78;
+    border-radius: 100%;
+}
+
+.paid:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #00C9A7;
+    border-radius: 100%;
+}
+
+.mat-table{
+    font-family: "Lexend Deca", sans-serif !important;
+
+}
+
+.mat-column-actions  {
+    text-align: left !important;
+}
+
+.mat-header-row th{
+    vertical-align: middle!important;
+    background-color: #f8fafd;
+    color: #677788;
+    width: 15%;
+}
+
+.mat-header-row{
+    height: 45px;
+}
+
+tr.mat-row td {
+    border-bottom-color: transparent;
+}
+
+.card-header h3{
+    font-weight: 600;
+    font-family: "Lexend Deca", sans-serif !important;
+    vertical-align: middle;
+    margin: 0;
+
+}
+
+.searching{
+    display: flex;
+}
+
+.searching>input{
+    margin-right: 10px;
+}
+
+.mat-form-field{
+    margin-right: 10px;
+}
+
+.date-block{
+    display: flex;
+}
+
+.searchBtn{
+padding: 10px 17px;
+height: 39px;
+width: 50%;
+color: white;
+border: none;
+outline: none;
+background: #4299BF;
+border-radius: 7px;
+}
+
+.mat-form-field{
+    font-family: "Lexend Deca", sans-serif !important;
+    color: black;
+}
+
+.mat-calendar{
+    font-family: "Lexend Deca", sans-serif !important;
+
+}
+
+

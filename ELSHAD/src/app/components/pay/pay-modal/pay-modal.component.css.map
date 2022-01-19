@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "pay-modal.component.scss"
+    ],
+    "names": [],
+    "file": "pay-modal.component.css"
+}

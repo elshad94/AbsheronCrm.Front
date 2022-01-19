@@ -10,9 +10,9 @@
       <div class="searching">
           <div class="date-block__list">
             <mat-form-field>
-              <input matInput 
-                [matDatepicker]="start" 
-                placeholder="Başlama tarixi" 
+              <input matInput
+                [matDatepicker]="start"
+                placeholder="Başlama tarixi"
                 name="startDate"
                 [(ngModel)]="startDate">
               <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
@@ -21,8 +21,8 @@
           </div>
             <div class="date-block__list">
             <mat-form-field>
-              <input matInput 
-                [matDatepicker]="end" 
+              <input matInput
+                [matDatepicker]="end"
                 placeholder="Bitmə tarixi"
                 name="endDate"
                 [(ngModel)]="endDate">
@@ -59,7 +59,7 @@
         </ng-container>
         <ng-container matColumnDef="orderAmount">
           <th mat-header-cell *matHeaderCellDef>məbləğ</th>
-          <td mat-cell *matCellDef="let order">{{order.orderAmount | number : '1.2-2'}} ₼</td>
+          <td mat-cell *matCellDef="let order">{{order.orderAmount | number: '1.2-2'}} ₼</td>
         </ng-container>
         <ng-container matColumnDef="transPortNumber">
           <th mat-header-cell *matHeaderCellDef>Transport №</th>

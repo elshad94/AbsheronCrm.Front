@@ -89,13 +89,14 @@ export class OrderComponent implements OnInit {
     // xidmetler
     const xidmetler_: Xidmet[] = [];
     for(const tw of terminalWays) {
-      // tw.amount = 1;
       for(const exp of expenses) {
-        tw.amount = exp.price!;
         xidmetler_.push({
           expenseId: exp.id,
           expenseText: exp.text,
-          temrinalWay: tw,
+          temrinalWay: {
+            ...tw,
+            amount: exp.price!
+          },
           count: 1,
           totalAmount: exp.price!,
           edv: exp.price! * EDV_MULTIPLIER

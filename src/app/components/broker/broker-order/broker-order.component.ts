@@ -1,25 +1,20 @@
-import { FormControl, FormGroup } from '@angular/forms';
-import { Expense,fileDetails,TransportType,
-} from './../../../model/broker-request.model';
+import { FormGroup } from '@angular/forms';
+import { Expense,fileDetails,TransportType} from './../../../model/broker-request.model';
 import { DocumentType } from './../../../model/broker-request.model';
-// import { fileDetails } from './../../../model/broker-request.model';
-// import { TransportType } from './../../../model/broker-request.model';
 import { BrokerRequestItem } from 'src/app/model/broker-request.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrokerItem } from './../../../model/broker-item';
 import { BrokerItemService } from './../../../services/broker-item.service';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
-import { ThrowStmt } from '@angular/compiler';
-import Swal from 'sweetalert2';
-import {errorAlert} from '../../../../utils/alerts';
+import { Component, OnInit } from '@angular/core';
+import {errorAlert, successAlert} from '../../../../utils/alerts';
 
 import 'sweetalert2/dist/sweetalert2.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
 
 import {BrokerPostItem,FileDetailItem,} from 'src/app/model/broker-post-item.model';
+import logger from 'src/utils/logger';
 
 
 interface FileDetails {
@@ -42,7 +37,6 @@ export class BrokerOrderComponent implements OnInit {
   documents: any = [];
   transportNumber: any;
   docTypeId: any;
-  // fileNames: string[] = [""];
   files: FileDetails[] = [{ docTypeId: 10 }];
   notes: any;
   scan: any = this.documents.uri;
@@ -86,16 +80,6 @@ export class BrokerOrderComponent implements OnInit {
     totalCost: 0,
 
   };
-
-  //  brokerItemss: BrokerItem = {
-  //     orderId: 0,
-  //     docNo: '',
-  //     date: '',
-  //     customer: '',
-  //     gbNo: '',
-  //     amount: '',
-  //   }
-  //FOR SAVE
 
   fileDetailsForRequest: FileDetailItem = {
     docTypeId: 0,
@@ -163,15 +147,7 @@ export class BrokerOrderComponent implements OnInit {
             f.uri = f.uri!.split('!@#$%^&').pop() ?? '';
           }
           this.transportNumber = res.transportNo;
-          // this.id = res.id;
-          // this.isSelected = res.isSelected;
           this.expenses = res.expenses;
-          // this.documents = []
-          // var documentItem: FileDetailItem = {
-          //   docTypeId: this.documents.documentTypeId, //bura select den gelek xidmet verirsen
-          //   fileId: Number(this.documents.fileId), //res.fileId (apiden gelen)
-          // };
-          // this.documents.push(documentItem);
         },
         (error) => {
           console.error(error);
@@ -232,12 +208,6 @@ export class BrokerOrderComponent implements OnInit {
       id: Number(id),
     };
   }
-  private toUploadIdObJ(fileId: string, docTypeId: string): fileDetail {
-    return {
-      fileId: Number(fileId),
-      docTypeId: Number(docTypeId),
-    };
-  }
 
   private isValid(e: any) {
     if (typeof e == 'string') { e = e.trim(); }
@@ -280,12 +250,20 @@ export class BrokerOrderComponent implements OnInit {
       fileId: f.fileId!
     };});
 
-    if(this.files === undefined ||
-            this.files.some(f =>
-              f.docTypeId === undefined || f.fileId === undefined
-                || f.uri === undefined)) {
-      errorAlert('En azi bir fayl yükləyin!', 'Uğursuz');
-      return;
+
+    if (!this.isValid(this.brokerPostItem.TransportNumber)) {
+      errorAlert('N/V No boşdur')
+      return
+    }
+
+    if(this.brokerPostItem.expenses.length === 0) {
+      errorAlert('Ən azı bir xidmət seçin')
+      return
+    }
+
+    if(!this.isValid(this.brokerPostItem.transportTypeId)) {
+      errorAlert('Sifraiş növü seçin')
+      return
     }
 
     if (this.orderIdQueryParam != undefined) {
@@ -296,24 +274,13 @@ export class BrokerOrderComponent implements OnInit {
 
     }
   }
-  private PostSaveOrApprove() {
-    if (!this.isValid(this.brokerPostItem.TransportNumber)) {
-      Swal.fire(
-        'Error!',
-        'NvNo bosdu!',
-        'error'
-      );
-    }
 
+  private PostSaveOrApprove() {
     this.service
       .postBrokerItemSave(this.brokerPostItem)
       .subscribe({
         next: (response: any) => {
-          Swal.fire(
-            'Uğurlu',
-            'Yeni broker yaradildi',
-            'success'
-          );
+          successAlert('Yeni broker yaradildi', 'Uğurlu')
           if(response){
             this.router.navigate(['//broker']);
           }
@@ -324,49 +291,23 @@ export class BrokerOrderComponent implements OnInit {
           const errMsg = error.error.error;
           switch (error.status) {
           case 400:
-            Swal.fire(
-              'Error!',
-              errMsg,
-              'error'
-            );
+            errorAlert(errMsg, 'Error!')
             break;
           case 500:
-            Swal.fire(
-              'Error!',
-              'Server problemi',
-              'error'
-            );
+            errorAlert('Server problemi', 'Error!')
             break;
           default:
-            Swal.fire(
-              'ERROR',
-              'ERROR',
-              'error'
-            );
-
+            errorAlert('ERROR', 'ERROR')
           }
         }
       });
   }
   private PutSaveOrApprove() {
-    if (!this.isValid(this.brokerPostItem.TransportNumber)) {
-      Swal.fire(
-        'Error!',
-        'NvNo bosdu!',
-        'error'
-      );
 
-    }
-    else {
       this.service
         .updateBrokerSave(this.orderIdQueryParam, this.brokerPostItem)
         .subscribe((res) => {
-
-          Swal.fire(
-            'Uğurlu',
-            'Broker güncəlləndi',
-            'success'
-          );
+          successAlert('Broker güncəlləndi', 'Uğurlu')
           if(res){
             this.router.navigate(['//broker']);
           }
@@ -376,31 +317,16 @@ export class BrokerOrderComponent implements OnInit {
           const errMsg = error.error.error;
           switch (error.status) {
           case 400:
-            Swal.fire(
-              'Error!',
-              errMsg,
-              'error'
-            );
+            errorAlert(errMsg, 'Error!')
             break;
           case 500:
-            Swal.fire(
-              'Error!',
-              'Server problemi',
-              'error'
-            );
+            errorAlert('Server problemi', 'Error!')
             break;
           default:
-            Swal.fire(
-              'ERROR',
-              'ERROR',
-              'error'
-            );
-
+            errorAlert('ERROR', 'ERROR')
           }
         });
     }
-
-  }
 
   onChangeInput(expense: any, event: Event) {
     const target = event.target as HTMLInputElement;
@@ -409,8 +335,4 @@ export class BrokerOrderComponent implements OnInit {
 }
 interface ExpenseId {
   id: number;
-}
-interface fileDetail {
-  fileId: number;
-  docTypeId: number;
 }
