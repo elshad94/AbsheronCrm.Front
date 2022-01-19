@@ -273,6 +273,13 @@ export class OrderComponent implements OnInit {
     this.totalEdv -= (xidmet.edv + xidmet.temrinalWay.amount!);
   }
 
+  deleteXidmet(i: number) {
+    const xidmetToDelete = this.xidmetler[i];
+    this.xidmetler.splice(i, 1);
+    this.total -= xidmetToDelete.totalAmount!;
+    this.totalEdv -= (xidmetToDelete.edv + xidmetToDelete.totalAmount!);
+  }
+
   addXidmet() {
     this.xidmetler.push({
       expenseId: this.expenses[0].id,
@@ -388,12 +395,5 @@ export class OrderComponent implements OnInit {
         throw exception;
       }
     }
-  }
-
-  deleteXidmet(i: number) {
-    const xidmetToDelete = this.xidmetler[i];
-    this.xidmetler.splice(i, 1);
-    this.total -= xidmetToDelete.totalAmount!;
-    this.totalEdv -= (xidmetToDelete.edv * xidmetToDelete.totalAmount + xidmetToDelete.totalAmount!);
   }
 }
