@@ -1,0 +1,96 @@
+<div class="content container-fluid">
+  <!-- Card -->
+  <div class="card mb-3 mb-lg-5">
+   <!-- Header -->
+   <div class="card-header">
+     <div class="row justify-content-between align-items-center flex-grow-1">
+       <div class="col-12 col-md">
+         <div class="d-flex justify-content-between align-items-center">
+           <h3 class="card-header-title font-weight-bold">Sifarişlər </h3>
+
+           <!-- Datatable Info -->
+
+           <!-- End Datatable Info -->
+         </div>
+       </div>
+
+       <div class="col-auto">
+         <!-- Filter -->
+         <div class="row align-items-sm-center">
+           <div class="col-sm-auto">
+             <div class="d-flex align-items-center mr-2">
+               <span class="text-secondary mr-2">Status:</span>
+
+               <!-- Select -->
+               <select class="select2-selection custom-select custom-select-sm custom-select-borderless" size="1" style="opacity: 1;"
+                       data-target-column-index="2"
+                       data-hs-select2-options='{
+                         "minimumResultsForSearch": "Infinity",
+                         "customClass": "custom-select custom-select-sm custom-select-borderless",
+                         "dropdownAutoWidth": true,
+                         "width": true
+                       }' (change)="filterTableByStatus($event)">
+                 <option value="">Hamısı</option>
+                 <option *ngFor="let status of orderStatuses" value="{{status}}">{{status}}</option>
+               </select>
+               <!-- End Select -->
+             </div>
+           </div>
+
+           <!-- <div class="col-md">
+             <form>
+               <div class="input-group input-group-merge input-group-flush">
+                 <a  href="#"><img src="assets/icon/Frame 8pen.png" alt=""></a>
+                 <a class="ml-2" href="#"><img src="assets/icon/Frame 6trash.png" alt=""></a>
+               </div>
+             </form>
+           </div> -->
+         </div>
+         <!-- End Filter -->
+       </div>
+     </div>
+   </div>
+   <!-- End Header -->
+
+   <!-- LE TABLES -->
+   <div class="table-responsive datatable-custom">
+     <table id="datatable" class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table"
+       mat-table [dataSource]="dataSource">
+       <ng-container matColumnDef="orderNo">
+         <th mat-header-cell *matHeaderCellDef>SİFARİŞ №</th>
+         <td mat-cell *matCellDef="let order"> {{order.orderNo}} </td>
+       </ng-container>
+       <ng-container matColumnDef="date">
+         <th mat-header-cell *matHeaderCellDef>TARİX</th>
+         <td mat-cell *matCellDef="let order"> {{order.date | date:'yyyy-MM-dd'}} </td>
+       </ng-container>
+       <ng-container matColumnDef="amount">
+         <th mat-header-cell *matHeaderCellDef>Məbləğ</th>
+         <td mat-cell *matCellDef="let order"> {{order.amount}} </td>
+       </ng-container>
+       <ng-container matColumnDef="statusText">
+         <th mat-header-cell *matHeaderCellDef>STATUS</th>
+         <td mat-cell *matCellDef="let order"> {{order.orderStatus.statusText}} </td>
+       </ng-container>
+       <ng-container matColumnDef="actions">
+         <th mat-header-cell *matHeaderCellDef>D/S</th>
+         <td mat-cell *matCellDef="let order">
+           <a [routerLink]="['/order']"
+              [queryParams]="{ orderId: order.orderId}">
+             <img src="assets/icon/Frame 8pen.png" alt="">
+           </a>
+           <img src="assets/icon/Frame 6trash.png" alt="" (click)="openDialog(order.orderId, order.orderNo)" >
+         </td>
+       </ng-container>
+       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+       <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+     </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+           showFirstLastButtons >
+    </mat-paginator>
+   <!-- End Table -->
+ </div>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>

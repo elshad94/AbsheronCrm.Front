@@ -1,0 +1,86 @@
+<div class="content container-fluid">
+  <form #changePass="ngForm" (ngSubmit)=" UpdatePass(changePass)">
+
+    <div class="row">
+
+      <div class="col-lg-12">
+        <!-- Card -->
+        <div class="card mb-3 mb-lg-5">
+          <!-- Header -->
+          <div class="card-header">
+            <h3 class="card-header-title font-weight-bold">Şifrəni dəyiş</h3>
+          </div>
+          <!-- End Header -->
+
+          <!-- Body -->
+          <div class="card-body">
+            <!-- Form Group -->
+
+            <!-- End Form Group -->
+            <div class="col-sm-6">
+              <!-- Form Group -->
+              <div class="form-group">
+                <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+                <input ngModel #password="ngModel" name="Password" type="password" id="password" required
+                  class="form-control">
+                <div class="alert alert-soft-danger" 
+                         *ngIf="submitted && !password.valid ">*Şifrə tələb olunur</div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <!-- Form Group -->
+              <div class="form-group">
+                <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
+                <input ngModel
+                       #newPassword="ngModel" 
+                       name="newPassword" 
+                       type="password" 
+                       id="password" 
+                       required
+                       [(ngModel)]="nwPsw"
+                  class="form-control">
+                <div class="alert alert-soft-danger" 
+                         *ngIf="submitted && !newPassword.valid ">*Şifrə tələb olunur</div>
+              </div>
+              <!-- End Form Group -->
+
+<div class="row">
+
+              <div class="col-sm-12">
+                <!-- Form Group -->
+                <div class="form-group">
+                  <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+                  <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
+                    name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword"
+                    [(ngModel)]="confrmPsw">
+                    <div class="alert alert-soft-danger" 
+                    *ngIf="submitted  && !newPassword.valid ">*Yeni Şifrə tələb olunur</div>  
+                    <div class="alert alert-soft-danger" 
+                    *ngIf="nwPsw==confrmPsw && submitted">*Şifrələr eyni deyil</div>
+                </div>
+                <!-- End Form Group -->
+              </div>
+            </div>
+            </div>
+            <div class="ROW">
+              <div class="col-sm-auto">
+                <a class="btn newOrder" (click)="UpdatePass(changePass)">
+                  Dəyiş
+                </a>
+              </div>
+            </div>
+            <div class="quill-custom">
+              <div class="js-quill" style="min-height: 15rem;" data-hs-quill-options='{
+                      "placeholder": "Type your description..."
+                     }'>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>

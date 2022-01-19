@@ -1,0 +1,45 @@
+<div class="login-body row">
+    <div class="col-lg-6 leftCont" >
+      <h1 class="position-absolute text-light  font-weight-bold login-text">Daxil ol</h1>
+      <img class="full-image " src="assets/img/AL.png" alt="">
+    </div>
+    <div class="col-lg-6 rightCont">
+      <div class="top-logo">
+        <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
+      </div>
+      <form class="login-form">
+        <div class="form-group">
+          <label class="input-label" for="exampleFormControlInput1">E-mail</label>
+          <input type="email" [(ngModel)]="loginRequestData.uEmail"
+            name="uEmail"  class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+          <input type="password" [(ngModel)]="loginRequestData.uPassword"
+            name="uPassword" class="form-control" value="">
+        </div>
+        <div class="row form-group ml-3">
+          <div >
+            <!-- Checkbox -->
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" id="customCheck13" class="custom-control-input indeterminate-checkbox" checked>
+              <label class="custom-control-label" for="customCheck13">Yadda saxla</label>
+            </div>
+            <!-- End Checkbox -->
+          </div>
+          <div class="col-lg-6 d-flex justify-content-end">
+            <a style="cursor: pointer;"  class="link-primary" [routerLink]="['/forgotPas']">Şifrəni unutmuşam</a>
+          </div>
+        </div>
+        <button type="submit" (click)="signin()" class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
+          Daxil ol
+        </button>
+
+      </form>
+      <div class="row d-flex justify-content-center  ">
+        <p class="d-block text-center  position-absolute bottom-0 end-50">
+          Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
+      </div>
+    </div>
+    <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+</div>

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAGY,YAHA,CACR,EAAE,CACE,EAAE,AACG,OAAO,CAAC;EACL,KAAK,EAAE,CAAC;EACR,MAAM,EAAE,CAAC;CACZ",
+    "sources": [
+        "broker.component.scss"
+    ],
+    "names": [],
+    "file": "broker.component.css"
+}

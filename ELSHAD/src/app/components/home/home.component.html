@@ -1,0 +1,61 @@
+<div class="content container-fluid">
+  <div class="">
+    <!-- Card -->
+    <div class="card h-100">
+      <!-- Header -->
+      <div class="card-header">
+        <h3 class="card-header-title font-weight-bold ">ABŞERON LOGİSTİKA MƏRKƏZİNƏ GƏLƏN VAQON KONTEYNERLƏRİNİZ 2021
+        </h3>
+      </div>
+      <div class="card-body">
+        <div class="row mb-4">
+        </div>
+        <div class="chartjs-custom" #chart>
+          <canvas height="100" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+            [type]="barChartType">
+          </canvas>
+        </div>
+        <div>
+          <table class="typeTable mt-5">
+            <thead>
+              <tr>
+                <th style="visibility: hidden; border: none;"></th>
+                <th>Yan</th>
+                <th>Fev</th>
+                <th>Mart</th>
+                <th>Apr</th>
+                <th>May</th>
+                <th>İyn</th>
+                <th>İyl</th>
+                <th>Avq</th>
+                <th>Sen</th>
+                <th>Okt</th>
+                <th>Noy</th>
+                <th>Dek</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="wag"></div>Vaqon
+                </td>
+                <td *ngFor="let item of conWag">{{item.vaqonCount}}</td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="cont"></div>Konteyner
+                </td>
+                <td *ngFor="let item of conWag">{{item.konteynrCount}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- End Bar Chart -->
+      </div>
+      <!-- End Body -->
+    </div>
+    <!-- End Card -->
+  </div>
+  <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+</div>
