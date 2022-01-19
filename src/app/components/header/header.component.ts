@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit {
 
   signOut(){
     this.authService.logout().subscribe((res: any) =>{
-      console.log(res);
       this.router.navigate(['']);
 
       localStorage.removeItem('token');
