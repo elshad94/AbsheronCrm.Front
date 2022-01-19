@@ -23,11 +23,7 @@ export class ApiUrlsService {
     //   errorAlert('Server Problemi!')
     //     .then(() => this.router.navigate(['']));
     // }
-<<<<<<< HEAD
     // this.ip = '85.132.108.234';
-=======
-    this.ip = '85.132.108.234';
->>>>>>> 99e36af0eeb7a6249e575a307e33fe6ce1fb39da
   }
 
   getAuthAPiURI() {
