@@ -57,7 +57,7 @@
             <!-- Content -->
             <div *ngFor="let xidmet of xidmetler; let i = index" class="row priceDiv">
               <div class="col-md-5">
-                <select class="form-control mb-3" name="" id="">
+                <select class="form-control mb-3" name="" id="" (change)="setXidmetPrice(xidmet, $event)">
                   <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
                     {{exp.text}}</option>
                 </select>

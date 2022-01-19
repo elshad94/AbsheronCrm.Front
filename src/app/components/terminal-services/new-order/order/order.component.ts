@@ -256,11 +256,34 @@ export class OrderComponent implements OnInit {
     this.orderNo = this.terminalService.orderNo;
   }
 
+  setXidmetPrice(xidmet: Xidmet, event: Event) {
+    const target = event.target as HTMLInputElement;
+    const expenseId = Number(target.value);
+    this.terminalService
+      .getExpensePrice(expenseId)
+      .subscribe(price => {
+        this.total -= xidmet.totalAmount!;
+        this.totalEdv -= (
+          xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+        );
+
+        xidmet.temrinalWay.amount = price;
+        xidmet.totalAmount = price * xidmet.count;
+
+        this.total += xidmet.totalAmount!;
+        this.totalEdv += (
+          xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+        );
+      })
+  }
+
   increaseCount(xidmet: Xidmet) {
     xidmet.count++;
     xidmet.totalAmount += xidmet.temrinalWay.amount!;
     this.total += xidmet.temrinalWay.amount!;
-    this.totalEdv += (xidmet.edv + xidmet.temrinalWay.amount!);
+    this.totalEdv += (
+      xidmet.temrinalWay.amount! + xidmet.temrinalWay.amount! * EDV_MULTIPLIER
+    );
   }
 
   decreaseCount(xidmet: Xidmet) {
@@ -270,7 +293,18 @@ export class OrderComponent implements OnInit {
     xidmet.count--;
     xidmet.totalAmount -= xidmet.temrinalWay.amount!;
     this.total -= xidmet.temrinalWay.amount!;
-    this.totalEdv -= (xidmet.edv + xidmet.temrinalWay.amount!);
+    this.totalEdv -= (
+      xidmet.temrinalWay.amount! + xidmet.temrinalWay.amount! * EDV_MULTIPLIER
+    );
+  }
+
+  deleteXidmet(i: number) {
+    const xidmetToDelete = this.xidmetler[i];
+    this.xidmetler.splice(i, 1);
+    this.total -= xidmetToDelete.totalAmount!;
+    this.totalEdv -= (
+      xidmetToDelete.totalAmount! + xidmetToDelete.totalAmount! * EDV_MULTIPLIER
+    );
   }
 
   addXidmet() {
@@ -388,12 +422,5 @@ export class OrderComponent implements OnInit {
         throw exception;
       }
     }
-  }
-
-  deleteXidmet(i: number) {
-    const xidmetToDelete = this.xidmetler[i];
-    this.xidmetler.splice(i, 1);
-    this.total -= xidmetToDelete.totalAmount!;
-    this.totalEdv -= (xidmetToDelete.edv * xidmetToDelete.totalAmount + xidmetToDelete.totalAmount!);
   }
 }
