@@ -22,8 +22,48 @@
   color: red;
 }
 
+
+.price{
+  display: flex;
+}
+
+.price span{
+  display: none;
+}
+
+h6{
+  margin: 0;
+  font-weight: 500;
+  font-family: "Lexend Deca", sans-serif !important
+}
+
+.orderBtn {
+  font-family: "Lexend Deca", sans-serif !important
+}
+
+.line::after{
+  bottom: -17px!important;
+  width: 103px;
+}
+
 @media only screen and (max-width: 768px){
   #full_ref_code{
     margin: 0;
+  }
+
+  .col-12{
+    display: flex;
+  }
+  .price span{
+    display: block;
+    font-weight: 500;
+    color: black;
+    padding-right: 7px;
+  }
+
+  .priceDiv{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+    padding-bottom: 4px;
+    margin-bottom: 13px;
   }
 }

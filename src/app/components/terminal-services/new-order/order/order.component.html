@@ -14,7 +14,7 @@
           </div>
           <!-- End Row -->
 
-          <hr class="my-5">
+          <hr>
 
           <!-- End Row -->
 
@@ -55,7 +55,7 @@
             <!-- End Title -->
 
             <!-- Content -->
-            <div *ngFor="let xidmet of xidmetler; let i = index" class="row">
+            <div *ngFor="let xidmet of xidmetler; let i = index" class="row priceDiv">
               <div class="col-md-5">
                 <select class="form-control mb-3" name="" id="">
                   <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
@@ -92,16 +92,15 @@
 
               <div class="col-12 col-sm col-md-2">
                 <!-- Input Group -->
-                <div class="mb-3">
-                  <p>₼ {{xidmet.temrinalWay.amount}}</p>
+                <div class="mb-3 price">
+                  <span>Qiymət:</span><p>{{xidmet.temrinalWay.amount}} ₼</p>
                 </div>
                 <!-- End Input Group -->
               </div>
 
-              <div class="col col-md-2">
-                <p>₼ {{xidmet.totalAmount}}</p>
+              <div class="col col-md-2 price">
+                <span>Cəmi:</span><p>{{xidmet.totalAmount}} ₼</p>
               </div>
-
 
             </div>
             <!-- End Content -->
@@ -109,56 +108,6 @@
             <!-- Container For Input Field -->
             <div id="addInvoiceItemContainer"></div>
 
-            <!-- Add Phone Input Field -->
-            <div *ngFor="let xidmet of xidmetler; let i = index" id="addInvoiceItemTemplate" style="display: none;">
-              <!-- Content -->
-              <div class="input-group-add-field">
-                <div class="row">
-                  <div class="col-md-5">
-                    <input type="text" class="form-control mb-3" placeholder="Item name" aria-label="Item name">
-                    <input type="text" class="form-control mb-3" placeholder="Description" aria-label="Description">
-                  </div>
-
-                  <div class="col-12 col-sm-auto col-md-3">
-                    <!-- Quantity Counter -->
-                    <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                      <input type="number" class="js-result form-control input-group-quantity-counter-control" value="1"
-                        [(ngModel)]="xidmet.count">
-
-                      <div class="input-group-quantity-counter-toggle">
-                        <a class="js-minus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
-                          <i class="tio-remove"></i>
-                        </a>
-                        <a class="js-plus btn btn-icon btn-xs btn-white rounded-circle" href="javascript:;">
-                          <i class="tio-add"></i>
-                        </a>
-                      </div>
-                    </div>
-                    <!-- End Quantity Counter -->
-                  </div>
-
-                  <div class="col-12 col-sm col-md-2">
-                    <!-- Input Group -->
-                    <div class="mb-3">
-                      <input type="number" class="form-control" placeholder="00" aria-label="00">
-                    </div>
-                    <!-- End Input Group -->
-                  </div>
-
-                  <div class="col col-md-2">
-                    <input type="number" class="form-control-plaintext mb-3" placeholder="$0.00" aria-label="$0.00">
-                  </div>
-                </div>
-                <!-- End Row -->
-
-                <a class="js-delete-field input-group-add-field-delete" href="javascript:;" data-toggle="tooltip"
-                  data-placement="top" title="Remove item">
-                  <i class="tio-clear"></i>
-                </a>
-              </div>
-              <!-- End Content -->
-            </div>
-            <!-- End Add Phone Input Field -->
           </div>
 
           <hr class="my-5">
@@ -174,9 +123,9 @@
             <div class="col-md-8 col-lg-6">
               <dl class="row text-sm-right">
                 <dt class="col-sm-6">Cəmi:</dt>
-                <dd class="col-sm-6">₼ {{total}}</dd>
+                <dd class="col-sm-6">{{total}} ₼ </dd>
                 <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
-                <dd class="col-sm-6">₼ {{totalEdv | number : '1.2-2' }}</dd>
+                <dd class="col-sm-6">{{totalEdv | number : '1.2-2' }} ₼</dd>
               </dl>
               <!-- End Row -->
             </div>

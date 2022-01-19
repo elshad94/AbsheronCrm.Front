@@ -32,3 +32,33 @@
   padding: 0 10px;
   margin-right: -14px;
 }
+
+
+.line::after{
+  bottom: -17px!important;
+  width: 160px;
+}
+
+h6{
+  margin: 0;
+  font-weight: 500;
+  font-family: "Lexend Deca", sans-serif !important
+}
+
+
+.orderBtn {
+  font-family: "Lexend Deca", sans-serif !important
+}
+
+@media only screen and (max-width: 768px){
+  .fileDetails{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.247);
+    padding-bottom: 10px;
+    margin-bottom: 14px;
+  }
+
+  .tio-delete-outlined{
+    font-size: 22px;
+  }
+}
+

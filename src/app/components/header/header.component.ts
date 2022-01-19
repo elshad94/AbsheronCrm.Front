@@ -44,6 +44,11 @@ export class HeaderComponent implements OnInit {
         $('div.asideMain').toggleClass('resAsideMenu');
         $('#collapse').toggleClass('tio-last-page');
       });
+      $('main').click(function () {
+        $('div.head').removeClass('resHead');
+        $('div.asideMain').removeClass('resAsideMenu');
+        $('#collapse').removeClass('tio-last-page');
+      })
    }
    else{
      $('#collapse').click(function () {

@@ -32,3 +32,40 @@
 tr.mat-row td {
     border-bottom-color: transparent;
 }
+
+
+@media only screen and (max-width: 768px) {
+    .mat-header-row th {
+        padding: 0 12px;
+        text-align: center;
+    }
+
+    .mat-row td{
+        padding: 0 8px;
+        text-align: center;
+    }
+
+    ::ng-deep .mat-paginator-range-actions{
+        margin-top: 10px;
+    }
+
+    ::ng-deep .mat-paginator-container{
+        justify-content: center!important;
+    }
+
+    ::ng-deep .mat-paginator-range-label {
+        text-align: center;
+    }
+
+    .newOrder {
+        background-color: #4299BF !important;
+        color: #fff !important;
+        height: 36px;
+        font-size: 13px;
+        width: 130px;
+        margin-bottom: 10px;
+        border-radius: 7px;
+        padding: 10px;
+        line-height: 0;
+    }
+}
