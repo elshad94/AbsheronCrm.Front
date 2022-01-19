@@ -110,7 +110,7 @@
             <div id="addInvoiceItemContainer"></div>
 
             <!-- Add Phone Input Field -->
-            <div id="addInvoiceItemTemplate" style="display: none;">
+            <div *ngFor="let xidmet of xidmetler; let i = index" id="addInvoiceItemTemplate" style="display: none;">
               <!-- Content -->
               <div class="input-group-add-field">
                 <div class="row">
