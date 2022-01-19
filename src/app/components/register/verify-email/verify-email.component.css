@@ -10,6 +10,7 @@
 }
 
 .rightCont{
+    height: 100vh;
     padding: 30px 170px;
     background-color: white;
     position: absolute;
