@@ -71,3 +71,22 @@
     border-color: #4299BF;
     color: #4299BF;
 }
+
+@media only screen and (max-width: 768px) {
+    .rightCont {
+        padding: 30px 35px;
+        margin-right: -15px!important;
+    }
+
+    .leftCont{
+        display: none;
+    }
+
+    .btn-outline-primary{
+        width: 150px;
+    }
+
+    .btn-primary{
+        width: 170px;
+    }
+}

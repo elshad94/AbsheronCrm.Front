@@ -3,6 +3,43 @@
 }
 
 .checkBox{
+    display: flex;
     padding: 5px 0;
 }
 
+.notiText{
+    display: flex;
+    margin-left: 10px;
+}
+
+.notiNumber{
+    display: none;
+}
+
+.notiDiv{
+    display: flex;
+    margin-left: 18px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+.checkBoxNum{
+    display: none;
+    margin-top: 7px;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 768px){
+    .notiNumber{
+        display: block;
+    }
+    
+    .checkBox{
+        display: flex!important;
+        flex-direction: row!important;
+    }
+
+    .checkBoxNum{
+        display: block;
+    }
+}
