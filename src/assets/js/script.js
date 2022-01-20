@@ -3,8 +3,7 @@ $(document).on("ready", function() {
     // =======================================================
 
     if (window.localStorage.getItem("hs-builder-popover") === null) {
-        $("#builderPopover")
-            .popover("show")
+        $("#builderPopover").popover("show")
             .on("shown.bs.popover", function() {
                 $(".popover").last().addClass("popover-dark");
             });

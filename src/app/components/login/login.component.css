@@ -65,6 +65,11 @@
         padding: 30px 30px;
     }
 
+    
+    .leftCont{
+        display: none;
+    }
+
     .top-logo{
         padding-bottom: 50px;
     }

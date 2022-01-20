@@ -23,15 +23,13 @@
         <label for="voen" class="input-label">VÖEN</label>
         <input type="text" class="form-control" ngModel #voen="ngModel" name="UVoen" id="voen" required
           [(ngModel)]="model.UVoen">
-        <div class="alert  alert-soft-danger" *ngIf="submitted && !voen.valid">*Vöen tələb olunur</div>
 
       </div>
 
       <div class="form-group">
         <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
         <input type="text" #custname="ngModel" ngModel name="UCustname" class="form-control" required id="FullName">
-        <div class="alert  alert-soft-danger" *ngIf="submitted && !custname.valid">*Fiziki şəxsin adı, soyadı tələb
-          olunur</div>
+
       </div>
 
       <div ngModelGroup="FileResponseDto">
@@ -44,7 +42,6 @@
             <label class="custom-file-label" for="ReyesterFile">
               {{fileInput1Label}}
             </label>
-            <div class="alert alert-soft-danger" *ngIf="submitted && !rfile.valid">*Reyestrdən çıxarış</div>
           </div>
         </div>
 
@@ -57,7 +54,6 @@
             <label class="custom-file-label" for="BankRekvizit">
               {{fileInput2Label}}
             </label>
-            <div class="alert alert-soft-danger" *ngIf="submitted && !bfile.valid">*Reyestrdən çıxarış</div>
           </div>
         </div>
         <div class="form-group">
@@ -70,8 +66,6 @@
             <label class="custom-file-label" for="etibarnamə">
               {{fileInput3Label}}
             </label>
-            <div class="alert alert-soft-danger" *ngIf="submitted && !efile.valid">*Səlahiyyətli nümayəndə/etibarnamə
-            </div>
           </div>
         </div>
       </div>
@@ -81,13 +75,11 @@
           <div class="col-lg-6">
             <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="SKULabel"
               placeholder="Ad">
-            <div class="alert alert-soft-danger" *ngIf="submitted && !name.valid">*Ad tələb olunur</div>
           </div>
 
           <div class="col-lg-6">
             <input type="text" ngModel #surname="ngModel" name="UPersonsurname" class="form-control" id="SKULabel"
               placeholder="Soyad">
-            <div class="alert alert-soft-danger" *ngIf="submitted && !surname.valid">*Soyad tələb olunur</div>
           </div>
         </div>
       </div>
@@ -95,7 +87,6 @@
         <label for="SKULabel" class="input-label">Mobil nömrə</label>
 
         <input ngModel #phone="ngModel" name="UPhone" type="text" class="form-control" required id="Mobile">
-        <div class="alert alert-soft-danger" *ngIf="submitted && !phone.valid">*Telefon tələb olunur</div>
       </div>
       <div class="form-group">
         <label for="SKULabel" class="input-label">E-mail</label>
@@ -103,8 +94,6 @@
         <input #mail="ngModel" type="email" ngModel name="UEmail" required
           pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" [(ngModel)]="model.UEmail"
           id="SKULabel">
-        <div class="alert alert-soft-danger" *ngIf="submitted && !mail.valid ">*Telefon tələb olunur</div>
-        <div class="text-danger" *ngif="mail.errors?.pattern">Email address is required</div>
 
 
       </div>
@@ -112,11 +101,7 @@
         <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
         <input #UPassword="ngModel" required minlength="5" ngModel name="UPassword" type="password" id="UPassword"
           class="form-control" [(ngModel)]="model.UPassword">
-        <div class="alert alert-soft-danger" *ngIf=" submitted && !UPassword.valid ">*Şifrə tələb olunur</div>
 
-        <div class="alert alert-soft-danger" *ngIf=" !(model.UPassword.length > 5) ">
-          *Şifrəniz 5 simvoldan kiçik olmamalıdır
-        </div>
 
 
 
@@ -125,12 +110,6 @@
         <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
         <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required name="confirmPassword"
           class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword">
-        <div class="alert alert-soft-danger"
-          *ngIf=" submitted && !confirmPassword.valid && (model.UPassword == model.ConfirmPasswor) ">*Şifrə düzgün deyil
-        </div>
-        <div class="alert alert-soft-danger"
-          *ngIf="!(model.UPassword == model.ConfirmPassword) && confirmPassword.touched    ">*Şifrə uyğun deyil</div>
-
 
       </div>
       <div class="row form-group">
@@ -140,12 +119,9 @@
           <label class="custom-control-label" for="term">I accept the </label>
           <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable"> Terms
             and Conditions</a>
-          <div *ngIf="!model.UTerms && submitted " class="text-danger">Qəbul edin</div>
         </div>
       </div>
-      <div *ngIf="!signUpForm.valid && submitted" class="alert alert-soft-danger">
-        *Zəhmət olmasa məlumatları doldurun
-      </div>
+
       <div>
         <label for="">Hesabınz mövcuddur? </label>
         <a href="" class="btn-link"> Daxil olun </a>
