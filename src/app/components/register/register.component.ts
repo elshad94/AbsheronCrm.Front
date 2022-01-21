@@ -63,7 +63,6 @@ export class RegisterComponent {
       return;
     }
     this.CreateUser(data.value);
-
   }
 
   CreateUser(value:any){

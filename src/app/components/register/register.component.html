@@ -7,7 +7,7 @@
     <div class="top-logo">
       <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <form class="login-form" #signUpForm="ngForm">
+    <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
 
       <div class="form-group">
         <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
