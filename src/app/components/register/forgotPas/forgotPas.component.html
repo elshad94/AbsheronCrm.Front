@@ -10,11 +10,14 @@
     <form class="login-form">
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput1">E-mail</label>
-        <input type="email" 
-          name="uEmail" [(ngModel)]="email" class="form-control">
-          <div class="alert alert-danger" 
-              *ngIf="email.length == 0 || !email.includes('@')">
+        <input type="email" id="email" name="uEmail" required #name="ngModel" [(ngModel)]="email" class="form-control">
+          <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div *ngIf="name.errors?.['required']">
               *Email tələb olunur
+            </div>
+            <div *ngIf="name.errors?.['email']">
+              Dəstəklənməyən simvol işlənib
+            </div>
           </div>
      
 
