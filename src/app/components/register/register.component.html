@@ -96,8 +96,10 @@
       <div class="form-group">
         <div class="row">
           <div class="col-lg-6 pb-3">
-            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="SKULabel"
-              placeholder="Ad">
+            <label for="name" class="input-label">Ad</label>
+
+            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="name"
+             >
             <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
               <div *ngIf="name.errors?.['required']">
                 *Ad tələb olunur
@@ -106,8 +108,10 @@
           </div>
 
           <div class="col-lg-6">
-            <input type="text" ngModel #surname="ngModel" name="UPersonsurname" class="form-control" id="SKULabel"
-              placeholder="Soyad" required>
+            <label for="name" class="input-label">Soyad</label>
+
+            <input type="text" ngModel #surname="ngModel" name="UPersonsurname" id="surname" class="form-control"
+               required>
             <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
               <div *ngIf="surname.errors?.['required']">
                 *Soyad tələb olunur
@@ -117,9 +121,9 @@
         </div>
       </div>
       <div>
-        <label for="SKULabel" class="input-label">Mobil nömrə</label>
+        <label for="tel" class="input-label">Mobil nömrə</label>
 
-        <input ngModel #phone="ngModel" name="UPhone" type="text" class="form-control" required id="Mobile">
+        <input ngModel #phone="ngModel" name="UPhone" type="tel" class="form-control" required id="tel">
         <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
           <div *ngIf="phone.errors?.['required']">
             *Mobil nömrə tələb olunur
@@ -174,14 +178,14 @@
         <div class="col-lg-12 custom-control custom-checkbox ml-3">
           <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
             class="custom-control-input indeterminate-checkbox" required>
-          
+
           <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
               data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul edirəm</label>
-              <div class="alert alert-danger" *ngIf="UTerms.invalid && (UTerms.dirty || UTerms.touched)">
-                <div *ngIf="UTerms.errors?.['required']">
-                  *Qaydalar və Şərtləri qəbul edirsiniz?
-                </div>
-              </div>
+          <div class="alert alert-danger" *ngIf="UTerms.invalid && (UTerms.dirty || UTerms.touched)">
+            <div *ngIf="UTerms.errors?.['required']">
+              *Qaydalar və Şərtləri qəbul edirsiniz?
+            </div>
+          </div>
         </div>
       </div>
 
