@@ -27,10 +27,10 @@
             <!-- <div class="row"> -->
             <div class="row">
               <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3" placeholder="Dolu yükdaşıma kodu"
-                [(ngModel)]="fullRefCode">
+                [(ngModel)]="fullRefCode" [disabled]="orderStatus === 5">
               <div class="col-sm-1"></div>
               <input type="text" class="form-control col-sm-4 mb-3" placeholder="Boş yükdaşıma kodu"
-                [(ngModel)]="emptyRefCode">
+                [(ngModel)]="emptyRefCode" [disabled]="orderStatus === 5">
             </div>
             <div class="bg-light border-bottom p-2 mb-3">
               <!-- Title -->
@@ -57,7 +57,7 @@
             <!-- Content -->
             <div *ngFor="let xidmet of xidmetler; let i = index" class="row priceDiv">
               <div class="col-md-5">
-                <select class="form-control mb-3" name="" id="" (change)="setXidmetPrice(xidmet, $event)">
+                <select [disabled]="orderStatus === 5" class="form-control mb-3" name="" id="" (change)="setXidmetPrice(xidmet, $event)">
                   <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
                     {{exp.text}}</option>
                 </select>
@@ -69,11 +69,11 @@
                 <!-- Quantity Counter -->
                 <div class="js-quantity-counter input-group-quantity-counter mb-3">
                   <input type="number" class="js-result form-control input-group-quantity-counter-control"
-                    [(ngModel)]="xidmet.count">
+                    [(ngModel)]="xidmet.count" [disabled]="orderStatus === 5">
 
-                  <div class="input-group-quantity-counter-toggle">
+                  <div class="input-group-quantity-counter-toggle" *ngIf="orderStatus !== 5">
                     <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
-                      (click)="decreaseCount(xidmet)">
+                      (click)="decreaseCount(xidmet)" *ngIf="orderStatus === 5">
                       <i class="tio-remove"></i>
                     </a>
                     <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
@@ -85,7 +85,7 @@
 
                 </div>
                 <!-- End Quantity Counter -->
-                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1">
+                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1 && orderStatus !== 5">
                   <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
                 </div>
               </div>
@@ -117,7 +117,7 @@
               <div class="form-group">
 
                 <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
-                  aria-label="Who is this invoice to?" rows="3" [(ngModel)]="notes"></textarea>
+                  [disabled]="orderStatus === 5" rows="3" [(ngModel)]="notes"></textarea>
               </div>
             </div>
             <div class="col-md-8 col-lg-6">
