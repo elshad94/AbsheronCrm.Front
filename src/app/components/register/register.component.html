@@ -7,7 +7,7 @@
     <div class="top-logo">
       <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <form class="login-form" #signUpForm="ngForm">
+    <form class="login-form" #signUpForm="ngForm" (submit)="OnSubmit(signUpForm)">
 
       <div class="form-group">
         <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
@@ -166,10 +166,12 @@
           <div *ngIf="confirmPassword.errors?.['required']">
             *Şifrə tələb olunur
           </div>
-          <div *ngIf="confirmPassword.errors?.['appConfirmEqualValidator']">
+          <div>{{confirmPassword.errors?.['appConfirmEqualValidator']}}</div>
+          <div *ngIf="confirmPassword.errors?.['notEqual'] && confirmPassword.touched">
             *Şifrələr eyni deyil
           </div>
-          <div *ngIf="UPassword.errors?.['minlength']">
+
+           <div *ngIf="UPassword.errors?.['minlength']">
             *Minimum 5 simvol tələb olunur
           </div>
         </div>
@@ -190,7 +192,7 @@
         <a href="" class="btn-link"> Daxil olun </a>
 
       </div>
-      <button type="submit" [disabled]="!signUpForm.valid" (click)="CreateUser($event)"
+      <button type="submit" [disabled]="!signUpForm.valid"
         class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
     </form>
   </div>

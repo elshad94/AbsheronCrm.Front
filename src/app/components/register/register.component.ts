@@ -78,8 +78,8 @@ export class RegisterComponent {
       },err=>{
         if(err.error.data == '1')
           Swal.fire({
-            icon: 'error',
-            title:'Xəta',
+            icon: 'success',
+            title:'Uğurlu',
             text: 'Serverdə hər hansı bir xəta baş verir',
           });
         else{
