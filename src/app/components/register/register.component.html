@@ -181,11 +181,7 @@
 
           <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
               data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul edirəm</label>
-          <div class="alert alert-danger" *ngIf="UTerms.invalid && (UTerms.dirty || UTerms.touched)">
-            <div *ngIf="UTerms.errors?.['required']">
-              *Qaydalar və Şərtləri qəbul edirsiniz?
-            </div>
-          </div>
+
         </div>
       </div>
 
@@ -194,7 +190,7 @@
         <a href="" class="btn-link"> Daxil olun </a>
 
       </div>
-      <button type="submit" [disabled]="!signUpForm.valid"
+      <button type="submit" [disabled]="!signUpForm.valid" (click)="CreateUser($event)"
         class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
     </form>
   </div>

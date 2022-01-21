@@ -68,6 +68,7 @@ export class RegisterComponent {
 
   CreateUser(value:any){
     value.USubtype = value.USubtype=='' ? 2 :  value.USubtype;
+    console.log(value)
     this.auhtService
       .register(value)
       .subscribe( res=>{
