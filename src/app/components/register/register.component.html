@@ -7,7 +7,7 @@
     <div class="top-logo">
       <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
+    <form class="login-form" #signUpForm="ngForm">
 
       <div class="form-group">
         <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
@@ -23,13 +23,21 @@
         <label for="voen" class="input-label">VÖEN</label>
         <input type="text" class="form-control" ngModel #voen="ngModel" name="UVoen" id="voen" required
           [(ngModel)]="model.UVoen">
-
+        <div class="alert alert-danger" *ngIf="voen.invalid && (voen.dirty || voen.touched)">
+          <div *ngIf="voen.errors?.['required']">
+            *Vöen tələb olunur
+          </div>
+        </div>
       </div>
 
       <div class="form-group">
         <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
         <input type="text" #custname="ngModel" ngModel name="UCustname" class="form-control" required id="FullName">
-
+        <div class="alert alert-danger" *ngIf="custname.invalid && (custname.dirty || custname.touched)">
+          <div *ngIf="custname.errors?.['required']">
+            *Ad, soyad tələb olunur
+          </div>
+        </div>
       </div>
 
       <div ngModelGroup="FileResponseDto">
@@ -39,6 +47,11 @@
           <div class="custom-file">
             <input type="file" ngModel #rfile="ngModel" name="ReyesterFile" id="ReyesterFile" class="custom-file-input"
               required (change)="uploadFile( $event,1)">
+            <div class="alert alert-danger" *ngIf="rfile.invalid && (rfile.dirty || rfile.touched)">
+              <div *ngIf="rfile.errors?.['required']">
+                *Reyestr faylı tələb olunur
+              </div>
+            </div>
             <label class="custom-file-label" for="ReyesterFile">
               {{fileInput1Label}}
             </label>
@@ -51,6 +64,11 @@
           <div class="custom-file">
             <input type="file" ngModel #bfile="ngModel" name="BankRekFile" id="BankRekvizit" class="custom-file-input"
               required (change)="uploadFile( $event,2)">
+            <div class="alert alert-danger" *ngIf="bfile.invalid && (bfile.dirty || bfile.touched)">
+              <div *ngIf="bfile.errors?.['required']">
+                *Bank Rekvizitləri faylı tələb olunur
+              </div>
+            </div>
             <label class="custom-file-label" for="BankRekvizit">
               {{fileInput2Label}}
             </label>
@@ -61,7 +79,12 @@
 
           <div class="custom-file">
             <input type="file" ngModel #efile="ngModel" name="EtibarFile" id="etibarnamə"
-              (change)="uploadFile( $event,3)" class="custom-file-input">
+              (change)="uploadFile( $event,3)" class="custom-file-input" required>
+            <div class="alert alert-danger" *ngIf="efile.invalid && (efile.dirty || efile.touched)">
+              <div *ngIf="efile.errors?.['required']">
+                *Nümayəndə/etibarnam faylı tələb olunur
+              </div>
+            </div>
             <!-- <label class="custom-file-label" for="etibarnamə"><img src="/src/assets/icon/Vector.png" alt=""></label> -->
             <label class="custom-file-label" for="etibarnamə">
               {{fileInput3Label}}
@@ -72,14 +95,24 @@
 
       <div class="form-group">
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-6 pb-3">
             <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="SKULabel"
               placeholder="Ad">
+            <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors?.['required']">
+                *Ad tələb olunur
+              </div>
+            </div>
           </div>
 
           <div class="col-lg-6">
             <input type="text" ngModel #surname="ngModel" name="UPersonsurname" class="form-control" id="SKULabel"
-              placeholder="Soyad">
+              placeholder="Soyad" required>
+            <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
+              <div *ngIf="surname.errors?.['required']">
+                *Soyad tələb olunur
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,47 +120,78 @@
         <label for="SKULabel" class="input-label">Mobil nömrə</label>
 
         <input ngModel #phone="ngModel" name="UPhone" type="text" class="form-control" required id="Mobile">
+        <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+          <div *ngIf="phone.errors?.['required']">
+            *Mobil nömrə tələb olunur
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <label for="SKULabel" class="input-label">E-mail</label>
 
-        <input #mail="ngModel" type="email" ngModel name="UEmail" required
-          pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="form-control" [(ngModel)]="model.UEmail"
-          id="SKULabel">
+        <input #mail="ngModel" type="email" ngModel name="UEmail" required class="form-control"
+          [(ngModel)]="model.UEmail" id="SKULabel">
+        <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+          <div *ngIf="mail.errors?.['required']">
+            *E-mail tələb olunur
+          </div>
+        </div>
 
 
       </div>
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-        <input #UPassword="ngModel" required minlength="5" ngModel name="UPassword" type="password" id="UPassword"
+        <input #UPassword="ngModel" required minlength="5" name="UPassword" type="password" id="UPassword"
           class="form-control" [(ngModel)]="model.UPassword">
-
-
-
+        <div class="alert alert-danger" *ngIf="UPassword.invalid && (UPassword.dirty || UPassword.touched)">
+          <div *ngIf="UPassword.errors?.['required']">
+            *Şifrə tələb olunur
+          </div>
+          <div *ngIf="UPassword.errors?.['minlength']">
+            *Minimum 5 simvol tələb olunur
+          </div>
+        </div>
 
       </div>
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
-        <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required name="confirmPassword"
-          class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword">
-
+        <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
+          class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword" minlength="5">
+        <div class="alert alert-danger"
+          *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+          <div *ngIf="confirmPassword.errors?.['required']">
+            *Şifrə tələb olunur
+          </div>
+          <div *ngIf="confirmPassword.errors?.['appConfirmEqualValidator']">
+            *Şifrələr eyni deyil
+          </div>
+          <div *ngIf="UPassword.errors?.['minlength']">
+            *Minimum 5 simvol tələb olunur
+          </div>
+        </div>
       </div>
       <div class="row form-group">
         <div class="col-lg-12 custom-control custom-checkbox ml-3">
           <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
-            class="custom-control-input indeterminate-checkbox">
-          <label class="custom-control-label" for="term">I accept the </label>
-          <a class="btn-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModalScrollable"> Terms
-            and Conditions</a>
+            class="custom-control-input indeterminate-checkbox" required>
+          
+          <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
+              data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul edirəm</label>
+              <div class="alert alert-danger" *ngIf="UTerms.invalid && (UTerms.dirty || UTerms.touched)">
+                <div *ngIf="UTerms.errors?.['required']">
+                  *Qaydalar və Şərtləri qəbul edirsiniz?
+                </div>
+              </div>
         </div>
       </div>
 
       <div>
         <label for="">Hesabınz mövcuddur? </label>
         <a href="" class="btn-link"> Daxil olun </a>
-        
+
       </div>
-      <button type="submit" class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
+      <button type="submit" [disabled]="!signUpForm.valid"
+        class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
     </form>
   </div>
 </div>
@@ -143,7 +207,7 @@
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalScrollableTitle">Qaydalar və şərtlər</h5>
         <button type="button" class="btn btn-xs btn-icon btn-ghost-secondary" data-dismiss="modal" aria-label="Close">
           <i class="tio-clear tio-lg"></i>
         </button>
@@ -187,8 +251,7 @@
           consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-white" data-dismiss="modal">Bağla</button>
       </div>
     </div>
   </div>

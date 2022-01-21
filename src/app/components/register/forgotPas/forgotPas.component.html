@@ -10,7 +10,7 @@
     <form class="login-form">
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput1">E-mail</label>
-        <input type="email" id="email" name="uEmail" appForbiddenName="bob" required #name="ngModel" [(ngModel)]="email" class="form-control">
+        <input type="email" id="email" name="uEmail" required #name="ngModel" [(ngModel)]="email" class="form-control">
           <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
             <div *ngIf="name.errors?.['required']">
               *Email tələb olunur

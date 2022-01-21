@@ -32,14 +32,7 @@ export class LoginComponent {
   }
 
   signin() {
-    if(this.loginRequestData.uEmail.trim().length === 0) {
-      errorAlert('Email-i daxil edin!');
-      return;
-    }
-    if(this.loginRequestData.uPassword.trim().length === 0) {
-      errorAlert('Şifrəni daxil edin!');
-      return;
-    }
+
     this.authService.login(this.loginRequestData).subscribe({
       next: (res: any) => {
         localStorage.setItem('token', res.data);
