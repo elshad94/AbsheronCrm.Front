@@ -16,7 +16,7 @@ export class ApiUrlsService {
   constructor(private http: HttpClient, private router: Router,) {
     // const browserUri = window.location.href;
     // if(browserUri.includes('172.25.60.53')) {
-    //   this.ip = '172.25.60.53';
+    //   this.ip = '  ';
     // } else if(browserUri.includes('85.132.108.234')) {
     //   this.ip = '85.132.108.234';
     // } else {

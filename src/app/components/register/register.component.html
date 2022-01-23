@@ -7,18 +7,14 @@
     <div class="top-logo">
       <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-<<<<<<< HEAD
-    <form class="login-form" #signUpForm="ngForm" (submit)="OnSubmit(signUpForm)">
-=======
     <form class="login-form" #signUpForm="ngForm" (ngSubmit)="OnSubmit(signUpForm)">
->>>>>>> 0ef36a2aacdf7435bf79bb8b80cca7d24d86609b
 
       <div class="form-group">
         <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
         <select (change)="selectInput($event)" ngModel name="USubtype" id="TypePerson" class="form-control">
-          <option value="" select disabled hidden>Hüquqi şəxs</option>>
-          <option value=1>Fiziki şəxs</option>
-          <option value=2>Hüquqi şəxs</option>
+          <option value="" select disabled hidden>Hüquqi şəxs</option>
+          <option value="1">Fiziki şəxs</option>
+          <option value="2">Hüquqi şəxs</option>
         </select>
       </div>
 
@@ -35,7 +31,12 @@
       </div>
 
       <div class="form-group">
-        <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
+        <div [ngSwitch]="!isNameSelected">
+          <div *ngSwitchCase="1"> <label for="FullName" class="input-label">Şirkət adı</label>
+          </div>
+          <div *ngSwitchDefault> <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
+          </div>
+        </div>
         <input type="text" #custname="ngModel" ngModel name="UCustname" class="form-control" required id="FullName">
         <div class="alert alert-danger" *ngIf="custname.invalid && (custname.dirty || custname.touched)">
           <div *ngIf="custname.errors?.['required']">
@@ -102,8 +103,7 @@
           <div class="col-lg-6 pb-3">
             <label for="name" class="input-label">Ad</label>
 
-            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="name"
-             >
+            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="name">
             <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
               <div *ngIf="name.errors?.['required']">
                 *Ad tələb olunur
@@ -115,7 +115,7 @@
             <label for="name" class="input-label">Soyad</label>
 
             <input type="text" ngModel #surname="ngModel" name="UPersonsurname" id="surname" class="form-control"
-               required>
+              required>
             <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
               <div *ngIf="surname.errors?.['required']">
                 *Soyad tələb olunur
@@ -175,7 +175,7 @@
             *Şifrələr eyni deyil
           </div>
 
-           <div *ngIf="UPassword.errors?.['minlength']">
+          <div *ngIf="UPassword.errors?.['minlength']">
             *Minimum 5 simvol tələb olunur
           </div>
         </div>
@@ -261,7 +261,6 @@
       </div>
     </div>
   </div>
-</div>
-<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
-  <p style="color: white"> Yüklənir... </p>
-</ngx-spinner>
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+    <p style="color: white"> Yüklənir... </p>
+  </ngx-spinner>

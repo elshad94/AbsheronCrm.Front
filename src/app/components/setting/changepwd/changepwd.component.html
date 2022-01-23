@@ -23,52 +23,61 @@
                 <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
                 <input ngModel #password="ngModel" name="Password" type="password" id="password" required
                   class="form-control">
-                <div class="alert alert-soft-danger"
-                         *ngIf="submitted && !password.valid ">*Şifrə tələb olunur</div>
+                <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <div *ngIf="password.errors?.['required']">
+                    *Şifrə tələb olunur
+                  </div>
+                </div>
               </div>
             </div>
             <div class="col-sm-6">
               <!-- Form Group -->
               <div class="form-group">
                 <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
-                <input ngModel
-                       #newPassword="ngModel"
-                       name="newPassword"
-                       type="password"
-                       id="password"
-                       required
-                       [(ngModel)]="nwPsw"
-                  class="form-control">
-                <div class="alert alert-soft-danger"
-                         *ngIf="submitted && !newPassword.valid ">*Şifrə tələb olunur</div>
+                <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="password" required
+                  [(ngModel)]="nwPsw" class="form-control">
+                  <div class="alert alert-danger" *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)">
+                    <div *ngIf="newPassword.errors?.['required']">
+                      *Yeni şifrə tələb olunur
+                    </div>
+                  </div>
               </div>
               <!-- End Form Group -->
 
-<div class="row">
+              <div class="row">
 
-              <div class="col-sm-12">
-                <!-- Form Group -->
-                <div class="form-group">
-                  <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
-                  <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
-                    name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword"
-                    [(ngModel)]="confrmPsw">
-                    <div class="alert alert-soft-danger"
-                    *ngIf="submitted  && !newPassword.valid ">*Yeni Şifrə tələb olunur</div>
-                    <div class="alert alert-soft-danger"
-                    *ngIf="!(nwPsw==confrmPsw) && submitted">*Şifrələr eyni deyil</div>
+                <div class="col-sm-12">
+                  <!-- Form Group -->
+                  <div class="form-group">
+                    
+                    <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+                    <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
+                      name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword"
+                      [(ngModel)]="confrmPsw">
+                      <div class="alert alert-danger"
+                      *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+                      <div *ngIf="confirmPassword.errors?.['required']">
+                        *Şifrə tələb olunur
+                      </div>
+                      <div>{{confirmPassword.errors?.['appConfirmEqualValidator']}}</div>
+                      <div *ngIf="confirmPassword.errors?.['notEqual'] && confirmPassword.touched">
+                        *Şifrələr eyni deyil
+                      </div>
+            
+                      <div *ngIf="confirmPassword.errors?.['minlength']">
+                        *Minimum 5 simvol tələb olunur
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End Form Group -->
                 </div>
-                <div >{{nwPsw==confrmPsw}}</div>
-                <div >{{submitted}}</div>
-                <!-- End Form Group -->
               </div>
-            </div>
             </div>
             <div class="ROW">
               <div class="col-sm-auto">
-                <a class="btn newOrder" (click)="UpdatePass(changePass)">
+                <button type="submit" [disabled]="!changePass.valid" class="btn newOrder"  (click)="UpdatePass(changePass)">
                   Dəyiş
-                </a>
+                </button>
               </div>
             </div>
             <div class="quill-custom">
@@ -85,4 +94,6 @@
   </form>
 </div>
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>

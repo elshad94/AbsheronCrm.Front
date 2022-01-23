@@ -67,24 +67,26 @@ export class RegisterComponent {
 
   CreateUser(value:any){
     value.USubtype = value.USubtype=='' ? 2 :  value.USubtype;
-    console.log(value)
     this.auhtService
       .register(value)
       .subscribe( res=>{
+        debugger
         localStorage.setItem('uId', res.data.uId);
+        console.log()
+  
         this.OnUpload(res.data.uId);
 
       },err=>{
         if(err.error.data == '1')
           Swal.fire({
-            icon: 'success',
-            title:'Uğurlu',
+            icon: 'error',
+            title:'Xəta',
             text: 'Serverdə hər hansı bir xəta baş verir',
           });
         else{
           Swal.fire({
-            icon: 'error',
-            title:'Xəta',
+            icon: 'success',
+            title:'Uğurlu',
             text: err.error.programMessage
           });
         }
