@@ -38,7 +38,8 @@ export class LoginComponent {
         localStorage.setItem('token', res.data);
         localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
         localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
-        window.location.replace('home')
+        // window.location.replace('home')
+        this.router.navigate(['/home']);
       },
       error:res => {
         if(res.error.data == '1' || res.error.data == '0'){

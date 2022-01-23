@@ -14,26 +14,26 @@ export class ApiUrlsService {
   // Also, if you want to run the front-end locally but use the server apis just comment out all of the code in constructor except the last line.
 
   constructor(private http: HttpClient, private router: Router,) {
-    // const browserUri = window.location.href;
-    // if(browserUri.includes('172.25.60.53')) {
-    //   this.ip = '  ';
-    // } else if(browserUri.includes('85.132.108.234')) {
-    //   this.ip = '85.132.108.234';
-    // } else {
-    //   errorAlert('Server Problemi!')
-    //     .then(() => this.router.navigate(['']));
-    // }
+    const browserUri = window.location.href;
+    if(browserUri.includes('172.25.60.53')) {
+      this.ip = '  ';
+    } else if(browserUri.includes('85.132.108.234')) {
+      this.ip = '85.132.108.234';
+    } else {
+      errorAlert('Server Problemi!')
+        .then(() => this.router.navigate(['']));
+    }
     // this.ip = '85.132.108.234';
   }
 
   getAuthAPiURI() {
-    // return `http://${this.ip}:92/redirect/reg/api`;
-    return 'https://localhost:44383/api';
+    return `http://${this.ip}:92/redirect/reg/api`;
+    // return 'https://localhost:44383/api';
   }
 
   getCrmAPIURI() {
-    // return `http://${this.ip}:92/redirect/crm/api`;
-    return 'https://localhost:44323/api';
+    return `http://${this.ip}:92/redirect/crm/api`;
+    // return 'https://localhost:44323/api';
   }
 
 
