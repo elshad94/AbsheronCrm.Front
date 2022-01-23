@@ -34,6 +34,7 @@ export class TerminalService {
   orderDate?: Date;
   orderNo?: string;
   orderStatus?: number;
+  isValid = false;
 
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {

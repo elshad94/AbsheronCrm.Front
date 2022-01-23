@@ -69,24 +69,24 @@
                 <!-- Quantity Counter -->
                 <div class="js-quantity-counter input-group-quantity-counter mb-3">
                   <input type="number" class="js-result form-control input-group-quantity-counter-control"
-                    [(ngModel)]="xidmet.count" [disabled]="orderStatus === 5">
+                    [(ngModel)]="xidmet.count" [disabled]="orderStatus === 5" (input)="changeCount(xidmet, $event)">
 
                   <div class="input-group-quantity-counter-toggle" *ngIf="orderStatus !== 5">
                     <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
-                      (click)="decreaseCount(xidmet)" *ngIf="orderStatus === 5">
+                      (click)="decreaseCount(xidmet)">
                       <i class="tio-remove"></i>
                     </a>
                     <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
                       (click)="increaseCount(xidmet)">
                       <i class="tio-add"></i>
                     </a>
-                  </div>
 
+                  </div>
 
                 </div>
                 <!-- End Quantity Counter -->
-                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1 && orderStatus !== 5">
-                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
+                <div class="alert alert-danger" *ngIf="xidmet.isAmountInValid">
+                  Ancaq 0-dan böyük və 1000 dən kicik tam rəqəm daxil oluna bilər
                 </div>
               </div>
 
@@ -96,18 +96,19 @@
                   <span>Qiymət:</span><p>{{xidmet.temrinalWay.amount}} ₼</p>
                 </div>
                 <!-- End Input Group -->
+                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1 && orderStatus !== 5">
+                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
+                </div>
               </div>
 
               <div class="col col-md-2 price">
                 <span>Cəmi:</span><p>{{xidmet.totalAmount}} ₼</p>
               </div>
-
             </div>
             <!-- End Content -->
 
             <!-- Container For Input Field -->
             <div id="addInvoiceItemContainer"></div>
-
           </div>
 
           <hr class="my-5">
@@ -150,12 +151,14 @@
                    "stickyOffsetTop": 20
                  }'>
         <button class="btn btn-block newOrder mb-3" href="javascript:;"
-          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder()">
+          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder()"
+          [disabled]="isValid()">
           Yadda saxla
         </button>
 
         <button class="btn btn-block newAccept mb-3" href="javascript:;"
-          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder(false)">
+          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder(false)"
+          [disabled]="isValid()">
           Təsdiqlə
         </button>
 
