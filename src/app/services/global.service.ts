@@ -6,12 +6,14 @@ import {BehaviorSubject} from 'rxjs';
   providedIn: 'root'
 })
 export class GlobalService {
+  tokenValue = new BehaviorSubject(this.token);
 
-  tokenLengthValue = new BehaviorSubject(this.tokenLength);
+ set token(tk: string) {
+   this.tokenValue.next(tk);
+   localStorage.setItem('token', tk);
+ }
 
-  get tokenLength() {
-    // return JSON.parse(localStorage.getItem("token") ?? "").length;
-    return localStorage.getItem('token')?.length ?? 0;
-  }
-
+ get token() {
+   return localStorage.getItem('token') ?? "";
+ }
 }

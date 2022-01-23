@@ -1,10 +1,18 @@
-<div [ngSwitch]="tk">
+<!-- <div [ngSwitch]="tk">
     <div *ngSwitchCase="true">
         <app-header></app-header>
     </div>
     <div *ngSwitchCase="false">
         <app-login></app-login>
     </div>
+</div> -->
+<div>
+  <div *ngIf="tk">
+      <app-header></app-header>
+  </div>
+  <div *ngIf="!tk">
+      <app-login></app-login>
+  </div>
 </div>
 <main id="content" role="main" class="main pointer-event">
     <router-outlet></router-outlet>

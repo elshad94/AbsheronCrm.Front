@@ -7,6 +7,7 @@ import logger from 'src/utils/logger';
 import LoginRequestData from 'src/app/model/loginRequestData';
 import { errorAlert } from 'src/utils/alerts';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { GlobalService } from 'src/app/services/global.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
   };
 
   constructor(private authService: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private globalService: GlobalService) {}
 
   getDecodedAccessToken(token?: any): any {
     try{
@@ -35,7 +37,8 @@ export class LoginComponent {
 
     this.authService.login(this.loginRequestData).subscribe({
       next: (res: any) => {
-        localStorage.setItem('token', res.data);
+        // localStorage.setItem('token', res.data);
+        this.globalService.token = res.data;
         localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
         localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
         // window.location.replace('home')

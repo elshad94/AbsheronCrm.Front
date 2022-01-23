@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from 'src/app/services/auth.service';
+import { GlobalService } from 'src/app/services/global.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-header',
@@ -11,7 +12,8 @@ import Swal from 'sweetalert2';
 export class HeaderComponent implements OnInit {
   public tk?:any;
   constructor(private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private globalService: GlobalService) { }
 
   ngOnInit(): void {
     this.collapse();
@@ -23,6 +25,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['']);
 
       localStorage.removeItem('token');
+      this.globalService.token = "";
       const arrayFromStroage  = JSON.parse(localStorage.getItem('token') ?? '');
       this.tk = arrayFromStroage.length;
       this.router.navigate(['']);

@@ -14,16 +14,16 @@ export class ApiUrlsService {
   // Also, if you want to run the front-end locally but use the server apis just comment out all of the code in constructor except the last line.
 
   constructor(private http: HttpClient, private router: Router,) {
-    const browserUri = window.location.href;
-    if(browserUri.includes('172.25.60.53')) {
-      this.ip = '  ';
-    } else if(browserUri.includes('85.132.108.234')) {
-      this.ip = '85.132.108.234';
-    } else {
-      errorAlert('Server Problemi!')
-        .then(() => this.router.navigate(['']));
-    }
-    // this.ip = '85.132.108.234';
+    // const browserUri = window.location.href;
+    // if(browserUri.includes('172.25.60.53')) {
+    //   this.ip = '  ';
+    // } else if(browserUri.includes('85.132.108.234')) {
+    //   this.ip = '85.132.108.234';
+    // } else {
+    //   errorAlert('Server Problemi!')
+    //     .then(() => this.router.navigate(['']));
+    // }
+    this.ip = '85.132.108.234';
   }
 
   getAuthAPiURI() {
