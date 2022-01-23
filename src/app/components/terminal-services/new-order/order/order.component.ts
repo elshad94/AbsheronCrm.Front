@@ -17,7 +17,8 @@ export interface Xidmet {
     temrinalWay: TerminalWay,
     count: number,
     totalAmount: number,
-    edv: number
+    edv: number,
+    isAmountInValid?: boolean
 }
 
 const EDV_MULTIPLIER = 0.18;
@@ -240,6 +241,7 @@ export class OrderComponent implements OnInit {
     this.terminalService.customer = this.customer;
     this.terminalService.orderDate = this.orderDate;
     this.terminalService.orderNo = this.orderNo;
+    this.terminalService.isValid = this.isValid();
   }
 
   private copyExtraFieldsFromService() {
@@ -275,6 +277,39 @@ export class OrderComponent implements OnInit {
           xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
         );
       })
+  }
+
+  changeCount(xidmet: Xidmet, event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.valueAsNumber
+    if(value < 1 || isNaN(value)) {
+      event.preventDefault();
+      xidmet.isAmountInValid = true;
+      return;
+    }
+    if(`${value}`.length > 3) {
+      event.preventDefault();
+      xidmet.isAmountInValid = true;
+      return;
+    }
+    xidmet.isAmountInValid = false;
+    // remove old xidmet amount from total
+    this.total -= xidmet.totalAmount!;
+    this.totalEdv -= (
+      xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+    );
+    // update xidmet count and amoount
+    xidmet.count = value;
+    xidmet.totalAmount = value * xidmet.temrinalWay.amount;
+    // update total amount
+    this.total += xidmet.totalAmount!;
+    this.totalEdv += (
+      xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+    );
+  }
+
+  isValid(): boolean {
+    return this.xidmetler.some(x =>x.isAmountInValid);
   }
 
   increaseCount(xidmet: Xidmet) {

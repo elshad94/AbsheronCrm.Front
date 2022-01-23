@@ -182,6 +182,10 @@ export class ReturnFileComponent implements OnInit {
     this.router.navigate(['/order'], navigationExtras);
   }
 
+  isValid(): boolean {
+    return this.terminalService.isValid;
+  }
+
   deleteFile(i: number) {
     this.files.splice(i, 1);
   }

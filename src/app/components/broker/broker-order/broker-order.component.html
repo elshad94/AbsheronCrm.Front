@@ -21,7 +21,7 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <select [(ngModel)]="brokerItemModel.transportTypeId" class="form-control mb-3"
-                      name="transportTypeId">
+                      name="transportTypeId" [disabled]="orderStatus === 5">
                       <option selected disabled value="-1">Sifariş növü seçin</option>
                       <option *ngFor="let item of transportTypes" [value]="item.id">
                         {{ item.text }}
@@ -30,7 +30,7 @@
                   </div>
                   <div class="col-lg-12">
                     <input type="text " class="form-control mb-3" placeholder="N/V № " aria-label="Description "
-                      name="transportNo" [(ngModel)]="brokerItemModel.transportNo" />
+                      name="transportNo" [(ngModel)]="brokerItemModel.transportNo" [disabled]="orderStatus === 5"/>
                   </div>
                 </div>
               </div>
@@ -48,7 +48,7 @@
                       <div class="d-flex align-items-center">
                         <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
                         <input id='cb1'  type="checkbox" name="{{ checkbox.id }}" [(ngModel)]="checkbox.isSelected"
-                          value=" {{ checkbox.id }} " [checked]="checkbox.isSelected"
+                          value=" {{ checkbox.id }} " [checked]="checkbox.isSelected" [disabled]="orderStatus === 5"
                           (change)="onChangeInput(checkbox, $event)" />
                         <label class="" for="customCheck12 " class="m-0 pl-1">{{ checkbox.text }}</label>
                       </div>
@@ -76,64 +76,9 @@
                 </div>
               </div>
               <!-- End Title -->
-
-              <!-- Content -->
-              <!-- <div
-                class="row"
-                *ngFor="let document of brokerItemModel.documents"
-              >
-                <div class="col-12 col-sm-auto col-md-3 col-lg-6">
-                  <select
-                    class="form-control mb-3"
-                    name="documentTypesId "
-                    [(ngModel)]="docTypeId"
-                  >
-                    <option [ngValue]="null">Seçin</option>
-                    <option
-                      *ngFor="let item of documentTypes"
-                      [value]="item.documentTypeId"
-                    >
-                      {{item.name}}
-                    </option>
-                  </select>
-                </div>
-
-                <div class="col-12 col-sm col-md-2 col-lg-5">
-                  <input
-                    type="text"
-                    class="form-control selec tfileInputCopy"
-                    name="weightName "
-                    id="weightLabel "
-                    placeholder="scan.pdf "
-                    value="{{ document.uri }}"
-                    aria-label="0.0 "
-                  />
-
-                  <input
-                    type="file"
-                    (change)="fileChange($event)"
-                    accept=".pdf,.doc,.docx"
-                    [(ngModel)]="document.uri"
-                    class="form-control selectfileInput"
-                    name="documents "
-                    id="Document.fileId "
-                    aria-label="0.0 "
-                  />
-
-                  <label for=" " class="selectfileLabel Scan"
-                    ><img src="assets/icon/Union.png " alt=" "
-                  /></label>
-
-                                              </div>
-                                              <div class="col-12 col-sm col-md-2 col-lg-1 d-none">
-                                                  <div class="deletetdiv"><span>X </span></div>
-
-                                              </div>
-                                          </div> -->
-
               <div class="row fileDetails" *ngFor="let file of files; let i = index">
                 <div class="col-12 col-sm-auto col-md-3 col-lg-6">
-                  <select class="form-control mb-3" name="" id=""
+                  <select class="form-control mb-3" name="" id="" [disabled]="orderStatus === 5"
                     (change)="selectDocTypeId(i, $event)">
                     <option *ngFor="let docType of documentTypes" [selected]="file.docTypeId === docType.documentTypeId"
                      value="{{docType.documentTypeId}}">{{docType.name}}</option>
@@ -141,20 +86,15 @@
                 </div>
 
                 <div class="col-12 col-sm col-md-2 col-lg-5">
-                  <!-- <input type="text" class="form-control selec tfileInputCopy" name="weightName " id="weightLabel " placeholder="{{documents.uri}}scan.pdf" aria-label="0.0 " /> -->
-                  <!-- <input type="text" class="form-control selec tfileInputCopy" name="weightName "
-                    placeholder="scan.pdf" value="{{url }}" aria-label="0.0 " /> -->
-                  <p type="text" class="form-control selectfileInputCopy file_picker " name="weightName"
-                    id="weightLabel" aria-label="0.0">
-                    {{file.uri}}
-                  </p>
+                  <input type="text" class="form-control selectfileInputCopy file_picker" name="weightName"
+                    id="weightLabel" aria-label="0.0" value="{{file.uri}}" [disabled]="orderStatus === 5">
 
-                  <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx "
-                    class="form-control selectfileInput " name="documents " aria-label="0.0 " />
+                  <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx " [disabled]="orderStatus === 5"
+                    class="form-control selectfileInput " name="documents " aria-label="0.0 " style="opacity: 0" />
 
                   <label for=" " class="selectfileLabel Scan "><img src="assets/icon/Union.png " alt=" " /></label>
                 </div>
-                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1">
+                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1" *ngIf="orderStatus != 5">
                   <div class="deletetdiv ">
                     <a type="button" (click)="Delete(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
@@ -166,7 +106,7 @@
 
               <div id="addInvoiceItemContainer "></div>
 
-              <a type="button " (click)="append() "
+              <a type="button" *ngIf="orderStatus != 5" (click)="append()"
                 class=" js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary ">
                 + Əlavə sənəd
               </a>
@@ -181,7 +121,7 @@
           <hr class="my-5 " />
           <div class="form-group ">
             <textarea class="form-control " [(ngModel)]="brokerPostItem.notes " placeholder=" Qeyd " rows="3 "
-              name="notes ">
+              name="notes " [disabled]="orderStatus === 5">
             </textarea>
           </div>
 
