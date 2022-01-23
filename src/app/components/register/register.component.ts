@@ -26,7 +26,8 @@ export class RegisterComponent {
     private router: Router)
   {
 
-
+    $('body').css('overflow-x', 'hidden')
+    $('body').css('overflow-y', 'hidden')
   }
 
   public isNameSelected?: boolean;
@@ -73,7 +74,7 @@ export class RegisterComponent {
         debugger
         localStorage.setItem('uId', res.data.uId);
         console.log()
-  
+
         this.OnUpload(res.data.uId);
 
       },err=>{

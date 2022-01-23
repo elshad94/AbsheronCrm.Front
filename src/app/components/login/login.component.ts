@@ -22,7 +22,11 @@ export class LoginComponent {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private globalService: GlobalService) {}
+              private globalService: GlobalService) {
+
+                $('body').css('overflow-x', 'hidden')
+                $('body').css('overflow-y', 'hidden')
+  }
 
   getDecodedAccessToken(token?: any): any {
     try{

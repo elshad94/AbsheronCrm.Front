@@ -31,13 +31,12 @@
     background-color: #377dff;
 }
 
-ng:deep .mat-typography {
-    overflow-y: visible !important;
-    /* Hide vertical scrollbar */
-    overflow-x: visible !important;
-    /* Hide horizontal scrollbar */
-}
-
+// ng:deep .mat-typography {
+//     overflow-y: visible !important;
+//     /* Hide vertical scrollbar */
+//     overflow-x: visible !important;
+//     /* Hide horizontal scrollbar */
+// }
 
 @media only screen and (max-width: 768px){
     .card-body{

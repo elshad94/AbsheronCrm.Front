@@ -35,12 +35,12 @@
     margin-bottom: 0.5rem;
 }
 
-/deep/.mat-typography {
+/* /deep/.mat-typography {
     overflow-y: visible !important;
     /* Hide vertical scrollbar */
-    overflow-x: visible !important;
+    /* overflow-x: visible !important; */
     /* Hide horizontal scrollbar */
-}
+/* } */
 
 .login-text {
     font-family: "Lexend Deca", sans-serif !important;
@@ -65,12 +65,12 @@
 .modal-body::-webkit-scrollbar {
     width: 8px;
   }
-  
+
   .modal-body::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
   }
-  
+
   .modal-body::-webkit-scrollbar-thumb {
     background-color: #4299bf !important;
     border-radius: 5px;

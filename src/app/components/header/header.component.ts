@@ -13,7 +13,10 @@ export class HeaderComponent implements OnInit {
   public tk?:any;
   constructor(private authService: AuthService,
     private router: Router,
-    private globalService: GlobalService) { }
+    private globalService: GlobalService) {
+        $('body').css('overflow-x', 'visible')
+        $('body').css('overflow-y', 'visible')
+    }
 
   ngOnInit(): void {
     this.collapse();
@@ -23,9 +26,8 @@ export class HeaderComponent implements OnInit {
   signOut(){
     this.authService.logout().subscribe((res: any) =>{
       this.router.navigate(['']);
-
+      this.globalService.token = '';
       localStorage.removeItem('token');
-      this.globalService.token = "";
       const arrayFromStroage  = JSON.parse(localStorage.getItem('token') ?? '');
       this.tk = arrayFromStroage.length;
       this.router.navigate(['']);

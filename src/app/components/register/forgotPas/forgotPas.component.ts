@@ -13,7 +13,8 @@ export class ForgotPasComponent implements OnInit {
   public submitted: boolean =false;
   public email:string="";
   constructor(private authService:AuthService, private router: Router ){
-
+    $('body').css('overflow-x', 'hidden')
+    $('body').css('overflow-y', 'hidden')
   }
 
   ngOnInit() {
