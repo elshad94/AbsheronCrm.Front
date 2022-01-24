@@ -24,8 +24,8 @@ export class LoginComponent {
               private router: Router,
               private globalService: GlobalService) {
 
-                $('body').css('overflow-x', 'hidden')
-                $('body').css('overflow-y', 'hidden')
+                // $('body').css('overflow-x', 'hidden')
+                // $('body').css('overflow-y', 'hidden')
   }
 
   getDecodedAccessToken(token?: any): any {

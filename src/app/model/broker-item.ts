@@ -12,6 +12,8 @@ export class BrokerItem {
     'notes': 'string';
     'transportTypeId': number;
     'transportNumber': 'string';
+    'paymentMethod': 'string';
+    'paymentStatus': 'paymentStatus';
     'expenses': [
     {
       'id': number

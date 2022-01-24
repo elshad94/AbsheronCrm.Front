@@ -47,12 +47,11 @@ export class PayComponent implements OnInit {
     });
     this.dialogRef.afterAllClosed.subscribe(res => {
       if(this.payAvService.isPaymentSuccesfull) {
-        this.getData();
-        this.payAvService.isPaymentSuccesfull = false;
+        this.getData(() => this.payAvService.isPaymentSuccesfull = false);
       }
+      logger.info('UE')
       if(this.payBankService.isPaymentSuccesfull) {
-        this.getData();
-        this.payBankService.isPaymentSuccesfull = false;
+        this.getData(() => this.payBankService.isPaymentSuccesfull = false);
       }
     });
   }
@@ -61,11 +60,14 @@ export class PayComponent implements OnInit {
     this.getData();
   }
 
-  private getData() {
+  private getData(callback: any = null) {
     this.payService.payAll().subscribe((data: Payments[]) => {
       this.dataSource = new MatTableDataSource<Payments>(data);
       this.dataSource.paginator = this.paginator;
       this.orderTypeText = [...new Set(data.map(d => d.orderTypeText))];
+      if(callback) {
+        callback()
+      }
     });
   }
 

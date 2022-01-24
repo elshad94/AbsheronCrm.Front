@@ -18,10 +18,10 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.globalService.tokenValue.subscribe(token => {
       this.tk = token.length > 0
-      if(this.tk) {
-        $('body').css('overflow-x', 'visible')
-        $('body').css('overflow-y', 'visible')
-      }
+      // if(this.tk) {
+      //   $('body').css('overflow-x', 'visible')
+      //   $('body').css('overflow-y', 'visible')
+      // }
     })
   }
 }

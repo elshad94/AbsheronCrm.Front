@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService,
     private router: Router,
     private globalService: GlobalService) {
-        $('body').css('overflow-x', 'visible')
-        $('body').css('overflow-y', 'visible')
+        // $('body').css('overflow-x', 'visible')
+        // $('body').css('overflow-y', 'visible')
     }
 
   ngOnInit(): void {

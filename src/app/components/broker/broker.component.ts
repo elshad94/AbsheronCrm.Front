@@ -39,7 +39,8 @@ export class BrokerComponent implements OnInit {
   item:any;
   BrokerItem:BrokerItem[]=[];
   BrokerItems!:BrokerItem;
-  columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText', 'delete'];
+  columnsToDisplay = ['docNo','customer','date','gbNo','amount','orderStatusText',
+  'paymentMethod', 'paymentStatus', 'delete'];
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     dataSource = new MatTableDataSource<BrokerItem>(this.BrokerItem);

@@ -51,12 +51,12 @@
 
           <div class="custom-file">
             <input type="file" ngModel #rfile="ngModel" name="ReyesterFile" id="ReyesterFile" class="custom-file-input"
-              required (change)="uploadFile( $event,1)">
-            <div class="alert alert-danger" *ngIf="rfile.invalid && (rfile.dirty || rfile.touched)">
+               (change)="uploadFile( $event,1)">
+            <!-- <div class="alert alert-danger" *ngIf="rfile.invalid && (rfile.dirty || rfile.touched)">
               <div *ngIf="rfile.errors?.['required']">
                 *Reyestr faylı tələb olunur
               </div>
-            </div>
+            </div> -->
             <label class="custom-file-label" for="ReyesterFile">
               {{fileInput1Label}}
             </label>
@@ -68,12 +68,12 @@
 
           <div class="custom-file">
             <input type="file" ngModel #bfile="ngModel" name="BankRekFile" id="BankRekvizit" class="custom-file-input"
-              required (change)="uploadFile( $event,2)">
-            <div class="alert alert-danger" *ngIf="bfile.invalid && (bfile.dirty || bfile.touched)">
+               (change)="uploadFile( $event,2)">
+            <!-- <div class="alert alert-danger" *ngIf="bfile.invalid && (bfile.dirty || bfile.touched)">
               <div *ngIf="bfile.errors?.['required']">
                 *Bank Rekvizitləri faylı tələb olunur
               </div>
-            </div>
+            </div> -->
             <label class="custom-file-label" for="BankRekvizit">
               {{fileInput2Label}}
             </label>
@@ -84,12 +84,12 @@
 
           <div class="custom-file">
             <input type="file" ngModel #efile="ngModel" name="EtibarFile" id="etibarnamə"
-              (change)="uploadFile( $event,3)" class="custom-file-input" required>
-            <div class="alert alert-danger" *ngIf="efile.invalid && (efile.dirty || efile.touched)">
+              (change)="uploadFile( $event,3)" class="custom-file-input" >
+            <!-- <div class="alert alert-danger" *ngIf="efile.invalid && (efile.dirty || efile.touched)">
               <div *ngIf="efile.errors?.['required']">
                 *Nümayəndə/etibarnam faylı tələb olunur
               </div>
-            </div>
+            </div> -->
             <!-- <label class="custom-file-label" for="etibarnamə"><img src="/src/assets/icon/Vector.png" alt=""></label> -->
             <label class="custom-file-label" for="etibarnamə">
               {{fileInput3Label}}

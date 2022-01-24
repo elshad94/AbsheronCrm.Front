@@ -9,7 +9,10 @@ import Swal from 'sweetalert2';
 })
 export class VerifyEmailComponent implements OnInit {
 
-  constructor( private authService: AuthService) { }
+  constructor( private authService: AuthService) {
+    $('body').css('overflow-x', 'hidden');
+    $('body').css('overflow-y', 'hidden');
+  }
 
   ngOnInit(): void {
   }
@@ -27,7 +30,7 @@ export class VerifyEmailComponent implements OnInit {
   }
 
   backPage(){
-    
+
   }
 
 }

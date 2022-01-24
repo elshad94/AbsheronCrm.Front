@@ -26,8 +26,8 @@ export class RegisterComponent {
     private router: Router)
   {
 
-    $('body').css('overflow-x', 'hidden')
-    $('body').css('overflow-y', 'hidden')
+    // $('body').css('overflow-x', 'hidden')
+    // $('body').css('overflow-y', 'hidden')
   }
 
   public isNameSelected?: boolean;
@@ -71,13 +71,14 @@ export class RegisterComponent {
     this.auhtService
       .register(value)
       .subscribe( res=>{
-        debugger
+
         localStorage.setItem('uId', res.data.uId);
-        console.log()
 
-        this.OnUpload(res.data.uId);
-
+        this.router
+        .navigate(['/verify']);
+        // this.OnUpload(res.data.uId);
       },err=>{
+
         if(err.error.data == '1')
           Swal.fire({
             icon: 'error',
@@ -86,8 +87,8 @@ export class RegisterComponent {
           });
         else{
           Swal.fire({
-            icon: 'success',
-            title:'Uğurlu',
+            icon: 'error',
+            title:'Xəta',
             text: err.error.programMessage
           });
         }
