@@ -6,7 +6,9 @@ interface TerminalItem {
     orderStatus: {
         statusId: number,
         statusText: string
-    }
+    },
+    paymentMethod: string,
+    paymentStatus: string
 }
 
 export default TerminalItem;

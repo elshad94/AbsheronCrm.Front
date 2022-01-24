@@ -14,7 +14,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./services.component.scss']
 })
 export class ServicesComponent implements OnInit {
-  columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'actions'];
+  columnsToDisplay = ['orderNo', 'date', 'amount', 'statusText', 'paymentMethod',
+    'paymentStatus', 'actions'];
   terminalItems: TerminalItem[] = [];
   dataSource: MatTableDataSource<TerminalItem> = new MatTableDataSource<TerminalItem>(this.terminalItems);
     @ViewChild(MatPaginator) paginator!: MatPaginator;
