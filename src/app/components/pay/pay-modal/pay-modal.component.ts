@@ -39,7 +39,7 @@ export class PayModalComponent implements OnInit {
           orderTypeId: this.data.orderTypeId,
           orderNo: this.data.orderNo
         },
-        height: '341px',
+        height: 'max-content',
         width: '435px'
       })
       
@@ -52,7 +52,7 @@ export class PayModalComponent implements OnInit {
           orderTypeId: this.data.orderTypeId,
           orderNo: this.data.orderNo
         },
-        height: '176px',
+        height: 'max-content',
         width: '520px'
       })
     }

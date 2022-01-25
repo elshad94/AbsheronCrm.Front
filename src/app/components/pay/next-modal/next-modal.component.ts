@@ -29,7 +29,7 @@ export class NextModalComponent implements OnInit {
         orderTypeId: orderTypeId,
         orderNo: orderNo
       },
-      height: '150px',
+      height: 'max-content',
       width: '600px',
     })
   }

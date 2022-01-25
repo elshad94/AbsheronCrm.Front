@@ -42,7 +42,7 @@ export class PayComponent implements OnInit {
         orderTypeId: orderTypeId,
         orderNo: orderNo
       },
-      height: '150px',
+      height: 'max-content',
       width: '600px',
     });
     this.dialogRef.afterAllClosed.subscribe(res => {
