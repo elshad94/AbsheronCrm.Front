@@ -18,6 +18,9 @@ export class ProfileAccountComponent implements OnInit {
   public selectedFile!: File;
   public fileList?: any = [];
   public typeList?: any = [];
+  public fileInput1Label = '';
+  public fileInput2Label = '';
+  public fileInput3Label = '';
   ngOnInit(): void {
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
       this.model = response;
@@ -82,6 +85,18 @@ export class ProfileAccountComponent implements OnInit {
       .target
       .files[0];
     this.typeList.push(type.toString());
+    switch(type) {
+      case 1:
+        this.fileInput1Label = this.selectedFile.name.substring(0, 43);
+        break;
+      case 2:
+        this.fileInput2Label = this.selectedFile.name.substring(0, 43);
+        break;
+      case 3:
+        this.fileInput3Label = this.selectedFile.name.substring(0, 43);
+        break;
+      }
+    
 
     this.fileList.push(<File>event.target.files[0]);
   }
