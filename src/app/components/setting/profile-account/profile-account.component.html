@@ -23,9 +23,8 @@
                 <div class="form-group">
                   <select (change)="selectInput($event)" ngModel name="USubtype" [(ngModel)]="model.uSubtype"
                     #USubtype="ngModel" id="TypePerson" class="form-control">
-                    <option value="">Secimler</option>
-                    <option value=1>Fiziki şəxs</option>
-                    <option value=2>Hüquqi şəxs</option>
+                    <option value="1">Fiziki şəxs</option>
+                    <option value="2">Hüquqi şəxs</option>
                   </select>
 
                 </div>
@@ -42,84 +41,101 @@
 
                   <input type="text" class="form-control" name="UVoen" ngModel required #UVoen="ngModel"
                     [(ngModel)]="model.uVoen" id="voen">
-                </div>
-                <div class="alert alert-danger" *ngIf="UVoen.invalid && (UVoen.dirty || UVoen.touched)">
-                  <div *ngIf="UVoen.errors?.['required']">
-                    *Vöen tələb olunur
+                  <div class="alert alert-danger" *ngIf="UVoen.invalid && (UVoen.dirty || UVoen.touched)">
+                    <div *ngIf="UVoen.errors?.['required']">
+                      *Vöen tələb olunur
+                    </div>
                   </div>
                 </div>
+
                 <!-- End Form Group -->
               </div>
               <div class="col-sm-3">
                 <!-- Form Group -->
-                <div class="form-group">
-                  <label for="SKULabel" class="input-label">Fiziki şəxsin Adı Soyadı</label>
-
-                  <input type="text" class="form-control" name="UCustname" required id="SKULabel" ngModel
-                    #UCustname="ngModel" [(ngModel)]="model.uCustname">
-                  </div> 
-                    <div class="alert alert-danger" *ngIf="UCustname.invalid && (UCustname.dirty || UCustname.touched)">
-                      <div *ngIf="UCustname.errors?.['required']">
-                        *Fiziki şəxsin Adı Soyadı tələb olunur
+                <div [ngSwitch]="isNameSelected">
+                  <div *ngSwitchCase="1">
+                    <div class="form-group">
+                      <label for="SKULabel" class="input-label">Fiziki şəxsin Adı Soyadı</label>
+                      <input type="text" class="form-control" name="UCustname" required id="SKULabel" ngModel
+                        #UCustname="ngModel" [(ngModel)]="model.uCustname">
+                      <div class="alert alert-danger"
+                        *ngIf="UCustname.invalid && (UCustname.dirty || UCustname.touched)">
+                        <div *ngIf="UCustname.errors?.['required']">
+                          *Fiziki şəxsin Adı Soyadı tələb olunur
+                        </div>
                       </div>
                     </div>
+                  </div>
+                  <div *ngSwitchDefault>
+                    <div class="form-group">
+                      <label for="SKULabel" class="input-label">Hüquqi şəxsin Adı Soyadı</label>
+                      <input type="text" class="form-control" name="UCustname" required id="SKULabel" ngModel
+                        #UCustname="ngModel" [(ngModel)]="model.uCustname">
+                      <div class="alert alert-danger" *ngIf="UCustname.invalid && (UCustname.dirty || UCustname.touched)">
+                        <div *ngIf="UCustname.errors?.['required']">
+                          *Hüquqi şəxsin Adı Soyadı tələb olunur
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
                 <!-- End Form Group -->
               </div>
 
               <!-- End Form Group -->
               <div ngModelGroup="FileResponseDto" class="w-100 files">
-                <div class="col-sm-3">
-                  <!-- Form Group -->
-                  <div class="form-group " *ngIf="!isNameSelected">
-                    <label for="weightLabel" class="input-label">Reyestrdən çıxarış</label>
+                <div class="col-sm-3" *ngIf="!isNameSelected">
+                  <div class="form-group " >
+                    <label for="UReyestrFile" class="input-label">Reyestrdən çıxarış</label>
 
-                    <input type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel">
+                    <input type="text" class="form-control selectfileInputCopy " [(ngModel)]="fileInput1Label" name="UReyestrFile" id="UReyestrFile" placeholder="Reyestrdən çıxarış faylın seçin">
 
                     <input type="file" class="form-control selectfileInput " name="UReyestr" id="reyestr"
-                      style="top:36%" ngModel #UReyestrFile="ngModel" (change)="uploadFile( $event,3)  ">
-                    <a [attr.href]="pathReyester">file</a>
+                      style="top:36%" ngModel #UReyestrFile="ngModel" (change)="uploadFile( $event,1)  ">
+                    <a class="fileDown" [attr.href]="pathReyester">sənədə bax</a>
+
+                    
                     <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                   </div>
-                  <!-- End Form Group -->
                 </div>
                 <div class="col-sm-3">
-                  <!-- Form Group -->
                   <div class="form-group">
-                    <label for="weightLabel" class="input-label">Bank rekvezitləri</label>
+                    <label for="UBankFile" class="input-label">Bank rekvezitləri</label>
 
-                    <input type="text" class="form-control selectfileInputCopy " name="weightName" id="weightLabel">
+                    <input type="text" class="form-control selectfileInputCopy " [(ngModel)]="fileInput2Label" name="UBankFile" id="UBankFile" placeholder="Bank rekvezitləri faylın seçin">
 
                     <input type="file" class="form-control selectfileInput " name="UBank" id="bank" style="top:36%"
-                      ngModel #UBankFile="ngModel" (change)="uploadFile( $event,1)">
-                    <a [attr.href]="pathBank">file</a>
+                      ngModel #UBankFile="ngModel" (change)="uploadFile( $event,2)">
+                    <a class="fileDown" [attr.href]="pathBank">sənədə bax</a>
                     <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                   </div>
-
-                  <!-- End Form Group -->
                 </div>
                 <div class="col-sm-3">
-                  <!-- Form Group -->
                   <div class="form-group">
-                    <label for="weightLabel" class="input-label">Səlahiyyətli nümayəndə/etibarnamə</label>
-                    <input type="text" class="form-control selectfileInputCopy ">
+                    <label for="UEtibarnameFile" class="input-label">Səlahiyyətli nümayəndə/etibarnamə</label>
+                    <input type="text" name="UEtibarnameFile" id="UEtibarnameFile" [(ngModel)]="fileInput3Label" class="form-control selectfileInputCopy " placeholder="Səlahiyyətli nümayəndə/etibarnamə">
 
                     <input type="file" class="form-control selectfileInput " name="UEtibarnameFile" id="etibarnamə"
-                      ngModel #UEtibarnameFile="ngModel" style="top:36%" (change)="uploadFile( $event,2)">
-                    <a [attr.href]="pathEtibar">file</a>
+                      ngModel #UEtibarnameFile="ngModel" style="top:36%" (change)="uploadFile( $event,3)">
+                    <a  class="fileDown" [attr.href]="pathEtibar">sənədə bax</a>
                     <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                   </div>
-                  <!-- End Form Group -->
                 </div>
               </div>
               <div class="col-sm-3">
-                <!-- Form Group -->
                 <div class="form-group">
                   <label for="SKULabel" class="input-label">Məhsul şəxsin Adı</label>
 
                   <input type="text" class="form-control" name="UPersonname" id="personname" required ngModel
                     #UPersonname="ngModel" [(ngModel)]="model.uPersonname">
-                  <div class="alert alert-soft-danger" *ngIf=" submitted && !UPersonname.valid">
-                    *Məhsul şəxsin Adı tələb olunur </div>
+                  <div class="alert alert-danger"
+                    *ngIf="UPersonname.invalid && (UPersonname.dirty || UPersonname.touched)">
+                    <div *ngIf="UPersonname.errors?.['required']">
+                      *Məhsul şəxsin Adı tələb olunur
+                    </div>
+                  </div>
                 </div>
                 <!-- End Form Group -->
               </div>
@@ -130,8 +146,12 @@
 
                   <input type="text" class="form-control" name="UPersonsurname" id="personsurname" required ngModel
                     #UPersonsurname="ngModel" [(ngModel)]="model.uPersonsurname">
-                  <div class="alert alert-soft-danger" *ngIf=" submitted && !UPersonsurname.valid">
-                    *Məhsul şəxsin Soyadı tələb olunur </div>
+                  <div class="alert alert-danger"
+                    *ngIf="UPersonsurname.invalid && (UPersonsurname.dirty || UPersonsurname.touched)">
+                    <div *ngIf="UPersonsurname.errors?.['required']">
+                      *Məhsul şəxsin Soyadı tələb olunur
+                    </div>
+                  </div>
                 </div>
 
                 <!-- End Form Group -->
@@ -141,10 +161,13 @@
                 <div class="form-group">
                   <label for="SKULabel" class="input-label">Mobil nömrə</label>
 
-                  <input type="text" class="form-control" id="phone" name="UPhone" required ngModel #UPhone="ngModel"
+                  <input type="number" class="form-control" id="phone" name="UPhone" required ngModel #UPhone="ngModel"
                     [(ngModel)]="model.uPhone">
-                  <div class="alert alert-soft-danger" *ngIf="submitted && !UPhone.valid">
-                    *Mobil nömrə tələb olunur </div>
+                  <div class="alert alert-danger" *ngIf="UPhone.invalid && (UPhone.dirty || UPhone.touched)">
+                    <div *ngIf="UPhone.errors?.['required']">
+                      **Mobil nömrə tələb olunur
+                    </div>
+                  </div>
                 </div>
                 <!-- End Form Group -->
               </div>
@@ -158,9 +181,9 @@
             <!-- End Row -->
 
             <div class="col-sm-auto">
-              <a class="btn newOrder" (click)="OnSubmit(signUpForm)">
+              <button type="submit" [disabled]="!signUpForm.valid" class="btn newOrder" (click)="OnSubmit(signUpForm)">
                 Yadda saxla
-              </a>
+              </button>
             </div>
 
             <!-- Quill -->

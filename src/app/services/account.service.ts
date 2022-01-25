@@ -19,6 +19,7 @@ export class AccountService{
     return this.http.get<any>(this.baseUrl + '/Account/getuserbyid?id='+uId);
   }
   updateProfile(model:any){
+    model.UPhone = `${model.UPhone}`;
     return this.http.put(this.baseUrl + '/Account/UpdateUser',model);
   }
 
