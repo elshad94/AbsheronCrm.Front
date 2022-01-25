@@ -84,6 +84,7 @@ export class TerminalService {
     if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
       throw errorCodes.XIDMETLER_EMPTY;
     }
+    this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
     return this.http.post(this.baseUrl + '/TerminalOrder/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
   }
 
@@ -103,6 +104,7 @@ export class TerminalService {
     if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
       throw errorCodes.XIDMETLER_EMPTY;
     }
+    this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
     return this.http.put(
       `${this.baseUrl}/TerminalOrder/Update/${orderId}`,
       this.terminalUpdateRequestData,
