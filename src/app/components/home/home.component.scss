@@ -16,18 +16,18 @@
 }
 
 .wag{
-    position: absolute;
-    margin-left: 10px;
+    display: inline-block;
     width: 20px;
     height: 20px;
+    margin-right: 10px;
     background-color: #57dac2;
 }
 
 .cont{
-    position: absolute;
-    margin-left: 10px;
+    display: inline-block;
     width: 20px;
     height: 20px;
+    margin-right: 10px;
     background-color: #377dff;
 }
 
@@ -45,9 +45,11 @@
     .chartjs-custom{
         width: 500px;
     }
-    .typeTable{
-        display: none;
+
+    .tableDiv{
+        width: 700px;
     }
+
 }
 
 

@@ -5,6 +5,7 @@
 .checkBox{
     display: flex;
     padding: 5px 0;
+    margin: 0;
 }
 
 .notiText{
@@ -15,9 +16,20 @@
     display: none;
 }
 
+.row{
+    margin: 0;
+}
+
+.custom-control{
+    padding: 0;
+}
+
+.newOrder{
+    margin-top: 10px;
+}
+
 .notiDiv{
     display: flex;
-    margin-left: 18px;
     padding-top: 8px;
     padding-bottom: 8px;
 }
@@ -37,6 +49,12 @@
         display: flex!important;
         flex-direction: row!important;
     }
+
+    .notiText{
+        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+        padding: 10px 0!important;
+    }
+   
 
     .checkBoxNum{
         display: block;

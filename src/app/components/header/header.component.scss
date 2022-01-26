@@ -84,6 +84,7 @@
     list-style: none;
     width: max-content;
     white-space: nowrap;
+    display: block;
     opacity: 0;
     transition: all 0.3s;
     margin-left: -17px;
@@ -92,7 +93,6 @@
 }
 
 .term:hover .subCat {
-    display: block;
     z-index: 1000;
     position: absolute;
     background-color: white;
@@ -191,6 +191,8 @@
     display: block;
 }
 
+
+
 @media only screen and (max-width: 768px) {
     .head {
         margin: 0;
@@ -200,6 +202,14 @@
     .asideMain {
         width: 0;
         padding: 0;
+    }
+
+    .subCat{
+        display: none;
+    }
+
+    .subCatRes{
+        display: block;
     }
 
     .resAsideMenu {
