@@ -54,7 +54,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       },
       error:res => {
-        if(res.error.data == '1' || res.error.data == '0'){
+        if(res.error.data == '1' || res.error.data == '0' ||  res.error.data=='2' || res.error.data=='3')
+        {
           errorAlert(res.error.programMessage,'Xəta');
           return;
         }
