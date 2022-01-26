@@ -34,7 +34,7 @@
               <!-- Form Group -->
               <div class="form-group">
                 <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
-                <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="password" required
+                <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="newPassword" required
                   [(ngModel)]="nwPsw" class="form-control">
                   <div class="alert alert-danger" *ngIf="newPassword.invalid && (newPassword.dirty || newPassword.touched)">
                     <div *ngIf="newPassword.errors?.['required']">

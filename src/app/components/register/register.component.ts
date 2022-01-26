@@ -1,9 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
@@ -16,7 +14,7 @@ import { Title } from '@angular/platform-browser';
 export class RegisterComponent implements OnInit {
   public model: any = {};
   public submitted = false;
-  public selectedFile! :File;
+  public selectedFile!: File;
   public arr: File[] = [];
   public fileInput1Label = '';
   public fileInput2Label = '';
@@ -24,14 +22,19 @@ export class RegisterComponent implements OnInit {
 
   constructor(private auhtService: AuthService,
     private router: Router,
-    private titleService: Title) {}
+    private titleService: Title) { }
 
   ngOnInit(): void {
     this.titleService.setTitle(`Qeydiyyatdan Keç${TITLE}`);
   }
 
+  phoneInput(event: any) {
+    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
+    event.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+  }
+
   public isNameSelected?: boolean;
-  selectInput(event:any) {
+  selectInput(event: any) {
     const selected = event.target.value;
     if (selected == 1) {
       this.isNameSelected = true;
@@ -39,63 +42,63 @@ export class RegisterComponent implements OnInit {
       this.isNameSelected = false;
     }
   }
-  public fileList?:any = [];
-  public typeList?:any =[];
-  uploadFile(event:any,type:number){
+  public fileList?: any = [];
+  public typeList?: any = [];
+  uploadFile(event: any, type: number) {
     this.selectedFile = <File>event.target.files[0];
-    switch(type) {
-    case 1:
-      this.fileInput1Label = this.selectedFile.name.substring(0, 43);
-      break;
-    case 2:
-      this.fileInput2Label = this.selectedFile.name.substring(0, 43);
-      break;
-    case 3:
-      this.fileInput3Label = this.selectedFile.name.substring(0, 43);
-      break;
+    switch (type) {
+      case 1:
+        this.fileInput1Label = this.selectedFile.name.substring(0, 43);
+        break;
+      case 2:
+        this.fileInput2Label = this.selectedFile.name.substring(0, 43);
+        break;
+      case 3:
+        this.fileInput3Label = this.selectedFile.name.substring(0, 43);
+        break;
     }
     this.typeList.push(type.toString());
     this.fileList.push(<File>event.target.files[0]);
   }
 
-  OnSubmit(data:any){
+  OnSubmit(data: any) {
     this.submitted = true;
-    if(!data.valid) {
+    if (!data.valid) {
       return;
     }
     this.CreateUser(data.value);
   }
 
-  CreateUser(value:any){
-    value.USubtype = value.USubtype=='' ? 2 :  value.USubtype;
+  CreateUser(value: any) {
+    value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
     this.auhtService
       .register(value)
-      .subscribe( res=>{
+      .subscribe(res => {
 
         localStorage.setItem('uId', res.data.uId);
 
         this.router
-        .navigate(['/verify']);
+          .navigate(['/verify']);
         // this.OnUpload(res.data.uId);
-      },err=>{
+      }, err => {
 
-        if(err.error.data == '1')
+        if (err.error.data == '1')
           Swal.fire({
             icon: 'error',
-            title:'Xəta',
+            title: 'Xəta',
             text: 'Serverdə hər hansı bir xəta baş verir',
           });
-        else{
+        else {
           Swal.fire({
             icon: 'error',
-            title:'Xəta',
+            title: 'Xəta',
             text: err.error.programMessage
           });
         }
       });
   }
 
-  OnUpload(uId:number){
+  OnUpload(uId: number) {
     const fileData = new FormData();
     for (let i = 0; i < this.fileList.length; i++) {
       fileData
@@ -105,14 +108,14 @@ export class RegisterComponent implements OnInit {
           this.fileList[i].name
         );
     }
-    this.auhtService.uploadFile(fileData,uId).subscribe(() =>{
+    this.auhtService.uploadFile(fileData, uId).subscribe(() => {
       console.log('success');
       this.router
         .navigate(['/verify']);
-    },err =>{
+    }, err => {
       Swal.fire({
         icon: 'error',
-        title:'Xəta',
+        title: 'Xəta',
         text: err.error.programMessage
       });
     });

@@ -22,10 +22,13 @@
       <div class="form-group">
         <label for="voen" class="input-label">VÖEN</label>
         <input type="text" class="form-control" ngModel #voen="ngModel" name="UVoen" id="voen" required
-          [(ngModel)]="model.UVoen">
+          [(ngModel)]="model.UVoen" maxlength="15" pattern="^[0-9]*$">
         <div class="alert alert-danger" *ngIf="voen.invalid && (voen.dirty || voen.touched)">
           <div *ngIf="voen.errors?.['required']">
             *Vöen tələb olunur
+          </div>
+          <div *ngIf="voen.errors?.['pattern']">
+            *Yalnız ədəd qəbul olunur
           </div>
         </div>
       </div>
@@ -37,10 +40,16 @@
           <div *ngSwitchDefault> <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
           </div>
         </div>
-        <input type="text" #custname="ngModel" ngModel name="UCustname" class="form-control" required id="FullName">
+        <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required id="FullName" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}" minlength="3">
         <div class="alert alert-danger" *ngIf="custname.invalid && (custname.dirty || custname.touched)">
           <div *ngIf="custname.errors?.['required']">
             *Ad, soyad tələb olunur
+          </div>
+          <div *ngIf="custname.errors?.['pattern']">
+            *Simvollar dəstəklənmir
+          </div>
+          <div *ngIf="custname.errors?.['minlength']">
+            *Minimum 3 simvol tələb olunur
           </div>
         </div>
       </div>
@@ -103,10 +112,16 @@
           <div class="col-lg-6 pb-3">
             <label for="name" class="input-label">Ad</label>
 
-            <input type="text" ngModel #name="ngModel" name="UPersonname" class="form-control" required id="name">
+            <input type="text" ngModel #name="ngModel" maxlength="50" name="UPersonname" class="form-control" required id="name" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}" minlength="3">
             <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
               <div *ngIf="name.errors?.['required']">
                 *Ad tələb olunur
+              </div>
+              <div *ngIf="name.errors?.['pattern']">
+                *Simvollar dəstəklənmir
+              </div>
+              <div *ngIf="name.errors?.['minlength']">
+                *Minimum 3 simvol tələb olunur
               </div>
             </div>
           </div>
@@ -114,11 +129,16 @@
           <div class="col-lg-6">
             <label for="name" class="input-label">Soyad</label>
 
-            <input type="text" ngModel #surname="ngModel" name="UPersonsurname" id="surname" class="form-control"
-              required>
+            <input type="text" ngModel #surname="ngModel" maxlength="50" name="UPersonsurname" id="surname" class="form-control" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}" minlength="3" required>
             <div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty || surname.touched)">
               <div *ngIf="surname.errors?.['required']">
                 *Soyad tələb olunur
+              </div>
+              <div *ngIf="surname.errors?.['pattern']">
+                *Simvollar dəstəklənmir
+              </div>
+              <div *ngIf="surname.errors?.['minlength']">
+                *Minimum 3 simvol tələb olunur
               </div>
             </div>
           </div>
@@ -127,10 +147,13 @@
       <div>
         <label for="tel" class="input-label">Mobil nömrə</label>
 
-        <input ngModel #phone="ngModel" name="UPhone" type="tel" class="form-control" required id="tel">
+        <input ngModel #phone="ngModel" name="UPhone" type="tel" class="form-control" required id="tel" (input)="phoneInput($event)" pattern="/(\d{3}\) \d{2}([ -])\d{3}\1\d{2}\1\d{2}/">
         <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
           <div *ngIf="phone.errors?.['required']">
             *Mobil nömrə tələb olunur
+          </div>
+          <div *ngIf="!phone.errors?.['pattern']">
+            *Nümunə: (000) 00-000-00-00
           </div>
         </div>
       </div>
@@ -138,10 +161,13 @@
         <label for="SKULabel" class="input-label">E-mail</label>
 
         <input #mail="ngModel" type="email" ngModel name="UEmail" required class="form-control"
-          [(ngModel)]="model.UEmail" id="SKULabel">
+          [(ngModel)]="model.UEmail" id="SKULabel" maxlength="50" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
         <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
           <div *ngIf="mail.errors?.['required']">
             *E-mail tələb olunur
+          </div>
+          <div *ngIf="mail.errors?.['pattern']">
+            *Nümunə: nümunə@gmail.com
           </div>
         </div>
 
@@ -149,7 +175,7 @@
       </div>
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-        <input #UPassword="ngModel" required minlength="5" name="UPassword" type="password" id="UPassword"
+        <input #UPassword="ngModel" required minlength="5" maxlength="50" name="UPassword" type="password" id="UPassword"
           class="form-control" [(ngModel)]="model.UPassword">
         <div class="alert alert-danger" *ngIf="UPassword.invalid && (UPassword.dirty || UPassword.touched)">
           <div *ngIf="UPassword.errors?.['required']">
@@ -164,11 +190,11 @@
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
         <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
-          class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword" minlength="5">
+          class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword" maxlength="50" minlength="5">
         <div class="alert alert-danger"
           *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
           <div *ngIf="confirmPassword.errors?.['required']">
-            *Şifrə tələb olunur
+            *Şifrənin təkrarı tələb olunur
           </div>
           <div>{{confirmPassword.errors?.['appConfirmEqualValidator']}}</div>
           <div *ngIf="confirmPassword.errors?.['notEqual'] && confirmPassword.touched">
