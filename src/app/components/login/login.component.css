@@ -73,9 +73,7 @@
     border-radius: 0;
 }
 
-::ng-deep .mat-typography{
-    overflow: hidden!important;
-}
+
 
 @media only screen and (max-width: 768px) {
     .rightCont {
