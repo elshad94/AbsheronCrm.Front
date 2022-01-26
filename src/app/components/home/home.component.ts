@@ -82,7 +82,7 @@ export class HomeComponent implements OnInit {
         });
 
         if (window.innerWidth < 768) {
-            $("canvas").attr("height","300");
+            $("canvas").attr("height","250");
         }
     }
 }

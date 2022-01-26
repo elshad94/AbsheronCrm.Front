@@ -93,7 +93,7 @@
               <div class="col-12 col-sm col-md-2">
                 <!-- Input Group -->
                 <div class="mb-3 price">
-                  <span>Qiymət:</span><p>{{xidmet.temrinalWay.amount}} ₼</p>
+                  <span>Qiymət:</span><p>{{xidmet.temrinalWay.amount | number: '1.2-2'}} ₼</p>
                 </div>
                 <!-- End Input Group -->
                 <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1 && orderStatus !== 5">
@@ -102,7 +102,7 @@
               </div>
 
               <div class="col col-md-2 price">
-                <span>Cəmi:</span><p>{{xidmet.totalAmount}} ₼</p>
+                <span>Cəmi:</span><p>{{xidmet.totalAmount | number: '1.2-2'}} ₼</p>
               </div>
             </div>
             <!-- End Content -->
@@ -124,7 +124,7 @@
             <div class="col-md-8 col-lg-6">
               <dl class="row text-sm-right">
                 <dt class="col-sm-6">Cəmi:</dt>
-                <dd class="col-sm-6">{{total}} ₼ </dd>
+                <dd class="col-sm-6">{{total | number: '1.2-2'}} ₼ </dd>
                 <dt class="col-sm-6">Cəmi (+ƏDV):</dt>
                 <dd class="col-sm-6">{{totalEdv | number : '1.2-2' }} ₼</dd>
               </dl>
