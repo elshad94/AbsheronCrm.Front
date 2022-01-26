@@ -40,7 +40,7 @@
           <div *ngSwitchDefault> <label for="FullName" class="input-label">Fiziki şəxsin adı, soyadı</label>
           </div>
         </div>
-        <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required id="FullName" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}" minlength="3">
+        <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required id="FullName" pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" minlength="3">
         <div class="alert alert-danger" *ngIf="custname.invalid && (custname.dirty || custname.touched)">
           <div *ngIf="custname.errors?.['required']">
             *Ad, soyad tələb olunur

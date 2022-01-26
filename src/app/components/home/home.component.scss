@@ -31,6 +31,10 @@
     background-color: #377dff;
 }
 
+::ng-deep .mat-typography{
+    overflow: visible!important;
+}
+
 // ng:deep .mat-typography {
 //     overflow-y: visible !important;
 //     /* Hide vertical scrollbar */

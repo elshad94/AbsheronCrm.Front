@@ -13,7 +13,7 @@
 
 .rightCont {
     height: 100vh;
-    position: absolute;
+    position: fixed;
     width: 100%;
     margin: 0 !important;
     right: 0;
@@ -71,6 +71,10 @@
     padding: 0;
     margin-top: 2px;
     border-radius: 0;
+}
+
+::ng-deep .mat-typography{
+    overflow: hidden!important;
 }
 
 @media only screen and (max-width: 768px) {
