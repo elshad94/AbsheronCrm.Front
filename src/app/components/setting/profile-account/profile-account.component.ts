@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile-account',
@@ -9,7 +11,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./profile-account.component.scss'],
 })
 export class ProfileAccountComponent implements OnInit {
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private titleService: Title,) {}
   public submitted=false;
   public model: any;
   public pathReyester!: string;
@@ -22,6 +24,7 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
   ngOnInit(): void {
+    this.titleService.setTitle(`Tənzimləmə${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
       this.model = response;
       this.loadFile();
@@ -96,7 +99,7 @@ export class ProfileAccountComponent implements OnInit {
         this.fileInput3Label = this.selectedFile.name.substring(0, 43);
         break;
       }
-    
+
 
     this.fileList.push(<File>event.target.files[0]);
   }

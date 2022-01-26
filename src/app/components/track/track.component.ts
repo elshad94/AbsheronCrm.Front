@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { TrackingService } from 'src/app/services/tracking.service';
 import { errorAlert } from 'src/utils/alerts';
 import logger from 'src/utils/logger';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-track',
   templateUrl: './track.component.html',
   styleUrls: ['./track.component.scss']
 })
-export class TrackComponent {
+export class TrackComponent implements OnInit {
   transportType: 0 | 1 = 0;
   transportNumber = '';
   transportState = 0;
@@ -31,7 +33,14 @@ export class TrackComponent {
     'Vaqon/konteyner stansiyadan gedib',
   ];
 
-  constructor(private trackingService: TrackingService) { }
+  constructor(
+    private trackingService: TrackingService,
+    private titleService: Title
+  ) { }
+
+  ngOnInit(): void {
+    this.titleService.setTitle(`Izləmə${TITLE}`);
+  }
 
   setTransportType(type: 0 | 1) {
     this.transportType = type;

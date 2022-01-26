@@ -5,6 +5,8 @@ import { ChartConfiguration, ChartData, ChartType, ChartDatasetProperties } from
 import * as $ from 'jquery';
 import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { SpinnerService } from 'src/app/services/spinner.service';
+import { Title } from '@angular/platform-browser';
+import { TITLE } from 'src/utils/contants';
 
 @Component({
     selector: 'app-home',
@@ -14,7 +16,8 @@ import { SpinnerService } from 'src/app/services/spinner.service';
 export class HomeComponent implements OnInit {
 
     constructor(private orderCount: OrderCountService,
-                private spinnerService: SpinnerService) { }
+                private spinnerService: SpinnerService,
+                private titleService: Title) { }
 
     conWag: ConWag[] = [];
 
@@ -64,6 +67,7 @@ export class HomeComponent implements OnInit {
     public barCharDatasetProperties!: ChartDatasetProperties<'bar', number[]>;
 
     ngOnInit() {
+      this.titleService.setTitle(`Ana Səhifə${TITLE}`);
         this.orderCount.getOrdersCount().subscribe((conwags: ConWag[]) => {
 
             this.conWag = conwags;

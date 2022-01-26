@@ -8,13 +8,15 @@ import LoginRequestData from 'src/app/model/loginRequestData';
 import { errorAlert } from 'src/utils/alerts';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { GlobalService } from 'src/app/services/global.service';
+import {Title} from "@angular/platform-browser";
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginRequestData: LoginRequestData = {
     uEmail: '',
     uPassword: ''
@@ -22,10 +24,13 @@ export class LoginComponent {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private globalService: GlobalService) {
+              private globalService: GlobalService,
+              private titleService: Title) {
+                this.titleService.setTitle("Login  | Abşeron Logistika Mərkəzi")
+  }
 
-                // $('body').css('overflow-x', 'hidden')
-                // $('body').css('overflow-y', 'hidden')
+  ngOnInit(): void {
+    this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi")
   }
 
   getDecodedAccessToken(token?: any): any {

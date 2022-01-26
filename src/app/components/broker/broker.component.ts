@@ -6,11 +6,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
+import {Title} from "@angular/platform-browser";
 import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
 import logger from 'src/utils/logger';
+import { TITLE } from 'src/utils/contants';
 
 
 
@@ -48,11 +50,13 @@ export class BrokerComponent implements OnInit {
     constructor(
     private Brokerservice: BrokerItemService,
     private route: ActivatedRoute,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private titleService: Title
     ) {}
 
     ngOnInit(): void {
       this.getBroker();
+      this.titleService.setTitle(`Broker${TITLE}`);
     }
 
     openDialog(item: BrokerItem, itemNo: string){

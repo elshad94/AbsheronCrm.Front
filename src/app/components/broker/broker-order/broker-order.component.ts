@@ -8,6 +8,7 @@ import { BrokerItemService } from './../../../services/broker-item.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {errorAlert, successAlert} from '../../../../utils/alerts';
+import {Title} from "@angular/platform-browser";
 
 import 'sweetalert2/dist/sweetalert2.js';
 
@@ -15,6 +16,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 import {BrokerPostItem,FileDetailItem,} from 'src/app/model/broker-post-item.model';
 import logger from 'src/utils/logger';
+import { TITLE } from 'src/utils/contants';
 
 
 interface FileDetails {
@@ -109,7 +111,8 @@ export class BrokerOrderComponent implements OnInit {
       private http: HttpClient,
       private service: BrokerItemService,
       private route: ActivatedRoute,
-      private router:Router
+      private router:Router,
+      private titleService: Title
   ) { }
   //clone div
   public append() {
@@ -122,6 +125,7 @@ export class BrokerOrderComponent implements OnInit {
 
   updateOrder = new BrokerItem();
   ngOnInit(): void {
+    this.titleService.setTitle(`Broker${TITLE}`);
     this.route
       .queryParamMap
       .subscribe(params => {
@@ -332,7 +336,7 @@ export class BrokerOrderComponent implements OnInit {
   onChangeInput(expense: any, event: Event) {
     const target = event.target as HTMLInputElement;
     expense.isSelected = target.checked;
-    
+
   }
 }
 interface ExpenseId {

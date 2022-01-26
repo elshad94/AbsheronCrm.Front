@@ -3,14 +3,16 @@ import { Router } from '@angular/router';
 import HelpRequestBody from 'src/app/model/HelpRequestBody';
 import { HelpService } from 'src/app/services/help.service';
 import { errorAlert, successAlert } from 'src/utils/alerts';
+import {Title} from "@angular/platform-browser";
 import logger from 'src/utils/logger';
+import { TITLE } from 'src/utils/contants';
 
 @Component({
   selector: 'app-help',
   templateUrl: './help.component.html',
   styleUrls: ['./help.component.scss']
 })
-export class HelpComponent {
+export class HelpComponent implements OnInit {
   email: HelpRequestBody = {
     emailSubject: '',
     emailText: '',
@@ -19,8 +21,15 @@ export class HelpComponent {
 
   constructor(
       private helpService: HelpService,
-      private router: Router
+      private router: Router,
+      private titleService: Title
   ) { }
+
+  ngOnInit(): void {
+    this.titleService.setTitle(`Kömək${TITLE}`)
+  }
+
+
 
   sendEmail() {
     if(this.email.emailSubject.trim().length === 0) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 import { AccountService } from 'src/app/services/account.service';
 import Swal from 'sweetalert2';
@@ -19,9 +20,10 @@ export class NotificationComponent implements OnInit {
   ];
 
   public model?:any =[];
-  constructor(private accountService:AccountService) { }
+  constructor(private accountService:AccountService, private titleService: Title) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle(`Tənzimləmə${TITLE}`);
     this.accountService.getNotById(Number(localStorage.getItem('Userid'))).subscribe((res)=> {
       console.log('model');
       this.model=res;

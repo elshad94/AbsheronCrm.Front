@@ -7,6 +7,8 @@ import { TerminalService } from 'src/app/services/terminal.service';
 import { errorAlert, successAlert } from 'src/utils/alerts';
 import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
+import { Title } from '@angular/platform-browser';
+import { TITLE } from 'src/utils/contants';
 
 @Component({
   selector: 'app-services',
@@ -23,11 +25,13 @@ export class ServicesComponent implements OnInit {
 
     constructor(
         private terminalService: TerminalService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private titleService: Title
     ) { }
 
     ngOnInit() {
       this.getTerminalorders();
+      this.titleService.setTitle(`Terminal${TITLE}`);
     }
 
     openDialog(orderId: number, orderNo: string) {

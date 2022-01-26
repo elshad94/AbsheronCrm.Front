@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verify-email',
@@ -9,12 +11,13 @@ import Swal from 'sweetalert2';
 })
 export class VerifyEmailComponent implements OnInit {
 
-  constructor( private authService: AuthService) {
-    // $('body').css('overflow-x', 'hidden');
-    // $('body').css('overflow-y', 'hidden');
+  constructor(
+    private authService: AuthService,
+    private titleService: Title) {
   }
 
   ngOnInit(): void {
+    this.titleService.setTitle(`Təsdiqlə${TITLE}`);
   }
 
   sendAgain(){

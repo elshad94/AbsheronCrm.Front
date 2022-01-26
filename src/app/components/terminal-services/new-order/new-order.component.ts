@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { NvNoTypeId, TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 
@@ -19,7 +21,8 @@ export class NewOrderComponent implements OnInit {
 
   constructor(
         private terminalService: TerminalService,
-        private router: Router) {
+        private router: Router,
+        private titleService: Title) {
   }
 
   checkTerminalWayCheckbox(tw: TerminalWay) {
@@ -33,6 +36,7 @@ export class NewOrderComponent implements OnInit {
   public isCheck?:boolean=true;
   ngOnInit() {
     this.getNewOrderData();
+    this.titleService.setTitle(`Terminal${TITLE}`);
   }
 
   changeVaqonType(vaqonType: number) {

@@ -5,15 +5,15 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
-
-
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   public model: any = {};
   public submitted = false;
   public selectedFile! :File;
@@ -23,11 +23,11 @@ export class RegisterComponent {
   public fileInput3Label = '';
 
   constructor(private auhtService: AuthService,
-    private router: Router)
-  {
+    private router: Router,
+    private titleService: Title) {}
 
-    // $('body').css('overflow-x', 'hidden')
-    // $('body').css('overflow-y', 'hidden')
+  ngOnInit(): void {
+    this.titleService.setTitle(`Qeydiyyatdan Keç${TITLE}`);
   }
 
   public isNameSelected?: boolean;

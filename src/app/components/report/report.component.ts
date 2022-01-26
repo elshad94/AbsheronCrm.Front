@@ -5,6 +5,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ReportAll } from 'src/app/model/reportAll';
 import { ReportAllService } from 'src/app/services/reportAll.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-report',
@@ -14,6 +16,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class ReportComponent implements OnInit {
 
   constructor(private reportAll: ReportAllService,
+    private titleService: Title,
     public datepipe: DatePipe) {
 
   }
@@ -31,6 +34,7 @@ export class ReportComponent implements OnInit {
   endDate: string = '';
 
   ngOnInit(): void {
+    this.titleService.setTitle(`Hesabat${TITLE}`);
     this.reportAll.reportAll().subscribe((data: ReportAll[]) => {
       this.dataSource = new MatTableDataSource<ReportAll>(data);
       this.dataSource.paginator = this.paginator;

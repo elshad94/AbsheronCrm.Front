@@ -10,6 +10,8 @@ import { Location } from '@angular/common';
 import { TerminalDataForUpdate, TerminalXidmet } from 'src/app/model/TerminalUpdateData';
 import { FileData } from 'src/app/model/returnFileFileData';
 import { TerminalUpdateData } from 'src/app/model/terminal-update-data';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 export interface Xidmet {
     expenseId: number,
@@ -48,7 +50,8 @@ export class OrderComponent implements OnInit {
         private terminalService: TerminalService,
         private router: Router,
         private route: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        private titleService: Title) {
   }
 
   goBack() {
@@ -56,6 +59,7 @@ export class OrderComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle(`Terminal${TITLE}`);
     const terminalUpdateData = this.terminalService.terminalUpdateData;
     if(terminalUpdateData !== undefined) {
       this.initialCreateLoad(terminalUpdateData);

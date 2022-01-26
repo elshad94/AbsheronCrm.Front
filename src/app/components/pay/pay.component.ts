@@ -8,8 +8,8 @@ import { PaymentService } from 'src/app/services/payment.service';
 import logger from 'src/utils/logger';
 import { PayModalComponent } from './pay-modal/pay-modal.component';
 import { PayBankService } from 'src/app/services/payBank.service';
-
-
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pay',
@@ -21,7 +21,8 @@ export class PayComponent implements OnInit {
   constructor(private dialogRef: MatDialog,
     private payService: PaymentService,
     private payAvService: PayAvansService,
-    private payBankService: PayBankService) {
+    private payBankService: PayBankService,
+    private titleService: Title) {
 
   }
 
@@ -58,6 +59,7 @@ export class PayComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+    this.titleService.setTitle(`Ödəmə${TITLE}`);
   }
 
   private getData(callback: any = null) {

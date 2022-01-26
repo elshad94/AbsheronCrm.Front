@@ -3,6 +3,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 import logger from 'src/utils/logger';
 import { errorAlert } from 'src/utils/alerts';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forgotPas',
@@ -12,12 +14,14 @@ import { errorAlert } from 'src/utils/alerts';
 export class ForgotPasComponent implements OnInit {
   public submitted: boolean =false;
   public email:string="";
-  constructor(private authService:AuthService, private router: Router ){
-    // $('body').css('overflow-x', 'hidden')
-    // $('body').css('overflow-y', 'hidden')
+  constructor(
+    private authService:AuthService,
+    private router: Router,
+    private titleService: Title ){
   }
 
   ngOnInit() {
+    this.titleService.setTitle(`Şifrəni unutmuşam${TITLE}`);
   }
 
   SendCode(){

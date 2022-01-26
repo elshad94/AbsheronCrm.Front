@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from 'src/app/services/account.service';
 import Swal from 'sweetalert2';
+import { TITLE } from 'src/utils/contants';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-changepwd',
     templateUrl: './changepwd.component.html',
     styleUrls: ['./changepwd.component.scss'],
 })
-export class ChangepwdComponent {
+export class ChangepwdComponent implements OnInit {
     public model!: any;
     public nwPsw="";
     public confrmPsw="";
     public submitted: boolean=false;
 
-    constructor(private accountService: AccountService) {}
+    ngOnInit(): void {
+        this.titleService.setTitle(`Tənzimləmə${TITLE}`);
+    }
+
+    constructor(private accountService: AccountService,
+      private titleService: Title
+      ) {}
 
     UpdatePass(pass: any) {
         this.submitted = true;
@@ -22,7 +30,7 @@ export class ChangepwdComponent {
             return;
         }
         this.changingPassword(pass.value)
-       
+
     }
 
 
