@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private globalService: GlobalService,
               private titleService: Title) {
-                this.titleService.setTitle("Login  | Abşeron Logistika Mərkəzi")
+                this.titleService.setTitle("Daxil Ol  | Abşeron Logistika Mərkəzi")
   }
 
   ngOnInit(): void {
