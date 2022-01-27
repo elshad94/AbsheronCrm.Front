@@ -177,7 +177,7 @@
         <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
         <input #UPassword="ngModel" required minlength="5" maxlength="50" name="UPassword" type="password" id="UPassword"
           class="form-control" [(ngModel)]="model.UPassword">
-        <div class="alert alert-danger" *ngIf="UPassword.invalid && (UPassword.dirty || UPassword.touched)">
+        <div class="alert alert-danger" *ngIf="submitted && UPassword.invalid && (UPassword.dirty || UPassword.touched)">
           <div *ngIf="UPassword.errors?.['required']">
             *Şifrə tələb olunur
           </div>
@@ -192,12 +192,11 @@
         <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
           class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword" maxlength="50" minlength="5">
         <div class="alert alert-danger"
-          *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)">
+          *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) &&  submitted  || checkPsw">
           <div *ngIf="confirmPassword.errors?.['required']">
             *Şifrənin təkrarı tələb olunur
           </div>
-          <div>{{confirmPassword.errors?.['appConfirmEqualValidator']}}</div>
-          <div *ngIf="confirmPassword.errors?.['notEqual'] && confirmPassword.touched">
+          <div *ngIf="(confirmPassword.errors?.['notEqual'] && confirmPassword.touched) || checkPsw">
             *Şifrələr eyni deyil
           </div>
 
@@ -222,7 +221,7 @@
         <a href="" class="btn-link"> Daxil olun </a>
 
       </div>
-      <button type="submit" [disabled]="!signUpForm.valid"
+      <button type="submit" (click)="OnSubmit(signUpForm)"
         class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
     </form>
   </div>

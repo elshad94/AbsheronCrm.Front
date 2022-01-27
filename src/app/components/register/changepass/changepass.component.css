@@ -45,4 +45,30 @@
     text-align: center;
 }
 
+.alert-danger {
+    color: #eb4d4b;
+    background-color: none!important;
+}
 
+.alert {
+    position: relative;
+    padding: 0;
+    margin-top: 2px;
+    border-radius: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .rightCont {
+        padding: 30px 30px;
+    }
+
+
+    .leftCont{
+        display: none;
+    }
+
+    .top-logo{
+        padding-bottom: 50px;
+    }
+
+}

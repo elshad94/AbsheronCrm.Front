@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
     if (!data.valid) {
       return;
     }
-    if(!(data.value.newPassword== data.value.confirmPassword)){   
+    if(!(data.value.UPassword== data.value.confirmPassword)){   
       this.checkPsw = true;
       return;
      }
