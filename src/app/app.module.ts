@@ -46,6 +46,7 @@ import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.co
 import { SpinnerService } from './services/spinner.service';
 import { SpinnerInterceptor } from './components/preloader/spinner.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { ErrorPageComponent } from './components/errorPage/errorPage.component';
 
 
 
@@ -82,7 +83,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
         ConfirmEqualValidatorDirective,
         VerifyEmailComponent,
         ChangepassComponent,
-        ForgotPasComponent
+        ForgotPasComponent,
+        ErrorPageComponent
     ],
     imports: [
         BrowserModule,

@@ -1,3 +1,14 @@
+.error{
+    height: 100vh;
+    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding-top: 5%;
+}
+
 .error .clip .shadow
 {
     height: 180px;  /*Contrall*/
@@ -40,8 +51,9 @@
     border-bottom: 15px solid transparent;
 }
 
-.error .container-error-404{
-    margin-top: 10%;
+
+.newOrder{
+    width: 200px;
 }
 
 .error .container-error-404 .clip
@@ -103,6 +115,7 @@
     color: #A2A2A2;
     font-weight: bold;
     padding-bottom: 20px;
+    margin-top: 5%!important;
 }
 .error .msg
 {
@@ -123,6 +136,7 @@
     width: 0; 
     height: 0; 
 }
+
 
 /* Error Page */
 @media(max-width: 767px)
