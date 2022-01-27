@@ -233,3 +233,16 @@ select option {
 }
 
 /*# sourceMappingURL=style.css.map */
+/* @media only screen and (max-width: 768px) {
+  .step-icon::after {
+    background-color: #00C9A7;
+    height: 6px !important;
+    top: 2.6rem!important;
+    left: 1rem !important;
+    height: calc(21pc - 10rem) !important;
+    height: 1.0625rem;
+    border-top: 0.125rem solid #e7eaf3;
+    border: none;
+  }
+
+} */
