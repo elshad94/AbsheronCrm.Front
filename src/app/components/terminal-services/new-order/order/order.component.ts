@@ -12,6 +12,7 @@ import { FileData } from 'src/app/model/returnFileFileData';
 import { TerminalUpdateData } from 'src/app/model/terminal-update-data';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
+import isEditable from 'src/utils/isEditable';
 
 export interface Xidmet {
     expenseId: number,
@@ -53,6 +54,8 @@ export class OrderComponent implements OnInit {
         private location: Location,
         private titleService: Title) {
   }
+
+  isEditable = () => isEditable(this.orderStatus);
 
   goBack() {
     this.location.back();

@@ -27,13 +27,13 @@ export class ApiUrlsService {
   }
 
   getAuthAPiURI() {
-     return `http://${this.ip}:92/redirect/reg/api`;
-    // return 'https://localhost:44383/api';
+    //  return `http://${this.ip}:92/redirect/reg/api`;
+    return 'https://localhost:44383/api';
   }
 
   getCrmAPIURI() {
-     return `http://${this.ip}:92/redirect/crm/api`;
-    // return 'https://localhost:44323/api';
+    //  return `http://${this.ip}:92/redirect/crm/api`;
+    return 'https://localhost:44323/api';
   }
 
 

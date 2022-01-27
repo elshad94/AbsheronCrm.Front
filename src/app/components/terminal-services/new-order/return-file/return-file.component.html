@@ -23,7 +23,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-4">
                         <div class="form-group">
-                            <select class="custom-select" [(ngModel)]="fileToUploadNvNo" [disabled]="orderStatus === 5">
+                            <select class="custom-select" [(ngModel)]="fileToUploadNvNo" [disabled]="!isEditable()">
                               <option selected disabled value="-1">Sechin</option>
                               <option *ngFor="let nvNo of nvNoList" value="{{nvNo}}">{{nvNo}}</option>
                             </select>
@@ -32,16 +32,16 @@
                 <div class="col-lg-4">
                     <div class="mb-3" >
                       <input readonly placeholder="Sənəd seçin" type="text" class="form-control selectfileInputCopy file_picker"
-                      name="weightName" id="weightLabel1" aria-label="0.0" [(ngModel)]="fileName" [disabled]="orderStatus === 5">
+                      name="weightName" id="weightLabel1" aria-label="0.0" [(ngModel)]="fileName" [disabled]="!isEditable()">
                     <input type="file" class="form-control selectfileInputPay " name="weightName"
-                      id="weightLabel" aria-label="0.0" (change)="setFile($event)" [disabled]="orderStatus === 5">
+                      id="weightLabel" aria-label="0.0" (change)="setFile($event)" [disabled]="!isEditable()">
 
                     <label for="weightLabel" class="selectfileLabelPay Scan"><img src="assets/icon/Union.png" alt=""></label>
                         <!-- End Input Group -->
                       </div>
                 </div>
                 <div class="col-lg-4">
-                    <button class="btn btn-block newOrder mb-3" href="javascript:;" (click)="uploadFile()" [disabled]="orderStatus === 5">
+                    <button class="btn btn-block newOrder mb-3" href="javascript:;" (click)="uploadFile()" [disabled]="!isEditable()">
                         + Əlavə et
                     </button>
 
@@ -73,7 +73,7 @@
             <!-- Content -->
             <div class="row fileDetails" *ngFor="let file of files; let i = index">
               <div class="col-12 col-sm-auto col-md-3 col-lg-6">
-                <select class="form-control mb-3" name="" id="" [disabled]="orderStatus === 5">
+                <select class="form-control mb-3" name="" id="" [disabled]="!isEditable()">
                   <option *ngFor="let nvNo of nvNoList"
                     [selected]="file.nvNo === nvNo"
                     (click)="changeFileNvNo(i, nvNo)">{{nvNo}}</option>
@@ -87,7 +87,7 @@
                   <i class="fas fa-eye"></i>
                 </label>
               </div>
-              <div *ngIf="orderStatus !== 5"
+              <div *ngIf="isEditable()"
                 class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center align-items-center text-danger">
                 <div class="deletetdiv ">
                   <a type="button" (click)="deleteFile(i)"><i class="tio-delete-outlined"></i></a>
@@ -171,13 +171,13 @@
                    "stickyOffsetTop": 20
                  }'>
               <button class="btn btn-block newOrder mb-3" href="javascript:;" (click)="createTerminalOrder()"
-                *ngIf="orderStatus === undefined || orderStatus === 4"
+                *ngIf="isEditable()"
                 [disabled]="isValid()">
                   Yadda saxla
               </button>
 
               <button class="btn btn-block newAccept mb-3" href="javascript:;" (click)="createTerminalOrder(false)"
-                *ngIf="orderStatus === undefined || orderStatus === 4"
+                *ngIf="isEditable()"
                 [disabled]="isValid()">
                   Təsdiqlə
               </button>
