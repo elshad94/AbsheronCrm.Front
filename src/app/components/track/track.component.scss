@@ -34,6 +34,15 @@
     box-shadow: inset 0 0 0 0.1em #C4C4C4;
   }
 
+  .step-title{
+    font-family: "Lexend Deca", sans-serif !important;
+    position: absolute;
+  }
+
+.tio-checkmark-circle-outlined, tio-circle-outlined{
+  font-size: 24px;
+}
+
   @media only screen and (max-width: 468px){
     ::ng-deep .step-icon {
       &::after {

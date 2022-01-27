@@ -58,7 +58,7 @@
               <!-- End Search -->
 
               <div class=" col-lg-8">
-                <a class="btn newOrder" (click)="getTrackingState()">
+                <a class="btn newOrder mt-2" (click)="getTrackingState()">
                   Axtar
                 </a>
               </div>
@@ -71,7 +71,7 @@
       <!-- Step -->
       <div class="d-flex justify-content-between align-items-center interest-Div" *ngIf="showProgress">
         <p class="card-header-title">
-          Prosessin <span class="interest">{{percentage}} %</span> - i bitib.
+          Prosessin <span class="interest">{{percentage}}%</span> - i bitib.
         </p>
 
 
@@ -83,12 +83,12 @@
         <li class="step-item" *ngFor="let styleClass of checkClasses; let i = index">
           <div class="step-content-wrapper">
             <span class="step-icon step-icon-soft-primary" [ngClass]="styleClass" *ngIf="i < 5">
-              <i class="far fa-check-circle" *ngIf="styleClass === 'step-icon'"></i>
-              <i class="far fa-circle" *ngIf="styleClass === 'step-icon-unchecked'"></i>
+              <i class="tio-checkmark-circle-outlined" *ngIf="styleClass === 'step-icon'"></i>
+              <i class="tio-circle-outlined" *ngIf="styleClass === 'step-icon-unchecked'"></i>
             </span>
             <span class="step-icon step-icon-soft-primary lastStep" [ngClass]="styleClass" *ngIf="i === 5">
-              <i class="far fa-check-circle" *ngIf="styleClass === 'step-icon'"></i>
-              <i class="far fa-circle" *ngIf="styleClass === 'step-icon-unchecked'"></i>
+              <i class="tio-checkmark-circle-outlined" *ngIf="styleClass === 'step-icon'"></i>
+              <i class="tio-circle-outlined" *ngIf="styleClass === 'step-icon-unchecked'"></i>
             </span>
             <div class="step-content">
               <h4 class="step-title">{{checkTexts[i]}}</h4>
