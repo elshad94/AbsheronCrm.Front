@@ -8,7 +8,7 @@ export interface BrokerRequestItem {
   transportTypes:  TransportType[];
   docNo:           string;
   customerName:    string;
-  date:            string;
+  date:            Date;
   totalCost:       number;
   orderStatus?:    number;
 }
