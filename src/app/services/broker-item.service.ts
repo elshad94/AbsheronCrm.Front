@@ -38,6 +38,7 @@ export class BrokerItemService {
     const httpHeaders = new HttpHeaders();
     httpHeaders.append('content-type', 'application/json');
     data.notes = data.notes?.trim();
+    data.TransportNumber = data.TransportNumber.trim();
     return this.http.put(this.baseUrl + '/Broker/'+id ,data);
 
   }
@@ -60,6 +61,7 @@ export class BrokerItemService {
   }
   postBrokerItem(data: BrokerPostItem): Observable<HttpResponse<unknown>>{
     data.notes = data.notes?.trim();
+    data.TransportNumber = data.TransportNumber.trim();
     return this.http.post( `${this.baseUrl}/Broker`,
       JSON.stringify(data),
       {
@@ -71,6 +73,7 @@ export class BrokerItemService {
   postBrokerItemSave(data: BrokerPostItem):Observable<HttpResponse<any>> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     data.notes = data.notes?.trim();
+    data.TransportNumber = data.TransportNumber.trim();
     return this.http.post(
       `${this.baseUrl}/Broker`,
       data,

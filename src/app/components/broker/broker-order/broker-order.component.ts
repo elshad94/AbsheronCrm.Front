@@ -79,7 +79,7 @@ export class BrokerOrderComponent implements OnInit {
     transportTypes: [],
     docNo: '',
     customerName: '',
-    date: '',
+    date: new Date(),
     totalCost: 0,
 
   };

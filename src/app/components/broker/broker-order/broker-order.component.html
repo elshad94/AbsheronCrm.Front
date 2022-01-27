@@ -171,7 +171,7 @@
             <dt *ngIf="orderIdQueryParam">Müştəri:</dt>
             <dd>{{ brokerItemModel.customerName }}</dd>
             <dt>Tarix:</dt>
-            <dd>{{ brokerItemModel.date || date }}</dd>
+            <dd>{{ brokerItemModel.date | date: 'dd.MM.yyyy' }}</dd>
             <dt>Xidmət haqqı:</dt>
             <dd *ngIf="orderIdQueryParam">{{brokerItemModel.totalCost || 'Qiymət təyin olunmayıb' }}</dd>
             <dd *ngIf="orderIdQueryParam==null">Qiymət təyin olunmayıb</dd>
