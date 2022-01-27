@@ -69,53 +69,72 @@
         </ng-container>
         <ng-container matColumnDef="gbNo">
           <th mat-header-cell *matHeaderCellDef>gbNo</th>
-          <td mat-cell *matCellDef="let order">{{ order.gbNo }}</td>
+          <td mat-cell *matCellDef="let order">
+            <div [ngSwitch]="order.gbNo">
+              <div *ngSwitchCase="order.gbNo.length" class="d-flex justify-content-center">
+              <td mat-cell>-</td>
+              </div>
+              <div *ngSwitchDefault  class="d-flex justify-content-center">
+              <td mat-cell>{{ order.gbNo}}</td>
+              </div>
+            </div>
+          </td>
         </ng-container>
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef>MEBLEQ</th>
-          <td mat-cell *matCellDef="let order">{{ order.amount | number : '1.2-2'}} ₼</td>
-        </ng-container>
-        <ng-container matColumnDef="orderStatusText">
-          <th mat-header-cell *matHeaderCellDef>STATUS</th>
-          <td mat-cell *matCellDef="let order" >
-            <p> {{ order.orderStatusText }}</p>
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let order">
+            <div [ngSwitch]="order.amount">
+              <div *ngSwitchCase="null" class="d-flex justify-content-center">
+              <td mat-cell>-</td>
+              </div>
+              <div *ngSwitchDefault  class="d-flex justify-content-center">
+              <td mat-cell>{{ order.amount | number : '1.2-2'}} ₼</td>
+              </div>
+            </div>
           </td>
-        </ng-container>
-        <ng-container matColumnDef="paymentMethod">
-          <th mat-header-cell *matHeaderCellDef>Ödəmə Üsulu</th>
-          <td mat-cell *matCellDef="let order" >
-            <p> {{ order.paymentMethod }}</p>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="paymentStatus">
-          <th mat-header-cell *matHeaderCellDef>Ödəm Statusu</th>
-          <td mat-cell *matCellDef="let order" >
-            <p> {{ order.paymentStatus }}</p>
-          </td>
-        </ng-container>
+  </ng-container>
+  <ng-container matColumnDef="orderStatusText">
+    <th mat-header-cell *matHeaderCellDef>STATUS</th>
+    <td mat-cell *matCellDef="let order">
+      <p> {{ order.orderStatusText }}</p>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="paymentMethod">
+    <th mat-header-cell *matHeaderCellDef>Ödəmə Üsulu</th>
+    <td mat-cell *matCellDef="let order">
+      <p> {{ order.paymentMethod }}</p>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="paymentStatus">
+    <th mat-header-cell *matHeaderCellDef>Ödəm Statusu</th>
+    <td mat-cell *matCellDef="let order">
+      <p> {{ order.paymentStatus }}</p>
+    </td>
+  </ng-container>
 
-        <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef>D/S</th>
-          <td style="cursor: pointer" mat-cell *matCellDef="let order"
-            (click)="openDialog(order.orderId, order.docNo)">
-            <a routerLink="/brokerOrder" [queryParams]="{ orderId: order.orderId }">
-              <img src="assets/icon/Frame 8pen.png" alt="" />
-            </a>
-            <img src="assets/icon/Frame 6trash.png" alt="" />
-          </td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-      </table>
-    </div>
-        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-        </mat-paginator>
-
-    <!-- End Table -->
-
-    <!-- Footer -->
-
-    <!-- End Footer -->
-  </div>
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>D/S</th>
+    <td style="cursor: pointer" mat-cell *matCellDef="let order" (click)="openDialog(order.orderId, order.docNo)">
+      <a routerLink="/brokerOrder" [queryParams]="{ orderId: order.orderId }">
+        <img src="assets/icon/Frame 8pen.png" alt="" />
+      </a>
+      <img src="assets/icon/Frame 6trash.png" alt="" />
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+  </table>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+</mat-paginator>
+
+<!-- End Table -->
+
+<!-- Footer -->
+
+<!-- End Footer -->
+</div>
+</div>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>

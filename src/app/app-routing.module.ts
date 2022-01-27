@@ -24,6 +24,8 @@ import { VerifyEmailComponent } from './components/register/verify-email/verify-
 import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.component';
 import { ChangepassComponent } from './components/register/changepass/changepass.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
+import { ErrorPageComponent } from './components/errorPage/errorPage.component';
+
 
 const routes: Routes = [
     {path:'home',component:HomeComponent},
@@ -49,7 +51,8 @@ const routes: Routes = [
     {path:'verify',component:VerifyEmailComponent},
     {path: 'forgotPas', component: ForgotPasComponent},
     {path: 'changepass', component: ChangepassComponent},
-    {path: 'pre', component: PreloaderComponent}
+    {path: 'pre', component: PreloaderComponent},
+    {path: '**', component: ErrorPageComponent}
 ];
 
 @NgModule({

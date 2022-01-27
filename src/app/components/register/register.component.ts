@@ -19,6 +19,9 @@ export class RegisterComponent implements OnInit {
   public fileInput1Label = '';
   public fileInput2Label = '';
   public fileInput3Label = '';
+  public checkPsw:boolean=false;
+
+
 
   constructor(private auhtService: AuthService,
     private router: Router,
@@ -66,6 +69,10 @@ export class RegisterComponent implements OnInit {
     if (!data.valid) {
       return;
     }
+    if(!(data.value.newPassword== data.value.confirmPassword)){   
+      this.checkPsw = true;
+      return;
+     }
     this.CreateUser(data.value);
   }
 
