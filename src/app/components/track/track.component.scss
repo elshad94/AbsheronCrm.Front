@@ -73,4 +73,14 @@
           border-left: none !important;
       }
     }
+
+    .btn {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (min-width: 468px){
+    .step {
+      margin-bottom: 5rem;
+    }
   }
