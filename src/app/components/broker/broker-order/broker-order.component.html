@@ -21,7 +21,7 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <select [(ngModel)]="brokerItemModel.transportTypeId" class="form-control mb-3"
-                      name="transportTypeId" [disabled]="orderStatus === 5">
+                      name="transportTypeId" [disabled]="!isEditable()">
                       <option selected disabled value="-1">Sifariş növü seçin</option>
                       <option *ngFor="let item of transportTypes" [value]="item.id">
                         {{ item.text }}
@@ -30,7 +30,7 @@
                   </div>
                   <div class="col-lg-12">
                     <input type="text " class="form-control mb-3" placeholder="N/V № " aria-label="Description "
-                      name="transportNo" [(ngModel)]="brokerItemModel.transportNo" [disabled]="orderStatus === 5"/>
+                      name="transportNo" [(ngModel)]="brokerItemModel.transportNo" [disabled]="!isEditable()"/>
                   </div>
                 </div>
               </div>
@@ -48,10 +48,10 @@
                       <div class="d-flex align-items-center">
                         <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
                         <input id='cb1'  type="checkbox" name="{{ checkbox.id }}" [(ngModel)]="checkbox.isSelected"
-                          value=" {{ checkbox.id }} " [checked]="checkbox.isSelected" [disabled]="orderStatus === 5"
+                          value=" {{ checkbox.id }} " [checked]="checkbox.isSelected" [disabled]="!isEditable()"
                           (change)="onChangeInput(checkbox, $event)" />
                         <label for="cb1"  class="m-0 pl-1">{{ checkbox.text }}</label>
-                        
+
 
                       </div>
                     </div>
@@ -80,7 +80,7 @@
               <!-- End Title -->
               <div class="row fileDetails" *ngFor="let file of files; let i = index">
                 <div class="col-12 col-sm-auto col-md-3 col-lg-6">
-                  <select class="form-control mb-3" name="" id="" [disabled]="orderStatus === 5"
+                  <select class="form-control mb-3" name="" id="" [disabled]="!isEditable()"
                     (change)="selectDocTypeId(i, $event)">
                     <option *ngFor="let docType of documentTypes" [selected]="file.docTypeId === docType.documentTypeId"
                      value="{{docType.documentTypeId}}">{{docType.name}}</option>
@@ -89,14 +89,14 @@
 
                 <div class="col-12 col-sm col-md-2 col-lg-5">
                   <input type="text" class="form-control selectfileInputCopy file_picker" name="weightName"
-                    id="weightLabel" aria-label="0.0" value="{{file.uri}}" placeholder="Sənəd seçin" [disabled]="orderStatus === 5">
+                    id="weightLabel" aria-label="0.0" value="{{file.uri}}" placeholder="Sənəd seçin" [disabled]="!isEditable()">
 
-                  <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx " [disabled]="orderStatus === 5"
+                  <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx " [disabled]="!isEditable()"
                     class="form-control selectfileInput " name="documents " aria-label="0.0 " style="opacity: 0" />
 
                   <label for=" " class="selectfileLabel Scan "><img src="assets/icon/Union.png " alt=" " /></label>
                 </div>
-                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1" *ngIf="orderStatus != 5">
+                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1" *ngIf="isEditable()">
                   <div class="deletetdiv ">
                     <a type="button" (click)="Delete(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
@@ -108,7 +108,7 @@
 
               <div id="addInvoiceItemContainer "></div>
 
-              <a type="button" *ngIf="orderStatus != 5" (click)="append()"
+              <a type="button" *ngIf="isEditable()" (click)="append()"
                 class=" js-create-field form-link btn btn-sm btn-no-focus btn-ghost-primary ">
                 + Əlavə sənəd
               </a>
@@ -123,7 +123,7 @@
           <hr class="my-5 " />
           <div class="form-group ">
             <textarea class="form-control " [(ngModel)]="brokerPostItem.notes " placeholder=" Qeyd " rows="3 "
-              name="notes " [disabled]="orderStatus === 5">
+              name="notes " [disabled]="!isEditable()">
             </textarea>
           </div>
 
@@ -146,12 +146,12 @@
       <div class="js-sticky-block " data-hs-sticky-block-options=' { "parentSelector ": "#stickyBlockStartPoint ", "breakpoint ": "lg ", "startPoint ": "#stickyBlockStartPoint ", "endPoint ": "#stickyBlockEndPoint ", "stickyOffsetTop ": 20
                                           } '>
         <button data-dismis="modal " class="btn btn-block newOrder mb-3 " href="javascript:; " type="submit "
-          (click)="onSaveOrApprove(brokerPost.value, 4) " *ngIf="orderStatus === undefined || orderStatus === 4">
+          (click)="onSaveOrApprove(brokerPost.value, 4) " *ngIf="isEditable()">
           Yadda saxla
         </button>
 
         <button class="btn btn-block newAccept mb-3 " href="javascript:; "
-          (click)="onSaveOrApprove(brokerPost.value, 5) " *ngIf="orderStatus === undefined || orderStatus === 4">
+          (click)="onSaveOrApprove(brokerPost.value, 5) " *ngIf="isEditable()">
           Təsdiqlə
         </button>
 

@@ -17,6 +17,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import {BrokerPostItem,FileDetailItem,} from 'src/app/model/broker-post-item.model';
 import logger from 'src/utils/logger';
 import { TITLE } from 'src/utils/contants';
+import isEditable from 'src/utils/isEditable';
 
 
 interface FileDetails {
@@ -122,6 +123,7 @@ export class BrokerOrderComponent implements OnInit {
     this.files.splice(index, 1);
   }
 
+  isEditable = () => isEditable(this.orderStatus);
 
   updateOrder = new BrokerItem();
   ngOnInit(): void {

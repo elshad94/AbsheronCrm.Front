@@ -8,6 +8,7 @@ import logger from 'src/utils/logger';
 import { saveAs } from 'file-saver';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import isEditable from 'src/utils/isEditable';
 
 @Component({
   selector: 'app-return-file',
@@ -33,6 +34,8 @@ export class ReturnFileComponent implements OnInit {
       private route: ActivatedRoute,
       private location: Location) {
   }
+
+  isEditable = () => isEditable(this.orderStatus);
 
   ngOnInit() {
     this.copyExtraFieldsFromService();
