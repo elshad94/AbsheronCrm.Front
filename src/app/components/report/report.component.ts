@@ -50,6 +50,9 @@ export class ReportComponent implements OnInit {
     const startDate = this.pipe.transform(this.startDate, 'yyyy-MM-dd');
     const endDate = this.pipe.transform(this.endDate, 'yyyy-MM-dd');
 
+    if(startDate === null || endDate === null) {
+      return;
+    }
 
     this.reportAll.getDate(startDate!, endDate!).subscribe((data: ReportAll[]) => {
       this.dataSource = new MatTableDataSource<ReportAll>(data);
