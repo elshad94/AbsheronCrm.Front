@@ -4,7 +4,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1057;
+    z-index: 100;
     width: 100%;
     height: 100vh;
     margin: 0 !important;
@@ -75,18 +75,5 @@
 
 
 
-@media only screen and (max-width: 768px) {
-    .rightCont {
-        padding: 30px 30px;
-    }
 
 
-    .leftCont{
-        display: none;
-    }
-
-    .top-logo{
-        padding-bottom: 50px;
-    }
-
-}
