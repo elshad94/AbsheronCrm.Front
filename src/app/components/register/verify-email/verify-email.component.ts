@@ -22,7 +22,6 @@ export class VerifyEmailComponent implements OnInit {
 
   sendAgain(){
     this.authService.sendEmail().subscribe((res)=>{
-      console.log(res)
     },(err) => {
       Swal.fire({
         icon: 'error',

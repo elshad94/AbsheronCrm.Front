@@ -33,7 +33,7 @@ export class ChangepwdComponent implements OnInit {
         if(!pass.valid) {
             return;
         }
-        if(!(pass.value.newPassword==pass.value.confirmPassword)){   
+        if(!(pass.value.newPassword==pass.value.confirmPassword)){
             this.checkPsw = true;
             return;
            }
@@ -56,7 +56,6 @@ export class ChangepwdComponent implements OnInit {
         }).then((result) => {
             if (result.isConfirmed) {
                 this.accountService.updatePassword(this.model).subscribe((res) => {
-                    console.log(res);
 
                     Swal.fire(
                         'Yadda saxlanıldı!',
