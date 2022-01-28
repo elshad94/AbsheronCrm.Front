@@ -11,10 +11,13 @@
         <div class="form-group">
           <label class="input-label" for="exampleFormControlInput1">E-mail</label>
           <input type="email" #mail="ngModel" [(ngModel)]="loginRequestData.uEmail"
-            name="uEmail"  class="form-control" required>
+            name="uEmail"  class="form-control" required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
             <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
               <div *ngIf="mail.errors?.['required']">
                 *Email tələb olunur
+              </div>
+              <div *ngIf="mail.errors?.['pattern']">
+                *Nümunə: nümunə@gmail.com
               </div>
             </div>
 

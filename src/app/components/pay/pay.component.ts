@@ -50,7 +50,6 @@ export class PayComponent implements OnInit {
       if(this.payAvService.isPaymentSuccesfull) {
         this.getData(() => this.payAvService.isPaymentSuccesfull = false);
       }
-      logger.info('UE')
       if(this.payBankService.isPaymentSuccesfull) {
         this.getData(() => this.payBankService.isPaymentSuccesfull = false);
       }
