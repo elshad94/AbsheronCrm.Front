@@ -21,7 +21,7 @@ export class ChangepwdComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.titleService.setTitle(`Tənzimləmə${TITLE}`);
+        this.titleService.setTitle(`Şifrəni Dəyiş${TITLE}`);
     }
 
     constructor(private accountService: AccountService,
