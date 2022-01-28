@@ -47,7 +47,6 @@ export class ReportComponent implements OnInit {
   });
 
   applyFilter() {
-    console.log(this.startDate)
     const startDate = this.pipe.transform(this.startDate, 'yyyy-MM-dd');
     const endDate = this.pipe.transform(this.endDate, 'yyyy-MM-dd');
 

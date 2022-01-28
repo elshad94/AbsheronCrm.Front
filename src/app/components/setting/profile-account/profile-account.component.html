@@ -21,8 +21,8 @@
 
               <div class="col-sm-3">
                 <div class="form-group">
-                  <select (change)="selectInput($event)" ngModel name="USubtype" [(ngModel)]="model.uSubtype"
-                    #USubtype="ngModel" id="TypePerson" class="form-control">
+                  <select (change)="selectInput($event)" ngModel #USubtype="ngModel" name="USubtype" [(ngModel)]="model.uSubtype"
+                     id="TypePerson" class="form-control">
                     <option value="1">Fiziki şəxs</option>
                     <option value="2">Hüquqi şəxs</option>
                   </select>

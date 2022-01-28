@@ -100,7 +100,6 @@ export class BrokerComponent implements OnInit {
         this.BrokerChecked.splice(this.BrokerChecked.indexOf(this.id), 1);
         this.BrokerLength--;
       }
-      console.log(this.BrokerChecked);
     }
 
     deleteBrokerItem(id:any, orderNo: string) {

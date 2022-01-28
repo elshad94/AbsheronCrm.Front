@@ -25,14 +25,15 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput3Label = '';
   ngOnInit(): void {
     this.titleService.setTitle(`Tənzimləmə${TITLE}`);
-    this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
+    this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response: any) => {
       this.model = response;
+      console.log(this.model)
       this.loadFile();
     });
   }
 
   loadFile() {
-    this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res) => {
+    this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res: string | any[]) => {
 
       for (let index = 0; index < res.length; index++) {
         if (res[index].fileType == 12) {
@@ -62,19 +63,22 @@ export class ProfileAccountComponent implements OnInit {
 
 
   changeUser(value:any){
-    this.accountService.updateProfile(value).subscribe((response) => {
+    console.log(value)
+    value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
+
+    this.accountService.updateProfile(value).subscribe((response: any) => {
 
       this.OnUpload(Number(localStorage.getItem('Userid')));
       Swal.fire('Yadda saxlanıldı!', 'Məlumatlar yadda saxlanıldı', 'success');
       this.accountService
         .getUser(Number(localStorage
           .getItem('Userid')))
-        .subscribe((response) =>
+        .subscribe((response: any) =>
         {
           this.model = response;
           this.loadFile();
         });
-    },err =>{
+    },(err: any) =>{
       Swal.fire({
         icon: 'error',
         title:'Xəta',
