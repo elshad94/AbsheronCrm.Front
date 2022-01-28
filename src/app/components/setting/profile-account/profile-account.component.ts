@@ -24,7 +24,7 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
   ngOnInit(): void {
-    this.titleService.setTitle(`Tənzimləmə${TITLE}`);
+    this.titleService.setTitle(`Profil Hesabı${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
       this.model = response;
       this.loadFile();
