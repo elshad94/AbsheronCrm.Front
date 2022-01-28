@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
+import logger from 'src/utils/logger';
 
 @Component({
   selector: 'app-register',
@@ -72,11 +73,16 @@ export class RegisterComponent implements OnInit {
     if(!(data.value.UPassword== data.value.confirmPassword)){
       this.checkPsw = true;
       return;
+     }else{
+      this.CreateUser(data.value);
      }
-    this.CreateUser(data.value);
-  }
 
+
+  }
+  public sum:number=0;
   CreateUser(value: any) {
+    this.sum++;
+    console.log(this.sum);
     value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
     this.auhtService
       .register(value)
