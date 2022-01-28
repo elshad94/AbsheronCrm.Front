@@ -24,11 +24,9 @@ export class BrokerItemService {
   getBrokerItem(): Observable<BrokerItem[]> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.append('content-type', 'application/json');
-    console.log('test');
     return this.http.get<BrokerItem[]>(this.baseUrl + '/BrokerList');
   }
   deleteBrokerItem1(item:BrokerItem[] = []) {
-    console.log(item);
     return this.http.delete(`${this.baseUrl}/Broker?id=${item}`);
   }
   updateBrokerItem1(id:any):Observable<BrokerRequestItem> {

@@ -25,9 +25,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle(`Tənzimləmə${TITLE}`);
     this.accountService.getNotById(Number(localStorage.getItem('Userid'))).subscribe((res)=> {
-      console.log('model');
       this.model=res;
-      console.log(this.model);
     });
   }
 

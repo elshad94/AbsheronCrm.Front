@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
     if (!data.valid) {
       return;
     }
-    if(!(data.value.UPassword== data.value.confirmPassword)){   
+    if(!(data.value.UPassword== data.value.confirmPassword)){
       this.checkPsw = true;
       return;
      }
@@ -116,7 +116,6 @@ export class RegisterComponent implements OnInit {
         );
     }
     this.auhtService.uploadFile(fileData, uId).subscribe(() => {
-      console.log('success');
       this.router
         .navigate(['/verify']);
     }, err => {

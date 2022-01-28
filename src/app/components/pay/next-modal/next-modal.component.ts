@@ -21,7 +21,6 @@ export class NextModalComponent implements OnInit {
     private router: Router,) { }
 
   public openDialog(orderId: number, orderTypeId: number,  orderNo: string) {
-    console.log(orderNo)
     this.dialogRef.closeAll()
     this.dialogRef.open(PayModalComponent,{
       data:{
