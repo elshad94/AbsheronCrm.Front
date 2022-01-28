@@ -6,7 +6,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1057;
+    z-index: 101;
     width: 100%;
     height: 100vh;
 }
@@ -75,8 +75,6 @@
     background-color: #4299bf !important;
     border-radius: 5px;
   }
-
-
 
 @media only screen and (max-width: 768px) {
     .rightCont {
