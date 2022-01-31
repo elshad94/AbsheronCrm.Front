@@ -10,13 +10,22 @@ const errorAlert = (text: string, heading?: string) => {
 
 const successAlert = (text: string, heading?: string) => {
     return Swal.fire(
-        heading ?? 'Error!',
+        heading ?? 'Success!',
         text,
         'success'
     );
 };
 
+const infoAlert = (text: string, heading?: string) => {
+    return Swal.fire(
+        heading ?? 'Info!',
+        text,
+        'info'
+    );
+};
+
 export {
     errorAlert,
-    successAlert
+    successAlert,
+    infoAlert
 };

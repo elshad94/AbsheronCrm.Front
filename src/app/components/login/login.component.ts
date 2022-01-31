@@ -3,10 +3,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import jwt_decode from 'jwt-decode';
-import logger from 'src/utils/logger';
 import LoginRequestData from 'src/app/model/loginRequestData';
-import { errorAlert } from 'src/utils/alerts';
-import { SpinnerService } from 'src/app/services/spinner.service';
+import { errorAlert, infoAlert } from 'src/utils/alerts';
 import { GlobalService } from 'src/app/services/global.service';
 import {Title} from "@angular/platform-browser";
 
@@ -56,7 +54,7 @@ export class LoginComponent implements OnInit {
       error:res => {
         if(res.error.data == '1' || res.error.data == '0' ||  res.error.data=='2' || res.error.data=='3' || res.error.data=='4')
         {
-          errorAlert(res.error.programMessage,'Xəta');
+          infoAlert(res.error.programMessage,'Məlumat');
           return;
         }
         errorAlert('Serverdə hər hansı bir xəta baş verir', 'Xəta');
