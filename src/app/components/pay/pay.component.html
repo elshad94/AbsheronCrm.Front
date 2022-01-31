@@ -1,92 +1,100 @@
 <div class="content container-fluid">
   <!-- Card -->
   <div class="card mb-3 mb-lg-5">
-   <!-- Header -->
-   <div class="card-header">
-     <div class="row justify-content-between align-items-center flex-grow-1">
-       <div class="col-12 col-md">
-         <div class="d-flex justify-content-between align-items-center">
-           <h3 class="card-header-title font-weight-bold">Ödəmə </h3>
+    <!-- Header -->
+    <div class="card-header">
+      <div class="row justify-content-between align-items-center flex-grow-1">
+        <div class="col-12 col-md">
+          <div class="d-flex justify-content-between align-items-center">
+            <h3 class="card-header-title font-weight-bold">Ödəmə </h3>
 
-           <!-- Datatable Info -->
+            <!-- Datatable Info -->
 
-           <!-- End Datatable Info -->
-         </div>
-       </div>
+            <!-- End Datatable Info -->
+          </div>
+        </div>
 
-       <div class="col-auto">
-         <!-- Filter -->
-         <div class="row align-items-sm-center">
-           <div class="col-md">
-             <form>
-               <!-- Search -->
-               <div class="input-group input-group-merge input-group-flush">
-                 <div class="input-group-prepend">
-                   <div class="input-group-text">
-                     <i class="tio-search"></i>
-                   </div>
-                 </div>
-                 <input  type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Axtar...">
-               </div>
-               <!-- End Search -->
-             </form>
-           </div>
-         </div>
-         <!-- End Filter -->
-       </div>
-     </div>
-   </div>
-   <!-- End Header -->
+        <div class="col-auto">
+          <!-- Filter -->
+          <div class="row align-items-sm-center">
+            <div class="col-md">
+              <form>
+                <!-- Search -->
+                <div class="input-group input-group-merge input-group-flush">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">
+                      <i class="tio-search"></i>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control" (keyup)="applyFilter($event)" placeholder="Axtar...">
+                </div>
+                <!-- End Search -->
+              </form>
+            </div>
+          </div>
+          <!-- End Filter -->
+        </div>
+      </div>
+    </div>
+    <!-- End Header -->
 
-   <!-- Table -->
-   <div class="table-responsive datatable-custom">
-     <table id="datatable"
-     class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" mat-table
-     [dataSource]="dataSource">
-     <ng-container matColumnDef="orderTypeText">
-       <th mat-header-cell *matHeaderCellDef>XİDMƏTİN NÖVÜ</th>
-       <td mat-cell *matCellDef="let order">
-         <div [ngSwitch]="order.orderTypeText">
-           <div *ngSwitchCase="'Terminal'"><span class="term">Terminal</span></div>
-           <div *ngSwitchCase="'Broker'"><span class="brkr">Broker</span></div>
-         </div>
-       </td>
-     </ng-container>
-     <ng-container matColumnDef="orderNo">
-       <th mat-header-cell *matHeaderCellDef>SİFARİŞ №</th>
-       <td mat-cell *matCellDef="let order"> {{order.orderNo}}  </td>
-     </ng-container>
-     <ng-container matColumnDef="amount">
-       <th mat-header-cell *matHeaderCellDef>MƏBLƏĞ</th>
-       <td mat-cell *matCellDef="let order">{{order.amount | number : '1.2-2'}} ₼</td>
-     </ng-container>
-     <ng-container matColumnDef="orderId">
-       <th mat-header-cell *matHeaderCellDef>ÖDƏMƏ</th>
-       <td mat-cell *matCellDef="let order">
-         <span class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo)">Ödə</span></td>
-     </ng-container>
-     <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-     <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
-   </table>
-   </div>
-   <!-- End Table -->
-   <!-- Footer -->
-   <div class="card-footer">
-     <!-- Pagination -->
-     <div class="row justify-content-center justify-content-sm-end align-items-sm-center">
+    <!-- Table -->
+    <div class="table-responsive datatable-custom">
+      <table id="datatable"
+        class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table" mat-table
+        [dataSource]="dataSource">
+        <ng-container matColumnDef="orderTypeText">
+          <th mat-header-cell *matHeaderCellDef>XİDMƏTİN NÖVÜ</th>
+          <td mat-cell *matCellDef="let order">
+            <div [ngSwitch]="order.orderTypeText">
+              <div *ngSwitchCase="'Terminal'"><span class="term">Terminal</span></div>
+              <div *ngSwitchCase="'Broker'"><span class="brkr">Broker</span></div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="orderNo">
+          <th mat-header-cell *matHeaderCellDef>SİFARİŞ №</th>
+          <td mat-cell *matCellDef="let order"> {{order.orderNo}} </td>
+        </ng-container>
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>MƏBLƏĞ</th>
+          <td mat-cell *matCellDef="let order">
+            <div [ngSwitch]="order.amount">
+              <div *ngSwitchCase="0" class="pl-5">-</div>
+              <div *ngSwitchDefault>{{ order.amount | number : '1.2-2'}} ₼</div>
+            </div>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="orderId">
+          <th mat-header-cell *matHeaderCellDef>ÖDƏMƏ</th>
+          <td mat-cell *matCellDef="let order">
+            <span class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo)">Ödə</span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+      </table>
+    </div>
+    <!-- End Table -->
+    <!-- Footer -->
+    <div class="card-footer">
+      <!-- Pagination -->
+      <div class="row justify-content-center justify-content-sm-end align-items-sm-center">
 
-       <div class="col-sm-auto">
-         <div class="d-flex justify-content-center justify-content-sm-end">
-           <!-- Pagination -->
-           <nav id="datatablePagination" aria-label="Activity pagination">
-             <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
-             </mat-paginator>
-           </nav>
-         </div>
-       </div>
-     </div>
-     <!-- End Pagination -->
-   </div>
- </div>
+        <div class="col-sm-auto">
+          <div class="d-flex justify-content-center justify-content-sm-end">
+            <!-- Pagination -->
+            <nav id="datatablePagination" aria-label="Activity pagination">
+              <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons>
+              </mat-paginator>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <!-- End Pagination -->
+    </div>
+  </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>

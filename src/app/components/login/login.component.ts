@@ -27,6 +27,9 @@ export class LoginComponent implements OnInit {
                 this.titleService.setTitle("Daxil Ol  | Abşeron Logistika Mərkəzi")
   }
 
+  public submitted = false;
+
+
   ngOnInit(): void {
     this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi")
   }

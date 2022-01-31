@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
-import logger from 'src/utils/logger';
+import { NotRezidentUser } from 'src/app/model/NotRezidentUser';
 
 @Component({
   selector: 'app-register',
@@ -37,7 +37,9 @@ export class RegisterComponent implements OnInit {
     event.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
   }
 
-  public isNameSelected?: boolean;
+  public isNameSelected: boolean = true;
+  public resPers: boolean = true;
+
   selectInput(event: any) {
     const selected = event.target.value;
     if (selected == 1) {
@@ -46,6 +48,17 @@ export class RegisterComponent implements OnInit {
       this.isNameSelected = false;
     }
   }
+
+  rezidentPerson(event: any){
+    const selected = event.target.value;
+    if (selected == 1) {
+      this.resPers = true;
+    } else {
+      this.resPers = false;
+    }
+    console.log(this.resPers)
+  }
+
   public fileList?: any = [];
   public typeList?: any = [];
   uploadFile(event: any, type: number) {
@@ -70,7 +83,7 @@ export class RegisterComponent implements OnInit {
     if (!data.valid) {
       return;
     }
-    if(!(data.value.UPassword== data.value.confirmPassword)){
+    if(!(data.value.UPassword == data.value.confirmPassword)){
       this.checkPsw = true;
       return;
      }else{
@@ -81,21 +94,8 @@ export class RegisterComponent implements OnInit {
   }
   public sum:number=0;
   CreateUser(value: any) {
-    this.sum++;
-    console.log(this.sum);
-    value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
-    this.auhtService
-      .register(value)
-      .subscribe(res => {
-
-        localStorage.setItem('uId', res.data.uId);
-
-        this.router
-          .navigate(['/verify']);
-        // this.OnUpload(res.data.uId);
-      }, err => {
-
-        if (err.error.data == '1')
+    const handleError = (err: any) => {
+      if (err.error.data == '1')
           Swal.fire({
             icon: 'error',
             title: 'Xəta',
@@ -108,6 +108,39 @@ export class RegisterComponent implements OnInit {
             text: err.error.programMessage
           });
         }
+    }
+
+    const handleSucces = (res: any) => {
+      localStorage.setItem('uId', res.data.uId);
+          this.router
+            .navigate(['/verify']);
+    }
+
+    this.sum++;
+    console.log(this.sum);
+
+    value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
+    if(!this.resPers) {
+      const userData: NotRezidentUser = {
+        name: value.UPersonname,
+        surname: value.UPersonsurname,
+        username: value.UUsername,
+        email: value.UEmail,
+        fin: value.UFin,
+        password: value.UPassword,
+        telehpone: value.UPhone,
+      } 
+      this.auhtService.registerNotRezidentUser(userData).subscribe({
+        next: handleSucces, 
+        error: handleError
+      })
+      return;
+    }
+    this.auhtService
+      .register(value)
+      .subscribe( {
+        next: handleSucces, 
+        error: handleError
       });
   }
 
