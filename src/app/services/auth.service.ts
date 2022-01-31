@@ -4,6 +4,7 @@ import LoginRequestData from '../model/loginRequestData';
 import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { ApiUrlsService } from './api-urls.service';
+import { NotRezidentUser } from '../model/NotRezidentUser';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,6 +14,10 @@ export class AuthService {
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getAuthAPiURI();
+  }
+
+  registerNotRezidentUser(userData: NotRezidentUser) {
+    return this.http.post<any>(this.baseUrl + '/Account/signupNotRezident', userData);
   }
 
   register(model:any){
