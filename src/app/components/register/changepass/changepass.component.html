@@ -32,7 +32,7 @@
                     <div *ngIf="confirmPassword.errors?.['required']">
                         *Yeni şifrənin təkrarı tələb olunur
                     </div>
-                    <div *ngIf="confirmPassword.errors?.['notEqual'] && confirmPassword.touched">
+                    <div *ngIf="confirmPassword.errors?.['notEqual'] && (confirmPassword.dirty || confirmPassword.touched) ">
                         *Şifrələr eyni deyil
                     </div>
 
@@ -40,9 +40,8 @@
                         *Minimum 5 simvol tələb olunur
                     </div>
                 </div>
-                <!-- <div class="alert alert-soft-danger" *ngIf="confirmPassword.touched && !confirmPassword.valid || confirmPassword.errors?.notEqual">*Şifrə düzgün deyil</div> -->
             </div>
-            <button type="button" (click)="reset(login.value)"
+            <button type="button" (click)="reset(login.value)" [disabled]="!login.valid"
                 class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Daxil ol</button>
         </form>
     </div>

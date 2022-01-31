@@ -26,6 +26,11 @@
     width: 100%;
 }
 
+.leftCont img {
+    width: 100%;
+    height: 100vh;
+}
+
 .top-logo {
     text-align: center;
     padding-bottom: 20px;
@@ -76,6 +81,38 @@
     border-radius: 5px;
   }
 
+.tio-info-outined{
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.tio-info-outined:hover{
+    color: #4299bf;
+    cursor: pointer;
+}
+
+.finInfo{
+    display: inline-block;
+    z-index: -1;
+    margin-top: -35%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    position: absolute;
+    transition: all 0.3s;
+}
+
+.tio-info-outined:hover .finInfo{
+    z-index: 20;
+
+}
+
+.finInfo img{
+    width: 100%;
+}
+
+
 @media only screen and (max-width: 768px) {
     .rightCont {
         padding: 30px 35px;
@@ -84,5 +121,12 @@
 
     .leftCont{
         display: none;
+    }
+
+    .finInfo{
+        width: 60%;
+        margin: 0;
+        top: 0;
+        left: 20%;
     }
 }

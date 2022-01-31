@@ -7,19 +7,22 @@
     <div class="top-logo">
       <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <form class="login-form">
+    <form class="login-form" #forgotPas="ngForm">
       <div class="form-group">
         <label class="input-label" for="exampleFormControlInput1">E-mail</label>
-        <input type="email" id="email" name="uEmail" required #name="ngModel" [(ngModel)]="email" class="form-control">
+        <input type="email" id="email" name="uEmail" required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$" #name="ngModel" [(ngModel)]="email" class="form-control">
           <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
             <div *ngIf="name.errors?.['required']">
               *Email tələb olunur
+            </div>
+            <div *ngIf="name.errors?.['pattern']">
+              *Nümunə: nümunə@gmail.com
             </div>
           </div>
      
 
         </div>
-      <button type="button" (click)="SendCode()"  class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
+      <button type="button" (click)="SendCode()" [disabled]="!forgotPas.valid" class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
         Şifrəni dəyiş
       </button>
 
