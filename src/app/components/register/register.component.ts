@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
 import { NotRezidentUser } from 'src/app/model/NotRezidentUser';
+import { RezidentUser } from 'src/app/model/rezidentUser';
 
 @Component({
   selector: 'app-register',
@@ -111,7 +112,6 @@ export class RegisterComponent implements OnInit {
           });
         }
     }
-
     const handleSucces = (res: any) => {
       localStorage.setItem('uId', res.data.uId);
           this.router
@@ -119,7 +119,6 @@ export class RegisterComponent implements OnInit {
     }
 
     this.sum++;
-    console.log(this.sum);
 
     value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
     if(!this.resPers) {
@@ -138,9 +137,19 @@ export class RegisterComponent implements OnInit {
       })
       return;
     }
-    this.auhtService
-      .register(value)
-      .subscribe( {
+    
+    const userData: RezidentUser = {
+      UVoen: value.UVoen,
+      UCustname: value.UCustname,
+      UPersonname: value.UPersonname,
+      UPersonsurname: value.UPersonsurname,
+      UPhone: value.UPhone,
+      UEmail: value.UEmail,
+      UPassword: value.UPassword,
+      UTerms: value.UTerms,
+      FIN: value.FIN,
+    }
+    this.auhtService.register(userData).subscribe( {
         next: handleSucces, 
         error: handleError
       });
@@ -159,7 +168,7 @@ export class RegisterComponent implements OnInit {
     this.auhtService.uploadFile(fileData, uId).subscribe(() => {
       this.router
         .navigate(['/verify']);
-    }, err => {
+    }, (err: { error: { programMessage: any; }; }) => {
       Swal.fire({
         icon: 'error',
         title: 'Xəta',

@@ -52,7 +52,7 @@
               </i>
             </label>
 
-            <input type="text" class="form-control" ngModel #FIN="ngModel" name="UFin" id="FIN" required
+            <input type="text" class="form-control" ngModel #FIN="ngModel" name="FIN" id="FIN" required
               [(ngModel)]="model.FIN" maxlength="15" pattern="^[0-9]*$">
             <div class="alert alert-danger" *ngIf="submitted && FIN.invalid ">
               <div *ngIf="FIN.errors?.['required']">
@@ -248,7 +248,7 @@
               </div>
 
               <div class="col-lg-6">
-                <label for="name" class="input-label">Soyad</label>
+                <label for="Usurname" class="input-label">Soyad</label>
 
                 <input type="text" ngModel #Usurname="ngModel" maxlength="50" name="Usurname" id="Usurname"
                   class="form-control"

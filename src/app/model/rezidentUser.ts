@@ -1,6 +1,4 @@
 export interface RezidentUser {
-  UType: number;
-  USubtype: number;
   UVoen: string;
   UCustname: string;
   UPersonname: string;
@@ -8,11 +6,9 @@ export interface RezidentUser {
   UPhone: string;
   UEmail: string;
   UPassword: string;
-  UConfirmcode: string;
   UTerms: boolean;
-  UStatus: number;
   FIN: string;
-  FileResponseDto: FileResponseDto;
+  FileResponseDto?: FileResponseDto;
 }
 
 export interface FileResponseDto {
