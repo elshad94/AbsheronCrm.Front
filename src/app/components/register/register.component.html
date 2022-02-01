@@ -53,13 +53,10 @@
             </label>
 
             <input type="text" class="form-control" ngModel #FIN="ngModel" name="FIN" id="FIN" required
-              [(ngModel)]="model.FIN" maxlength="15" pattern="^[0-9]*$">
+              [(ngModel)]="model.FIN" maxlength="15">
             <div class="alert alert-danger" *ngIf="submitted && FIN.invalid ">
               <div *ngIf="FIN.errors?.['required']">
-                *Vöen tələb olunur
-              </div>
-              <div *ngIf="FIN.errors?.['pattern']">
-                *Yalnız ədəd qəbul olunur
+                *Fin kod tələb olunur
               </div>
             </div>
           </div>
