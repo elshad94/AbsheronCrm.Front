@@ -87,26 +87,14 @@ export class RegisterComponent implements OnInit {
       this.checkPsw = true;
       return;
      }else{
+      //  console.log(data.value)
+      //  throw 'fefefef';
       this.CreateUser(data.value);
      }
+
+
   }
-
-  OnSubmitRes(data: any) {
-    this.submitted = true;
-    if (!data.valid) {
-      return;
-    }
-    if(!(data.value.UPassword == data.value.confirmPassword)){
-      this.checkPsw = true;
-      return;
-     }else{
-      this.CreateUser(data.value);
-     }
-  }
-
-
   public sum:number=0;
-
   CreateUser(value: any) {
     const handleError = (err: any) => {
       if (err.error.data == '1')
@@ -136,13 +124,13 @@ export class RegisterComponent implements OnInit {
     value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
     if(!this.resPers) {
       const userData: NotRezidentUser = {
-        name: value.UPersonname,
-        surname: value.UPersonsurname,
+        name: value.Uname,
+        surname: value.Usurname,
         username: value.UUsername,
-        email: value.UEmail,
-        fin: value.UFin,
+        email: value.UEmailRes,
+        fin: value.UFinRes,
         password: value.UPassword,
-        telehpone: value.UPhone,
+        telehpone: value.UPhoneRes,
       } 
       this.auhtService.registerNotRezidentUser(userData).subscribe({
         next: handleSucces, 

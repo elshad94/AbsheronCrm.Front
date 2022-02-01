@@ -10,17 +10,18 @@
     <div class="top-logo">
       <img class="top-logo-image" src="../assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <div [ngSwitch]="resPers">
-      <div *ngSwitchCase="true">
-        <form class="login-form" #signUpForm="ngForm">
-          <div class="form-group">
-            <label for="voen" class="input-label">Rezident/Qeyri Rezident şəxs</label>
-            <select (change)="rezidentPerson($event)" ngModel name="UResType" id="ResType" class="form-control">
-              <option value="" select disabled hidden>Rezident şəxs</option>
-              <option value="1">Rezident şəxs</option>
-              <option value="2">Qeyri Rezident şəxs</option>
-            </select>
-          </div>
+    <form class="login-form" #signUpForm="ngForm">
+
+      <div class="form-group">
+        <label for="voen" class="input-label">Rezident/Qeyri Rezident şəxs</label>
+        <select (change)="rezidentPerson($event)" ngModel name="UResType" id="ResType" class="form-control">
+          <option value="" select disabled hidden>Rezident şəxs</option>
+          <option value="1">Rezident şəxs</option>
+          <option value="2">Qeyri Rezident şəxs</option>
+        </select>
+      </div>
+      <div [ngSwitch]="resPers">
+        <div *ngSwitchCase="true">
           <div class="form-group">
             <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
             <select (change)="selectInput($event)" ngModel name="USubtype" id="TypePerson" class="form-control">
@@ -43,7 +44,7 @@
             </div>
           </div>
           <div class="form-group">
-            <label for="fin" class="input-label">Şəxsiyyət vəsiqəsinin fin kodu
+            <label for="FIN" class="input-label">Şəxsiyyət vəsiqəsinin fin kodu
               <i class="tio-info-outined">
                 <div class="finInfo">
                   <img src="../../../assets/img/79390088_2498928170354528_2630757242206420992_n.jpg" alt="">
@@ -51,11 +52,14 @@
               </i>
             </label>
 
-            <input type="text" class="form-control" ngModel #uFin="ngModel" name="uFin" id="fin" required
-              [(ngModel)]="model.uFin" maxlength="15" pattern="^[0-9]*$">
-            <div class="alert alert-danger" *ngIf="submitted && uFin.invalid ">
-              <div *ngIf="uFin.errors?.['required']">
-                *Fin kod tələb olunur
+            <input type="text" class="form-control" ngModel #FIN="ngModel" name="UFin" id="FIN" required
+              [(ngModel)]="model.FIN" maxlength="15" pattern="^[0-9]*$">
+            <div class="alert alert-danger" *ngIf="submitted && FIN.invalid ">
+              <div *ngIf="FIN.errors?.['required']">
+                *Vöen tələb olunur
+              </div>
+              <div *ngIf="FIN.errors?.['pattern']">
+                *Yalnız ədəd qəbul olunur
               </div>
             </div>
           </div>
@@ -218,193 +222,164 @@
               </div>
             </div>
           </div>
-          <div class="row form-group">
-            <div class="col-lg-12 custom-control custom-checkbox ml-3">
-              <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
-                class="custom-control-input indeterminate-checkbox" required>
 
-              <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
-                  data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul
-                edirəm</label>
-              <div class="alert alert-danger" *ngIf="submitted && UTerms.invalid">
-                <div *ngIf="UTerms.errors?.['required']">
-                  *Qaydalar və Şərtləri qəbul edirsiniz?
-                </div>
-              </div>
-
-            </div>
-          </div>
-          <div>
-            <label for="">Hesabınz mövcuddur? </label>
-            <a [routerLink]="['/']" class="btn-link"> Daxil olun </a>
-
-          </div>
-          <button type="submit" (click)="OnSubmit(signUpForm)"
-            class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
-        </form>
-      </div>
-      <div *ngSwitchCase="false">
-        <form class="login-form" #signUpFormRes="ngForm">
+        </div>
+        <div *ngSwitchDefault>
           <div class="form-group">
-            <label for="voen" class="input-label">Rezident/Qeyri Rezident şəxs</label>
-            <select (change)="rezidentPerson($event)" ngModel name="UResType" id="ResType" class="form-control">
-              <option value="" select disabled hidden>Qeyri Rezident şəxs</option>
-              <option value="1">Rezident şəxs</option>
-              <option value="2">Qeyri Rezident şəxs</option>
-            </select>
-          </div>
-            <div class="form-group">
-              <div class="row">
-                <div class="col-lg-6 pb-3">
-                  <label for="Uname" class="input-label">Ad</label>
+            <div class="row">
+              <div class="col-lg-6 pb-3">
+                <label for="Uname" class="input-label">Ad</label>
 
-                  <input type="text" #Uname="ngModel" maxlength="50" name="Uname" class="form-control" required
-                    id="Uname" ngModel
-                    pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
-                    minlength="3">
-                  <div class="alert alert-danger" *ngIf="submitted && Uname.invalid">
-                    <div *ngIf="Uname.errors?.['required']">
-                      *Ad tələb olunur
-                    </div>
-                    <div *ngIf="Uname.errors?.['pattern']">
-                      *Simvollar dəstəklənmir
-                    </div>
-                    <div *ngIf="Uname.errors?.['minlength']">
-                      *Minimum 3 simvol tələb olunur
-                    </div>
+                <input type="text" #Uname="ngModel" maxlength="50" name="Uname" class="form-control" required
+                  id="Uname" ngModel
+                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
+                  minlength="3">
+                <div class="alert alert-danger" *ngIf="submitted && Uname.invalid">
+                  <div *ngIf="Uname.errors?.['required']">
+                    *Ad tələb olunur
+                  </div>
+                  <div *ngIf="Uname.errors?.['pattern']">
+                    *Simvollar dəstəklənmir
+                  </div>
+                  <div *ngIf="Uname.errors?.['minlength']">
+                    *Minimum 3 simvol tələb olunur
                   </div>
                 </div>
+              </div>
 
-                <div class="col-lg-6">
-                  <label for="Usurname" class="input-label">Soyad</label>
+              <div class="col-lg-6">
+                <label for="name" class="input-label">Soyad</label>
 
-                  <input type="text" ngModel #Usurname="ngModel" maxlength="50" name="Usurname" id="Usurname"
-                    class="form-control"
-                    pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
-                    minlength="3" required>
-                  <div class="alert alert-danger" *ngIf="submitted && Usurname.invalid ">
-                    <div *ngIf="Usurname.errors?.['required']">
-                      *Soyad tələb olunur
-                    </div>
-                    <div *ngIf="Usurname.errors?.['pattern']">
-                      *Simvollar dəstəklənmir
-                    </div>
-                    <div *ngIf="Usurname.errors?.['minlength']">
-                      *Minimum 3 simvol tələb olunur
-                    </div>
+                <input type="text" ngModel #Usurname="ngModel" maxlength="50" name="Usurname" id="Usurname"
+                  class="form-control"
+                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
+                  minlength="3" required>
+                <div class="alert alert-danger" *ngIf="submitted && Usurname.invalid ">
+                  <div *ngIf="Usurname.errors?.['required']">
+                    *Soyad tələb olunur
+                  </div>
+                  <div *ngIf="Usurname.errors?.['pattern']">
+                    *Simvollar dəstəklənmir
+                  </div>
+                  <div *ngIf="Usurname.errors?.['minlength']">
+                    *Minimum 3 simvol tələb olunur
                   </div>
                 </div>
               </div>
             </div>
-            <div class="form-group">
-              <label for="UUsername" class="input-label">İstifadəçi adı</label>
-              <input type="text" class="form-control" ngModel #UUsername="ngModel" name="UUsername" id="UUsername" required
-                maxlength="20">
-              <div class="alert alert-danger" *ngIf="submitted && UUsername.invalid ">
-                <div *ngIf="UUsername.errors?.['required']">
-                  *İstifadəçi adı kodu tələb olunur
-                </div>
+          </div>
+          <div class="form-group">
+            <label for="UUsername" class="input-label">İstifadəçi adı</label>
+            <input type="text" class="form-control" ngModel #UUsername="ngModel" name="UUsername" id="UUsername" required
+              maxlength="20">
+            <div class="alert alert-danger" *ngIf="submitted && UUsername.invalid ">
+              <div *ngIf="UUsername.errors?.['required']">
+                *İstifadəçi adı kodu tələb olunur
               </div>
-            </div>
-            <div class="form-group">
-              <label for="fin" class="input-label">Şəxsiyyət vəsiqəsinin fin kodu
-                <i class="tio-info-outined">
-                  <div class="finInfo">
-                    <img src="../../../assets/img/79390088_2498928170354528_2630757242206420992_n.jpg" alt="">
-                  </div>
-                </i>
-              </label>
-
-              <input ngModel #UFin="ngModel" name="UFin" type="text" class="form-control" required id="fin">
-              <div class="alert alert-danger" *ngIf="submitted && UFin.invalid ">
-                <div *ngIf="UFin.errors?.['required']">
-                  *Fin kod tələb olunur
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="uEmailRes" class="input-label">E-mail</label>
-
-              <input #uEmailRes="ngModel" type="email" ngModel name="UEmail" required class="form-control" id="uEmailRes"
-                maxlength="50" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
-              <div class="alert alert-danger" *ngIf="submitted && uEmailRes.invalid ">
-                <div *ngIf="uEmailRes.errors?.['required']">
-                  *E-mail tələb olunur
-                </div>
-                <div *ngIf="uEmailRes.errors?.['pattern']">
-                  *Nümunə: nümunə@gmail.com
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="tel" class="input-label">Mobil nömrə</label>
-
-              <input ngModel #UPhoneRes="ngModel" name="UPhoneRes" type="tel" class="form-control" required id="tel"
-                (input)="phoneInput($event)">
-              <div class="alert alert-danger" *ngIf="submitted && UPhoneRes.invalid ">
-                <div *ngIf="UPhoneRes.errors?.['required']">
-                  *Mobil nömrə tələb olunur
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-              <input ngModel #UPasswordRes="ngModel" required name="UPasswordRes" type="password" id="UPasswordRes"
-                class="form-control">
-              <div class="alert alert-danger" *ngIf="submitted && UPasswordRes.invalid">
-                <div *ngIf="UPasswordRes.errors?.['required']">
-                  *Şifrə tələb olunur
-                </div>
-                <div *ngIf="UPasswordRes.errors?.['minlength']">
-                  *Minimum 5 simvol tələb olunur
-                </div>
-              </div>
-
-            </div>
-            <div class="form-group">
-              <label class="input-label" for="confirmPasswordRes">Şifrənin təkrarı</label>
-              <input type="password" id="confirmPasswordRes" #confirmPasswordRes="ngModel" required name="confirmPasswordRes"
-                class="form-control" appConfirmEqualValidator="UPasswordRes" ngModel maxlength="50" minlength="5">
-              <div class="alert alert-danger" *ngIf="submitted && confirmPasswordRes.invalid  || checkPsw">
-                <div *ngIf="confirmPasswordRes.errors?.['required']">
-                  *Şifrənin təkrarı tələb olunur
-                </div>
-                <div *ngIf="confirmPasswordRes.errors?.['notEqual']  || checkPsw">
-                  *Şifrələr eyni deyil
-                </div>
-
-                <div *ngIf="UPasswordRes.errors?.['minlength']">
-                  *Minimum 5 simvol tələb olunur
-                </div>
-              </div>
-            </div>
-          <div class="row form-group">
-            <div class="col-lg-12 custom-control custom-checkbox ml-3">
-              <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
-                class="custom-control-input indeterminate-checkbox" required>
-
-              <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
-                  data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul
-                edirəm</label>
-              <div class="alert alert-danger" *ngIf="submitted && UTerms.invalid">
-                <div *ngIf="UTerms.errors?.['required']">
-                  *Qaydalar və Şərtləri qəbul edirsiniz?
-                </div>
-              </div>
-
             </div>
           </div>
-          <div>
-            <label for="">Hesabınz mövcuddur? </label>
-            <a [routerLink]="['/']" class="btn-link"> Daxil olun </a>
+          <div class="form-group">
+            <label for="UFinRes" class="input-label">Şəxsiyyət vəsiqəsinin fin kodu
+              <i class="tio-info-outined">
+                <div class="finInfo">
+                  <img src="../../../assets/img/79390088_2498928170354528_2630757242206420992_n.jpg" alt="">
+                </div>
+              </i>
+            </label>
+
+            <input ngModel #UFinRes="ngModel" name="UFinRes" type="text" class="form-control" required id="UFinRes">
+            <div class="alert alert-danger" *ngIf="submitted && UFinRes.invalid ">
+              <div *ngIf="UFinRes.errors?.['required']">
+                *Fin kod tələb olunur
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="UEmailRes" class="input-label">E-mail</label>
+
+            <input #UEmailRes="ngModel" type="email" ngModel name="UEmailRes" required class="form-control" id="UEmailRes"
+              maxlength="50" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+            <div class="alert alert-danger" *ngIf="submitted && UEmailRes.invalid ">
+              <div *ngIf="UEmailRes.errors?.['required']">
+                *E-mail tələb olunur
+              </div>
+              <div *ngIf="UEmailRes.errors?.['pattern']">
+                *Nümunə: nümunə@gmail.com
+              </div>
+            </div>
+
 
           </div>
-          <button type="submit" (click)="OnSubmitRes(signUpFormRes)"
-            class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
-        </form>
+          <div class="form-group">
+            <label for="UPhoneRes" class="input-label">Mobil nömrə</label>
+
+            <input ngModel #UPhoneRes="ngModel" name="UPhoneRes" type="tel" class="form-control" required id="UPhoneRes"
+              (input)="phoneInput($event)">
+            <div class="alert alert-danger" *ngIf="submitted && UPhoneRes.invalid ">
+              <div *ngIf="UPhoneRes.errors?.['required']">
+                *Mobil nömrə tələb olunur
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="input-label" for="UPassword">Şifrə</label>
+            <input ngModel #UPassword="ngModel" required name="UPassword" type="password" id="UPassword"
+              class="form-control">
+            <div class="alert alert-danger" *ngIf="submitted && UPassword.invalid">
+              <div *ngIf="UPassword.errors?.['required']">
+                *Şifrə tələb olunur
+              </div>
+              <div *ngIf="UPassword.errors?.['minlength']">
+                *Minimum 5 simvol tələb olunur
+              </div>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
+            <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
+              class="form-control" appConfirmEqualValidator="UPassword" ngModel maxlength="50" minlength="5">
+            <div class="alert alert-danger" *ngIf="submitted && confirmPassword.invalid  || checkPsw">
+              <div *ngIf="confirmPassword.errors?.['required']">
+                *Şifrənin təkrarı tələb olunur
+              </div>
+              <div *ngIf="confirmPassword.errors?.['notEqual']  || checkPsw">
+                *Şifrələr eyni deyil
+              </div>
+
+              <div *ngIf="UPassword.errors?.['minlength']">
+                *Minimum 5 simvol tələb olunur
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
+
+      <div class="row form-group">
+        <div class="col-lg-12 custom-control custom-checkbox ml-3">
+          <input ngModel #UTerms="ngModel" type="checkbox" name="UTerms" id="term" [(ngModel)]="model.UTerms"
+            class="custom-control-input indeterminate-checkbox" required>
+
+          <label class="custom-control-label" for="term"> <a class="btn-link" style="cursor: pointer;"
+              data-toggle="modal" data-target="#exampleModalScrollable">Qaydalar və Şərtləri </a> qəbul edirəm</label>
+          <div class="alert alert-danger" *ngIf="submitted && UTerms.invalid">
+            <div *ngIf="UTerms.errors?.['required']">
+              *Qaydalar və Şərtləri qəbul edirsiniz?
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div>
+        <label for="">Hesabınz mövcuddur? </label>
+        <a [routerLink]="['/']" class="btn-link"> Daxil olun </a>
+
+      </div>
+      <button type="submit" (click)="OnSubmit(signUpForm)"
+        class="form-control w-100 mt-3 btn btn-block newOrder mb-3">Qeydiyyatdan keç</button>
+    </form>
   </div>
 </div>
 <!-- End Button trigger modal -->
