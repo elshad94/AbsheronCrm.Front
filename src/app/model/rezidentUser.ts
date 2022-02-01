@@ -12,6 +12,7 @@ export interface RezidentUser {
   UTerms: boolean;
   UStatus: number;
   FIN: string;
+  FileResponseDto: FileResponseDto;
 }
 
 export interface FileResponseDto {
