@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { ApiUrlsService } from './api-urls.service';
 import { NotRezidentUser } from '../model/NotRezidentUser';
+import { RezidentUser } from '../model/rezidentUser';
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,7 @@ export class AuthService {
     return this.http.post<any>(this.baseUrl + '/Account/signupNotRezident', userData);
   }
 
-  register(model:any){
+  register(model: RezidentUser){
     return this.http.post<any>(this.baseUrl+'/Account/signup',model);
   }
 
