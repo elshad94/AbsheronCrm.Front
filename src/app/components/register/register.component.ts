@@ -89,10 +89,24 @@ export class RegisterComponent implements OnInit {
      }else{
       this.CreateUser(data.value);
      }
-
-
   }
+
+  OnSubmitRes(data: any) {
+    this.submitted = true;
+    if (!data.valid) {
+      return;
+    }
+    if(!(data.value.UPassword == data.value.confirmPassword)){
+      this.checkPsw = true;
+      return;
+     }else{
+      this.CreateUser(data.value);
+     }
+  }
+
+
   public sum:number=0;
+
   CreateUser(value: any) {
     const handleError = (err: any) => {
       if (err.error.data == '1')
