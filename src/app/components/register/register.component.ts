@@ -22,6 +22,9 @@ export class RegisterComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
   public checkPsw:boolean=false;
+  public showPassword?: boolean;
+  public showPasscon?: boolean;
+  
 
 
 

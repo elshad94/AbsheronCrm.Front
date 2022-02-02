@@ -22,7 +22,15 @@
               <div class="form-group">
                 <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
                 <input ngModel #password="ngModel" name="Password" type="password" id="password" required
-                  class="form-control">
+                  class="form-control" [type]="showPassword ? 'text' : 'password'">
+                  <div class="hidden-outlined">
+                    <i alt="show" class="tio-hidden-outlined"
+                    (click)="showPassword = !showPassword"
+                    [class.hide]="showPassword"></i>
+                    <i alt="hide" class="tio-invisible"
+                    (click)="showPassword = !showPassword"
+                    [class.hide]="!showPassword"></i>
+                  </div>
                 <div class="alert alert-danger" *ngIf="submitted && password.invalid && ( password.dirty || password.touched)">
                   <div *ngIf="password.errors?.['required']">
                     *Şifrə tələb olunur
@@ -35,7 +43,15 @@
               <div class="form-group">
                 <label class="input-label" for="exampleFormControlInput2"> Yeni Şifrə</label>
                 <input ngModel #newPassword="ngModel" name="newPassword" type="password" id="newPassword" required
-                  [(ngModel)]="nwPsw" class="form-control" minlength="5">
+                  [(ngModel)]="nwPsw" class="form-control" minlength="5" [type]="showPasscon ? 'text' : 'password'">
+                  <div class="hidden-outlined">
+                    <i alt="show" class="tio-hidden-outlined"
+                    (click)="showPasscon = !showPasscon"
+                    [class.hide]="showPasscon"></i>
+                    <i alt="hide" class="tio-invisible"
+                    (click)="showPasscon = !showPasscon"
+                    [class.hide]="!showPasscon"></i>
+                  </div>
                   <div class="alert alert-danger" *ngIf="submitted &&  newPassword.invalid && (newPassword.dirty || newPassword.touched)">
                     <div *ngIf="newPassword.errors?.['required']">
                       *Yeni şifrə tələb olunur
@@ -56,7 +72,15 @@
                     <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
                     <input type="password" id="confirmPassword" ngModel #confirmPassword="ngModel" required
                       name="confirmPassword" class="form-control" appConfirmEqualValidator="newPassword" minlength="5"
-                      [(ngModel)]="confrmPsw">
+                      [(ngModel)]="confrmPsw" [type]="showPasscontek ? 'text' : 'password'">
+                      <div class="hidden-outlined">
+                        <i alt="show" class="tio-hidden-outlined"
+                        (click)="showPasscontek = !showPasscontek"
+                        [class.hide]="showPasscontek"></i>
+                        <i alt="hide" class="tio-invisible"
+                        (click)="showPasscontek = !showPasscontek"
+                        [class.hide]="!showPasscontek"></i>
+                      </div>
                       <div class="alert alert-danger"
                       *ngIf="submitted && confirmPassword.invalid && ( confirmPassword.dirty || confirmPassword.touched) || checkPsw">
                       <div *ngIf="confirmPassword.errors?.['required']">
