@@ -45,8 +45,8 @@
                 <div class="row">
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label for="SKULabel" class="input-label">Məhsul şəxsin Adı</label>
-                      <input type="text" class="form-control" name="UPersonname" id="personname" required ngModel
+                      <label for="personname" class="input-label">Məhsul şəxsin Adı</label>
+                      <input type="text" class="form-control" name="UPersonname" id="personname" required ngModel maxlength="32"
                         #UPersonname="ngModel" [(ngModel)]="model.uPersonname" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
                         minlength="3">
                       <div class="alert alert-danger"
@@ -65,22 +65,29 @@
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label for="SKULabel" class="input-label">Məhsul şəxsin Soyadı</label>
+                      <label for="personsurname" class="input-label">Məhsul şəxsin Soyadı</label>
                       <input type="text" class="form-control" name="UPersonsurname" id="personsurname" required ngModel
-                        #UPersonsurname="ngModel" [(ngModel)]="model.uPersonsurname">
+                        #UPersonsurname="ngModel" [(ngModel)]="model.uPersonsurname" maxlength="32" pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
+                        minlength="3">
                       <div class="alert alert-danger"
                         *ngIf="UPersonsurname.invalid && (UPersonsurname.dirty || UPersonsurname.touched)">
                         <div *ngIf="UPersonsurname.errors?.['required']">
                           *Məhsul şəxsin Soyadı tələb olunur
+                        </div>
+                        <div *ngIf="UPersonsurname.errors?.['pattern']">
+                          *Simvollar dəstəklənmir
+                        </div>
+                        <div *ngIf="UPersonsurname.errors?.['minlength']">
+                          *Minimum 3 simvol tələb olunur
                         </div>
                       </div>
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
-                      <label for="SKULabel" class="input-label">İstifadəçi Adı</label>
-                      <input type="text" class="form-control" name="UCustname" required id="SKULabel" ngModel
-                        #UCustname="ngModel" [(ngModel)]="model.uCustname">
+                      <label for="UCustname" class="input-label">İstifadəçi Adı</label>
+                      <input type="text" class="form-control" name="UCustname" required id="UCustname" ngModel
+                        #UCustname="ngModel" [(ngModel)]="model.uCustname" maxlength="30">
                       <div class="alert alert-danger"
                         *ngIf="UCustname.invalid && (UCustname.dirty || UCustname.touched)">
                         <div *ngIf="UCustname.errors?.['required']">
@@ -205,7 +212,7 @@
                   <div class="col-sm-4">
                     <!-- Form Group -->
                     <div class="form-group">
-                      <label for="SKULabel" class="input-label">Mobil nömrə</label>
+                      <label for="phone" class="input-label">Mobil nömrə</label>
 
                       <input type="text" class="form-control" id="phone" name="UPhone" required ngModel
                         #UPhone="ngModel" [(ngModel)]="model.uPhone">
@@ -220,11 +227,14 @@
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label for="uFin" class="input-label">Şəxsiyyət vəsiqəsinin fin kodu</label>
-                      <input type="text" class="form-control" name="uFin" required id="uFin" ngModel #uFin="ngModel"
-                        [(ngModel)]="model.uFin">
+                      <input type="text" minlength="7" class="form-control" name="uFin" required id="uFin" ngModel #uFin="ngModel"
+                        [(ngModel)]="model.uFin" >
                       <div class="alert alert-danger" *ngIf="uFin.invalid && (uFin.dirty || uFin.touched)">
                         <div *ngIf="uFin.errors?.['required']">
                           *Şəxsiyyət vəsiqəsinin fin kodu tələb olunur
+                        </div>
+                        <div *ngIf="uFin.errors?.['minlength']">
+                          *Maksimum 7 simvol dəstəklənir
                         </div>
                       </div>
                     </div>
