@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
   public checkPsw:boolean=false;
   public showPassword?: boolean;
   public showPasscon?: boolean;
-  
+
 
 
 
@@ -46,21 +46,12 @@ export class RegisterComponent implements OnInit {
 
   selectInput(event: any) {
     const selected = event.target.value;
-    if (selected == 1) {
-      this.isNameSelected = true;
-    } else {
-      this.isNameSelected = false;
-    }
+    this.isNameSelected = selected == 1;
   }
 
   rezidentPerson(event: any){
     const selected = event.target.value;
-    if (selected == 1) {
-      this.resPers = true;
-    } else {
-      this.resPers = false;
-    }
-    console.log(this.resPers)
+    this.resPers = selected == 1;
   }
 
   public fileList?: any = [];
@@ -133,14 +124,14 @@ export class RegisterComponent implements OnInit {
         fin: value.UFinRes,
         password: value.UPassword,
         telehpone: value.UPhoneRes,
-      } 
+      }
       this.auhtService.registerNotRezidentUser(userData).subscribe({
-        next: handleSucces, 
+        next: handleSucces,
         error: handleError
       })
       return;
     }
-    
+
     const userData: RezidentUser = {
       UVoen: value.UVoen,
       UCustname: value.UCustname,
@@ -153,7 +144,7 @@ export class RegisterComponent implements OnInit {
       FIN: value.FIN,
     }
     this.auhtService.register(userData).subscribe( {
-        next: handleSucces, 
+        next: handleSucces,
         error: handleError
       });
   }

@@ -25,7 +25,7 @@
           <div class="form-group">
             <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
             <select (change)="selectInput($event)" ngModel name="USubtype" id="TypePerson" class="form-control">
-              <option value="" select disabled hidden>Hüquqi şəxs</option>
+              <option value="" select disabled hidden>Fiziki şəxs</option>
               <option value="1">Fiziki şəxs</option>
               <option value="2">Hüquqi şəxs</option>
             </select>
@@ -299,7 +299,7 @@
               </i>
             </label>
 
-            <input ngModel #UFinRes="ngModel" name="UFinRes" type="text" class="form-control" required id="UFinRes">
+            <input ngModel #UFinRes="ngModel" name="UFinRes" type="text" class="form-control" required id="UFinRes" maxlength="7">
             <div class="alert alert-danger" *ngIf="submitted && UFinRes.invalid ">
               <div *ngIf="UFinRes.errors?.['required']">
                 *Fin kod tələb olunur
