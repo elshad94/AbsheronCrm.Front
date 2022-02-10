@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import Swal from 'sweetalert2';
+import * as $ from 'jquery';
 import jwt_decode from 'jwt-decode';
 import LoginRequestData from 'src/app/model/loginRequestData';
 import { errorAlert, infoAlert } from 'src/utils/alerts';
@@ -28,10 +28,11 @@ export class LoginComponent implements OnInit {
   }
 
   public submitted = false;
-
+  public showPassword?: boolean;
 
   ngOnInit(): void {
     this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi")
+
   }
 
   getDecodedAccessToken(token?: any): any {
@@ -44,7 +45,6 @@ export class LoginComponent implements OnInit {
   }
 
   signin() {
-
     this.authService.login(this.loginRequestData).subscribe({
       next: (res: any) => {
         // localStorage.setItem('token', res.data);

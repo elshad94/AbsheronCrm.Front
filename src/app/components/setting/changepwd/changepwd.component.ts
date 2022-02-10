@@ -18,6 +18,10 @@ export class ChangepwdComponent implements OnInit {
     public submitted: boolean=false;
     public checkPsw:boolean=false;
 
+    public showPassword?: boolean;
+    public showPasscon?: boolean;
+    public showPasscontek?: boolean;
+
 
 
     ngOnInit(): void {

@@ -53,7 +53,7 @@
             </label>
 
             <input type="text" class="form-control" ngModel #FIN="ngModel" name="FIN" id="FIN" required
-              [(ngModel)]="model.FIN" maxlength="15">
+              [(ngModel)]="model.FIN" maxlength="7">
             <div class="alert alert-danger" *ngIf="submitted && FIN.invalid ">
               <div *ngIf="FIN.errors?.['required']">
                 *Fin kod tələb olunur
@@ -68,7 +68,7 @@
               </div>
             </div>
             <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required
-              id="FullName" pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" minlength="3">
+              id="FullName" pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" minlength="3" maxlength="25">
             <div class="alert alert-danger" *ngIf="submitted && custname.invalid ">
               <div *ngIf="custname.errors?.['required']">
                 *Ad, soyad tələb olunur
@@ -124,7 +124,7 @@
 
                 <input type="text" ngModel #name="ngModel" maxlength="50" name="UPersonname" class="form-control"
                   required id="name"
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
+                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,50}"
                   minlength="3">
                 <div class="alert alert-danger" *ngIf="submitted && name.invalid ">
                   <div *ngIf="name.errors?.['required']">
@@ -144,7 +144,7 @@
 
                 <input type="text" ngModel #surname="ngModel" maxlength="50" name="UPersonsurname" id="surname"
                   class="form-control"
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
+                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,50}"
                   minlength="3" required>
                 <div class="alert alert-danger" *ngIf="submitted && surname.invalid ">
                   <div *ngIf="surname.errors?.['required']">
@@ -190,7 +190,15 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
             <input #UPassword="ngModel" required name="UPassword" type="password" id="UPassword" class="form-control"
-              [(ngModel)]="model.UPassword">
+              [(ngModel)]="model.UPassword" [type]="showPassword ? 'text' : 'password'">
+              <div class="hidden-outlined">
+                <i alt="show" class="tio-hidden-outlined"
+                (click)="showPassword = !showPassword"
+                [class.hide]="showPassword"></i>
+                <i alt="hide" class="tio-invisible"
+                (click)="showPassword = !showPassword"
+                [class.hide]="!showPassword"></i>
+              </div>
             <div class="alert alert-danger" *ngIf="submitted && UPassword.invalid ">
               <div *ngIf="UPassword.errors?.['required']">
                 *Şifrə tələb olunur
@@ -204,8 +212,15 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
             <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
-              class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword"
-              maxlength="50" minlength="5">
+              class="form-control" appConfirmEqualValidator="UPassword" [(ngModel)]="model.ConfirmPassword" [type]="showPasscon ? 'text' : 'password'" maxlength="50" minlength="5">
+              <div class="hidden-outlined">
+                <i alt="show" class="tio-hidden-outlined"
+                (click)="showPasscon = !showPasscon"
+                [class.hidecon]="showPasscon"></i>
+                <i alt="hide" class="tio-invisible"
+                (click)="showPasscon = !showPasscon"
+                [class.hidecon]="!showPasscon"></i>
+              </div>
             <div class="alert alert-danger" *ngIf="submitted && confirmPassword.invalid  || checkPsw">
               <div *ngIf="confirmPassword.errors?.['required']">
                 *Şifrənin təkrarı tələb olunur
@@ -268,10 +283,10 @@
           <div class="form-group">
             <label for="UUsername" class="input-label">İstifadəçi adı</label>
             <input type="text" class="form-control" ngModel #UUsername="ngModel" name="UUsername" id="UUsername" required
-              maxlength="20">
+              maxlength="30">
             <div class="alert alert-danger" *ngIf="submitted && UUsername.invalid ">
               <div *ngIf="UUsername.errors?.['required']">
-                *İstifadəçi adı kodu tələb olunur
+                *İstifadəçi adı tələb olunur
               </div>
             </div>
           </div>
@@ -322,7 +337,15 @@
           <div class="form-group">
             <label class="input-label" for="UPassword">Şifrə</label>
             <input ngModel #UPassword="ngModel" required name="UPassword" type="password" id="UPassword"
-              class="form-control">
+              class="form-control" [type]="showPassword ? 'text' : 'password'">
+              <div class="hidden-outlined">
+                <i alt="show" class="tio-hidden-outlined"
+                (click)="showPassword = !showPassword"
+                [class.hide]="showPassword"></i>
+                <i alt="hide" class="tio-invisible"
+                (click)="showPassword = !showPassword"
+                [class.hide]="!showPassword"></i>
+              </div>
             <div class="alert alert-danger" *ngIf="submitted && UPassword.invalid">
               <div *ngIf="UPassword.errors?.['required']">
                 *Şifrə tələb olunur
@@ -336,7 +359,15 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput2">Şifrənin təkrarı</label>
             <input type="password" id="confirmPassword" #confirmPassword="ngModel" required name="confirmPassword"
-              class="form-control" appConfirmEqualValidator="UPassword" ngModel maxlength="50" minlength="5">
+              class="form-control" [type]="showPasscon ? 'text' : 'password'"  appConfirmEqualValidator="UPassword" ngModel maxlength="50" minlength="5">
+              <div class="hidden-outlined">
+                <i alt="show" class="tio-hidden-outlined"
+                (click)="showPasscon = !showPasscon"
+                [class.hidecon]="showPasscon"></i>
+                <i alt="hide" class="tio-invisible"
+                (click)="showPasscon = !showPasscon"
+                [class.hidecon]="!showPasscon"></i>
+              </div>
             <div class="alert alert-danger" *ngIf="submitted && confirmPassword.invalid  || checkPsw">
               <div *ngIf="confirmPassword.errors?.['required']">
                 *Şifrənin təkrarı tələb olunur

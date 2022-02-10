@@ -22,6 +22,9 @@ export class RegisterComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
   public checkPsw:boolean=false;
+  public showPassword?: boolean;
+  public showPasscon?: boolean;
+  
 
 
 
@@ -34,8 +37,8 @@ export class RegisterComponent implements OnInit {
   }
 
   phoneInput(event: any) {
-    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
-    event.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+    event.target.value = !x[2] ? x[1] :  x[1]  + (x[2] ? '-' + x[2] : '') + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
   }
 
   public isNameSelected: boolean = true;

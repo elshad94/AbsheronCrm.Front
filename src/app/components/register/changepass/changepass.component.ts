@@ -14,10 +14,13 @@ export class ChangepassComponent implements OnInit {
     private router: Router
   ) {}
 
-
   public id?: number;
   public submitted: boolean=false;
   public checkPsw:boolean=false;
+  public showPassword?: boolean;
+  public showPasscon?: boolean;
+
+  
   ngOnInit(): void {
     this.route.queryParams.subscribe((params: { [x: string]: number | undefined; }) => (this.id = params['uId'])); // fiction
   }

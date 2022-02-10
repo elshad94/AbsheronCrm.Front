@@ -9,3 +9,25 @@
     margin-top: 2px;
     border-radius: 0;
 }
+
+.hidden-outlined{
+    text-align: end;
+}
+
+.tio-hidden-outlined{
+    position: absolute;
+    margin-left: -30px;
+    margin-top: -28px;
+    font-size: 18px;
+}
+
+.tio-invisible{
+    position: absolute;
+    margin-left: -30px;
+    margin-top: -28px;
+    font-size: 18px;
+}
+
+.hide {
+    display: none;
+}
