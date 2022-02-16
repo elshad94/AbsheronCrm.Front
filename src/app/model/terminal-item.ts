@@ -1,4 +1,5 @@
 interface TerminalItem {
+    inV_ID: number,
     orderId: number,
     orderNo: string,
     date: Date,
