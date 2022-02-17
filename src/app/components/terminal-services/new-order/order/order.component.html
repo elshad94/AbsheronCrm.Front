@@ -182,11 +182,15 @@
             <dd *ngIf="orderDate !== undefined">{{orderDate | date: 'dd.MM.yyyy'}}</dd>
           </dl>
         </div>
+        <div>
+          <button *ngIf="invStatus !== null" class="printBtn" (click)="printInv()">Çap et <i class="tio-print"></i></button>
+        </div>
       </div>
     </div>
 
   </div>
 </div>
+
 
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
   <p style="color: white"> Yüklənir... </p>

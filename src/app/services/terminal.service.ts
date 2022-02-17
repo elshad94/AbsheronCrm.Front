@@ -111,4 +111,9 @@ export class TerminalService {
       {observe: 'response', headers}
     );
   }
+
+  printInv(orderId: number): Observable<number>{
+    return this.http.get<number>(`${this.baseUrl}/TerminalOrder/GetInvId?orderId=${orderId}`);
+
+  }
 }

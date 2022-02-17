@@ -46,6 +46,7 @@ export class OrderComponent implements OnInit {
   orderDate?: Date;
   orderNo?: string;
   orderStatus?: number;
+  invStatus?: number;
 
   constructor(
         private terminalService: TerminalService,
@@ -83,7 +84,12 @@ export class OrderComponent implements OnInit {
           });
         }
       });
+
+      this.terminalService.printInv((Number(this.orderId))).subscribe(res =>{
+        this.invStatus = res
+      })
   }
+
 
   private initialCreateLoad(initialLoadData: TerminalUpdateData) {
     // coming from new-order component
@@ -464,5 +470,11 @@ export class OrderComponent implements OnInit {
         throw exception;
       }
     }
+  }
+
+  itemUrl?: string;
+  printInv(){
+    window.open(`http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO` , "_blank")
+     
   }
 }
