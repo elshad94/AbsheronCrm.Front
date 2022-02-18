@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { getFileName } from 'src/utils/fileNameGetter';
 import { FileService } from 'src/app/services/file.service';
 import * as saveAs from 'file-saver';
+import { successAlert } from 'src/utils/alerts';
 
 @Component({
   selector: 'app-profile-account',
@@ -105,6 +106,23 @@ export class ProfileAccountComponent implements OnInit {
         text: 'Serverdə hər hansı bir xəta baş verdi',
       });
     });
+  }
+
+  uploadOneFile(event: any, cusType: number) {
+    this.selectedFile = <File>event
+      .target
+      .files[0];
+    this.fileService.createUserFile(this.selectedFile, cusType)
+      .subscribe({
+        next: () => successAlert('Fayl yüklənildi', 'Uğurlu'),
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title:'Xəta',
+            text: 'Serverdə hər hansı bir xəta baş verdi',
+          });
+        }
+      });
   }
 
   uploadFile(event: any, type: number) {
