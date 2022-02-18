@@ -106,8 +106,9 @@ export class RegisterComponent implements OnInit {
     }
     const handleSucces = (res: any) => {
       localStorage.setItem('uId', res.data.uId);
-          this.router
-            .navigate(['/verify']);
+          // this.router
+          //   .navigate(['/verify']);
+          this.OnUpload(res.data.uId);
     }
 
     this.sum++;
