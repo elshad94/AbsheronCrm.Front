@@ -14,23 +14,28 @@ export class FileService {
     this.baseUrl = apiUrlService.getCrmAPIURI();
   }
 
-  createFile(file: File, nvNo: string) {
+  createFile(file: File, isBrokerOrder: boolean, isPayment: boolean, nvNo?: string) {
     const formData = new FormData();
     formData.append('files', file);
     const headers = new HttpHeaders({
       'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',
       'Access-Control-Allow-Origin': '*'
     });
-    return this.http.post<FileCreationResponse>(`${this.baseUrl}/File?nvNo=${nvNo}`, formData, {headers});
+    if(nvNo) {
+      return this.http
+      .post<FileCreationResponse>(
+        `${this.baseUrl}/File?nvNo=${nvNo}&isBrokerOrder=${isBrokerOrder}&isPayment=${isPayment}`,
+        formData, {headers}
+      );
+    }
+    return this.http
+      .post<FileCreationResponse>(
+        `${this.baseUrl}/File?isBrokerOrder=${isBrokerOrder}&isPayment=${isPayment}`,
+        formData, {headers}
+      );
   }
 
   getFile(id: number) {
     return this.http.get(`${this.baseUrl}/File/${id}`, {responseType: 'blob' as 'json'});
-  }
-
-  createFilePank(file: File) {
-    const formData = new FormData();
-    formData.append('files', file);
-    return this.http.post<PayBankFile>(`${this.baseUrl}/File`, formData);
   }
 }

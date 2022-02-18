@@ -39,7 +39,7 @@ export class LastModalComponent implements OnInit {
     if (!this.fileToUpload) {
       logger.error('FILE UNDEFINED');
     }
-    this.fileService.createFilePank(this.fileToUpload!)
+    this.fileService.createFile(this.fileToUpload!, false, true)
       .subscribe({
         next: res => {
           this.paymentBank(res.fileId);
@@ -57,7 +57,7 @@ export class LastModalComponent implements OnInit {
       orderType: this.data.orderTypeId,
       fileId: fileid
     };
-  
+
       this.payBank.payBankMet(newPayBank).subscribe(success =>{
         Swal.fire({
           position: 'center',
@@ -77,6 +77,6 @@ export class LastModalComponent implements OnInit {
         })
       })
     }
-  
+
 
 }

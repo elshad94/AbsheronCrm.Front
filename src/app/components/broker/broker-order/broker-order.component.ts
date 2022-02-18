@@ -18,6 +18,7 @@ import {BrokerPostItem,FileDetailItem,} from 'src/app/model/broker-post-item.mod
 import logger from 'src/utils/logger';
 import { TITLE } from 'src/utils/contants';
 import isEditable from 'src/utils/isEditable';
+import { FileService } from 'src/app/services/file.service';
 
 
 interface FileDetails {
@@ -113,7 +114,8 @@ export class BrokerOrderComponent implements OnInit {
       private service: BrokerItemService,
       private route: ActivatedRoute,
       private router:Router,
-      private titleService: Title
+      private titleService: Title,
+      private fileService: FileService
   ) { }
   //clone div
   public append() {
@@ -200,8 +202,7 @@ export class BrokerOrderComponent implements OnInit {
     const Fd: any = new FormData();
 
     Fd.append('files', selectedFile);
-    this.http
-      .post<any>('https://localhost:44323/api/File', Fd)
+    this.fileService.createFile(Fd.get('files'), true, false)
       .subscribe((res) => {
         this.files[index].uri = res.uri.split('!@#$%^&').pop()!;
         this.files[index].fileId = res.fileId;
