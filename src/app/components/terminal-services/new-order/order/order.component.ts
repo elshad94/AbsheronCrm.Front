@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { TerminalWay } from 'src/app/model/terminal-new-data';
 import { TerminalExpense } from 'src/app/model/TerminalExpense';
@@ -70,7 +70,6 @@ export class OrderComponent implements OnInit {
     this.titleService.setTitle(`Terminal${TITLE}`);
     const terminalUpdateData = this.terminalService.terminalUpdateData;
     if(terminalUpdateData !== undefined) {
-      console.log("🚀 ~ file: order.component.ts ~ line 73 ~ OrderComponent ~ ngOnInit ~ terminalUpdateData", terminalUpdateData)
       this.initialCreateLoad(terminalUpdateData);
       this.terminalService.terminalUpdateData = undefined;
       return;

@@ -5,6 +5,8 @@ import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
 import { getFileName } from 'src/utils/fileNameGetter';
+import { FileService } from 'src/app/services/file.service';
+import * as saveAs from 'file-saver';
 
 @Component({
   selector: 'app-profile-account',
@@ -12,12 +14,16 @@ import { getFileName } from 'src/utils/fileNameGetter';
   styleUrls: ['./profile-account.component.scss'],
 })
 export class ProfileAccountComponent implements OnInit {
-  constructor(private accountService: AccountService, private titleService: Title,) {}
+  constructor(
+    private accountService: AccountService,
+    private titleService: Title,
+    private fileService: FileService,) {}
+
   public submitted=false;
   public model: any;
-  public pathReyester!: string;
-  public pathEtibar!: string;
-  public pathBank!: string;
+  public pathReyester?: number;
+  public pathEtibar?: number;
+  public pathBank?: number;
   public selectedFile!: File;
   public fileList?: any = [];
   public typeList?: any = [];
@@ -32,18 +38,26 @@ export class ProfileAccountComponent implements OnInit {
     });
   }
 
+  openFile(id?: number) {
+    console.log("🚀 ~ file: profile-account.component.ts ~ line 42 ~ ProfileAccountComponent ~ openFile ~ id", id)
+    this.fileService.getFile(id).subscribe((response: any) => {
+      const blob = new Blob([response], { type: response.type });
+      saveAs(blob);
+    });
+  }
+
   loadFile() {
     this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res: string | any[]) => {
 
       for (let index = 0; index < res.length; index++) {
         if (res[index].fileType == 12) {
-          this.pathBank = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathBank = res[index].fileId;
         }
         if (res[index].fileType == 13) {
-          this.pathEtibar = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathEtibar = res[index].fileId;
         }
         if (res[index].fileType == 14) {
-          this.pathReyester = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathReyester = res[index].fileId;
         }
       }
     });
