@@ -22,7 +22,7 @@ export class ApiUrlsService {
       errorAlert('Server Problemi!')
         .then(() => this.router.navigate(['']));
     }
-    // this.ip = '85.132.108.234';
+    this.ip = '85.132.108.234';
   }
   getAuthAPiURI() {
      return `http://${this.ip}:92/redirect/reg/api`;

@@ -477,6 +477,11 @@ export class OrderComponent implements OnInit {
   }
 
   printInv(){
+    if (this.invStatus == null || this.invStatus == undefined) {
+      alert()
+      return;
+      
+    }
     this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
   }

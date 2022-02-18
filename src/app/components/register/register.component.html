@@ -68,13 +68,10 @@
               </div>
             </div>
             <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required
-              id="FullName" pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" minlength="3" maxlength="25">
+              id="FullName"  minlength="3" maxlength="25">
             <div class="alert alert-danger" *ngIf="submitted && custname.invalid ">
               <div *ngIf="custname.errors?.['required']">
                 *Ad, soyad tələb olunur
-              </div>
-              <div *ngIf="custname.errors?.['pattern']">
-                *Simvollar dəstəklənmir
               </div>
               <div *ngIf="custname.errors?.['minlength']">
                 *Minimum 3 simvol tələb olunur
@@ -124,14 +121,10 @@
 
                 <input type="text" ngModel #name="ngModel" maxlength="50" name="UPersonname" class="form-control"
                   required id="name"
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,50}"
                   minlength="3">
                 <div class="alert alert-danger" *ngIf="submitted && name.invalid ">
                   <div *ngIf="name.errors?.['required']">
                     *Ad tələb olunur
-                  </div>
-                  <div *ngIf="name.errors?.['pattern']">
-                    *Simvollar dəstəklənmir
                   </div>
                   <div *ngIf="name.errors?.['minlength']">
                     *Minimum 3 simvol tələb olunur
@@ -144,14 +137,10 @@
 
                 <input type="text" ngModel #surname="ngModel" maxlength="50" name="UPersonsurname" id="surname"
                   class="form-control"
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,50}"
                   minlength="3" required>
                 <div class="alert alert-danger" *ngIf="submitted && surname.invalid ">
                   <div *ngIf="surname.errors?.['required']">
                     *Soyad tələb olunur
-                  </div>
-                  <div *ngIf="surname.errors?.['pattern']">
-                    *Simvollar dəstəklənmir
                   </div>
                   <div *ngIf="surname.errors?.['minlength']">
                     *Minimum 3 simvol tələb olunur
