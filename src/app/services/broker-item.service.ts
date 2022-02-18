@@ -38,7 +38,6 @@ export class BrokerItemService {
     data.notes = data.notes?.trim();
     data.TransportNumber = data.TransportNumber.trim();
     return this.http.put(this.baseUrl + '/Broker/'+id ,data);
-
   }
   getBrokerCreate(): Observable<any>{
     const httpHeaders = new HttpHeaders();

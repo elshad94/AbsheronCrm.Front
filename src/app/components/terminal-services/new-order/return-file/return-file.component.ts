@@ -76,7 +76,7 @@ export class ReturnFileComponent implements OnInit {
       throw 'FILE UNDEFINED';
       return;
     }
-    this.fileService.createFile(this.fileToUpload, this.fileToUploadNvNo)
+    this.fileService.createFile(this.fileToUpload, false, false, this.fileToUploadNvNo)
       .subscribe({
         next: res => {
           this.files.push({
