@@ -9,6 +9,7 @@ import { saveAs } from 'file-saver';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import isEditable from 'src/utils/isEditable';
+import { getFileName } from 'src/utils/fileNameGetter';
 
 @Component({
   selector: 'app-return-file',
@@ -82,7 +83,7 @@ export class ReturnFileComponent implements OnInit {
           this.files.push({
             id: res.fileId,
             nvNo: this.fileToUploadNvNo,
-            uri: res.uri.split('!@#$%^&').pop() ?? ''
+            uri: getFileName(res.uri) 
           });
           successAlert('Fayl yüklənildi', 'Uğurlu');
         },

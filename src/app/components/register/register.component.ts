@@ -82,8 +82,6 @@ export class RegisterComponent implements OnInit {
       this.checkPsw = true;
       return;
      }else{
-      //  console.log(data.value)
-      //  throw 'fefefef';
       this.CreateUser(data.value);
      }
 

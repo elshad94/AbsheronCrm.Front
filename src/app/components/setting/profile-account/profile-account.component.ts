@@ -4,6 +4,7 @@ import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
+import { getFileName } from 'src/utils/fileNameGetter';
 
 @Component({
   selector: 'app-profile-account',
@@ -27,7 +28,6 @@ export class ProfileAccountComponent implements OnInit {
     this.titleService.setTitle(`Profil Hesabı${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
       this.model = response;
-      console.log(this.model)
       this.loadFile();
     });
   }
@@ -63,7 +63,6 @@ export class ProfileAccountComponent implements OnInit {
 
 
   changeUser(value:any){
-    console.log(value)
     value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
 
     this.accountService.updateProfile(value).subscribe((response: any) => {
@@ -94,13 +93,13 @@ export class ProfileAccountComponent implements OnInit {
     this.typeList.push(type.toString());
     switch(type) {
       case 1:
-        this.fileInput1Label = this.selectedFile.name.substring(0, 43);
+        this.fileInput1Label = getFileName(this.selectedFile.name);
         break;
       case 2:
-        this.fileInput2Label = this.selectedFile.name.substring(0, 43);
+        this.fileInput2Label = getFileName(this.selectedFile.name);
         break;
       case 3:
-        this.fileInput3Label = this.selectedFile.name.substring(0, 43);
+        this.fileInput3Label = getFileName(this.selectedFile.name);
         break;
       }
 
@@ -126,7 +125,7 @@ export class ProfileAccountComponent implements OnInit {
   }
 
   phoneInput(event: any) {
-    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,2})(\d{0,3})(\d{0,2})(\d{0,2})/);
-    event.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
+    var x = event.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+    event.target.value = !x[2] ? x[1] :  x[1]  + (x[2] ? '-' + x[2] : '') + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '') + (x[5] ? '-' + x[5] : '');
   }
 }

@@ -233,14 +233,10 @@
 
                 <input type="text" #Uname="ngModel" maxlength="50" name="Uname" class="form-control" required
                   id="Uname" ngModel
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
                   minlength="3">
                 <div class="alert alert-danger" *ngIf="submitted && Uname.invalid">
                   <div *ngIf="Uname.errors?.['required']">
                     *Ad tələb olunur
-                  </div>
-                  <div *ngIf="Uname.errors?.['pattern']">
-                    *Simvollar dəstəklənmir
                   </div>
                   <div *ngIf="Uname.errors?.['minlength']">
                     *Minimum 3 simvol tələb olunur
@@ -253,14 +249,10 @@
 
                 <input type="text" ngModel #Usurname="ngModel" maxlength="50" name="Usurname" id="Usurname"
                   class="form-control"
-                  pattern="[^\u0000-\u0040\u005B-\u0060\u007B-\u00BF\u02B0-\u036F\u00D7\u00F7\u2000-\u2BFF]{0,32}"
                   minlength="3" required>
                 <div class="alert alert-danger" *ngIf="submitted && Usurname.invalid ">
                   <div *ngIf="Usurname.errors?.['required']">
                     *Soyad tələb olunur
-                  </div>
-                  <div *ngIf="Usurname.errors?.['pattern']">
-                    *Simvollar dəstəklənmir
                   </div>
                   <div *ngIf="Usurname.errors?.['minlength']">
                     *Minimum 3 simvol tələb olunur

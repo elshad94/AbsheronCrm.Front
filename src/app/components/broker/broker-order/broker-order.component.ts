@@ -19,6 +19,7 @@ import logger from 'src/utils/logger';
 import { TITLE } from 'src/utils/contants';
 import isEditable from 'src/utils/isEditable';
 import { FileService } from 'src/app/services/file.service';
+import { getFileName } from 'src/utils/fileNameGetter';
 
 
 interface FileDetails {
@@ -204,7 +205,8 @@ export class BrokerOrderComponent implements OnInit {
     Fd.append('files', selectedFile);
     this.fileService.createFile(Fd.get('files'), true, false)
       .subscribe((res) => {
-        this.files[index].uri = res.uri.split('!@#$%^&').pop()!;
+        this.files[index].uri = getFileName(res.uri);
+
         this.files[index].fileId = res.fileId;
       });
 
