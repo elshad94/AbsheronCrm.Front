@@ -265,7 +265,7 @@
 
                           <input type="file" class="form-control selectfileInput " name="UBank" id="bank"
                             style="top:36%" ngModel #UBankFile="ngModel" (change)="uploadFile( $event,2)">
-                          <a class="fileDown" (click)="openFile(pathBank)">sənədə bax</a>
+                          <a *ngIf="pathBank" class="fileDown" (click)="openFile(pathBank)">sənədə bax</a>
                           <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                         </div>
                       </div>
@@ -278,7 +278,7 @@
                           <input type="file" class="form-control selectfileInput " name="UEtibarnameFile"
                             id="etibarnamə" ngModel #UEtibarnameFile="ngModel" style="top:36%"
                             (change)="uploadFile( $event,3)">
-                          <a class="fileDown" (click)="openFile(pathEtibar)">sənədə bax</a>
+                          <a *ngIf="pathEtibar" class="fileDown" (click)="openFile(pathEtibar)">sənədə bax</a>
                           <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                         </div>
                       </div>
@@ -293,7 +293,7 @@
 
                           <input type="file" class="form-control selectfileInput " name="UReyestr" id="reyestr"
                             style="top:36%" ngModel #UReyestrFile="ngModel" (change)="uploadFile( $event,1)  ">
-                          <a class="fileDown" (click)="openFile(pathReyester)">sənədə bax</a>
+                          <a *ngIf="pathReyester" class="fileDown" (click)="openFile(pathReyester)">sənədə bax</a>
 
 
                           <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
@@ -308,7 +308,7 @@
 
                           <input type="file" class="form-control selectfileInput " name="UBank" id="bank"
                             style="top:36%" ngModel #UBankFile="ngModel" (change)="uploadFile( $event,2)">
-                          <a class="fileDown" (click)="openFile(pathBank)">sənədə bax</a>
+                          <a *ngIf="pathBank" class="fileDown" (click)="openFile(pathBank)">sənədə bax</a>
                           <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                         </div>
                       </div>
@@ -321,7 +321,7 @@
                           <input type="file" class="form-control selectfileInput " name="UEtibarnameFile"
                             id="etibarnamə" ngModel #UEtibarnameFile="ngModel" style="top:36%"
                             (change)="uploadFile( $event,3)">
-                          <a class="fileDown" (click)="openFile(pathEtibar)">sənədə bax</a>
+                          <a *ngIf="pathEtibar" class="fileDown" (click)="openFile(pathEtibar)">sənədə bax</a>
                           <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
                         </div>
                       </div>

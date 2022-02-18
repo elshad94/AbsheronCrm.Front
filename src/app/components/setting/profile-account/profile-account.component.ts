@@ -41,7 +41,7 @@ export class ProfileAccountComponent implements OnInit {
   }
 
   openFile(id?: number) {
-    console.log("🚀 ~ file: profile-account.component.ts ~ line 42 ~ ProfileAccountComponent ~ openFile ~ id", id)
+    if(!id) return;
     this.fileService.getFile(id).subscribe((response: any) => {
       const blob = new Blob([response], { type: response.type });
       saveAs(blob);
