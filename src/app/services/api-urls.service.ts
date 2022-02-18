@@ -13,7 +13,6 @@ export class ApiUrlsService {
   // Then, uncomment the localhost lines in the getters ( check launchsettings.json in your apis for the port numbers  )
   // Also, if you want to run the front-end locally but use the server apis just comment out all of the code in constructor except the last line.
   constructor(private http: HttpClient, private router: Router,) {
-<<<<<<< HEAD
     // const browserUri = window.location.href;
     // if(browserUri.includes('172.25.60.53')) {
     //   this.ip = '172.25.60.53';
@@ -24,18 +23,6 @@ export class ApiUrlsService {
     //     .then(() => this.router.navigate(['']));
     // }
     // this.ip = '85.132.108.234';
-=======
-    const browserUri = window.location.href;
-    if(browserUri.includes('172.25.60.53')) {
-      this.ip = '172.25.60.53';
-    } else if(browserUri.includes('85.132.108.234')) {
-      this.ip = '85.132.108.234';
-    } else {
-      errorAlert('Server Problemi!')
-        .then(() => this.router.navigate(['']));
-    }
-    this.ip = '85.132.108.234';
->>>>>>> 4f57f5bc4614542111d7fa304c7b1a9b3c96e378
   }
   getAuthAPiURI() {
     //  return `http://${this.ip}:92/redirect/reg/api`;
