@@ -24,6 +24,8 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput1Label = '';
   public fileInput2Label = '';
   public fileInput3Label = '';
+
+  public fileApiUrl = 'http://85.132.108.234:92'
   ngOnInit(): void {
     this.titleService.setTitle(`Profil Hesabı${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
@@ -34,16 +36,20 @@ export class ProfileAccountComponent implements OnInit {
 
   loadFile() {
     this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res: string | any[]) => {
-
+      console.log(res)
       for (let index = 0; index < res.length; index++) {
         if (res[index].fileType == 12) {
-          this.pathBank = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathBank = this.fileApiUrl + res[index].fileUrl;
+
         }
         if (res[index].fileType == 13) {
-          this.pathEtibar = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathEtibar = this.fileApiUrl + res[index].fileUrl;
+          this.fileInput2Label = getFileName(res[index].fileUrl)
         }
         if (res[index].fileType == 14) {
-          this.pathReyester = 'https://localhost:44383' + res[index].fileUrl;
+          this.pathReyester = this.fileApiUrl + res[index].fileUrl;
+          this.fileInput3Label = getFileName(res[index].fileUrl)
+
         }
       }
     });
@@ -93,7 +99,7 @@ export class ProfileAccountComponent implements OnInit {
     this.typeList.push(type.toString());
     switch(type) {
       case 1:
-        this.fileInput1Label = getFileName(this.selectedFile.name);
+        this.fileInput1Label = this.selectedFile.name;
         break;
       case 2:
         this.fileInput2Label = getFileName(this.selectedFile.name);
