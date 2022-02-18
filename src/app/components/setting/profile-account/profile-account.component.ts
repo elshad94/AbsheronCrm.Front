@@ -7,6 +7,7 @@ import { Title } from '@angular/platform-browser';
 import { getFileName } from 'src/utils/fileNameGetter';
 import { FileService } from 'src/app/services/file.service';
 import * as saveAs from 'file-saver';
+import { successAlert } from 'src/utils/alerts';
 
 @Component({
   selector: 'app-profile-account',
@@ -109,6 +110,23 @@ export class ProfileAccountComponent implements OnInit {
     });
   }
 
+  uploadOneFile(event: any, cusType: number) {
+    this.selectedFile = <File>event
+      .target
+      .files[0];
+    this.fileService.createUserFile(this.selectedFile, cusType)
+      .subscribe({
+        next: () => successAlert('Fayl yüklənildi', 'Uğurlu'),
+        error: () => {
+          Swal.fire({
+            icon: 'error',
+            title:'Xəta',
+            text: 'Serverdə hər hansı bir xəta baş verdi',
+          });
+        }
+      });
+  }
+
   uploadFile(event: any, type: number) {
     this.selectedFile = <File>event
       .target
@@ -116,13 +134,16 @@ export class ProfileAccountComponent implements OnInit {
     this.typeList.push(type.toString());
     switch(type) {
       case 1:
-        this.fileInput1Label = this.selectedFile.name;
+        // this.fileInput1Label = this.selectedFile.name;
+        this.fileInput1Label = this.selectedFile.name.substring(0, 43);
         break;
       case 2:
-        this.fileInput2Label = this.selectedFile.name;
+        // this.fileInput2Label = getFileName(this.selectedFile.name);
+        this.fileInput2Label = this.selectedFile.name.substring(0, 43);
         break;
       case 3:
-        this.fileInput3Label = this.selectedFile.name;
+        // this.fileInput3Label = getFileName(this.selectedFile.name);
+        this.fileInput3Label = this.selectedFile.name.substring(0, 43);
         break;
       }
 
