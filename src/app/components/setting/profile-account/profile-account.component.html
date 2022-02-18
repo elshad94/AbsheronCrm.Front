@@ -254,39 +254,10 @@
                   </div>
                 </div>
                 <div ngModelGroup="FileResponseDto" class="w-100 files">
-                  <div [ngSwitch]="model.uSubtype" class="w-100 m-0 ">
-                    <div *ngSwitchCase="1" class="w-100 row">
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label for="UBankFile" class="input-label">Bank rekvezitləri</label>
-
-                          <input type="text" class="form-control selectfileInputCopy " [(ngModel)]="fileInput2Label"
-                            name="UBankFile" id="UBankFile" placeholder="Bank rekvezitləri faylın seçin">
-
-                          <input type="file" class="form-control selectfileInput " name="UBank" id="bank"
-                            style="top:36%" ngModel #UBankFile="ngModel" (change)="uploadFile( $event,2)">
-                          <a *ngIf="pathBank" class="fileDown" (click)="openFile(pathBank)">sənədə bax</a>
-                          <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
-                        </div>
-                      </div>
-                      <div class="col-lg-6">
-                        <div class="form-group">
-                          <label for="UEtibarnameFile" class="input-label">Səlahiyyətli nümayəndə/etibarnamə</label>
-                          <input type="text" name="UEtibarnameFile" id="UEtibarnameFile" [(ngModel)]="fileInput3Label"
-                            class="form-control selectfileInputCopy " placeholder="Səlahiyyətli nümayəndə/etibarnamə">
-
-                          <input type="file" class="form-control selectfileInput " name="UEtibarnameFile"
-                            id="etibarnamə" ngModel #UEtibarnameFile="ngModel" style="top:36%"
-                            (change)="uploadFile( $event,3)">
-                          <a *ngIf="pathEtibar" class="fileDown" (click)="openFile(pathEtibar)">sənədə bax</a>
-                          <label for="" class="selectfileLabel"><img src="assets/icon/Union.png" alt=""></label>
-                        </div>
-                      </div>
-                    </div>
-                    <div *ngSwitchDefault class="w-100 row">
-                      <div class="col-sm-4">
-                        <div class="form-group ">
-                          <label for="UReyestrFile" class="input-label">Reyestrdən çıxarış</label>
+                    <div class="w-100 row">
+                      <div class="col-sm-4" *ngIf="model.uSubtype == 2">
+                        <div class="form-group " >
+                          <label for="UReyestrFile" class="input-label" >Reyestrdən çıxarış</label>
 
                           <input type="text" class="form-control selectfileInputCopy " [(ngModel)]="fileInput1Label"
                             name="UReyestrFile" id="UReyestrFile" placeholder="Reyestrdən çıxarış faylın seçin">
@@ -326,7 +297,6 @@
                         </div>
                       </div>
                     </div>
-                  </div>
 
                 </div>
 
