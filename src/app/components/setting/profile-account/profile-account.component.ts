@@ -110,22 +110,22 @@ export class ProfileAccountComponent implements OnInit {
     });
   }
 
-  uploadOneFile(event: any, cusType: number) {
-    this.selectedFile = <File>event
-      .target
-      .files[0];
-    this.fileService.createUserFile(this.selectedFile, cusType)
-      .subscribe({
-        next: () => successAlert('Fayl yüklənildi', 'Uğurlu'),
-        error: () => {
-          Swal.fire({
-            icon: 'error',
-            title:'Xəta',
-            text: 'Serverdə hər hansı bir xəta baş verdi',
-          });
-        }
-      });
-  }
+  // uploadOneFile(event: any, cusType: number) {
+  //   this.selectedFile = <File>event
+  //     .target
+  //     .files[0];
+  //   this.fileService.createUserFile(this.selectedFile, cusType)
+  //     .subscribe({
+  //       next: () => successAlert('Fayl yüklənildi', 'Uğurlu'),
+  //       error: () => {
+  //         Swal.fire({
+  //           icon: 'error',
+  //           title:'Xəta',
+  //           text: 'Serverdə hər hansı bir xəta baş verdi',
+  //         });
+  //       }
+  //     });
+  // }
 
   uploadFile(event: any, type: number) {
     this.selectedFile = <File>event
