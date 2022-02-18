@@ -109,13 +109,16 @@ export class ProfileAccountComponent implements OnInit {
     this.typeList.push(type.toString());
     switch(type) {
       case 1:
-        this.fileInput1Label = this.selectedFile.name;
+        // this.fileInput1Label = this.selectedFile.name;
+        this.fileInput1Label = this.selectedFile.name.substring(0, 43);
         break;
       case 2:
-        this.fileInput2Label = getFileName(this.selectedFile.name);
+        // this.fileInput2Label = getFileName(this.selectedFile.name);
+        this.fileInput2Label = this.selectedFile.name.substring(0, 43);
         break;
       case 3:
-        this.fileInput3Label = getFileName(this.selectedFile.name);
+        // this.fileInput3Label = getFileName(this.selectedFile.name);
+        this.fileInput3Label = this.selectedFile.name.substring(0, 43);
         break;
       }
 
