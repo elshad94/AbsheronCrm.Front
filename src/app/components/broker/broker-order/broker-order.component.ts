@@ -208,13 +208,6 @@ export class BrokerOrderComponent implements OnInit {
         this.files[index].fileId = res.fileId;
       });
 
-    // this.http
-    //   .post<any>('https://localhost:44323/api/File', Fd)
-    //   .subscribe((res) => {
-    //     this.files[index].uri = res.uri.split('!@#$%^&').pop()!;
-    //     this.files[index].fileId = res.fileId;
-    //   });
-
     this.brokerItemModel.documents = this.documents;
 
   }

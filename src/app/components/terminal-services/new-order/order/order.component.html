@@ -1,3 +1,4 @@
+<iframe [src]="urlSafe" class="iframe"  allowfullscreen></iframe>
 <div class="content container-fluid">
   <!-- Card -->
   <div class="row">
@@ -183,7 +184,7 @@
           </dl>
         </div>
         <div>
-          <button *ngIf="invStatus !== null" class="printBtn" (click)="printInv()">Çap et <i class="tio-print"></i></button>
+          <button *ngIf="invStatus !== -1" class="printBtn" (click)="printInv()">Çap et <i class="tio-print"></i></button>
         </div>
       </div>
     </div>

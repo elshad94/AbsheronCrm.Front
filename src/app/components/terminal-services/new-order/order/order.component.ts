@@ -11,7 +11,7 @@ import { TerminalDataForUpdate, TerminalXidmet } from 'src/app/model/TerminalUpd
 import { FileData } from 'src/app/model/returnFileFileData';
 import { TerminalUpdateData } from 'src/app/model/terminal-update-data';
 import { TITLE } from 'src/utils/contants';
-import { Title } from '@angular/platform-browser';
+import { Title, SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 import isEditable from 'src/utils/isEditable';
 
 export interface Xidmet {
@@ -47,13 +47,17 @@ export class OrderComponent implements OnInit {
   orderNo?: string;
   orderStatus?: number;
   invStatus?: number;
+  itmUrl?: string;
+  urlSafe?: SafeResourceUrl;
+
 
   constructor(
         private terminalService: TerminalService,
         private router: Router,
         private route: ActivatedRoute,
         private location: Location,
-        private titleService: Title) {
+        private titleService: Title,
+        public sanitizer: DomSanitizer) {
   }
 
   isEditable = () => isEditable(this.orderStatus);
@@ -472,9 +476,13 @@ export class OrderComponent implements OnInit {
     }
   }
 
-  itemUrl?: string;
   printInv(){
-    window.open(`http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO` , "_blank")
-     
+    if (this.invStatus == null || this.invStatus == undefined) {
+      alert()
+      return;
+      
+    }
+    this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
+    this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
   }
 }
