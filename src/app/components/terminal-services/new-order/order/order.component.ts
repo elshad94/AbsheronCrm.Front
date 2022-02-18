@@ -70,6 +70,7 @@ export class OrderComponent implements OnInit {
     this.titleService.setTitle(`Terminal${TITLE}`);
     const terminalUpdateData = this.terminalService.terminalUpdateData;
     if(terminalUpdateData !== undefined) {
+      console.log("🚀 ~ file: order.component.ts ~ line 73 ~ OrderComponent ~ ngOnInit ~ terminalUpdateData", terminalUpdateData)
       this.initialCreateLoad(terminalUpdateData);
       this.terminalService.terminalUpdateData = undefined;
       return;
@@ -480,7 +481,7 @@ export class OrderComponent implements OnInit {
     if (this.invStatus == null || this.invStatus == undefined) {
       alert()
       return;
-      
+
     }
     this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);

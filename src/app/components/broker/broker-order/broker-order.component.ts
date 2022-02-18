@@ -151,11 +151,8 @@ export class BrokerOrderComponent implements OnInit {
           this.files = res.documents.map(d => {return {
             docTypeId: d.documentTypeId,
             fileId: d.fileId,
-            uri: d.uri
+            uri: getFileName(d.uri)
           };});
-          for(const f of this.files) {
-            f.uri = f.uri!.split('!@#$%^&').pop() ?? '';
-          }
           this.transportNumber = res.transportNo;
           this.expenses = res.expenses;
         },
@@ -206,7 +203,6 @@ export class BrokerOrderComponent implements OnInit {
     this.fileService.createFile(Fd.get('files'), true, false)
       .subscribe((res) => {
         this.files[index].uri = getFileName(res.uri);
-
         this.files[index].fileId = res.fileId;
       });
 
