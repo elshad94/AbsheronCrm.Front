@@ -25,7 +25,7 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
 
-  public fileApiUrl = 'http://85.132.108.234:92'
+  public fileApiUrl = 'http://localhost:4200/'
   ngOnInit(): void {
     this.titleService.setTitle(`Profil Hesabı${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
@@ -40,7 +40,7 @@ export class ProfileAccountComponent implements OnInit {
       for (let index = 0; index < res.length; index++) {
         if (res[index].fileType == 12) {
           this.pathBank = this.fileApiUrl + res[index].fileUrl;
-
+          this.fileInput1Label = getFileName(res[index].fileUrl)
         }
         if (res[index].fileType == 13) {
           this.pathEtibar = this.fileApiUrl + res[index].fileUrl;
@@ -102,10 +102,10 @@ export class ProfileAccountComponent implements OnInit {
         this.fileInput1Label = this.selectedFile.name;
         break;
       case 2:
-        this.fileInput2Label = getFileName(this.selectedFile.name);
+        this.fileInput2Label = this.selectedFile.name;
         break;
       case 3:
-        this.fileInput3Label = getFileName(this.selectedFile.name);
+        this.fileInput3Label = this.selectedFile.name;
         break;
       }
 
