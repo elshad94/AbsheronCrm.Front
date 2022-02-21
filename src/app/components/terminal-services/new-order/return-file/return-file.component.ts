@@ -27,6 +27,7 @@ export class ReturnFileComponent implements OnInit {
   customer?: string;
   orderNo?: string;
   orderStatus?: number;
+  fileId?: number;
 
   constructor(
       private terminalService: TerminalService,
@@ -55,7 +56,7 @@ export class ReturnFileComponent implements OnInit {
     }
     this.files = this.terminalService.terminalUpdateRequestData.files;
     for(const file of this.files) {
-      file.uri =  file.uri.split('!@#$%^&').pop() ?? '';
+      file.uri =  getFileName(file.uri);
     }
   }
 

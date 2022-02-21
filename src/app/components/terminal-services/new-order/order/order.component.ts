@@ -46,7 +46,7 @@ export class OrderComponent implements OnInit {
   orderDate?: Date;
   orderNo?: string;
   orderStatus?: number;
-  invStatus?: number;
+  invStatus: number = -1;
   itmUrl?: string;
   urlSafe?: SafeResourceUrl;
 
@@ -89,6 +89,9 @@ export class OrderComponent implements OnInit {
         }
       });
 
+      if (isNaN(this.orderId!)) {
+        return
+      }
       this.terminalService.printInv((Number(this.orderId))).subscribe(res =>{
         this.invStatus = res
       })
@@ -476,6 +479,7 @@ export class OrderComponent implements OnInit {
     }
   }
 
+
   printInv(){
     if (this.invStatus == null || this.invStatus == undefined) {
       alert()
@@ -485,4 +489,6 @@ export class OrderComponent implements OnInit {
     this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
   }
+
+
 }
