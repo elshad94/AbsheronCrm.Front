@@ -83,10 +83,10 @@
               </div>
 
               <div class="col-12 col-sm col-md-2 col-lg-5 cursor_pointer" (click)="openFile(file.id)">
-                <input  type="text" class="form-control selectfileInputCopy file_picker " name="weightName" id="weightLabel" aria-label="0.0" readonly style="cursor: copy;"
+                <input  type="text" class="form-control selectfileInputCopy file_picker openFile" name="weightName" id="weightLabel" aria-label="0.0" readonly 
                   value="{{file.uri}}"/>
                 <label for="weightLabel" class="selectfileLabel Scan">
-                  <i class="fas fa-eye"></i>
+                  <i class="tio-download-to"></i>
                 </label>
               </div>
               <div *ngIf="isEditable()"
