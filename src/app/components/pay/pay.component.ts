@@ -10,6 +10,7 @@ import { PayModalComponent } from './pay-modal/pay-modal.component';
 import { PayBankService } from 'src/app/services/payBank.service';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
+import { PayBorcService } from 'src/app/services/payBorc.service';
 
 @Component({
   selector: 'app-pay',
@@ -22,6 +23,8 @@ export class PayComponent implements OnInit {
     private payService: PaymentService,
     private payAvService: PayAvansService,
     private payBankService: PayBankService,
+    private payBorcService: PayBorcService,
+
     private titleService: Title) {
 
   }
@@ -52,6 +55,9 @@ export class PayComponent implements OnInit {
       }
       if(this.payBankService.isPaymentSuccesfull) {
         this.getData(() => this.payBankService.isPaymentSuccesfull = false);
+      }
+      if(this.payBorcService.isPaymentSuccesfull) {
+        this.getData(() => this.payBorcService.isPaymentSuccesfull = false);
       }
     });
   }

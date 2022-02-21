@@ -12,7 +12,8 @@ export class PayAvansService {
   isPaymentSuccesfull = false;
 
   baseUrl!: string;
-  constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
+  constructor(private http: HttpClient, 
+    private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getCrmAPIURI();
   }
 
