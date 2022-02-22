@@ -15,7 +15,7 @@ export class NotificationComponent implements OnInit {
     'Bütün uğurlu əməliyyatlar haqqında məlumat almaq istəyirəm',
     'Bütün uğursuz əməliyyatlar haqqında məlumat almaq istəyirəm',
     'Bütün əməliyyatlar haqqında məlumat almaq istəyirəm',
-    'Yemiliklər və dəyişikliklər haqqında məlumat almaq istəyirəm',
+    'Yeniliklər və dəyişikliklər haqqında məlumat almaq istəyirəm',
     'Sistemə daxil olmalar haqqında məlumat almaq istəyirəm'
   ];
 
