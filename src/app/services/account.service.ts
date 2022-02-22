@@ -23,6 +23,10 @@ export class AccountService{
     return this.http.put(this.baseUrl + '/Account/UpdateUser',model);
   }
 
+  // updateUserNormal(userData: UserData) {
+  //   return this.http.put(this.baseUrl + '/Account/UpdateUserNormal', userData);
+  // }
+
   getFile(uId:number){
     return this.http.get<any>(this.baseUrl + '/Account/getfile?id='+uId);
   }
@@ -41,4 +45,15 @@ export class AccountService{
     return this.http.get<any>(this.baseUrl + '/Account/GetNotifications?id='+id);
   }
 
+}
+
+interface UserData {
+  UId: number;
+  USubtype: number;
+  UVoen: string;
+  UCustname: string;
+  UPersonname: string;
+  UPersonsurname: string;
+  UPhone: string;
+  FileIds: number[];
 }

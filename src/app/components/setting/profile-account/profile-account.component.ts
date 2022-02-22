@@ -31,6 +31,7 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput1Label = '';
   public fileInput2Label = '';
   public fileInput3Label = '';
+  files: any[] = [];
 
   public fileApiUrl = 'http://localhost:4200/'
   ngOnInit(): void {

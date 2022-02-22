@@ -14,6 +14,19 @@ export class FileService {
     this.baseUrl = apiUrlService.getCrmAPIURI();
   }
 
+  // createUserFile(file: File, cusType: number) {
+  //   const formData = new FormData();
+  //   formData.append('files', file);
+  //   const headers = new HttpHeaders({
+  //     'Access-Control-Allow-Methods': 'GET, POST, DELETE, PUT',
+  //     'Access-Control-Allow-Origin': '*'
+  //   });
+  //   return this.http
+  //     .post<FileCreationResponse>(
+  //       `${this.baseUrl}/File/CreateUserFile?cusType=${cusType}`, formData, {headers}
+  //     );
+  // }
+
   createFile(file: File, isBrokerOrder: boolean, isPayment: boolean, nvNo?: string) {
     const formData = new FormData();
     formData.append('files', file);
