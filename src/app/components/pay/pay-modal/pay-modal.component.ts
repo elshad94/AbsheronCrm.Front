@@ -5,6 +5,7 @@ import { Payments } from 'src/app/model/payments';
 import Swal from 'sweetalert2';
 import { LastModalComponent } from '../last-modal/last-modal.component';
 import { NextModalComponent } from '../next-modal/next-modal.component';
+import { PayBorcComponent } from '../pay-borc/pay-borc.component';
 
 
 @Component({
@@ -47,6 +48,18 @@ export class PayModalComponent implements OnInit {
     if (this.paymentType == 2) {
       this.dialogRef.closeAll()
       this.dialogRef.open(LastModalComponent,{
+        data:{
+          orderId: this.data.orderId,
+          orderTypeId: this.data.orderTypeId,
+          orderNo: this.data.orderNo
+        },
+        height: 'max-content',
+        width: '520px'
+      })
+    }
+    if (this.paymentType == 4) {
+      this.dialogRef.closeAll()
+      this.dialogRef.open(PayBorcComponent,{
         data:{
           orderId: this.data.orderId,
           orderTypeId: this.data.orderTypeId,

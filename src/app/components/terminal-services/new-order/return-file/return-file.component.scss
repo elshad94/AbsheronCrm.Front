@@ -3,6 +3,35 @@
   white-space: nowrap;
 }
 
+
+.openFile{
+  overflow: hidden;
+  white-space: nowrap;
+  background: white; /* default color */
+
+  /* "to left" / "to right" - affects initial color */
+  background: linear-gradient(to left, white 50%, #2ecc71 50%) right;
+  background-size: 200%;
+  transition: .3s ease-out;
+}
+
+.openFile:hover{
+  background-position: left;
+  cursor: pointer;
+  color: white;
+}
+
+.cursor_pointer .selectfileLabel i{
+  color: white;
+  transition: 0.7s;
+}
+
+.cursor_pointer:hover .selectfileLabel i{
+  color: white;
+  transition: 0.7s;
+
+}
+
 .deleteBtn{
   display: flex;
   color: red;
@@ -10,10 +39,7 @@
   align-items: center;
 }
 
-.selectfileLabel {
-  position: absolute;
-  right: 170px;
-}
+
 
 .selectfileInputPay{
   position: absolute;
@@ -21,6 +47,8 @@
   top: 0px;
   opacity: 0;
 }
+
+
 
 .selectfileLabelPay{
   position: absolute;
@@ -49,6 +77,7 @@ h6{
 .orderBtn {
   font-family: "Lexend Deca", sans-serif !important
 }
+
 
 @media only screen and (max-width: 768px){
   .fileDetails{

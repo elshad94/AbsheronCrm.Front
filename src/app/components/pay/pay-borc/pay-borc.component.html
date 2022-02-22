@@ -1,0 +1,16 @@
+<div class="all-modal">
+  <div class="modal-image d-flex justify-content-center">
+    <img src="../../../../assets/icon/Group 648.png" alt="" />
+  </div> 
+  <p class="text-center p-3">
+    Bu halda ödəniş ”Absheron Logistika” tərəfdən təsdiqlənir.
+  </p>
+  <div class="row">
+    <div class="col-lg-6">
+      <a class="btn btn-block newAccept mb-3" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo)">Geri </a>
+    </div>
+    <div class="col-lg-6">
+      <a class="btn btn-block newOrder" (click)="paymentAv()">Davam et</a>
+    </div>
+  </div>
+</div>

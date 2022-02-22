@@ -33,8 +33,10 @@
                     <div class="mb-3" >
                       <input readonly placeholder="Sənəd seçin" type="text" class="form-control selectfileInputCopy file_picker"
                       name="weightName" id="weightLabel1" aria-label="0.0" [(ngModel)]="fileName" [disabled]="!isEditable()">
-                    <input type="file" class="form-control selectfileInputPay " name="weightName"
+                    <input type="file" class="form-control selectfileInputPay " name="weightName" 
                       id="weightLabel" aria-label="0.0" (change)="setFile($event)" [disabled]="!isEditable()">
+                      <!-- <a class="fileDown" (click)="openFile(files.id)">sənədə bax</a> -->
+
 
                     <label for="weightLabel" class="selectfileLabelPay Scan"><img src="assets/icon/Union.png" alt=""></label>
                         <!-- End Input Group -->
@@ -81,14 +83,14 @@
               </div>
 
               <div class="col-12 col-sm col-md-2 col-lg-5 cursor_pointer" (click)="openFile(file.id)">
-                <input  type="text" class="form-control selectfileInputCopy file_picker " name="weightName" id="weightLabel" aria-label="0.0"
+                <input  type="text" class="form-control selectfileInputCopy file_picker openFile" name="weightName" id="weightLabel" aria-label="0.0" readonly 
                   value="{{file.uri}}"/>
                 <label for="weightLabel" class="selectfileLabel Scan">
-                  <i class="fas fa-eye"></i>
+                  <i class="tio-download-to"></i>
                 </label>
               </div>
               <div *ngIf="isEditable()"
-                class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center align-items-center text-danger">
+                class=" col-12 col-sm col-md-2 col-lg-1 d-flex justify-content-center mt-2 text-danger">
                 <div class="deletetdiv ">
                   <a type="button" (click)="deleteFile(i)"><i class="tio-delete-outlined"></i></a>
                 </div>

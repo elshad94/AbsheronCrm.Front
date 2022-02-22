@@ -52,17 +52,14 @@ export class ProfileAccountComponent implements OnInit {
 
   loadFile() {
     this.accountService.getFile(Number(localStorage.getItem('Userid'))).subscribe((res: string | any[]) => {
-      console.log(res)
       for (let index = 0; index < res.length; index++) {
         if (res[index].fileType == 12) {
           this.fileInput2Label = getFileName(res[index].fileUrl)
           this.pathBank = res[index].fileId;
-          console.log(this.pathBank)
         }
         if (res[index].fileType == 13) {
           this.pathEtibar = res[index].fileId;
           this.fileInput3Label = getFileName(res[index].fileUrl)
-          console.log(this.pathEtibar)
 
         }
         if (res[index].fileType == 14) {
@@ -160,7 +157,7 @@ export class ProfileAccountComponent implements OnInit {
         this.typeList[i],
         this.fileList[i],
         this.fileList[i].name
-      );
+        );
     }
 
     this.accountService
