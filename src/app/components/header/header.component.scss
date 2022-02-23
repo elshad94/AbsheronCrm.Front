@@ -194,6 +194,39 @@
 .userSetting ul li {
     cursor: pointer;
 }
+.mainUser{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 45%;
+}
+
+.balance{
+    display: flex;
+}
+
+.balance .brokBalance{
+    padding: 0 15px;
+    height: 64px;
+    background-color: #378AA1;
+    color: white;
+    text-align: center;
+}
+
+.balance .termBalance{
+    padding: 0 15px;
+    height: 64px;
+    background-color: #215361;
+    color: white;
+    text-align: center;
+}
+
+
+.brokBalance, .termBalance {
+    font-size: 16px;
+    line-height: 64px;
+}
+
 
 
 

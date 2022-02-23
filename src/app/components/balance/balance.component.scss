@@ -1,0 +1,94 @@
+.mat-table {
+    font-family: "Lexend Deca", sans-serif !important;
+}
+
+
+.table, .mat-header-row th{
+    text-align: center;
+}
+
+.mat-column-actions {
+    text-align: left !important;
+}
+
+.mat-header-row th {
+    vertical-align: middle !important;
+    background-color: #f8fafd;
+    color: #677788;
+    width: 15%;
+}
+
+.mat-header-row {
+    height: 45px;
+}
+
+tr.mat-row td {
+    border-bottom-color: transparent;
+}
+
+.payBtn {
+    padding: 7px 24px;
+    color: white;
+    background: #05e788;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.term:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #00C9A7;
+    border-radius: 100%;
+}
+
+.brkr:before{
+    content:'';
+    display: inline-block;
+    width:7px;
+    height:7px;
+    margin-right: 4px;
+    background-color: #F5CA99;
+    border-radius: 100%;
+}
+
+.income{
+    color: #1BA10F;
+    font-weight: 500;
+}
+
+.expense{
+    color: #e74c3c;
+    font-weight: 500;
+}
+
+.card-header h3{
+    margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+    .mat-header-row th {
+        padding: 0 12px;
+        text-align: center;
+    }
+
+    .mat-row td{
+        padding: 0 8px;
+        text-align: center;
+    }
+
+    ::ng-deep .mat-paginator-range-actions{
+        margin-top: 10px;
+    }
+
+    ::ng-deep .mat-paginator-container{
+        justify-content: center!important;
+    }
+
+    ::ng-deep .mat-paginator-range-label {
+        text-align: center;
+    }
+}
+

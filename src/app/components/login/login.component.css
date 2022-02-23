@@ -35,7 +35,7 @@
 }
 
 .top-logo {
-    padding-bottom: 150px;
+    padding-bottom: 80px;
     text-align: center;
 }
 
@@ -94,6 +94,26 @@
 .hide {
     display: none;
   }
+
+  .login-header {
+    background-color: #F9FAFC;
+    width: 400px;
+    margin: 17px auto 45px auto;
+    border-radius: 6px;
+    padding: 8px 0;
+}
+.login-header .active {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 11px 37px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    width: 100%;
+    transition: 0.3s;
+}
+.login-header .simpleLogin, .login-header .sign {
+    margin: auto;
+    text-align: center;
+}
 
 
 @media only screen and (max-width: 768px) {

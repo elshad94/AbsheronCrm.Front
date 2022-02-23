@@ -47,6 +47,10 @@ import { SpinnerService } from './services/spinner.service';
 import { SpinnerInterceptor } from './components/preloader/spinner.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ErrorPageComponent } from './components/errorPage/errorPage.component';
+import { BalanceComponent } from './components/balance/balance.component';
+import { AddBalanceComponent } from './components/balance/addBalance/addBalance.component';
+import { ErrorOperationComponent } from './components/balance/errorOperation/errorOperation.component';
+import { SuccesOperationComponent } from './components/balance/succesOperation/succesOperation.component';
 
 
 
@@ -84,7 +88,11 @@ import { ErrorPageComponent } from './components/errorPage/errorPage.component';
         VerifyEmailComponent,
         ChangepassComponent,
         ForgotPasComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        BalanceComponent,
+        AddBalanceComponent,
+        ErrorOperationComponent,
+        SuccesOperationComponent
     ],
     imports: [
         BrowserModule,
