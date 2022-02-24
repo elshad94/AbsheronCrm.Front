@@ -3,15 +3,6 @@ export default interface LoginRequestData {
     uPassword: string
 }
 
-export default interface AsanLoginRequestData {
-  phone : string,
-  userId: string
-}
 
-export default interface AsanLoginResultData {
-  transactionId  : string,
-  certificate : string,
-  challenge: string,
-  verificationCode : string
-}
+
 

@@ -51,6 +51,7 @@ import { BalanceComponent } from './components/balance/balance.component';
 import { AddBalanceComponent } from './components/balance/addBalance/addBalance.component';
 import { ErrorOperationComponent } from './components/balance/errorOperation/errorOperation.component';
 import { SuccesOperationComponent } from './components/balance/succesOperation/succesOperation.component';
+import { CertificateComponent } from './components/login/certificate/certificate.component';
 
 
 @NgModule({
@@ -91,7 +92,7 @@ import { SuccesOperationComponent } from './components/balance/succesOperation/s
         AddBalanceComponent,
         ErrorOperationComponent,
         SuccesOperationComponent,
-        
+        CertificateComponent
     ],
     imports: [
         BrowserModule,

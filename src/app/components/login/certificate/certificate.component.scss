@@ -1,0 +1,170 @@
+/* No CSS */
+/*# sourceMappingURL=login.component.css.map */
+.login-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1057;
+    width: 100%;
+    height: 100vh;
+    margin: 0 !important;
+
+}
+
+.rightCont {
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    margin: 0 !important;
+    right: 0;
+    padding: 70px 180px;
+    background-color: white;
+}
+
+.leftCont {
+    position: fixed;
+    background-color: white;
+    width: 100%;
+    padding: 0;
+
+}
+
+.leftCont img {
+    width: 100%;
+    height: 100vh;
+}
+
+.top-logo {
+    padding-bottom: 80px;
+    text-align: center;
+}
+
+
+
+.resBtn{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+
+.alert-danger {
+    color: #eb4d4b;
+    background-color: none!important;
+}
+
+.alert {
+    position: relative;
+    padding: 0;
+    margin-top: 2px;
+    border-radius: 0;
+}
+
+.login-content {
+    background-color: #fff;
+    padding: 20px 30px;
+    width: 400px;
+    margin: 10px auto;
+    border-radius: 20px;
+    position: relative;
+    .btn {
+        background-color: #1152a2;
+        width: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        color: #fff;
+        margin-top: 90px;
+    }
+    h2 {
+        font-family: "Lexend Deca", sans-serif !important;
+        color: rgba(0, 0, 0, 0.795);
+        margin-bottom: 20px!important;
+        font-weight: 600;
+    }
+}
+
+
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+label {
+	display: flex;
+	cursor: pointer;
+	font-weight: 500;
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 0.375em;
+	/* Accessible outline */
+	/* Remove comment to use */ 
+	/*
+		&:focus-within {
+				outline: .125em solid $primary-color;
+		}
+	*/
+	input {
+		position: absolute;
+		left: -9999px;
+		&:checked + span {
+			// background-color: mix(#fff,#00005c, 84%);
+			&:before {
+				box-shadow: inset 0 0 0 0.25em #4299BF;
+                border: none;
+			}
+		}
+	}
+	span {
+		display: flex;
+		align-items: center;
+		padding: 0.375em 0.75em 0.375em 0.375em;
+		border-radius: 99em; // or something higher...
+		transition: 0.25s ease;
+		&:hover {
+			background-color: mix(#fff, #00005c, 84%);
+		}
+		&:before {
+			display: flex;
+			flex-shrink: 0;
+			content: "";
+            border: 2px solid #E2E2E2;
+			width: 12px;
+			height:12px;
+			border-radius: 50%;
+			margin-right: 0.375em;
+			transition: 0.25s ease;
+		}
+	}
+}
+
+.button{
+    background-color: #1152A2;
+      width: 100%;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      border-radius: 20px;
+      color: #fff;
+      margin: 10px 0;
+  }
+
+
+
+@media only screen and (max-width: 768px) {
+    .rightCont {
+        padding: 30px 30px;
+    }
+
+
+    .leftCont{
+        display: none;
+    }
+
+    .top-logo{
+        padding-bottom: 50px;
+    }
+
+}

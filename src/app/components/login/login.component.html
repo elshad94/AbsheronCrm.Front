@@ -77,21 +77,18 @@
         <form class="login-form" #asanForm="ngForm">
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput1">Mobil nömrə</label>
-            <input type="email" #mail="ngModel" [(ngModel)]="loginRequestData.uEmail" name="uEmail" class="form-control"
-              required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
-            <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
-              <div *ngIf="mail.errors?.['required']">
-                *Email tələb olunur
-              </div>
-              <div *ngIf="mail.errors?.['pattern']">
-                *Nümunə: nümunə@gmail.com
+            <input type="text" #phone="ngModel" [(ngModel)]="asanRequestData.phone" name="uPhone" class="form-control"
+              required >
+            <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+              <div *ngIf="phone.errors?.['required']">
+                *Mobil nömrə tələb olunur
               </div>
             </div>
     
           </div>
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput2">İstifadəçi İD</label>
-            <input type="text" required #text="ngModel" [(ngModel)]="loginRequestData.uPassword" name="uPassword"
+            <input type="text" required #text="ngModel" [(ngModel)]="asanRequestData.userId" name="uPassword"
               class="form-control" id="passInput" >
             <div class="alert alert-danger" *ngIf="text.invalid && (text.dirty || text.touched)">
               <div *ngIf="text.errors?.['required']">
@@ -99,7 +96,7 @@
               </div>
             </div>
           </div>
-          <button type="submit" (click)="signin()" [disabled]="!asanForm.valid"
+          <button type="submit" (click)="asanLog()" [disabled]="!asanForm.valid"
             class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
             Növbəti
           </button>

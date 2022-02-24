@@ -131,6 +131,15 @@
     cursor: pointer;
 }
 
+::ng-deep.swal2-close{
+    color: black;
+    outline: none;
+  }
+  
+  ::ng-deep.swal2-close:focus{
+    box-shadow: none;
+  }
+
 
 @media only screen and (max-width: 768px) {
     .rightCont {
