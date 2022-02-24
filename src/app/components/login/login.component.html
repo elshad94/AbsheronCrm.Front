@@ -7,75 +7,106 @@
     <div class="top-logo">
       <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <div  class="login-header row justify-content-center">
-      <div class="simpleLogin col-lg-6">
-        <a routerLinkActive="active" routerLink="/login/sadelogin">
-          <!-- [routerLinkActiveOptions]="{exact: true}" lohine elave et -->
-          <img src="../../../assets/icon/sadeLogin.svg" alt=""> <span>Sadə Login</span>
-        </a>
-      </div>
-      <div class="sign col-lg-6">
-        <a routerLinkActive="active" routerLink="/login/asanimza">
+    <div class="login-header ">
+      <ul class="row justify-content-center tabUl">
+        <li class="tabli col-lg-6 active sadeLogin" (click)="tabChange(1)"  [ngClass]="{'active': tab==='tab1'}">
+          <img class="pr-2" src="../../../assets/icon/sadeLogin.svg" alt=""><span>Sadə Login</span>
+        </li>
+        <li class="tabli col-lg-6 asanlogin" (click)="tabChange(2)"  [ngClass]="{'active': tab==='tab2'}">
           <img src="../../../assets/icon/asanimza.svg" alt="">
-        </a>
+        </li>
+      </ul>
+    </div>
+    <div [ngSwitch]="loginType">
+      <div *ngSwitchCase="true">
+        <form class="login-form" #logInForm="ngForm">
+          <div class="form-group">
+            <label class="input-label" for="exampleFormControlInput1">E-mail</label>
+            <input type="email" #mail="ngModel" [(ngModel)]="loginRequestData.uEmail" name="uEmail" class="form-control"
+              required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+            <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+              <div *ngIf="mail.errors?.['required']">
+                *Email tələb olunur
+              </div>
+              <div *ngIf="mail.errors?.['pattern']">
+                *Nümunə: nümunə@gmail.com
+              </div>
+            </div>
+    
+          </div>
+          <div class="form-group">
+            <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
+            <input type="password" required #password="ngModel" [(ngModel)]="loginRequestData.uPassword" name="uPassword"
+              class="form-control" id="passInput" [type]="showPassword ? 'text' : 'password'">
+            <div class="hidden-outlined">
+              <i alt="show" class="tio-hidden-outlined" (click)="showPassword = !showPassword"
+                [class.hide]="showPassword"></i>
+              <i alt="hide" class="tio-invisible" (click)="showPassword = !showPassword" [class.hide]="!showPassword"></i>
+            </div>
+            <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+              <div *ngIf="password.errors?.['required']">
+                *Şifrə tələb olunur
+              </div>
+            </div>
+          </div>
+          <div class="row form-group resBtn">
+            <div>
+              <!-- Checkbox -->
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="customCheck13" class="custom-control-input indeterminate-checkbox" checked>
+                <label class="custom-control-label" for="customCheck13">Yadda saxla</label>
+              </div>
+              <!-- End Checkbox -->
+            </div>
+            <div>
+              <a style="cursor: pointer;" class="link-primary" [routerLink]="['/forgotPas']">Şifrəni unutmuşam</a>
+            </div>
+          </div>
+          <button type="submit" (click)="signin()" [disabled]="!logInForm.valid"
+            class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
+            Daxil ol
+          </button>
+    
+          <div class="row d-flex justify-content-center  ">
+            <p class="d-block text-center  position-absolute">
+              Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
+          </div>
+        </form>
+      </div>
+      <div *ngSwitchCase="false">
+        <form class="login-form" #asanForm="ngForm">
+          <div class="form-group">
+            <label class="input-label" for="exampleFormControlInput1">Mobil nömrə</label>
+            <input type="email" #mail="ngModel" [(ngModel)]="loginRequestData.uEmail" name="uEmail" class="form-control"
+              required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+            <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
+              <div *ngIf="mail.errors?.['required']">
+                *Email tələb olunur
+              </div>
+              <div *ngIf="mail.errors?.['pattern']">
+                *Nümunə: nümunə@gmail.com
+              </div>
+            </div>
+    
+          </div>
+          <div class="form-group">
+            <label class="input-label" for="exampleFormControlInput2">İstifadəçi İD</label>
+            <input type="text" required #text="ngModel" [(ngModel)]="loginRequestData.uPassword" name="uPassword"
+              class="form-control" id="passInput" >
+            <div class="alert alert-danger" *ngIf="text.invalid && (text.dirty || text.touched)">
+              <div *ngIf="text.errors?.['required']">
+                *İstifadəçi İD tələb olunur
+              </div>
+            </div>
+          </div>
+          <button type="submit" (click)="signin()" [disabled]="!asanForm.valid"
+            class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
+            Növbəti
+          </button>
+        </form>
       </div>
     </div>
-    <form class="login-form" #logInForm="ngForm">
-      <div class="form-group">
-        <label class="input-label" for="exampleFormControlInput1">E-mail</label>
-        <input type="email" #mail="ngModel" [(ngModel)]="loginRequestData.uEmail" name="uEmail" class="form-control"
-          required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
-        <div class="alert alert-danger" *ngIf="mail.invalid && (mail.dirty || mail.touched)">
-          <div *ngIf="mail.errors?.['required']">
-            *Email tələb olunur
-          </div>
-          <div *ngIf="mail.errors?.['pattern']">
-            *Nümunə: nümunə@gmail.com
-          </div>
-        </div>
 
-      </div>
-      <div class="form-group">
-        <label class="input-label" for="exampleFormControlInput2">Şifrə</label>
-        <input type="password" required #password="ngModel" [(ngModel)]="loginRequestData.uPassword" name="uPassword"
-          class="form-control" id="passInput" [type]="showPassword ? 'text' : 'password'">
-        <div class="hidden-outlined">
-          <i alt="show" class="tio-hidden-outlined"
-          (click)="showPassword = !showPassword"
-          [class.hide]="showPassword"></i>
-       <i alt="hide" class="tio-invisible"
-          (click)="showPassword = !showPassword"
-          [class.hide]="!showPassword"></i>
-        </div>
-        <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
-          <div *ngIf="password.errors?.['required']">
-            *Şifrə tələb olunur
-          </div>
-        </div>
-      </div>
-      <div class="row form-group resBtn">
-        <div>
-          <!-- Checkbox -->
-          <div class="custom-control custom-checkbox">
-            <input type="checkbox" id="customCheck13" class="custom-control-input indeterminate-checkbox" checked>
-            <label class="custom-control-label" for="customCheck13">Yadda saxla</label>
-          </div>
-          <!-- End Checkbox -->
-        </div>
-        <div>
-          <a style="cursor: pointer;" class="link-primary" [routerLink]="['/forgotPas']">Şifrəni unutmuşam</a>
-        </div>
-      </div>
-      <button type="submit" (click)="signin()" [disabled]="!logInForm.valid"
-        class="form-control w-100 mt-3 btn btn-block newOrder mb-3">
-        Daxil ol
-      </button>
-
-      <div class="row d-flex justify-content-center  ">
-        <p class="d-block text-center  position-absolute">
-          Hesabınız yoxdur? <a [routerLink]="['/register']">Qeydiyyatdan keçin</a></p>
-      </div>
-    </form>
   </div>
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
     <p style="color: white"> Yüklənir... </p>

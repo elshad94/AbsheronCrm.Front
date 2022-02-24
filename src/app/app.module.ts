@@ -53,8 +53,6 @@ import { ErrorOperationComponent } from './components/balance/errorOperation/err
 import { SuccesOperationComponent } from './components/balance/succesOperation/succesOperation.component';
 
 
-
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -92,7 +90,8 @@ import { SuccesOperationComponent } from './components/balance/succesOperation/s
         BalanceComponent,
         AddBalanceComponent,
         ErrorOperationComponent,
-        SuccesOperationComponent
+        SuccesOperationComponent,
+        
     ],
     imports: [
         BrowserModule,

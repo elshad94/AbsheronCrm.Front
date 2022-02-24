@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 import LoginRequestData from 'src/app/model/loginRequestData';
 import { errorAlert, infoAlert } from 'src/utils/alerts';
 import { GlobalService } from 'src/app/services/global.service';
-import {Title} from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 
 
 @Component({
@@ -17,29 +17,39 @@ import {Title} from "@angular/platform-browser";
 export class LoginComponent implements OnInit {
   loginRequestData: LoginRequestData = {
     uEmail: '',
-    uPassword: ''
+    uPassword: '',
+    phone: '',
+    userId: '',
+    transactionId: '',
+    certificate: '',
+    challenge: '',
+    verificationCode: ''
   };
 
+  tab: any = 'tab1';
+  tab1: any
+  tab2: any
+
   constructor(private authService: AuthService,
-              private router: Router,
-              private globalService: GlobalService,
-              private titleService: Title) {
-                this.titleService.setTitle("Daxil Ol  | Abşeron Logistika Mərkəzi")
+    private router: Router,
+    private globalService: GlobalService,
+    private titleService: Title) {
+    this.titleService.setTitle("Daxil Ol  | Abşeron Logistika Mərkəzi")
   }
 
   public submitted = false;
   public showPassword?: boolean;
+  public loginType: boolean = true;
 
   ngOnInit(): void {
-    this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi")
-
+    this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi");
   }
 
   getDecodedAccessToken(token?: any): any {
-    try{
+    try {
       return jwt_decode(token?.toString());
     }
-    catch(Error){
+    catch (Error) {
       return null;
     }
   }
@@ -47,17 +57,14 @@ export class LoginComponent implements OnInit {
   signin() {
     this.authService.login(this.loginRequestData).subscribe({
       next: (res: any) => {
-        // localStorage.setItem('token', res.data);
         this.globalService.token = res.data;
-        localStorage.setItem('Userid',this.getDecodedAccessToken(res.data.toString()).UserId);
-        localStorage.setItem('Username',this.getDecodedAccessToken(res.data.toString()).Username);
-        // window.location.replace('home')
+        localStorage.setItem('Userid', this.getDecodedAccessToken(res.data.toString()).UserId);
+        localStorage.setItem('Username', this.getDecodedAccessToken(res.data.toString()).Username);
         this.router.navigate(['/home']);
       },
-      error:res => {
-        if(res.error.data == '1' || res.error.data == '0' ||  res.error.data=='2' || res.error.data=='3' || res.error.data=='4')
-        {
-          infoAlert(res.error.programMessage,'Məlumat');
+      error: res => {
+        if (res.error.data == '1' || res.error.data == '0' || res.error.data == '2' || res.error.data == '3' || res.error.data == '4') {
+          infoAlert(res.error.programMessage, 'Məlumat');
           return;
         }
         errorAlert('Serverdə hər hansı bir xəta baş verir', 'Xəta');
@@ -65,4 +72,18 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+
+
+  tabChange(check: number) {
+    if (check == 1) {
+      this.tab = 'tab1';
+      this.loginType = true;
+    } else if (check == 2) {
+      this.loginType = false;
+      this.tab = 'tab2';
+    }
+    console.log(this.loginType)
+  }
 }
+
