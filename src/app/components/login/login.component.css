@@ -35,7 +35,7 @@
 }
 
 .top-logo {
-    padding-bottom: 150px;
+    padding-bottom: 80px;
     text-align: center;
 }
 
@@ -93,6 +93,51 @@
 
 .hide {
     display: none;
+  }
+
+  .login-header {
+    background-color: #F9FAFC;
+    width: 400px;
+    margin: 17px auto 45px auto;
+    border-radius: 6px;
+    padding: 8px 13px;
+}
+.login-header ul .active {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 0 37px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    transition: 0.3s;
+}
+.login-header .simpleLogin, .login-header .sign {
+    margin: auto;
+    text-align: center;
+}
+
+.tabUl{
+    list-style: none;
+    align-items: center;
+    text-align: center;
+    color: black;
+    margin: 0;
+    padding: 0;
+}
+
+.tabUl li{
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+::ng-deep.swal2-close{
+    color: black;
+    outline: none;
+  }
+  
+  ::ng-deep.swal2-close:focus{
+    box-shadow: none;
   }
 
 

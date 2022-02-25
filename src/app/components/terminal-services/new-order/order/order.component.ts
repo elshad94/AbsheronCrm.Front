@@ -130,6 +130,7 @@ export class OrderComponent implements OnInit {
       this.total += x.totalAmount;
       this.totalEdv += x.totalAmount + x.edv;
     }
+    console.log(this.xidmetler)
   }
 
   private initialUpdateLoad(updateTerminalData: TerminalDataForUpdate) {

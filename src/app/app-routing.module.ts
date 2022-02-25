@@ -25,6 +25,11 @@ import { ForgotPasComponent } from './components/register/forgotPas/forgotPas.co
 import { ChangepassComponent } from './components/register/changepass/changepass.component';
 import { PreloaderComponent } from './components/preloader/preloader.component';
 import { ErrorPageComponent } from './components/errorPage/errorPage.component';
+import { BalanceComponent } from './components/balance/balance.component';
+import { AddBalanceComponent } from './components/balance/addBalance/addBalance.component';
+import { SuccesOperationComponent } from './components/balance/succesOperation/succesOperation.component';
+import { ErrorOperationComponent } from './components/balance/errorOperation/errorOperation.component';
+import { CertificateComponent } from './components/login/certificate/certificate.component';
 
 
 const routes: Routes = [
@@ -52,7 +57,13 @@ const routes: Routes = [
     {path: 'forgotPas', component: ForgotPasComponent},
     {path: 'changepass', component: ChangepassComponent},
     {path: 'pre', component: PreloaderComponent},
+    {path: 'balance', component: BalanceComponent},
+    {path: 'addBalance', component: AddBalanceComponent},
+    {path: 'successOperation', component: SuccesOperationComponent},
+    {path: 'errorOperation', component: ErrorOperationComponent},
+    {path: 'certificate', component: CertificateComponent},
     {path: '**', component: ErrorPageComponent}
+    
 ];
 
 @NgModule({

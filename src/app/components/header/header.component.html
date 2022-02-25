@@ -8,10 +8,13 @@
                 <li class="resLi" [routerLink]="['/home']" routerLinkActive="router-link-active"><img
                         src="../../../assets/icon/home.svg">Ana səhifə</li>
                 <li class="term">
-                    <div><img src="../../../assets/icon/terminal.svg">Terminal xidmətlər <i class="tio-next-ui"></i></div>
+                    <div><img src="../../../assets/icon/terminal.svg">Terminal xidmətlər <i class="tio-next-ui"></i>
+                    </div>
                     <ul class="subCat">
-                        <li class="resLi" [routerLink]="['/services']" routerLinkActive="router-link-active">Terminal xidmətlərim</li>
-                        <li class="resLi" [routerLink]="['/neworder']" routerLinkActive="router-link-active">Yeni sifariş</li>
+                        <li class="resLi" [routerLink]="['/services']" routerLinkActive="router-link-active">Terminal
+                            xidmətlərim</li>
+                        <li class="resLi" [routerLink]="['/neworder']" routerLinkActive="router-link-active">Yeni
+                            sifariş</li>
                     </ul>
                 </li>
                 <li class="resLi" [routerLink]="['/broker']" routerLinkActive="router-link-active"><img
@@ -22,15 +25,20 @@
                         src="../../../assets/icon/izleme.svg">İzləmə</li>
                 <li class="resLi" [routerLink]="['/report']" routerLinkActive="router-link-active"><img
                         src="../../../assets/icon/hesabat.svg">Hesabat</li>
+                <li class="resLi" [routerLink]="['/balance']" routerLinkActive="router-link-active"><img
+                        src="../../../assets/icon/balance.svg">Balans</li>
                 <li class="resLi" [routerLink]="['/help']" routerLinkActive="router-link-active"><img
                         src="../../../assets/icon/komek.svg">Kömək</li>
                 <li class="term">
                     <div><img src="../../../assets/icon/settings.svg">Tənzimləmə <i class="tio-next-ui"></i>
                     </div>
                     <ul class="subCat">
-                        <li class="resLi" [routerLink]="['/profileAccount']" routerLinkActive="router-link-active">Profil hesabı</li>
-                        <li class="resLi" [routerLink]="['/changepwd']" routerLinkActive="router-link-active">Şifrəni dəyiş</li>
-                        <li class="resLi" [routerLink]="['/notification']" routerLinkActive="router-link-active">Bildirişlər</li>
+                        <li class="resLi" [routerLink]="['/profileAccount']" routerLinkActive="router-link-active">
+                            Profil hesabı</li>
+                        <li class="resLi" [routerLink]="['/changepwd']" routerLinkActive="router-link-active">Şifrəni
+                            dəyiş</li>
+                        <li class="resLi" [routerLink]="['/notification']" routerLinkActive="router-link-active">
+                            Bildirişlər</li>
                     </ul>
                 </li>
             </ul>
@@ -40,15 +48,26 @@
 <header>
     <div class="head">
         <div><i class="tio-first-page" id="collapse"></i></div>
-        <div class="user">
-            <i class="tio-user"></i>
-            <div class="userSetting">
-                <ul>
-                    <li [routerLink]="['/profileAccount']">Profil hesabı</li>
-                    <li [routerLink]="['/changepwd']">Şifrəni dəyiş</li>
-                    <li [routerLink]="['/notification']">Bildirişlər</li>
-                    <li (click)="signOut()">Çıxış et</li>
-                </ul>
+        <div class="mainUser">
+            <div class="balance">
+                <div class="brokBalance">
+                    <span>Broker balans: ₼120.00</span>
+                </div>
+                <div class="termBalance">
+                    <span>Terminal balans: ₼120.00</span>
+
+                </div>
+            </div>
+            <div class="user">
+                <i class="tio-user"></i>
+                <div class="userSetting">
+                    <ul>
+                        <li [routerLink]="['/profileAccount']">Profil hesabı</li>
+                        <li [routerLink]="['/changepwd']">Şifrəni dəyiş</li>
+                        <li [routerLink]="['/notification']">Bildirişlər</li>
+                        <li (click)="signOut()">Çıxış et</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
