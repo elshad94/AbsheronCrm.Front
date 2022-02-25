@@ -78,10 +78,13 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput1">Mobil nömrə</label>
             <input type="text" #phone="ngModel" [(ngModel)]="asanRequestData.phone" name="uPhone" class="form-control"
-              required >
+              required pattern="([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?" maxlength="13">
             <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
               <div *ngIf="phone.errors?.['required']">
                 *Mobil nömrə tələb olunur
+              </div>
+              <div *ngIf="phone.errors?.['pattern']">
+                *Nümunə: +994xxxxxxxxx
               </div>
             </div>
     
@@ -89,10 +92,13 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput2">İstifadəçi İD</label>
             <input type="text" required #text="ngModel" [(ngModel)]="asanRequestData.userId" name="uPassword"
-              class="form-control" id="passInput" >
+              class="form-control" id="passInput" maxlength="6" pattern="^([\d])+$">
             <div class="alert alert-danger" *ngIf="text.invalid && (text.dirty || text.touched)">
               <div *ngIf="text.errors?.['required']">
                 *İstifadəçi İD tələb olunur
+              </div>
+              <div *ngIf="text.errors?.['pattern']">
+                *Yalnız ədəd qəbul olunur
               </div>
             </div>
           </div>
