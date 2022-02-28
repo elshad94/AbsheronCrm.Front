@@ -8,6 +8,7 @@ import { NotRezidentUser } from '../model/NotRezidentUser';
 import { RezidentUser } from '../model/rezidentUser';
 import AsanLoginRequestData from '../model/asanLoginRequsetData';
 import AsanLoginResponceData from '../model/asanLoginResponceData';
+import CertificateLogin from '../model/certificateLogin';
 @Injectable({
   providedIn: 'root'
 })
@@ -33,8 +34,8 @@ export class AuthService {
 
   }
 
-  aslogin(asandata: AsanLoginRequestData): Observable<any> {
-    return this.http.post<any>(this.asanUrl + '/Login' , asandata).pipe(
+  aslogin(asandata: AsanLoginRequestData): Observable<AsanLoginResponceData> {
+    return this.http.post<AsanLoginResponceData>(this.asanUrl + '/Login' , asandata).pipe(
     )
   }
 
@@ -47,6 +48,18 @@ export class AuthService {
     return this.http.post<any>(this.asanUrl + '/CerifcateList' , asanCertificate).pipe(
     )
   }
+
+  certifcateLogin(certificateLogin: CertificateLogin): Observable<any> {
+    return this.http.post<any>(this.asanUrl + '/CertifcateLogin' , certificateLogin).pipe(
+    )
+  }
+
+  certifcateStatusCheck(certifcateStatusCheck: any): Observable<any> {
+    return this.http.post<any>(this.asanUrl + '/CertifcateStatusCheck' , certifcateStatusCheck).pipe(
+    )
+  }
+
+
 
   uploadFile(fileData: FormData,UId:number){
     return  this.http.post(this.baseUrl+'/Account/UploadFile?Uid='+UId,fileData);

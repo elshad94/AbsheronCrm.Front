@@ -1,6 +1,6 @@
 
 export default interface AsanLoginResponceData {
-    transactionId  : number,
+    transactionId  : string,
     certificate : string,
     challenge: string,
     verificationCode : string

@@ -9,14 +9,16 @@
     </div>
     <div class="login-content mb-3">
       <h2  class="login-text">Təmsil etdiyiniz subyekti seçin</h2>
-      <form>
+      <form #myForm="ngForm" (submit)="templateForm()">
         <label *ngFor="let item of certificateData">
-          <input type="radio" name="radio" />
+          <input type="radio" name="key" ngModel value="{{item.key}}"  id="{{item.informationSystemName}}"
+            (click)="setSelectedItemDetails(item.key, item.cert)"/>
           <span>{{item.organizationName}} ({{item.organizationCode}})</span>
         </label>
         <button type="submit" mat-raised-button color="primary" class="form-control w-100 mt-7 btn btn-block newOrder ">Davam et</button>
   
       </form>
+      
     </div>
   </div>
   <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
