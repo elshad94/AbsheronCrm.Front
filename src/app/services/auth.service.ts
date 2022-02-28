@@ -59,6 +59,11 @@ export class AuthService {
     )
   }
 
+  checkvoen(checkvoen: string): Observable<any> {
+    return this.http.post<any>(this.baseUrl+'/Account/checkvoen' , checkvoen).pipe(
+    )
+  }
+
 
 
   uploadFile(fileData: FormData,UId:number){

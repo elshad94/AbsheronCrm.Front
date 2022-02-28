@@ -102,8 +102,8 @@ export class LoginComponent implements OnInit {
         if (this.transacId == '0') {
           Swal.fire({
             icon: 'error',
-            title: 'Xəta...',
-            text: 'Nəsə xəta baş verdi!',
+            title: 'Xəta',
+            text: 'Serverdə xəta baş verdi!',
             confirmButtonText: 'Bağla'
           })
           this.testsubscription.unsubscribe()
@@ -121,7 +121,11 @@ export class LoginComponent implements OnInit {
         })
       },
       error: (error: any) => {
-        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Xəta',
+          text: 'Serverdə xəta baş verdi!',
+        })
       }
     })
 
@@ -143,6 +147,11 @@ export class LoginComponent implements OnInit {
           }
         },
         error: () => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Xəta',
+            text: 'Serverdə xəta baş verdi!',
+          })
         }
       })
 

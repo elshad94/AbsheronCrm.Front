@@ -5,7 +5,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { PassDataService } from 'src/app/services/passData.service';
 import { Title } from '@angular/platform-browser';
 import { interval, Subscription } from 'rxjs';
+import jwt_decode from 'jwt-decode';
+import { GlobalService } from 'src/app/services/global.service';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-certificate',
@@ -16,7 +20,6 @@ export class CertificateComponent implements OnInit {
   certificateLoginResult: any = [];
 
   certificateData: any = []
-
 
   data = {
     phone: '',
@@ -30,112 +33,94 @@ export class CertificateComponent implements OnInit {
     cert: ''
   };
 
-
   selectedItemKey!: string;
   selectedItemCertificate!: string;
-  transacId?: string;
-  verifyCode?: string;
-  intervalReg?: number = 5000;
+  selectedItemVoen!: string;
+  organizationCode: any = {
+    voen: ''
+  };
   testsubscription!: Subscription;
 
   status?: any = {
     status: ''
   };
 
-
-
   constructor(private authService: AuthService,
     private readonly passDataService: PassDataService,
     private titleService: Title,
+    private globalService: GlobalService,
+    private router: Router
   ) { }
-
 
   ngOnInit() {
     this.titleService.setTitle("Serifikatlar | Abşeron Logistika Mərkəzi");
 
     this.data = this.passDataService.data;
     this.authService.asanCertificate(this.data).subscribe({
-      next: (result: CertificateResult) =>{
+      next: (result: CertificateResult) => {
 
         this.certificateData = result
-
         console.log(this.certificateData)
       },
-      error: () =>{
-
+      error: () => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Xəta',
+          text: 'Serverdə xəta baş verdi!',
+        })
       }
 
     })
+
+    console.log(this.selectedItemVoen)
   }
 
-  setSelectedItemDetails(key: string, cert: string) {
-    this.selectedItemCertificate = cert;
-    this.selectedItemKey = key;
+  setSelectedItemDetails(organizationCode: string) {
+    this.selectedItemVoen = organizationCode;
+  }
+
+  getDecodedAccessToken(token?: any): any {
+    try {
+      return jwt_decode(token?.toString());
+    }
+    catch (Error) {
+      return null;
+    }
   }
 
   templateForm() {
-    const setInterval = interval(this.intervalReg)
-
-    this.postData = {
-      phone: this.data.phone,
-      userId: this.data.userId,
-      key: this.selectedItemKey,
-      cert: this.selectedItemCertificate
+    this.organizationCode = {
+      voen: this.selectedItemVoen
     }
 
-    this.authService.certifcateLogin(this.postData).subscribe({
+    this.authService.checkvoen(this.organizationCode).subscribe({
       next: (result: any) =>{
-
-        this.certificateLoginResult = result
-
-        this.transacId = result.transactionId
-        this.verifyCode = result.verificationCode
-
-        if (this.transacId == '0') {
+        console.log(result.status)
+        if (result.status == true) {
+          this.globalService.token = result.data;
+          console.log(result.data)
+          localStorage.setItem('Userid', this.getDecodedAccessToken(result.data.toString()).UserId);
+          localStorage.setItem('Username', this.getDecodedAccessToken(result.data.toString()).Username);
+          this.router.navigate(['/home']);
+        }
+        if (result.status == false) {
           Swal.fire({
-            icon: 'error',
-            title: 'Xəta...',
-            text: 'Nəsə xəta baş verdi!',
+            icon: 'info',
+            title: 'Məlumat',
+            text: `${this.organizationCode.voen} nömrəli Vöenə bağlı hesab yoxdur. Zəhmət olmasa qeydiyyatdan keçin`,
             confirmButtonText: 'Bağla'
           })
-          this.testsubscription.unsubscribe()
-          return;
+          this.router.navigate(['/register']);
         }
-        Swal.fire({
-          imageUrl: '../../../assets/img/loading.gif',
-          showCloseButton: true,
-          showConfirmButton: false,
-          width: '370px',
-          imageWidth: '40%',
-          title: 'Xahiş edirik telefonunuzu yoxlayın.',
-          html: `Yoxlama kodu: ${this.verifyCode}`,
-          allowOutsideClick: false
-        })
-
-        console.log(this.certificateLoginResult)
+        console.log(this.organizationCode)
       },
       error: () =>{
-
+        Swal.fire({
+          icon: 'error',
+          title: 'Xəta',
+          text: 'Serverdə xəta baş verdi!',
+        })
       }
-
-    })
-
-    this.testsubscription = setInterval.subscribe((res: any) =>{
-
-      this.authService.certifcateStatusCheck(this.certificateLoginResult).subscribe({
-        next: (result: any) =>{
-          this.status = result
-          console.log(this.status.status)
-          if (this.status.status == 'SIGNATURE_CREATED') {
-            this.testsubscription.unsubscribe()
-            Swal.close();
-          }
-        },
-        error: () =>{
-  
-        }
-      })
-
     })
   }
 
