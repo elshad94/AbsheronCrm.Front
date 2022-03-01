@@ -14,5 +14,6 @@ export default interface TerminalUpdateRequestData {
             edv: number,
             miqdar: number
         }[],
-    files?: FileData[]
+    files?: FileData[],
+    total?: number
 }

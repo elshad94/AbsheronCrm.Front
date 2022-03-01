@@ -72,19 +72,11 @@ export class TerminalService {
     if(this.terminalUpdateRequestData === undefined) {
       throw errorCodes.REQUEST_DATA_UNDEFINED;
     }
-    // if(!this.terminalUpdateRequestData.emptyRefCode) {
-    //   throw errorCodes.EMPTY_REF_CODE_EMPTY;
-    // }
-    // if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
-    //   throw errorCodes.FILES_EMPTY;
-    // }
-    // if(!this.terminalUpdateRequestData.fullRefCode) {
-    //   throw errorCodes.FULL_REF_CODE_EMPTY;
-    // }
     if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
       throw errorCodes.XIDMETLER_EMPTY;
     }
     this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
+    this.terminalUpdateRequestData.total = this.totalEdv;
     return this.http.post(this.baseUrl + '/TerminalOrder/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
   }
 
@@ -92,19 +84,11 @@ export class TerminalService {
     if(this.terminalUpdateRequestData === undefined) {
       throw errorCodes.REQUEST_DATA_UNDEFINED;
     }
-    // if(!this.terminalUpdateRequestData.emptyRefCode) {
-    //   throw errorCodes.EMPTY_REF_CODE_EMPTY;
-    // }
-    // if(!this.terminalUpdateRequestData.files || this.terminalUpdateRequestData.files.length < 1) {
-    //   throw errorCodes.FILES_EMPTY;
-    // }
-    // if(!this.terminalUpdateRequestData.fullRefCode) {
-    //   throw errorCodes.FULL_REF_CODE_EMPTY;
-    // }
     if(!this.terminalUpdateRequestData.xidmetler || this.terminalUpdateRequestData.xidmetler.length < 1) {
       throw errorCodes.XIDMETLER_EMPTY;
     }
     this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
+    this.terminalUpdateRequestData.total = this.totalEdv;
     return this.http.put(
       `${this.baseUrl}/TerminalOrder/Update/${orderId}`,
       this.terminalUpdateRequestData,

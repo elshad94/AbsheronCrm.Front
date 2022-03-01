@@ -329,7 +329,10 @@ export class OrderComponent implements OnInit {
   }
 
   isValid(): boolean {
-    return this.xidmetler.some(x =>x.isAmountInValid);
+    if(this.xidmetler) {
+      return this.xidmetler.some(x =>x.isAmountInValid);
+    }
+    return true;
   }
 
   increaseCount(xidmet: Xidmet) {
@@ -422,6 +425,7 @@ export class OrderComponent implements OnInit {
         this.terminalService.terminalUpdateRequestData.files = this.files;
       }
       if(this.orderId === undefined) {
+        this.terminalService.totalEdv = this.totalEdv;
         this.terminalService
           .createTerminalOrder()
           .subscribe({
@@ -438,6 +442,7 @@ export class OrderComponent implements OnInit {
           });
         return;
       }
+      this.terminalService.totalEdv = this.totalEdv;
       this.terminalService
         .updateTerminalOrder(this.orderId)
         .subscribe({
@@ -486,8 +491,11 @@ export class OrderComponent implements OnInit {
       return;
 
     }
-    this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
-    this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
+    // this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
+    // this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
+
+    const src = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
+    $('#printFrame').attr('src', src);
   }
 
 
