@@ -7,10 +7,10 @@
     <div class="top-logo">
       <img class="top-logo-image" src="assets/img/Absheron_Logistika_logo 3.png" alt="">
     </div>
-    <div class="login-content mb-3" *ngIf="data.userId == '' || selectedItemVoen == undefined">
+    <div class="login-content mb-3" *ngIf="data.userId == ''">
       <h2  class="login-text-2">Bu səhifə sizin üçün əl çatan deyil.</h2>
     </div>
-    <div class="login-content mb-3" *ngIf="data.userId !== '' || selectedItemVoen !== undefined">
+    <div class="login-content mb-3" *ngIf="data.userId !== ''">
       <h2  class="login-text-2">Təmsil etdiyiniz subyekti seçin</h2>
       <form #myForm="ngForm" (submit)="templateForm()">
         <label *ngFor="let item of certificateData">

@@ -68,7 +68,6 @@ export class CertificateComponent implements OnInit {
       next: (result: CertificateResult) => {
 
         this.certificateData = result
-        console.log(this.certificateData)
       },
       error: () => {
         Swal.fire({
@@ -77,10 +76,7 @@ export class CertificateComponent implements OnInit {
           text: 'Serverdə xəta baş verdi!',
         })
       }
-
     })
-
-    console.log(this.selectedItemVoen)
   }
 
   setSelectedItemDetails(organizationCode: string, personalCode: string , informationSystemName: string , organizationName: string) {
@@ -112,15 +108,13 @@ export class CertificateComponent implements OnInit {
 
     this.authService.checkvoen(this.organizationCode).subscribe({
       next: (result: any) => {
-        console.log(result.status)
-        if (result.status == false) {
+        if (result.status == true) {
           this.globalService.token = result.data;
-          console.log(result.data)
           localStorage.setItem('Userid', this.getDecodedAccessToken(result.data.toString()).UserId);
           localStorage.setItem('Username', this.getDecodedAccessToken(result.data.toString()).Username);
           this.router.navigate(['/home']);
         }
-        if (result.status == true) {
+        if (result.status == false) {
           Swal.fire({
             icon: 'info',
             title: 'Məlumat',
@@ -137,7 +131,6 @@ export class CertificateComponent implements OnInit {
             }
           })
         }
-        console.log(this.organizationCode)
       },
       error: () => {
         Swal.fire({

@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     this.model = this.passDataService.dataRegister
 
 
-    if (this.model.USubtype == 'H ⁄ Ş') {
+    if (this.model.USubtype == 'H ⁄ Ş' || this.model.USubtype == 'RƏHBƏRLİK') {
       this.isNameSelected = false
     }
     if (this.model.USubtype == 'F ⁄ Ş') {

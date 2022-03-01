@@ -91,7 +91,6 @@ export class LoginComponent implements OnInit {
   asanLog() {
 
     const setInterval = interval(this.intervalReg)
-    console.log(this.asanRequestData)
     this.authService.aslogin(this.asanRequestData).subscribe({
       next: (result: AsanLoginResponceData) => {
         this.statCheck = result
@@ -126,20 +125,18 @@ export class LoginComponent implements OnInit {
           title: 'Xəta',
           text: 'Serverdə xəta baş verdi!',
         })
+        this.testsubscription.unsubscribe()
+        return;
       }
     })
 
     this.testsubscription = setInterval.subscribe((res: any) => {
-      console.log(this.statCheck)
       this.authService.asloginStat(this.statCheck).subscribe({
         next: (result: string) => {
           this.status = result
-          console.log(this.status.status)
           if (this.status.status == 'USER_AUTHENTICATED') {
 
             this.passDataService.data = this.asanRequestData;
-
-            console.log(this.passDataService.data)
             
             this.testsubscription.unsubscribe()
             Swal.close();
@@ -152,6 +149,8 @@ export class LoginComponent implements OnInit {
             title: 'Xəta',
             text: 'Serverdə xəta baş verdi!',
           })
+          this.testsubscription.unsubscribe()
+          return;
         }
       })
 
