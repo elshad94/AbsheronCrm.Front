@@ -19,7 +19,8 @@ import Swal from 'sweetalert2';
 export class CertificateComponent implements OnInit {
   certificateLoginResult: any = [];
 
-  certificateData: any = []
+  certificateData: any = [];
+
 
   data = {
     phone: '',
@@ -32,6 +33,13 @@ export class CertificateComponent implements OnInit {
     key: '',
     cert: ''
   };
+
+  passDataRegister: any = {
+    FIN: "",
+    UCustname: "",
+    UVoen: "",
+    USubtype: "",
+  }
 
   selectedItemKey!: string;
   selectedItemCertificate!: string;
@@ -75,8 +83,17 @@ export class CertificateComponent implements OnInit {
     console.log(this.selectedItemVoen)
   }
 
-  setSelectedItemDetails(organizationCode: string) {
+  setSelectedItemDetails(organizationCode: string, personalCode: string , informationSystemName: string , organizationName: string) {
     this.selectedItemVoen = organizationCode;
+
+    this.passDataRegister = {
+      FIN: personalCode,
+      UCustname: organizationName,
+      UVoen: organizationCode,
+      USubtype: informationSystemName
+    }
+
+    this.passDataService.dataRegister = this.passDataRegister;
   }
 
   getDecodedAccessToken(token?: any): any {
@@ -94,27 +111,35 @@ export class CertificateComponent implements OnInit {
     }
 
     this.authService.checkvoen(this.organizationCode).subscribe({
-      next: (result: any) =>{
+      next: (result: any) => {
         console.log(result.status)
-        if (result.status == true) {
+        if (result.status == false) {
           this.globalService.token = result.data;
           console.log(result.data)
           localStorage.setItem('Userid', this.getDecodedAccessToken(result.data.toString()).UserId);
           localStorage.setItem('Username', this.getDecodedAccessToken(result.data.toString()).Username);
           this.router.navigate(['/home']);
         }
-        if (result.status == false) {
+        if (result.status == true) {
           Swal.fire({
             icon: 'info',
             title: 'Məlumat',
             text: `${this.organizationCode.voen} nömrəli Vöenə bağlı hesab yoxdur. Zəhmət olmasa qeydiyyatdan keçin`,
-            confirmButtonText: 'Bağla'
+            confirmButtonText: 'Qeydiyyatdan keç',
+            showCancelButton: true,
+            cancelButtonText: 'Ləğv et'
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              this.router.navigate(['/register']);
+            } else if (result.isDenied) {
+              Swal.close();
+            }
           })
-          this.router.navigate(['/register']);
         }
         console.log(this.organizationCode)
       },
-      error: () =>{
+      error: () => {
         Swal.fire({
           icon: 'error',
           title: 'Xəta',

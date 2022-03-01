@@ -159,7 +159,17 @@ label {
       margin: 10px 0;
   }
 
+::ng-deep.swal2-styled.swal2-confirm:focus {
+    box-shadow: none!important;
+}
 
+::ng-deep.swal2-styled.swal2-confirm {
+    background-color: #4299BF !important;
+}
+
+::ng-deep.swal2-styled.swal2-cancel:focus {
+    box-shadow: none!important;
+}
 
 @media only screen and (max-width: 768px) {
     .rightCont {

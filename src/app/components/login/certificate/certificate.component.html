@@ -15,7 +15,7 @@
       <form #myForm="ngForm" (submit)="templateForm()">
         <label *ngFor="let item of certificateData">
           <input type="radio" name="key" ngModel value="{{item.key}}"  id="{{item.informationSystemName}}"
-            (click)="setSelectedItemDetails(item.organizationCode)"/>
+            (click)="setSelectedItemDetails(item.organizationCode, item.personalCode , item.informationSystemName , item.organizationName)"/>
           <span>{{item.organizationName}} ({{item.organizationCode}})</span>
         </label>
         <button type="submit"  [disabled]="!myForm.valid" mat-raised-button color="primary" class="form-control w-100 mt-7 btn btn-block newOrder ">Daxil Ol</button>
