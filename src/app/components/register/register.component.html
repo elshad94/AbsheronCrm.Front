@@ -69,13 +69,16 @@
               </div>
             </div>
             <input type="text" #custname="ngModel" maxlength="50" ngModel name="UCustname" class="form-control" required
-              id="FullName"  minlength="3" maxlength="25" [(ngModel)]="model.UCustname">
+              id="FullName"  minlength="3" [(ngModel)]="model.UCustname">
             <div class="alert alert-danger" *ngIf="submitted && custname.invalid ">
               <div *ngIf="custname.errors?.['required']">
                 *Ad, soyad tələb olunur
               </div>
               <div *ngIf="custname.errors?.['minlength']">
                 *Minimum 3 simvol tələb olunur
+              </div>
+              <div *ngIf="custname.errors?.['maxlength']">
+                *Maksimum 50 simvol tələb olunur
               </div>
             </div>
           </div>

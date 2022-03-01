@@ -23,6 +23,7 @@
     "@types/es6-shim": "^0.31.42",
     "@types/jquery": "^3.5.11",
     "angular-cleave": "^1.0.5",
+    "angular-imask": "^6.4.2",
     "chart.js": "^3.7.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "file-saver": "^2.0.5",
