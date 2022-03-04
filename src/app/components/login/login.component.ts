@@ -89,7 +89,6 @@ export class LoginComponent implements OnInit {
   testsubscription!: Subscription;
 
   asanLog() {
-    console.log(this.asanRequestData.phone)
     const setInterval = interval(this.intervalReg)
     this.authService.aslogin(this.asanRequestData).subscribe({
       next: (result: AsanLoginResponceData) => {

@@ -108,12 +108,6 @@ export class CertificateComponent implements OnInit {
 
     this.authService.checkvoen(this.organizationCode).subscribe({
       next: (result: any) => {
-        if (result.status == true) {
-          this.globalService.token = result.data;
-          localStorage.setItem('Userid', this.getDecodedAccessToken(result.data.toString()).UserId);
-          localStorage.setItem('Username', this.getDecodedAccessToken(result.data.toString()).Username);
-          this.router.navigate(['/home']);
-        }
         if (result.status == false) {
           Swal.fire({
             icon: 'info',
@@ -130,6 +124,21 @@ export class CertificateComponent implements OnInit {
               Swal.close();
             }
           })
+        }
+        if (this.organizationCode.voen == undefined || isNaN(this.organizationCode.voen)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Xəta',
+            text: 'Bu sertifikata bağlı Vöen yoxdur!',
+            confirmButtonText: 'Bağla'
+          })
+          return
+        }
+        if (result.status == true) {
+          this.globalService.token = result.data;
+          localStorage.setItem('Userid', this.getDecodedAccessToken(result.data.toString()).UserId);
+          localStorage.setItem('Username', this.getDecodedAccessToken(result.data.toString()).Username);
+          this.router.navigate(['/home']);
         }
       },
       error: () => {
