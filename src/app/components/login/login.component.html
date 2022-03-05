@@ -78,13 +78,14 @@
           <div class="form-group">
             <label class="input-label" for="exampleFormControlInput1">Mobil nömrə</label>
             <input type="text" #phone="ngModel" [(ngModel)]="asanRequestData.phone" name="uPhone" class="form-control"
-              required pattern="([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?" maxlength="13">
+              required maxlength="13" minlength="13" [imask]="{mask: '+{994}000000000'}">
+              
             <div class="alert alert-danger" *ngIf="phone.invalid && (phone.dirty || phone.touched)">
               <div *ngIf="phone.errors?.['required']">
                 *Mobil nömrə tələb olunur
               </div>
-              <div *ngIf="phone.errors?.['pattern']">
-                *Nümunə: +994xxxxxxxxx
+              <div *ngIf="phone.errors?.['minlength']">
+                *Nümunə: +994000000000
               </div>
             </div>
     

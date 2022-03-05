@@ -52,6 +52,7 @@ import { AddBalanceComponent } from './components/balance/addBalance/addBalance.
 import { ErrorOperationComponent } from './components/balance/errorOperation/errorOperation.component';
 import { SuccesOperationComponent } from './components/balance/succesOperation/succesOperation.component';
 import { CertificateComponent } from './components/login/certificate/certificate.component';
+import {IMaskModule} from 'angular-imask';
 
 
 @NgModule({
@@ -111,7 +112,8 @@ import { CertificateComponent } from './components/login/certificate/certificate
         MatDatepickerModule,
         MatFormFieldModule,
         MatNativeDateModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        IMaskModule
     ],
     providers: [
         DatePipe,

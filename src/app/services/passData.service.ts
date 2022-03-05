@@ -10,6 +10,12 @@ export class PassDataService {
     phone: '',
     userId: ''
   };
+  dataRegister: any = {
+    FIN: '',
+    UCustname: '',
+    UVoen: '',
+    USubtype: '',
+  }
   constructor() { }
 
 
