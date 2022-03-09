@@ -2,5 +2,6 @@ export interface TerminalExpense {
     id: number,
     isSelected: boolean,
     text: string,
-    price?: number
+    price?: number,
+    eX_SVAT: number
 }

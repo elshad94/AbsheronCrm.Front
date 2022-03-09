@@ -128,7 +128,7 @@ export class OrderComponent implements OnInit {
     // total amount and total amount with EDV
     for(const x of xidmetler_) {
       this.total += x.totalAmount;
-      this.totalEdv += x.totalAmount + x.edv;
+      this.totalEdv += x.edv * x.count;
     }
   }
 
@@ -141,7 +141,6 @@ export class OrderComponent implements OnInit {
     this.emptyRefCode = updateTerminalData.emptyRefCode;
     this.notes = updateTerminalData.notes;
     this.total = updateTerminalData.total;
-    this.totalEdv = updateTerminalData.endTotal;
     this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
       count: x.miqdar,
       edv: x.edv,
@@ -154,6 +153,12 @@ export class OrderComponent implements OnInit {
       },
       expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
     };});
+    for(const x of this.xidmetler ) {
+      this.totalEdv += x.edv * x.count;
+    }
+    for(let i = 0; i < this.expenses.length; i++) {
+      this.xidmetler[i].edv = this.expenses[i].eX_SVAT;
+    }
     this.files = updateTerminalData.filelar.map(f => {return {
       id: f.id,
       nvNo: f.nvNo,
@@ -286,7 +291,7 @@ export class OrderComponent implements OnInit {
       .subscribe(price => {
         this.total -= xidmet.totalAmount!;
         this.totalEdv -= (
-          xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+          xidmet.edv
         );
 
         xidmet.temrinalWay.amount = price;
@@ -294,7 +299,7 @@ export class OrderComponent implements OnInit {
 
         this.total += xidmet.totalAmount!;
         this.totalEdv += (
-          xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
+          xidmet.edv
         );
       })
   }
@@ -315,17 +320,13 @@ export class OrderComponent implements OnInit {
     xidmet.isAmountInValid = false;
     // remove old xidmet amount from total
     this.total -= xidmet.totalAmount!;
-    this.totalEdv -= (
-      xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
-    );
+    this.totalEdv -= xidmet.totalAmount * xidmet.edv / 100;
     // update xidmet count and amoount
     xidmet.count = value;
     xidmet.totalAmount = value * xidmet.temrinalWay.amount;
     // update total amount
     this.total += xidmet.totalAmount!;
-    this.totalEdv += (
-      xidmet.totalAmount! + xidmet.totalAmount! * EDV_MULTIPLIER
-    );
+    this.totalEdv += xidmet.totalAmount * xidmet.edv / 100;
   }
 
   isValid(): boolean {
@@ -340,7 +341,7 @@ export class OrderComponent implements OnInit {
     xidmet.totalAmount += xidmet.temrinalWay.amount!;
     this.total += xidmet.temrinalWay.amount!;
     this.totalEdv += (
-      xidmet.temrinalWay.amount! + xidmet.temrinalWay.amount! * EDV_MULTIPLIER
+      xidmet.edv
     );
   }
 
@@ -352,7 +353,7 @@ export class OrderComponent implements OnInit {
     xidmet.totalAmount -= xidmet.temrinalWay.amount!;
     this.total -= xidmet.temrinalWay.amount!;
     this.totalEdv -= (
-      xidmet.temrinalWay.amount! + xidmet.temrinalWay.amount! * EDV_MULTIPLIER
+      xidmet.edv
     );
   }
 
@@ -361,7 +362,7 @@ export class OrderComponent implements OnInit {
     this.xidmetler.splice(i, 1);
     this.total -= xidmetToDelete.totalAmount!;
     this.totalEdv -= (
-      xidmetToDelete.totalAmount! + xidmetToDelete.totalAmount! * EDV_MULTIPLIER
+      xidmetToDelete.edv
     );
   }
 
@@ -382,7 +383,7 @@ export class OrderComponent implements OnInit {
       .reduce((prev, next) => next + prev, 0);
     for(const x of this.xidmetler) {
       this.totalEdv += x.edv;
-      this.totalEdv += x.totalAmount;
+      // this.totalEdv += x.totalAmount;
       this.total += x.totalAmount;
     }
   }
