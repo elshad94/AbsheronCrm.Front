@@ -206,6 +206,8 @@
 }
 
 .balance .brokBalance{
+    display: flex;
+    align-items: center;
     padding: 0 15px;
     height: 64px;
     background-color: #378AA1;
@@ -214,6 +216,8 @@
 }
 
 .balance .termBalance{
+    display: flex;
+    align-items: center;
     padding: 0 15px;
     height: 64px;
     background-color: #215361;
@@ -224,7 +228,6 @@
 
 .brokBalance, .termBalance {
     font-size: 16px;
-    line-height: 64px;
 }
 
 
@@ -275,5 +278,27 @@
         height: 7px;
         border-radius: 100%;
         background-color: #4299bf !important;
+    }
+
+    .mainUser{
+        width: 95%;
+    }
+
+    .brokBalance, .termBalance {
+        font-size: 13px;
+    }
+
+    .balance .termBalance{
+        margin-right: 10px;
+        padding: 0 5px;
+    }
+
+    .balance .brokBalance{
+        margin-left: 10px;
+        padding: 0 5px;
+    }
+
+    .user{
+        width: 45px;
     }
 }
