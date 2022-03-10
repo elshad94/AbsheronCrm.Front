@@ -30,6 +30,6 @@ export class ApiUrlsService {
   }
   getCrmAPIURI() {
     return `http://${this.ip}:92/redirect/crm/api`;
-    // return 'https://localhost:44323/api';
+    // return 'https://localhost:44393/api';
   }
 }
