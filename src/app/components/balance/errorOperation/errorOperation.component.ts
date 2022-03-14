@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PaymentService } from 'src/app/services/payment.service';
 
 @Component({
   selector: 'app-errorOperation',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ErrorOperationComponent implements OnInit {
 
-  constructor() { }
+  constructor(private paymentService: PaymentService) { }
 
   ngOnInit() {
+    this.paymentService.confirmAddBalance(true);
   }
 
 }
