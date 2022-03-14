@@ -44,6 +44,17 @@ export class PaymentService {
       .get<GetUserBalanceDTO>(`${this.baseUrl}/Payment/GetUserBalance`);
   }
 
+  getUserBalances(): Observable<GetUserBalancesDTO[]> {
+    return this.http
+      .get<GetUserBalancesDTO[]>(`${this.baseUrl}/Payment/GetUserBalances`);
+  }
+}
+
+interface GetUserBalancesDTO {
+  date: string,
+  operation: string,
+  amount: number,
+  isOut: boolean
 }
 
 interface GetUserBalanceDTO {
