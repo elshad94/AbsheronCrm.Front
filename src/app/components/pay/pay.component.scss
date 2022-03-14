@@ -27,6 +27,8 @@ tr.mat-row td {
     background: #05e788;
     border-radius: 7px;
     cursor: pointer;
+    outline: none;
+    border: none;
 }
 
 .term:before{
@@ -47,6 +49,14 @@ tr.mat-row td {
     margin-right: 4px;
     background-color: #F5CA99;
     border-radius: 100%;
+}
+
+.mat-header-cell{
+    text-align: center;
+}
+
+.mat-row{
+    text-align: center;
 }
 
 @media only screen and (max-width: 768px) {
