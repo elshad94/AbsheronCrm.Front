@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentService } from 'src/app/services/payment.service';
+import { errorAlert } from 'src/utils/alerts';
 
 @Component({
   selector: 'app-addBalance',
@@ -28,9 +29,12 @@ export class AddBalanceComponent implements OnInit {
     this.payService.addBalance({
       amount: amount,
       isBrokerBalance: this.operationType === 0
-    }).subscribe(res => {
-      this.payService.blogId = res.blogId;
-      document.location.href = res.url;
+    }).subscribe({
+      next: res => {
+        this.payService.blogId = res.blogId;
+        document.location.href = res.url;
+      },
+      error: () => errorAlert("Server Problemi")
     });
   }
 

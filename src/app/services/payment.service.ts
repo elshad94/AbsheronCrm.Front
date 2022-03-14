@@ -34,4 +34,19 @@ export class PaymentService {
       .post<AddBalanceResult>(`${this.baseUrl}/Payment/AddBalance`, balanceDTO);
   }
 
+  confirmAddBalance(isErrorPage: boolean = false) {
+    this.http
+      .get(`${this.baseUrl}/Payment/AddBalanceCallback?blogId=${this.blogId}$isErrorPage=${isErrorPage}`);
+  }
+
+  getUserBalance(): Observable<GetUserBalanceDTO> {
+    return this.http
+      .get<GetUserBalanceDTO>(`${this.baseUrl}/Payment/GetUserBalance`);
+  }
+
+}
+
+interface GetUserBalanceDTO {
+  brokerBalance: number;
+  terminalBalance: number;
 }

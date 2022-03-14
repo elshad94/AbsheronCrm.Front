@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { AuthService } from 'src/app/services/auth.service';
 import { GlobalService } from 'src/app/services/global.service';
+import { PaymentService } from 'src/app/services/payment.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: 'app-header',
@@ -11,16 +12,27 @@ import Swal from 'sweetalert2';
 })
 export class HeaderComponent implements OnInit {
   public tk?:any;
+  brokerBalance!: number;
+  terminalBalance!: number;
   constructor(private authService: AuthService,
     private router: Router,
-    private globalService: GlobalService) {
+    private globalService: GlobalService,
+    private paymentService: PaymentService) {
         // $('body').css('overflow-x', 'visible')
         // $('body').css('overflow-y', 'visible')
     }
 
   ngOnInit(): void {
     this.collapse();
+    this.getUserBalance();
+  }
 
+  getUserBalance() {
+    this.paymentService.getUserBalance()
+      .subscribe(res => {
+        this.brokerBalance = res.brokerBalance;
+        this.terminalBalance = res.terminalBalance;
+      })
   }
 
   signOut(){
@@ -49,7 +61,7 @@ export class HeaderComponent implements OnInit {
         $('div.asideMain').toggleClass('resAsideMenu');
         $('#collapse').toggleClass('tio-last-page');
         $('.subCat').addClass('subCatRes');
-        
+
       });
       $('main').click(function () {
         $('div.head').removeClass('resHead');
@@ -62,7 +74,7 @@ export class HeaderComponent implements OnInit {
         $('#collapse').removeClass('tio-last-page');
         $('.subCat').removeClass('subCatRes');
       })
-      
+
    }
    else{
      $('#collapse').click(function () {
