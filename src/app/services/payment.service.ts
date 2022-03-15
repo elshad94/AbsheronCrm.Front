@@ -47,6 +47,15 @@ export class PaymentService {
     return this.http
       .get<GetUserBalancesDTO[]>(`${this.baseUrl}/Payment/GetUserBalances`);
   }
+
+  payCard(orderType: number, orderId: number, amount: number): Observable<any> {
+      return this.http
+        .post<any>(`${this.baseUrl}/Payment/PayCard`, {
+          'orderType': orderType,
+          'orderId': orderId,
+          'amount': amount
+        });
+  }
 }
 
 interface GetUserBalancesDTO {

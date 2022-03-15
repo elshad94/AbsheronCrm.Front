@@ -43,7 +43,7 @@ export class PayModalComponent implements OnInit {
         height: 'max-content',
         width: '435px'
       })
-      
+
     }
     if (this.paymentType == 2) {
       this.dialogRef.closeAll()
@@ -78,7 +78,6 @@ export class PayModalComponent implements OnInit {
         timer: 2000
       })
     }
-
   }
 
 
