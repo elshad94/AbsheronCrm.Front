@@ -4,7 +4,8 @@
       <img src="../../../../assets/icon/errorOperation.svg" alt="">
       <h3>Uğursuz əməliyyat</h3>
       <span>Məlumatı yoxlayın</span>
-      <button class="btn btn-block newAccept mt-4 ng-star-inserted" [routerLink]="['/balance']">Geri</button>
+      <!-- <button class="btn btn-block newAccept mt-4 ng-star-inserted" [routerLink]="['/balance']">Geri</button> -->
+      <button class="btn btn-block newAccept mt-4 ng-star-inserted" (click)="redirectToBalance()">Geri</button>
     </div>
   </div>
 </div>

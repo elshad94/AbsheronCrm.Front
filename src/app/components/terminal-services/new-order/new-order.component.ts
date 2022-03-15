@@ -5,7 +5,6 @@ import { TerminalExpense } from 'src/app/model/TerminalExpense';
 import { TerminalService } from 'src/app/services/terminal.service';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
-import logger from 'src/utils/logger';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -25,11 +24,8 @@ export class NewOrderComponent implements OnInit {
         private titleService: Title) {
   }
 
-  checkTerminalWayCheckbox(tw: TerminalWay) {
-    tw.isSelected = !tw.isSelected;
-  }
-
   checkExpenseCheckbox(ex: TerminalExpense) {
+    if(ex.isReadOnly) return;
     ex.isSelected = !ex.isSelected;
   }
 
@@ -77,14 +73,45 @@ export class NewOrderComponent implements OnInit {
       .subscribe(terminalNewData => {
         this.terminalWays = terminalNewData.terminalWays;
         this.expenses = terminalNewData.expenses;
+        for(const exp of this.expenses) {
+          exp.checkCounter = 0;
+        }
         this.terminalService.customer = terminalNewData.customer;
         this.terminalService.orderDate = terminalNewData.orderDate;
       });
   }
 
   checkAllTerminalWays() {
+    this.expenses.forEach(e => e.checkCounter = 0);
+    if(this.masterCheck) {
+      for(const tw of this.terminalWays) {
+        this.expenses.forEach(e => {
+          if(tw.expenseIds?.includes(e.id)) e.checkCounter!++;
+        });
+      }
+    }
     for(const tw of this.terminalWays) {
       tw.isSelected = !this.masterCheck;
+      this.selectTerminalWay(tw);
     }
+  }
+
+  checkTerminalWayCheckbox(tw: TerminalWay) {
+    tw.isSelected = !tw.isSelected;
+    this.selectTerminalWay(tw);
+  }
+
+  selectTerminalWay(tw: TerminalWay) {
+    this.expenses.forEach(e => {
+      if(tw.expenseIds?.includes(e.id)) {
+        if(tw.isSelected) {
+          e.checkCounter!++;
+        } else {
+          e.checkCounter!--;
+        }
+        e.isReadOnly = e.checkCounter! > 0;
+        e.isSelected = e.checkCounter! > 0;
+      }
+    });
   }
 }

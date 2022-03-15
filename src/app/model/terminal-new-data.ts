@@ -23,5 +23,7 @@ export interface TerminalWay {
     qaimeNo?: string,
     yuk?: string,
     amount: number,
-    isSelected?: boolean
+    isSelected?: boolean,
+    expenseIds?: number[],
+    id?: number
 }

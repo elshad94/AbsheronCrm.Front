@@ -3,7 +3,8 @@
     <div class="error">
       <img src="../../../../assets/icon/succesOperation.svg" alt="">
       <h3>Ödənişiniz uğurludur</h3>
-      <button class="btn btn-block newAccept mt-4 ng-star-inserted" [routerLink]="['/balance']">Geri</button>
+      <!-- <button class="btn btn-block newAccept mt-4 ng-star-inserted" [routerLink]="['/balance']">Geri</button> -->
+      <button class="btn btn-block newAccept mt-4 ng-star-inserted" (click)="redirectToBalance()">Geri</button>
     </div>
   </div>
 </div>

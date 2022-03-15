@@ -19,7 +19,6 @@ interface AddBalanceResult {
   providedIn: 'root'
 })
 export class PaymentService {
-  blogId?: number;
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getCrmAPIURI();
@@ -34,9 +33,9 @@ export class PaymentService {
       .post<AddBalanceResult>(`${this.baseUrl}/Payment/AddBalance`, balanceDTO);
   }
 
-  confirmAddBalance(isErrorPage: boolean = false) {
-    this.http
-      .get(`${this.baseUrl}/Payment/AddBalanceCallback?blogId=${this.blogId}$isErrorPage=${isErrorPage}`);
+  confirmAddBalance(paymentKey: string, isErrorPage: boolean = false): Observable<any> {
+    return this.http
+      .get<any>(`${this.baseUrl}/Payment/AddBalanceCallback?paymentKey=${paymentKey}&isErrorPage=${isErrorPage}`);
   }
 
   getUserBalance(): Observable<GetUserBalanceDTO> {

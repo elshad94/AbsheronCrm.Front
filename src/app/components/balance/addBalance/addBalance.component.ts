@@ -31,7 +31,6 @@ export class AddBalanceComponent implements OnInit {
       isBrokerBalance: this.operationType === 0
     }).subscribe({
       next: res => {
-        this.payService.blogId = res.blogId;
         document.location.href = res.url;
       },
       error: () => errorAlert("Server Problemi")

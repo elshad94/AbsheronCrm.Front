@@ -3,5 +3,7 @@ export interface TerminalExpense {
     isSelected: boolean,
     text: string,
     price?: number,
-    eX_SVAT: number
+    eX_SVAT: number,
+    isReadOnly?: boolean,
+    checkCounter?: number
 }

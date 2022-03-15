@@ -80,8 +80,9 @@
                   <td class="table-column-pr-0">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input"
-                        [(ngModel)]="tw.isSelected">
-                      <label class="custom-control-label" (click)="checkTerminalWayCheckbox(tw)"></label>
+                        [(ngModel)]="tw.isSelected" >
+                      <label class="custom-control-label"
+                        (click)="checkTerminalWayCheckbox(tw)"></label>
                     </div>
                   </td>
 
@@ -119,10 +120,12 @@
                   <!-- Checkbox -->
 
                   <div class="row">
-                    <div *ngFor="let exp of expenses" class="col-lg-6">
+                    <div *ngFor="let exp of expenses" class="col-lg-6" [class.disabledExp]="exp.isReadOnly === true">
                       <div class="custom-control custom-checkbox">
+                        <!-- <input type="checkbox" class="custom-control-input"
+                          [(ngModel)]="exp.isSelected" [disabled]="exp.isReadOnly == true"> -->
                         <input type="checkbox" class="custom-control-input"
-                        [(ngModel)]="exp.isSelected">
+                          [(ngModel)]="exp.isSelected">
                         <label class="custom-control-label" (click)="checkExpenseCheckbox(exp)"></label>
                         <label>{{exp.text}}</label>
                       </div>
