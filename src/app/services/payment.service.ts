@@ -14,10 +14,13 @@ interface AddBalanceResult {
   url: string
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class PaymentService {
+  isPaymentSuccesfull = false;
+
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getCrmAPIURI();

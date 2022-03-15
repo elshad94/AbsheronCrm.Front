@@ -9,6 +9,7 @@ import { PayBorcComponent } from '../pay-borc/pay-borc.component';
 import { RezidentUser } from 'src/app/model/rezidentUser';
 import { PayMethod } from 'src/app/model/payMethod';
 import { PassDataService } from 'src/app/services/passData.service';
+import { PayKartComponent } from '../pay-kart/pay-kart.component';
 
 
 
@@ -73,13 +74,15 @@ export class PayModalComponent implements OnInit {
         width: '520px'
       })
     }
-    if (this.paymentType == 28) {
-      Swal.fire({
-        position: 'center',
-        icon: 'info',
-        title: 'Tezliklə istifadəyə veriləcək',
-        showConfirmButton: false,
-        timer: 2000
+    if (this.paymentType == 28) {this.dialogRef.closeAll()
+      this.dialogRef.open(PayKartComponent,{
+        data:{
+          orderId: this.data.orderId,
+          orderTypeId: this.data.orderTypeId,
+          orderNo: this.data.orderNo
+        },
+        height: 'max-content',
+        width: '520px'
       })
     }
   }
