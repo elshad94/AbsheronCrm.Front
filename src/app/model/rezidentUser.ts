@@ -1,5 +1,5 @@
 export interface RezidentUser {
-  USubtype: string,
+  USubtype: string;
   UVoen: string;
   UCustname: string;
   UPersonname: string;

@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Payments } from '../model/payments';
 import { ApiUrlsService } from './api-urls.service';
-const baseUrl = 'https://localhost:44323/api/Payment/GetAll';
 
 interface AddBalanceDTO {
   isBrokerBalance: boolean,
@@ -26,6 +25,10 @@ export class PaymentService {
 
   payAll(): Observable<Payments[]> {
     return this.http.get<Payments[]>(`${this.baseUrl}/Payment/GetAll`);
+  }
+
+  postVoen(voen: string): Observable<any>{
+    return this.http.get<any>(`${this.baseUrl}/Payment/GetPayType?voen=${voen}`);
   }
 
   addBalance(balanceDTO: AddBalanceDTO): Observable<AddBalanceResult> {

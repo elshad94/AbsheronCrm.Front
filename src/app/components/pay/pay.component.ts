@@ -11,6 +11,10 @@ import { PayBankService } from 'src/app/services/payBank.service';
 import { TITLE } from 'src/utils/contants';
 import { Title } from '@angular/platform-browser';
 import { PayBorcService } from 'src/app/services/payBorc.service';
+import { RezidentUser } from 'src/app/model/rezidentUser';
+import { AccountService } from 'src/app/services/account.service';
+import { PayMethod } from 'src/app/model/payMethod';
+import { PassDataService } from 'src/app/services/passData.service';
 
 @Component({
   selector: 'app-pay',
@@ -24,12 +28,15 @@ export class PayComponent implements OnInit {
     private payAvService: PayAvansService,
     private payBankService: PayBankService,
     private payBorcService: PayBorcService,
-
+    private accountService: AccountService,
+    private readonly passDataService: PassDataService,
     private titleService: Title) {
 
   }
 
   payments: Payments[] = [];
+  voen!: string;
+  payStat = false;
 
   orderTypeText: string[] = [];
 
@@ -40,8 +47,8 @@ export class PayComponent implements OnInit {
 
 
   public openDialog(orderId: number, orderTypeId: number, orderNo: string) {
-    this.dialogRef.open(PayModalComponent,{
-      data:{
+    this.dialogRef.open(PayModalComponent, {
+      data: {
         orderId: orderId,
         orderTypeId: orderTypeId,
         orderNo: orderNo
@@ -50,13 +57,13 @@ export class PayComponent implements OnInit {
       width: '600px',
     });
     this.dialogRef.afterAllClosed.subscribe(res => {
-      if(this.payAvService.isPaymentSuccesfull) {
+      if (this.payAvService.isPaymentSuccesfull) {
         this.getData(() => this.payAvService.isPaymentSuccesfull = false);
       }
-      if(this.payBankService.isPaymentSuccesfull) {
+      if (this.payBankService.isPaymentSuccesfull) {
         this.getData(() => this.payBankService.isPaymentSuccesfull = false);
       }
-      if(this.payBorcService.isPaymentSuccesfull) {
+      if (this.payBorcService.isPaymentSuccesfull) {
         this.getData(() => this.payBorcService.isPaymentSuccesfull = false);
       }
     });
@@ -64,7 +71,9 @@ export class PayComponent implements OnInit {
 
   ngOnInit(): void {
     this.getData();
+
     this.titleService.setTitle(`Ödəmə${TITLE}`);
+
   }
 
   private getData(callback: any = null) {
@@ -72,24 +81,28 @@ export class PayComponent implements OnInit {
       this.dataSource = new MatTableDataSource<Payments>(data);
       this.dataSource.paginator = this.paginator;
       this.orderTypeText = [...new Set(data.map(d => d.orderTypeText))];
-      if(callback) {
+      if (callback) {
         callback()
       }
+      this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
+        this.voen = response.uVoen;
+        this.payService.postVoen(this.voen).subscribe((response) => {
+          if (response == 0) {
+            this.payStat = true;
+            return
+          }
+          this.passDataService.payMet = response
+        });
+      });
     });
+
   }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  // filterTableByStatus(event: Event) {
-  //   const elem = event.target as HTMLInputElement;
-  //   const status = elem.value;
-  //   this.dataSource.filterPredicate = (data: Payments, filter: string) =>
-  //     data.orderTypeText.trim().toLowerCase() === filter;
-  //   this.dataSource.filter = status.trim().toLowerCase();
-  // }
 
 }
 

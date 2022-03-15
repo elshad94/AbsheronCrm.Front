@@ -6,6 +6,10 @@ import Swal from 'sweetalert2';
 import { LastModalComponent } from '../last-modal/last-modal.component';
 import { NextModalComponent } from '../next-modal/next-modal.component';
 import { PayBorcComponent } from '../pay-borc/pay-borc.component';
+import { RezidentUser } from 'src/app/model/rezidentUser';
+import { PayMethod } from 'src/app/model/payMethod';
+import { PassDataService } from 'src/app/services/passData.service';
+
 
 
 @Component({
@@ -16,11 +20,11 @@ import { PayBorcComponent } from '../pay-borc/pay-borc.component';
 export class PayModalComponent implements OnInit {
 
   payments: Payments[] = [];
-  columnsToDisplay = ['orderTypeText', 'orderNo', 'amount', 'orderId'];
-  dataSource: MatTableDataSource<Payments> = new MatTableDataSource<Payments>(this.payments);
+  meths: PayMethod[] = [];
 
   constructor(private dialogRef: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: Payments) {
+    private readonly passDataService: PassDataService,
+    @Inject(MAT_DIALOG_DATA) public data: Payments,) {
   }
 
   paymentType:number = -1;
@@ -32,7 +36,7 @@ export class PayModalComponent implements OnInit {
         text: 'Zəhmət olmasa ödəmə üsulu seçin!'
       })
     }
-    if (this.paymentType == 1) {
+    if (this.paymentType == 26) {
       this.dialogRef.closeAll()
       this.dialogRef.open(NextModalComponent, {
         data:{
@@ -45,7 +49,7 @@ export class PayModalComponent implements OnInit {
       })
 
     }
-    if (this.paymentType == 2) {
+    if (this.paymentType == 27) {
       this.dialogRef.closeAll()
       this.dialogRef.open(LastModalComponent,{
         data:{
@@ -57,7 +61,7 @@ export class PayModalComponent implements OnInit {
         width: '520px'
       })
     }
-    if (this.paymentType == 4) {
+    if (this.paymentType == 45) {
       this.dialogRef.closeAll()
       this.dialogRef.open(PayBorcComponent,{
         data:{
@@ -69,7 +73,7 @@ export class PayModalComponent implements OnInit {
         width: '520px'
       })
     }
-    if (this.paymentType == 3) {
+    if (this.paymentType == 28) {
       Swal.fire({
         position: 'center',
         icon: 'info',
@@ -82,8 +86,8 @@ export class PayModalComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.meths = this.passDataService.payMet
   }
-
 
 
 }
