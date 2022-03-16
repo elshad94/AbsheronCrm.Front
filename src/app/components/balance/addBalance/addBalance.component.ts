@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentService } from 'src/app/services/payment.service';
 import { errorAlert } from 'src/utils/alerts';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-addBalance',
@@ -10,6 +12,7 @@ import { errorAlert } from 'src/utils/alerts';
 })
 export class AddBalanceComponent implements OnInit {
   operationType: number = -1;
+
 
   constructor(
     private payService: PaymentService,
@@ -21,7 +24,20 @@ export class AddBalanceComponent implements OnInit {
     this.operationType = Number(target.value);
   }
 
+  valid(event: Event){
+    const target = event.target as HTMLInputElement;
+    console.log(target.value)
+    if (!(Number(target.value))) {
+      $('#submit').prop('disabled', true);
+    }
+    else{
+      $('#submit').prop('disabled', false);
+
+    }
+  }
+
   ngOnInit() {
+    $('#submit').prop('disabled', true);
   }
 
   submit() {
