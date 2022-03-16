@@ -56,6 +56,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi");
+    localStorage.removeItem('token');
+    localStorage.removeItem('Userid');
+    localStorage.removeItem('Username');
   }
 
   getDecodedAccessToken(token?: any): any {
