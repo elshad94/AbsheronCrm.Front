@@ -24,12 +24,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.collapse();
+    debugger
     this.getUserBalance();
   }
 
   getUserBalance() {
     this.paymentService.getUserBalance()
-      .subscribe(res => {
+      .subscribe((res: { brokerBalance: number; terminalBalance: number; }) => {
         this.brokerBalance = res.brokerBalance;
         this.terminalBalance = res.terminalBalance;
       })
@@ -37,15 +38,12 @@ export class HeaderComponent implements OnInit {
 
   signOut(){
     this.authService.logout().subscribe((res: any) =>{
-      this.router.navigate(['']);
       this.globalService.token = '';
       localStorage.removeItem('token');
-      const arrayFromStroage  = JSON.parse(localStorage.getItem('token') ?? '');
-      this.tk = arrayFromStroage.length;
-      this.router.navigate(['']);
       localStorage.removeItem('Userid');
       localStorage.removeItem('Username');
-    },err =>{
+      this.router.navigate(['']);
+    },(err: any) =>{
       Swal.fire({
         icon: 'error',
         title:'Xəta',
