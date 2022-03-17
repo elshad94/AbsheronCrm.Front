@@ -33,10 +33,10 @@
             <div class="bg-light border-bottom p-2 mb-3">
               <!-- Title -->
               <div class="row">
-                <div class="col-sm-5">
+                <div class="col-sm-6">
                   <h6 class="card-title text-cap">xİdmət</h6>
                 </div>
-                <div class="col-sm-3 d-none d-sm-inline-block">
+                <div class="col-sm-2 d-none d-sm-inline-block">
                   <h6 class="card-title text-cap">Mİqdar</h6>
                 </div>
                 <div class="col-sm-2 d-none d-sm-inline-block">
@@ -45,44 +45,49 @@
                 <div class="col-sm-2 d-none d-sm-inline-block">
                   <h6 class="card-title text-cap">cƏMİ</h6>
                 </div>
-                <div class="col-sm-2 d-none d-sm-inline-block">
-                  <h6 class="card-title text-cap"></h6>
-                </div>
               </div>
             </div>
             <div >
               <div *ngFor="let xidmet of xidmetler; let i = index" class="priceDiv">
-                <div class="row" style="justify-content: space-around;">
-  
-                  <input type="text" class="form-control mb-3 col-lg-2 readonly_input" placeholder="N/V №"
-                    aria-label="Description" value="{{xidmet.temrinalWay.nvNo}}" readonly>
-  
-                  <input type="text" id="full_ref_code" class="form-control col-sm-4" placeholder="Dolu yükdaşıma kodu"
+                <div class="row">
+                  
+                  <div class="col-lg-3">
+                    <input type="text" class="form-control mb-3  readonly_input" placeholder="N/V №"
+                    aria-label="Description" value="{{xidmetler[i].temrinalWay.nvNo}}" readonly>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
                     [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
-  
-                  <input type="text" class="form-control col-sm-4 " placeholder="Boş yükdaşıma kodu"
+                  </div>
+
+                  <div class="col-lg-4">
+                    <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
                     [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
-  
-                  <div class="mb-3 col-1 delete_div" *ngIf="xidmetler.length > 1 && !isEditable()">
+                  </div>
+
+                  <div class="mb-3 col-lg-1 delete_div" *ngIf="xidmetler.length > 1 && isEditable()">
                     <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
 
                 </div>
                 <div class="row">
 
-                  <select [disabled]="!isEditable()" class="form-control mb-3 col-5" name="" id=""
+                  <div class="col-lg-6">
+                    <select [disabled]="!isEditable()" class="form-control mb-3" name="" id=""
                     (change)="setXidmetPrice(xidmet, $event)">
                     <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
                       {{exp.text}}</option>
                   </select>
+                  </div>
 
-                  <div class="col-3">
+                  <div class="col-2">
                     <!-- Quantity Counter -->
                     <div class="js-quantity-counter input-group-quantity-counter mb-3">
                       <input type="number" class="js-result form-control input-group-quantity-counter-control"
                         [(ngModel)]="xidmet.count" [disabled]="!isEditable()" (input)="changeCount(xidmet, $event)">
 
-                      <div class="input-group-quantity-counter-toggle" *ngIf="!isEditable()">
+                      <div class="input-group-quantity-counter-toggle" *ngIf="isEditable()">
                         <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
                           (click)="decreaseCount(xidmet)">
                           <i class="tio-remove"></i>
@@ -102,7 +107,7 @@
                   </div>
 
 
-                  <div class="price col-2">
+                  <div class="col-2 price">
                     <p>{{xidmet.temrinalWay.amount | number: '1.2-2'}} ₼</p>
                   </div>
 
