@@ -1,7 +1,7 @@
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
   <p style="color: white"> Yüklənir... </p>
 </ngx-spinner>
-<iframe id="printFrame" class="iframe"  allowfullscreen></iframe>
+<iframe id="printFrame" class="iframe" allowfullscreen></iframe>
 <div class="content container-fluid">
   <!-- Card -->
   <div class="row">
@@ -29,13 +29,7 @@
                       }'>
             <!-- Title -->
             <!-- <div class="row"> -->
-            <div class="row">
-              <input type="text" id="full_ref_code" class="form-control col-sm-4 mb-3" placeholder="Dolu yükdaşıma kodu"
-                [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
-              <div class="col-sm-1"></div>
-              <input type="text" class="form-control col-sm-4 mb-3" placeholder="Boş yükdaşıma kodu"
-                [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
-            </div>
+
             <div class="bg-light border-bottom p-2 mb-3">
               <!-- Title -->
               <div class="row">
@@ -56,63 +50,70 @@
                 </div>
               </div>
             </div>
-            <!-- End Title -->
-
-            <!-- Content -->
-            <div *ngFor="let xidmet of xidmetler; let i = index" class="row priceDiv">
-              <div class="col-md-5">
-                <select [disabled]="!isEditable()" class="form-control mb-3" name="" id="" (change)="setXidmetPrice(xidmet, $event)">
-                  <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
-                    {{exp.text}}</option>
-                </select>
-                <input type="text" class="form-control mb-3 readonly_input" placeholder="N/V №" aria-label="Description"
-                  value="{{xidmet.temrinalWay.nvNo}}" readonly>
-              </div>
-
-              <div class="col-12 col-sm-auto col-md-3">
-                <!-- Quantity Counter -->
-                <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                  <input type="number" class="js-result form-control input-group-quantity-counter-control"
-                    [(ngModel)]="xidmet.count" [disabled]="!isEditable()" (input)="changeCount(xidmet, $event)">
-
-                  <div class="input-group-quantity-counter-toggle" *ngIf="!isEditable()">
-                    <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
-                      (click)="decreaseCount(xidmet)">
-                      <i class="tio-remove"></i>
-                    </a>
-                    <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
-                      (click)="increaseCount(xidmet)">
-                      <i class="tio-add"></i>
-                    </a>
-
+            <div >
+              <div *ngFor="let xidmet of xidmetler; let i = index" class="priceDiv">
+                <div class="row" style="justify-content: space-around;">
+  
+                  <input type="text" class="form-control mb-3 col-lg-2 readonly_input" placeholder="N/V №"
+                    aria-label="Description" value="{{xidmet.temrinalWay.nvNo}}" readonly>
+  
+                  <input type="text" id="full_ref_code" class="form-control col-sm-4" placeholder="Dolu yükdaşıma kodu"
+                    [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
+  
+                  <input type="text" class="form-control col-sm-4 " placeholder="Boş yükdaşıma kodu"
+                    [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
+  
+                  <div class="mb-3 col-1 delete_div" *ngIf="xidmetler.length > 1 && !isEditable()">
+                    <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
 
                 </div>
-                <!-- End Quantity Counter -->
-                <div id="count_danger" class="alert alert-danger" *ngIf="xidmet.isAmountInValid">
-                  Ancaq 0-dan böyük və 1000 dən kicik tam rəqəm daxil oluna bilər
-                </div>
-              </div>
+                <div class="row">
 
-              <div class="col-12 col-sm col-md-2">
-                <!-- Input Group -->
-                <div class="mb-3 price">
-                  <span>Qiymət:</span><p>{{xidmet.temrinalWay.amount | number: '1.2-2'}} ₼</p>
-                </div>
-                <!-- End Input Group -->
-                <div class="mb-3 delete_div" *ngIf="xidmetler.length > 1 && !isEditable()">
-                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
-                </div>
-              </div>
+                  <select [disabled]="!isEditable()" class="form-control mb-3 col-5" name="" id=""
+                    (change)="setXidmetPrice(xidmet, $event)">
+                    <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
+                      {{exp.text}}</option>
+                  </select>
 
-              <div class="col col-md-2 price">
-                <span>Cəmi:</span><p>{{xidmet.totalAmount | number: '1.2-2'}} ₼</p>
+                  <div class="col-3">
+                    <!-- Quantity Counter -->
+                    <div class="js-quantity-counter input-group-quantity-counter mb-3">
+                      <input type="number" class="js-result form-control input-group-quantity-counter-control"
+                        [(ngModel)]="xidmet.count" [disabled]="!isEditable()" (input)="changeCount(xidmet, $event)">
+
+                      <div class="input-group-quantity-counter-toggle" *ngIf="!isEditable()">
+                        <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
+                          (click)="decreaseCount(xidmet)">
+                          <i class="tio-remove"></i>
+                        </a>
+                        <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
+                          (click)="increaseCount(xidmet)">
+                          <i class="tio-add"></i>
+                        </a>
+
+                      </div>
+
+                    </div>
+                    <!-- End Quantity Counter -->
+                    <div id="count_danger" class="alert alert-danger" *ngIf="xidmet.isAmountInValid">
+                      Ancaq 0-dan böyük və 1000 dən kicik tam rəqəm daxil oluna bilər
+                    </div>
+                  </div>
+
+
+                  <div class="price col-2">
+                    <p>{{xidmet.temrinalWay.amount | number: '1.2-2'}} ₼</p>
+                  </div>
+
+                  <div class="col-2 price">
+                    <p>{{xidmet.totalAmount | number: '1.2-2'}} ₼</p>
+                  </div>
+
+                </div>
               </div>
             </div>
-            <!-- End Content -->
 
-            <!-- Container For Input Field -->
-            <div id="addInvoiceItemContainer"></div>
           </div>
 
           <hr class="my-5">
@@ -121,8 +122,8 @@
             <div class="col-lg-6">
               <div class="form-group">
 
-                <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel"
-                  [disabled]="!isEditable()" rows="3" [(ngModel)]="notes"></textarea>
+                <textarea class="form-control" placeholder="Qeyd" id="invoiceNotesLabel" [disabled]="!isEditable()"
+                  rows="3" [(ngModel)]="notes"></textarea>
               </div>
             </div>
             <div class="col-md-8 col-lg-6">
@@ -155,8 +156,7 @@
                    "stickyOffsetTop": 20
                  }'>
         <button class="btn btn-block newOrder mb-3" href="javascript:;"
-          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder()"
-          [disabled]="isValid()">
+          *ngIf="orderStatus === undefined || orderStatus === 4" (click)="createTerminalOrder()" [disabled]="isValid()">
           Yadda saxla
         </button>
 
@@ -187,13 +187,11 @@
           </dl>
         </div>
         <div>
-          <button *ngIf="invStatus !== -1 " class="printBtn" (click)="printInv()">Çap et <i class="tio-print"></i></button>
+          <button *ngIf="invStatus !== -1 " class="printBtn" (click)="printInv()">Çap et <i
+              class="tio-print"></i></button>
         </div>
       </div>
     </div>
 
   </div>
 </div>
-
-
-
