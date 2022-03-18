@@ -74,7 +74,6 @@ export class ServicesComponent implements OnInit {
           this.dataSource = new MatTableDataSource<TerminalItem>(terminalItems);
           this.dataSource.paginator = this.paginator;
           this.orderStatuses = [...new Set(terminalItems.map(ti => ti.orderStatus.statusText))];
-          console.log(this.orderStatuses)
           if(callback) {
             callback();
           }
