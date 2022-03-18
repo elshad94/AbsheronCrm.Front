@@ -16,6 +16,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { PayMethod } from 'src/app/model/payMethod';
 import { PassDataService } from 'src/app/services/passData.service';
 import { TerminalService } from 'src/app/services/terminal.service';
+import TerminalItem from 'src/app/model/terminal-item';
 
 @Component({
   selector: 'app-pay',
@@ -41,6 +42,7 @@ export class PayComponent implements OnInit {
   payStat = false;
 
   orderTypeText: string[] = [];
+  status: any = [];
 
   columnsToDisplay = ['orderTypeText', 'orderNo', 'amount', 'orderId'];
   dataSource: MatTableDataSource<Payments> = new MatTableDataSource<Payments>(this.payments);
@@ -89,7 +91,6 @@ export class PayComponent implements OnInit {
       this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
         this.voen = response.uVoen;
         this.payService.postVoen(this.voen).subscribe((response) => {
-          console.log(response)
           if (response == 0) {
             this.payStat = true;
             return
@@ -99,7 +100,7 @@ export class PayComponent implements OnInit {
       });
 
       this.terminalService.getTerminalOrders().subscribe(terminalItems => {
-        console.log(terminalItems)
+        terminalItems.map(x => x.orderStatus.statusId)
       })
     });
 
