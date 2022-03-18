@@ -48,74 +48,73 @@
               </div>
             </div>
             <div >
-              <div class="row">
-                  
+              <div class="row" *ngFor="let fx of fullXidmetler; let i = index">
                 <div class="col-lg-3">
                   <input type="text" class="form-control mb-3  readonly_input" placeholder="N/V №"
-                  aria-label="Description" value="{{xidmetler[0].temrinalWay.nvNo}}" readonly>
+                    aria-label="Description" value="{{fx[0].nvNo}}" readonly>
                 </div>
 
                 <div class="col-lg-4">
                   <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
-                  [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
+                  [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()">
                 </div>
 
                 <div class="col-lg-4">
                   <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
-                  [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
+                  [(ngModel)]="fx[0].emptyRefCode" [disabled]="!isEditable()">
                 </div>
 
                 <!-- <div class="mb-3 col-lg-1 delete_div" *ngIf="xidmetler.length > 1 && isEditable()">
                   <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
                 </div> -->
+                <!-- <p>{{fx[0].nvNo}}</p>
+                <p>{{fx[0].emptyRefCode}}</p>
+                <p>{{fx[0].fullRefCode}}</p> -->
+                <div *ngFor="let x of fx; let i = index" class="priceDiv">
+                  <div class="row">
 
-              </div>
-              <div *ngFor="let xidmet of xidmetler; let i = index" class="priceDiv">
+                    <div class="col-lg-6">
+                      <select [disabled]="!isEditable()" class="form-control mb-3" name="" id=""
+                      (change)="setXidmetPrice(x, $event)">
+                      <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="x.expenseId == exp.id">
+                        {{exp.text}}</option>
+                    </select>
+                    </div>
 
-                <div class="row">
+                    <div class="col-2">
+                      <!-- Quantity Counter -->
+                      <div class="js-quantity-counter input-group-quantity-counter mb-3">
+                        <input type="number" class="js-result form-control input-group-quantity-counter-control"
+                          [(ngModel)]="x.count" [disabled]="!isEditable()" (input)="changeCount(x, $event)">
 
-                  <div class="col-lg-6">
-                    <select [disabled]="!isEditable()" class="form-control mb-3" name="" id=""
-                    (change)="setXidmetPrice(xidmet, $event)">
-                    <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="xidmet.expenseId == exp.id">
-                      {{exp.text}}</option>
-                  </select>
-                  </div>
+                        <div class="input-group-quantity-counter-toggle" *ngIf="isEditable()">
+                          <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
+                            (click)="decreaseCount(x)">
+                            <i class="tio-remove"></i>
+                          </a>
+                          <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
+                            (click)="increaseCount(x)">
+                            <i class="tio-add"></i>
+                          </a>
 
-                  <div class="col-2">
-                    <!-- Quantity Counter -->
-                    <div class="js-quantity-counter input-group-quantity-counter mb-3">
-                      <input type="number" class="js-result form-control input-group-quantity-counter-control"
-                        [(ngModel)]="xidmet.count" [disabled]="!isEditable()" (input)="changeCount(xidmet, $event)">
-
-                      <div class="input-group-quantity-counter-toggle" *ngIf="isEditable()">
-                        <a class="js-minus input-group-quantity-counter-btn" href="javascript:;"
-                          (click)="decreaseCount(xidmet)">
-                          <i class="tio-remove"></i>
-                        </a>
-                        <a class="js-plus input-group-quantity-counter-btn" href="javascript:;"
-                          (click)="increaseCount(xidmet)">
-                          <i class="tio-add"></i>
-                        </a>
+                        </div>
 
                       </div>
-
+                      <!-- End Quantity Counter -->
+                      <div id="count_danger" class="alert alert-danger" *ngIf="x.isAmountInValid">
+                        Ancaq 0-dan böyük və 1000 dən kicik tam rəqəm daxil oluna bilər
+                      </div>
                     </div>
-                    <!-- End Quantity Counter -->
-                    <div id="count_danger" class="alert alert-danger" *ngIf="xidmet.isAmountInValid">
-                      Ancaq 0-dan böyük və 1000 dən kicik tam rəqəm daxil oluna bilər
+
+                    <div class="col-2 price">
+                      <p>{{x.amount | number: '1.2-2'}} ₼</p>
                     </div>
+
+                    <div class="col-2 price">
+                      <p>{{x.totalAmount | number: '1.2-2'}} ₼</p>
+                    </div>
+
                   </div>
-
-
-                  <div class="col-2 price">
-                    <p>{{xidmet.temrinalWay.amount | number: '1.2-2'}} ₼</p>
-                  </div>
-
-                  <div class="col-2 price">
-                    <p>{{xidmet.totalAmount | number: '1.2-2'}} ₼</p>
-                  </div>
-
                 </div>
               </div>
             </div>

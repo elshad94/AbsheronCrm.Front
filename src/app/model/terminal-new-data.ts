@@ -25,5 +25,7 @@ export interface TerminalWay {
     amount: number,
     isSelected?: boolean,
     expenseIds?: number[],
-    id?: number
+    id?: number,
+    fullRefCode: string,
+    emptyRefCode: string
 }

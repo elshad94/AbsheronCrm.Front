@@ -8,7 +8,9 @@ export interface TerminalXidmet {
   cemi: number,
   edv: number,
   cemiEdvle: number,
-  nvNo: string
+  nvNo: string,
+  fullRefCode: string,
+  emptyRefCode: string
 }
 
 export interface TerminalFile {
@@ -20,8 +22,6 @@ export interface TerminalFile {
 export interface TerminalDataForUpdate {
   xidmetler: TerminalXidmet[],
   transPortTypeId: number,
-  fullRefCode: string,
-  emptyRefCode: string,
   endTotal: number,
   total: number,
   notes: string,

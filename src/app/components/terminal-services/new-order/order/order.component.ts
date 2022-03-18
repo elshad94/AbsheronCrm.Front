@@ -24,6 +24,13 @@ export interface Xidmet {
     isAmountInValid?: boolean
 }
 
+export interface FullXidmet {
+  nvNo: string,
+  fullRefCode: string,
+  emptyRefCode: string,
+  xidmetler: Xidmet[]
+}
+
 const EDV_MULTIPLIER = 0.18;
 
 @Component({
@@ -34,12 +41,11 @@ const EDV_MULTIPLIER = 0.18;
 export class OrderComponent implements OnInit {
   expenses!: TerminalExpense[];
   xidmetler!: Xidmet[];
+  fullXidmetler!: any[];
   allServices = []
   total = 0;
   totalEdv = 0;
   notes = '';
-  fullRefCode = '';
-  emptyRefCode = '';
   transportTypeId!: number;
   orderId?: number;
   files: FileData[] = [];
@@ -130,6 +136,37 @@ export class OrderComponent implements OnInit {
       this.total += x.totalAmount;
       this.totalEdv += x.edv * x.count;
     }
+    // *************************************************
+    const tempData: any[] = [];
+    for(const tw of terminalWays) {
+      for(const exp of expenses) {
+        tempData.push({
+          ...tw, ...exp,
+          expenseId: exp.id,
+          expenseText: exp.text,
+          price: exp.price
+        });
+      }
+    }
+    this.fullXidmetler = this.groupBy(tempData.map(x => {return {
+      count: 1,
+      edv: x.edv,
+      expenseId: x.expenseId,
+      totalAmount: x.price,
+      nvNo: x.nvNo,
+      amount: x.price,
+      isSelected: true,
+      fullRefCode: x.fullRefCode,
+      emptyRefCode: x.emptyRefCode,
+      expenseText: x.expenseText
+    };}), 'nvNo');
+  }
+
+  private groupBy(arr: any, key: any) {
+    return arr.reduce((acc: any, cur: any) => {
+      acc[cur[key]] = [...acc[cur[key]] || [], cur];
+      return acc;
+    }, []).filter(Boolean);
   }
 
   private initialUpdateLoad(updateTerminalData: TerminalDataForUpdate) {
@@ -137,22 +174,37 @@ export class OrderComponent implements OnInit {
     this.orderStatus = updateTerminalData.orderStatus;
     this.transportTypeId = updateTerminalData.transPortTypeId;
     this.expenses = updateTerminalData.expenses;
-    this.fullRefCode = updateTerminalData.fullRefCode;
-    this.emptyRefCode = updateTerminalData.emptyRefCode;
     this.notes = updateTerminalData.notes;
     this.total = updateTerminalData.total;
-    this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
+    // this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
+    //   count: x.miqdar,
+    //   edv: x.edv,
+    //   expenseId: x.expenseId,
+    //   totalAmount: x.cemi,
+    //   temrinalWay: {
+    //     nvNo: x.nvNo,
+    //     amount: x.qiymet,
+    //     isSelected: true,
+    //     fullRefCode: x.fullRefCode,
+    //     emptyRefCode: x.emptyRefCode
+    //   },
+    //   expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
+    // };});
+    const xidmetler = updateTerminalData.xidmetler.map(x => {return {
       count: x.miqdar,
       edv: x.edv,
       expenseId: x.expenseId,
       totalAmount: x.cemi,
-      temrinalWay: {
-        nvNo: x.nvNo,
-        amount: x.qiymet,
-        isSelected: true,
-      },
+      nvNo: x.nvNo,
+      amount: x.qiymet,
+      isSelected: true,
+      fullRefCode: x.fullRefCode,
+      emptyRefCode: x.emptyRefCode,
       expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
     };});
+    this.fullXidmetler = this.groupBy(xidmetler, 'nvNo');
+    // console.log("🚀 ~ file: order.component.ts ~ line 183 ~ OrderComponent ~ initialUpdateLoad ~ this.groupByKey(xidmetler, 'fullRefCode')", this.groupBy(xidmetler, 'nvNo'))
+
 
     for(const x of this.xidmetler ) {
       this.totalEdv += x.edv * x.count;
@@ -182,8 +234,6 @@ export class OrderComponent implements OnInit {
     this.terminalService.orderStatus = this.orderStatus;
     // switching to return-files component tab for the first time
     this.terminalService.terminalUpdateRequestData = {
-      emptyRefCode: this.emptyRefCode,
-      fullRefCode: this.fullRefCode,
       notes: this.notes,
       files: this.files,
       xidmetler: this.xidmetler.map(x => {return {
@@ -214,8 +264,6 @@ export class OrderComponent implements OnInit {
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }
-    this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
-    this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
     this.terminalService.terminalUpdateRequestData.notes = this.notes;
     this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
       edv: x.edv,
@@ -249,8 +297,6 @@ export class OrderComponent implements OnInit {
       throw 'transportTypeId is undefined';
     }
     this.transportTypeId = this.terminalService.terminalUpdateRequestData.transportTypeId;
-    this.fullRefCode = this.terminalService.terminalUpdateRequestData.fullRefCode;
-    this.emptyRefCode = this.terminalService.terminalUpdateRequestData.emptyRefCode;
     this.notes = this.terminalService.terminalUpdateRequestData.notes;
     if(this.terminalService.terminalUpdateRequestData.files === undefined) {
       throw 'files is undefined';
@@ -337,7 +383,7 @@ export class OrderComponent implements OnInit {
     return true;
   }
 
-  increaseCount(xidmet: Xidmet) {
+  increaseCount(xidmet: any) {
     xidmet.count++;
     xidmet.totalAmount += xidmet.temrinalWay.amount!;
     this.total += xidmet.temrinalWay.amount!;
@@ -346,7 +392,7 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  decreaseCount(xidmet: Xidmet) {
+  decreaseCount(xidmet: any) {
     if(xidmet.count === 1) {
       return;
     }
@@ -367,34 +413,10 @@ export class OrderComponent implements OnInit {
     );
   }
 
-  addXidmet() {
-    this.xidmetler.push({
-      expenseId: this.expenses[0].id,
-      expenseText: this.expenses[0].text,
-      count: 1,
-      temrinalWay: {
-        nvNo: '',
-        amount: 0
-      },
-      totalAmount: 0,
-      edv: 0
-    });
-    this.total = this.xidmetler
-      .map(x => x.totalAmount)
-      .reduce((prev, next) => next + prev, 0);
-    for(const x of this.xidmetler) {
-      this.totalEdv += x.edv;
-      // this.totalEdv += x.totalAmount;
-      this.total += x.totalAmount;
-    }
-  }
-
   createTerminalOrder(save = true) {
     try {
       if(this.orderId !== undefined || this.terminalService.terminalUpdateRequestData == undefined) {
         this.terminalService.terminalUpdateRequestData = {
-          emptyRefCode: this.emptyRefCode,
-          fullRefCode: this.fullRefCode,
           notes: this.notes,
           files: this.files,
           xidmetler: this.xidmetler.map(x => {return {
@@ -412,8 +434,6 @@ export class OrderComponent implements OnInit {
         //   errorAlert('Faylları doldurun!');
         //   return;
         // }
-        this.terminalService.terminalUpdateRequestData.emptyRefCode = this.emptyRefCode;
-        this.terminalService.terminalUpdateRequestData.fullRefCode = this.fullRefCode;
         this.terminalService.terminalUpdateRequestData.notes = this.notes;
         this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
           edv: x.edv,

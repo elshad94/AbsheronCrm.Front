@@ -1,8 +1,6 @@
 import { FileData } from './returnFileFileData';
 
 export default interface TerminalUpdateRequestData {
-    fullRefCode: string,
-    emptyRefCode: string,
     notes: string,
     statusId?: 4 | 5,
     transportTypeId?: number,
