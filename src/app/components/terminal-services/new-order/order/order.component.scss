@@ -5,9 +5,7 @@
   border-radius: 0.3125rem !important;
 }
 
-#full_ref_code {
-    margin-left: 15px;
-}
+
 
 .readonly_input {
     background-color: #f9fafc;
@@ -21,7 +19,6 @@
   justify-content: center;
   width: 50%;
   padding: 0;
-  height: 35%;
   font-size: 18px;
 }
 
@@ -30,13 +27,6 @@
 }
 
 
-.price{
-  display: flex;
-}
-
-.price span{
-  display: none;
-}
 
 h6{
   margin: 0;
@@ -51,6 +41,11 @@ h6{
 .line::after{
   bottom: -17px!important;
   width: 103px;
+}
+
+.price{
+  display: flex;
+  align-items: center;
 }
 
 .printBtn{

@@ -34,6 +34,7 @@ const EDV_MULTIPLIER = 0.18;
 export class OrderComponent implements OnInit {
   expenses!: TerminalExpense[];
   xidmetler!: Xidmet[];
+  allServices = []
   total = 0;
   totalEdv = 0;
   notes = '';
@@ -49,7 +50,6 @@ export class OrderComponent implements OnInit {
   invStatus: number = -1;
   itmUrl?: string;
   urlSafe?: SafeResourceUrl;
-
 
   constructor(
         private terminalService: TerminalService,
@@ -153,6 +153,7 @@ export class OrderComponent implements OnInit {
       },
       expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
     };});
+
     for(const x of this.xidmetler ) {
       this.totalEdv += x.edv * x.count;
     }
@@ -448,7 +449,7 @@ export class OrderComponent implements OnInit {
         .updateTerminalOrder(this.orderId)
         .subscribe({
           next: () => {
-            successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(res => {
+            successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(_res => {
               this.router.navigate(['//services']);
             });
           },

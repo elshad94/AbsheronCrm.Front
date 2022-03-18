@@ -48,7 +48,8 @@ export class BrokerOrderComponent implements OnInit {
   url: any;
   orderIdQueryParam?: string;
   orderStatus?: number;
-
+  fileName?: string;
+  test!: number;
 
   date = new Date().toLocaleDateString();
   DocumentType: DocumentType = {
@@ -198,6 +199,7 @@ export class BrokerOrderComponent implements OnInit {
   fileChange($event: any, index: number) {
     const selectedFile = <fileDetails>$event.target.files[0];
     const Fd: any = new FormData();
+    this.test = index
 
     Fd.append('files', selectedFile);
     this.fileService.createFile(Fd.get('files'), true, false)
@@ -255,7 +257,7 @@ export class BrokerOrderComponent implements OnInit {
       docTypeId: f.docTypeId!,
       fileId: f.fileId!
     };});
-
+    
 
     if (!this.isValid(this.brokerPostItem.TransportNumber)) {
       errorAlert('N/V No boşdur')
@@ -269,6 +271,11 @@ export class BrokerOrderComponent implements OnInit {
 
     if(!this.isValid(this.brokerPostItem.transportTypeId)) {
       errorAlert('Sifraiş növü seçin')
+      return
+    }
+
+    if (!this.isValid(this.files[0].uri)) {
+      errorAlert('Sənəd faylı seçin')
       return
     }
 

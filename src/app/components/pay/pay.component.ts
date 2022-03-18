@@ -15,6 +15,7 @@ import { RezidentUser } from 'src/app/model/rezidentUser';
 import { AccountService } from 'src/app/services/account.service';
 import { PayMethod } from 'src/app/model/payMethod';
 import { PassDataService } from 'src/app/services/passData.service';
+import { TerminalService } from 'src/app/services/terminal.service';
 
 @Component({
   selector: 'app-pay',
@@ -30,6 +31,7 @@ export class PayComponent implements OnInit {
     private payBorcService: PayBorcService,
     private accountService: AccountService,
     private readonly passDataService: PassDataService,
+    private terminalService: TerminalService,
     private titleService: Title) {
 
   }
@@ -87,6 +89,7 @@ export class PayComponent implements OnInit {
       this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
         this.voen = response.uVoen;
         this.payService.postVoen(this.voen).subscribe((response) => {
+          console.log(response)
           if (response == 0) {
             this.payStat = true;
             return
@@ -94,6 +97,10 @@ export class PayComponent implements OnInit {
           this.passDataService.payMet = response
         });
       });
+
+      this.terminalService.getTerminalOrders().subscribe(terminalItems => {
+        console.log(terminalItems)
+      })
     });
 
   }
