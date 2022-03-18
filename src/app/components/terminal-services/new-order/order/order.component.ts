@@ -51,7 +51,6 @@ export class OrderComponent implements OnInit {
   itmUrl?: string;
   urlSafe?: SafeResourceUrl;
 
-
   constructor(
         private terminalService: TerminalService,
         private router: Router,

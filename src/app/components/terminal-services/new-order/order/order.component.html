@@ -48,29 +48,30 @@
               </div>
             </div>
             <div >
-              <div *ngFor="let xidmet of xidmetler; let i = index" class="priceDiv">
-                <div class="row">
+              <div class="row">
                   
-                  <div class="col-lg-3">
-                    <input type="text" class="form-control mb-3  readonly_input" placeholder="N/V №"
-                    aria-label="Description" value="{{xidmetler[i].temrinalWay.nvNo}}" readonly>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
-                    [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
-                  </div>
-
-                  <div class="col-lg-4">
-                    <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
-                    [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
-                  </div>
-
-                  <div class="mb-3 col-lg-1 delete_div" *ngIf="xidmetler.length > 1 && isEditable()">
-                    <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
-                  </div>
-
+                <div class="col-lg-3">
+                  <input type="text" class="form-control mb-3  readonly_input" placeholder="N/V №"
+                  aria-label="Description" value="{{xidmetler[0].temrinalWay.nvNo}}" readonly>
                 </div>
+
+                <div class="col-lg-4">
+                  <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
+                  [(ngModel)]="fullRefCode" [disabled]="!isEditable()">
+                </div>
+
+                <div class="col-lg-4">
+                  <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
+                  [(ngModel)]="emptyRefCode" [disabled]="!isEditable()">
+                </div>
+
+                <!-- <div class="mb-3 col-lg-1 delete_div" *ngIf="xidmetler.length > 1 && isEditable()">
+                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
+                </div> -->
+
+              </div>
+              <div *ngFor="let xidmet of xidmetler; let i = index" class="priceDiv">
+
                 <div class="row">
 
                   <div class="col-lg-6">
