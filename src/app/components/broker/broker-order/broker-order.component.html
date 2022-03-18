@@ -47,10 +47,10 @@
                     <div class="col-lg-6 pb-3" *ngFor="let checkbox of expenses">
                       <div class="d-flex align-items-center">
                         <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
-                        <input id='cb1'  type="checkbox" name="{{ checkbox.id }}" [(ngModel)]="checkbox.isSelected"
+                        <input   type="checkbox" name="{{ checkbox.id }}" [(ngModel)]="checkbox.isSelected"
                           value=" {{ checkbox.id }} " [checked]="checkbox.isSelected" [disabled]="!isEditable()"
                           (change)="onChangeInput(checkbox, $event)" />
-                        <label for="cb1"  class="m-0 pl-1">{{ checkbox.text }}</label>
+                        <label  class="m-0 pl-1">{{ checkbox.text }}</label>
 
 
                       </div>
