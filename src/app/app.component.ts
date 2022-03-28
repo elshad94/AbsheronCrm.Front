@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import logger from 'src/utils/logger';
 import { GlobalService } from './services/global.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +11,28 @@ import { GlobalService } from './services/global.service';
 export class AppComponent implements OnInit {
   title = 'AbsLog';
   tk = false;
+  uri!: string;
 
   constructor(
-    private globalService: GlobalService){
+    private globalService: GlobalService,
+    private route :Router){
   }
-
+  RouteHome(){
+   this.uri = this.route.url;
+   if (this.uri = '/') {
+     if (this.tk) {
+       this.route.navigate(['/home'])
+     }
+     else{
+      this.route.navigate([''])
+     }
+   }
+  }
   ngOnInit(){
     this.globalService.tokenValue.subscribe(token => {
       this.tk = token.length > 0
     })
+    this.RouteHome()
   }
 }
 
