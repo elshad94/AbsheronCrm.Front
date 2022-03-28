@@ -519,10 +519,14 @@ export class OrderComponent implements OnInit {
   }
 
   setFullRefCodes(fx: any, event: any) {
-    fx.fullRefCode = event.target.value;
+    for(const f of fx) {
+      f.fullRefCode = event.target.value;
+    }
   }
 
   setEmptyRefCodes(fx: any, event: any) {
-    fx.emptyRefCode = event.target.value;
+    for(const f of fx) {
+      f.emptyRefCode = event.target.value;
+    }
   }
 }

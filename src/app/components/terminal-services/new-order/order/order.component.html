@@ -57,13 +57,14 @@
 
                   <div class="col-lg-4">
                     <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
-                      [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()" (change)="setFullRefCodes(fx, $event)">
+                      [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()"
+                      (keyup)="setFullRefCodes(fx, $event)">
                   </div>
 
                   <div class="col-lg-4">
                     <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
                       [(ngModel)]="fx[0].emptyRefCode" [disabled]="!isEditable()"
-                      (change)="setEmptyRefCodes(fx, $event)">
+                      (keyup)="setEmptyRefCodes(fx, $event)">
                   </div>
                 </div>
 
