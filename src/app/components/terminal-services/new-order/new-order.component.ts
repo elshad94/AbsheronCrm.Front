@@ -19,9 +19,9 @@ export class NewOrderComponent implements OnInit {
   masterCheck = false;
 
   constructor(
-        private terminalService: TerminalService,
-        private router: Router,
-        private titleService: Title) {
+    private terminalService: TerminalService,
+    private router: Router,
+    private titleService: Title) {
   }
 
   checkExpenseCheckbox(ex: TerminalExpense) {

@@ -56,29 +56,25 @@
 
                 <div class="col-lg-4">
                   <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
-                  [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()">
+                    [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()"
+                    (change)="setFullRefCodes(fx, $event)">
                 </div>
 
                 <div class="col-lg-4">
                   <input type="text" class="form-control" placeholder="Boş yükdaşıma kodu"
-                  [(ngModel)]="fx[0].emptyRefCode" [disabled]="!isEditable()">
+                    [(ngModel)]="fx[0].emptyRefCode" [disabled]="!isEditable()"
+                    (change)="setEmptyRefCodes(fx, $event)">
                 </div>
 
-                <!-- <div class="mb-3 col-lg-1 delete_div" *ngIf="xidmetler.length > 1 && isEditable()">
-                  <a type="button" (click)="deleteXidmet(i)"><i class="tio-delete-outlined"></i></a>
-                </div> -->
-                <!-- <p>{{fx[0].nvNo}}</p>
-                <p>{{fx[0].emptyRefCode}}</p>
-                <p>{{fx[0].fullRefCode}}</p> -->
                 <div *ngFor="let x of fx; let i = index" class="priceDiv">
                   <div class="row">
 
                     <div class="col-lg-6">
-                      <select [disabled]="!isEditable()" class="form-control mb-3" name="" id=""
+                      <select [disabled]="!isEditable() || x.isReadOnly" class="form-control mb-3" name="" id=""
                       (change)="setXidmetPrice(x, $event)">
-                      <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="x.expenseId == exp.id">
-                        {{exp.text}}</option>
-                    </select>
+                        <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="x.expenseId == exp.id">
+                          {{exp.text}}</option>
+                      </select>
                     </div>
 
                     <div class="col-2">

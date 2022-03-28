@@ -10,7 +10,8 @@ export interface TerminalXidmet {
   cemiEdvle: number,
   nvNo: string,
   fullRefCode: string,
-  emptyRefCode: string
+  emptyRefCode: string,
+  isExpenseReadOnly: boolean
 }
 
 export interface TerminalFile {

@@ -28,6 +28,7 @@ export class ReturnFileComponent implements OnInit {
   orderNo?: string;
   orderStatus?: number;
   fileId?: number;
+  fullXidmetler: any;
 
   constructor(
       private terminalService: TerminalService,
@@ -45,6 +46,7 @@ export class ReturnFileComponent implements OnInit {
       .subscribe(params => {
         this.orderId = params['orderId'];
       });
+    this.fullXidmetler = this.terminalService.fullXidmetler;
     if(this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }
@@ -61,6 +63,7 @@ export class ReturnFileComponent implements OnInit {
   }
 
   goBack() {
+    this.terminalService.fullXidmetler = this.fullXidmetler;
     this.location.back();
   }
 
@@ -84,7 +87,7 @@ export class ReturnFileComponent implements OnInit {
           this.files.push({
             id: res.fileId,
             nvNo: this.fileToUploadNvNo,
-            uri: getFileName(res.uri) 
+            uri: getFileName(res.uri)
           });
           successAlert('Fayl yüklənildi', 'Uğurlu');
         },
@@ -111,7 +114,7 @@ export class ReturnFileComponent implements OnInit {
       this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
       if(this.orderId === undefined) {
         this.terminalService
-          .createTerminalOrder()
+          .createTerminalOrder(this.fullXidmetler)
           .subscribe({
             next: () => {
               successAlert('Yeni terminal sifarişi yaradıldı', 'Uğurlu').then(res => {
@@ -126,7 +129,7 @@ export class ReturnFileComponent implements OnInit {
         return;
       }
       this.terminalService
-        .updateTerminalOrder(this.orderId)
+        .updateTerminalOrder(this.fullXidmetler, this.orderId)
         .subscribe({
           next: () => {
             successAlert('Terminal sifarişi guncellendi', 'Uğurlu').then(res => {

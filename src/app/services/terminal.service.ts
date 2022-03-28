@@ -35,6 +35,7 @@ export class TerminalService {
   orderNo?: string;
   orderStatus?: number;
   isValid = false;
+  fullXidmetler: any;
 
   baseUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
@@ -68,7 +69,7 @@ export class TerminalService {
       .get<TerminalDataForUpdate>(`${this.baseUrl}/TerminalOrder/GetUpdateData/${orderId}`);
   }
 
-  createTerminalOrder(): Observable<HttpResponse<unknown>> {
+  createTerminalOrder(updateData: any): Observable<HttpResponse<unknown>> {
     if(this.terminalUpdateRequestData === undefined) {
       throw errorCodes.REQUEST_DATA_UNDEFINED;
     }
@@ -77,10 +78,27 @@ export class TerminalService {
     }
     this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
     this.terminalUpdateRequestData.total = this.totalEdv;
+
+    let xidmetler = [];
+    for(const x of updateData) {
+      for(const y of x) {
+        xidmetler.push(y);
+      }
+    }
+    this.terminalUpdateRequestData.xidmetler = xidmetler.map((x: any) => {return {
+      nvNo: x.nvNo,
+      edv: x.edv,
+      expenseId: x.expenseId,
+      miqdar: x.count,
+      qiymet: x.amount,
+      emptyRefCode: x.emptyRefCode,
+      fullRefCode: x.fullRefCode,
+      isExpenseReadOnly: x.isReadOnly
+    }});
     return this.http.post(this.baseUrl + '/TerminalOrder/Create', this.terminalUpdateRequestData, {observe: 'response', headers});
   }
 
-  updateTerminalOrder(orderId: number): Observable<HttpResponse<unknown>> {
+  updateTerminalOrder(updateData: any, orderId: number): Observable<HttpResponse<unknown>> {
     if(this.terminalUpdateRequestData === undefined) {
       throw errorCodes.REQUEST_DATA_UNDEFINED;
     }
@@ -89,6 +107,24 @@ export class TerminalService {
     }
     this.terminalUpdateRequestData.notes = this.terminalUpdateRequestData.notes.trim();
     this.terminalUpdateRequestData.total = this.totalEdv;
+
+    let xidmetler = [];
+    for(const x of updateData) {
+      for(const y of x) {
+        xidmetler.push(y);
+      }
+    }
+
+    this.terminalUpdateRequestData.xidmetler = xidmetler.map((x: any) => {return {
+      nvNo: x.nvNo,
+      edv: x.edv,
+      expenseId: x.expenseId,
+      miqdar: x.count,
+      qiymet: x.amount,
+      emptyRefCode: x.emptyRefCode,
+      fullRefCode: x.fullRefCode,
+      isExpenseReadOnly: x.isReadOnly
+    }});
     return this.http.put(
       `${this.baseUrl}/TerminalOrder/Update/${orderId}`,
       this.terminalUpdateRequestData,

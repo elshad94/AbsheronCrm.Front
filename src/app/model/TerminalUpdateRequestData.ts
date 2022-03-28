@@ -10,7 +10,10 @@ export default interface TerminalUpdateRequestData {
             expenseId: number,
             qiymet: number,
             edv: number,
-            miqdar: number
+            miqdar: number,
+            fullRefCode?: string,
+            emptyRefCode?: string,
+            isExpenseReadOnly?: boolean
         }[],
     files?: FileData[],
     total?: number
