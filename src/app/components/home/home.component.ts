@@ -7,9 +7,8 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { Title } from '@angular/platform-browser';
 import { TITLE } from 'src/utils/contants';
-import { Router, RoutesRecognized } from '@angular/router';
-import { filter, pairwise } from 'rxjs/operators';
-import { HostListener } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-home',
@@ -17,7 +16,6 @@ import { HostListener } from '@angular/core';
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
 
     constructor(private orderCount: OrderCountService,
         private spinnerService: SpinnerService,
@@ -89,7 +87,6 @@ export class HomeComponent implements OnInit {
         if (window.innerWidth < 768) {
             $("canvas").attr("height", "250");
         }
-
     }
 
 }

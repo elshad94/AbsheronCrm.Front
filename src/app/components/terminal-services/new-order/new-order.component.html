@@ -124,10 +124,10 @@
                       <div class="custom-control custom-checkbox">
                         <!-- <input type="checkbox" class="custom-control-input"
                           [(ngModel)]="exp.isSelected" [disabled]="exp.isReadOnly == true"> -->
-                        <input type="checkbox" class="custom-control-input"
+                        <input id="{{exp.id}}" type="checkbox" class="custom-control-input"
                           [(ngModel)]="exp.isSelected">
                         <label class="custom-control-label" (click)="checkExpenseCheckbox(exp)"></label>
-                        <label>{{exp.text}}</label>
+                        <label for="{{exp.id}}">{{exp.text}}</label>
                       </div>
                     </div>
                   </div>

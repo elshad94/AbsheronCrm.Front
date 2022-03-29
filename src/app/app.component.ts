@@ -15,24 +15,27 @@ export class AppComponent implements OnInit {
 
   constructor(
     private globalService: GlobalService,
-    private route :Router){
+    private route: Router) {
   }
-  RouteHome(){
-   this.uri = this.route.url;
-   if (this.uri = '/') {
-     if (this.tk) {
-       this.route.navigate(['/home'])
-     }
-     else{
-      this.route.navigate([''])
-     }
-   }
-  }
-  ngOnInit(){
+
+  ngOnInit() {
     this.globalService.tokenValue.subscribe(token => {
       this.tk = token.length > 0
     })
-    this.RouteHome()
+    this.routeHome()
   }
+
+  routeHome() {
+    this.uri = this.route.url;
+    if (this.tk == true) {
+      if (this.uri == '/') {
+        this.route.navigate(['/home'])
+      }
+    }
+    else {
+      this.route.navigate([''])
+    }
+  }
+
 }
 
