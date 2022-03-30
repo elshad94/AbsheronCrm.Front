@@ -3,6 +3,17 @@
         <div class="brandLogo">
             <img class="logo" src="../../../assets/img/Absheron_Logistika_logo 3.png" alt="">
         </div>
+        <div class="balanceRes">
+            <div class="brokBalanceRes">
+                <span>Broker balans: ₼{{brokerBalance}}</span>
+            </div>
+            <div class="termBalanceRes">
+                <span>Terminal balans: ₼{{terminalBalance}}</span>
+            </div>
+            <div class="compNameRes">
+                <span>{{compName}}</span>
+            </div>
+        </div>
         <div class="sidebarMenu">
             <ul class="sideUl">
                 <li class="resLi" [routerLink]="['/home']" routerLinkActive="router-link-active"><img
@@ -48,31 +59,28 @@
 <header>
     <div class="head">
         <div><i class="tio-first-page" id="collapse"></i></div>
-        <div class="mainUser">
-            <div class="balance">
-                <div class="brokBalance">
-                    <span>Broker balans: ₼{{brokerBalance}}</span>
-                </div>
-                <div class="termBalance">
-                    <span>Terminal balans: ₼{{terminalBalance}}</span>
-                </div>
-                <div>
-                    <span>{{compName}}</span>
-                </div>
+        <div class="balance">
+            <div class="brokBalance">
+                <span>Broker balans: ₼{{brokerBalance}}</span>
             </div>
-            <div class="user">
-                <i class="tio-user"></i>
-                <div class="userSetting">
-                    <ul>
-                        <li [routerLink]="['/profileAccount']">Profil hesabı</li>
-                        <li [routerLink]="['/changepwd']">Şifrəni dəyiş</li>
-                        <li [routerLink]="['/notification']">Bildirişlər</li>
-                        <li (click)="signOut()">Çıxış et</li>
-                    </ul>
-                </div>
+            <div class="termBalance">
+                <span>Terminal balans: ₼{{terminalBalance}}</span>
+            </div>
+            <div class="compName">
+                <span>{{compName}}</span>
             </div>
         </div>
-
+        <div class="user">
+            <i class="tio-user"></i>
+            <div class="userSetting">
+                <ul>
+                    <li [routerLink]="['/profileAccount']">Profil hesabı</li>
+                    <li [routerLink]="['/changepwd']">Şifrəni dəyiş</li>
+                    <li [routerLink]="['/notification']">Bildirişlər</li>
+                    <li (click)="signOut()">Çıxış et</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </header>
 <script>
