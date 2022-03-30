@@ -22,20 +22,9 @@ export class AppComponent implements OnInit {
     this.globalService.tokenValue.subscribe(token => {
       this.tk = token.length > 0
     })
-    this.routeHome()
   }
 
-  routeHome() {
-    this.uri = this.route.url;
-    if (this.tk == true) {
-      if (this.uri == '/') {
-        this.route.navigate(['/home'])
-      }
-    }
-    else {
-      this.route.navigate([''])
-    }
-  }
+
 
 }
 
