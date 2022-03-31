@@ -50,7 +50,6 @@ const routes: Routes = [
     {path:'returnFile',component:ReturnFileComponent},
     {path:'legalAccount',component:LegalAccountComponent},
     {path:'nextModal',component:NextModalComponent},
-    {path:'',component:LoginComponent},
     {path:'help',component:HelpComponent},
     {path:'register',component:RegisterComponent},
     {path:'verify',component:VerifyEmailComponent},
@@ -62,6 +61,7 @@ const routes: Routes = [
     {path: 'successOperation', component: SuccesOperationComponent},
     {path: 'errorOperation', component: ErrorOperationComponent},
     {path: 'certificate', component: CertificateComponent},
+    {path:'',component:LoginComponent},
     {path: '**', component: ErrorPageComponent}
     
 ];

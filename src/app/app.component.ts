@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import logger from 'src/utils/logger';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, HostListener } from '@angular/core';
 import { GlobalService } from './services/global.service';
-
+import { Router } from '@angular/router';
+import { PassDataService } from './services/passData.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,15 +10,27 @@ import { GlobalService } from './services/global.service';
 export class AppComponent implements OnInit {
   title = 'AbsLog';
   tk = false;
+  uri!: string;
 
   constructor(
-    private globalService: GlobalService){
+    private globalService: GlobalService,
+    private route: Router,
+    private passData: PassDataService) {
   }
 
-  ngOnInit(){
-    this.globalService.tokenValue.subscribe(token => {
-      this.tk = token.length > 0
-    })
+  @HostListener('window:beforeunload')
+  doSomething() {
+    localStorage.removeItem('token');
   }
+
+  ngOnInit() {
+    this.globalService.tokenValue.subscribe((token: any) => {
+        this.tk = token.length > 0
+        this.passData.token = this.tk
+      })
+  }
+
+
+
 }
 

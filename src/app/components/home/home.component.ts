@@ -7,6 +7,8 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 import { SpinnerService } from 'src/app/services/spinner.service';
 import { Title } from '@angular/platform-browser';
 import { TITLE } from 'src/utils/contants';
+import { Router } from '@angular/router';
+
 
 @Component({
     selector: 'app-home',
@@ -16,8 +18,9 @@ import { TITLE } from 'src/utils/contants';
 export class HomeComponent implements OnInit {
 
     constructor(private orderCount: OrderCountService,
-                private spinnerService: SpinnerService,
-                private titleService: Title) { }
+        private spinnerService: SpinnerService,
+        private titleService: Title,
+        private route: Router) { }
 
     conWag: ConWag[] = [];
 
@@ -51,7 +54,7 @@ export class HomeComponent implements OnInit {
                 anchor: 'end',
                 align: 'end'
             },
-            tooltip:{
+            tooltip: {
                 mode: 'index',
                 intersect: false
             }
@@ -67,7 +70,7 @@ export class HomeComponent implements OnInit {
     public barCharDatasetProperties!: ChartDatasetProperties<'bar', number[]>;
 
     ngOnInit() {
-      this.titleService.setTitle(`Ana Səhifə${TITLE}`);
+        this.titleService.setTitle(`Ana Səhifə${TITLE}`);
         this.orderCount.getOrdersCount().subscribe((conwags: ConWag[]) => {
 
             this.conWag = conwags;
@@ -75,16 +78,17 @@ export class HomeComponent implements OnInit {
             this.barChartData = {
                 labels: conwags.map(c => c.orderMonthText),
                 datasets: [
-                    { data: conwags.map(c => c.vaqonCount), label: 'Vaqonlar', backgroundColor: '#57dac2' , hoverBackgroundColor: '#57dac2' , barThickness: 15, borderRadius: 5, borderColor: '#57dac2'},
+                    { data: conwags.map(c => c.vaqonCount), label: 'Vaqonlar', backgroundColor: '#57dac2', hoverBackgroundColor: '#57dac2', barThickness: 15, borderRadius: 5, borderColor: '#57dac2' },
                     { data: conwags.map(c => c.konteynrCount), label: 'Konteynerler', backgroundColor: '#377dff', hoverBackgroundColor: '#377dff', barThickness: 15, borderRadius: 5, borderColor: '#377dff' }
                 ]
             };
         });
 
         if (window.innerWidth < 768) {
-            $("canvas").attr("height","250");
+            $("canvas").attr("height", "250");
         }
     }
+
 }
 
 
