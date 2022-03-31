@@ -23,6 +23,7 @@ export class PassDataService {
     text: ''
   }]
 
+  token = false;
   constructor() { }
 
 

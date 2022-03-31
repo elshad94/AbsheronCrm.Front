@@ -6,15 +6,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { GlobalService } from 'src/app/services/global.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import Swal from 'sweetalert2';
+import { PassDataService } from 'src/app/services/passData.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public tk?: any;
   brokerBalance!: number;
   terminalBalance!: number;
+  tk = false
 
   compName!: string;
   logger: any;
@@ -23,7 +24,8 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private globalService: GlobalService,
     private paymentService: PaymentService,
-    private getUser: AccountService) {
+    private getUser: AccountService,
+    private passData: PassDataService) {
   }
 
   ngOnInit(): void {
@@ -35,10 +37,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserBalance() {
-    this.globalService.tokenValue.subscribe(token => {
-      this.tk = token.length > 0
-    })
-    if (!this.tk) {
+    if (!this.passData.token) {
       return
     }
     else {
@@ -52,10 +51,7 @@ export class HeaderComponent implements OnInit {
   }
 
   getCompName() {
-    this.globalService.tokenValue.subscribe(token => {
-      this.tk = token.length > 0
-    })
-    if (!this.tk) {
+    if (!this.passData.token) {
       return
     }
     else {
