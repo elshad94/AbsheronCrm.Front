@@ -69,18 +69,27 @@ collapse() {
       $('div.asideMain').toggleClass('resAsideMenu');
       $('#collapse').toggleClass('tio-last-page');
       $('.subCat').addClass('subCatRes');
+      $('.termBalanceRes').toggleClass('balanceResCol');
+      $('.brokBalanceRes').toggleClass('balanceResCol');
+      
 
     });
     $('main').click(function () {
       $('div.head').removeClass('resHead');
       $('div.asideMain').removeClass('resAsideMenu');
       $('#collapse').removeClass('tio-last-page');
+      $('.termBalanceRes').addClass('balanceResCol');
+      $('.brokBalanceRes').addClass('balanceResCol');
+
+
     })
     $('.resLi').click(function () {
       $('div.head').removeClass('resHead');
       $('div.asideMain').removeClass('resAsideMenu');
       $('#collapse').removeClass('tio-last-page');
       $('.subCat').removeClass('subCatRes');
+      $('.termBalanceRes').addClass('balanceResCol');
+      $('.brokBalanceRes').addClass('balanceResCol');
     })
 
   }
