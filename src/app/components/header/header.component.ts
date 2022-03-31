@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   terminalBalance!: number;
 
   compName!: string;
+  logger: any;
 
   constructor(private authService: AuthService,
     private router: Router,
@@ -25,25 +26,43 @@ export class HeaderComponent implements OnInit {
     private getUser: AccountService) {
   }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.collapse();
-    this.getUserBalance();
-    this.getCompName();
+    setTimeout(() => {
+      this.getUserBalance();
+      this.getCompName();
+    }, 500);
   }
 
   getUserBalance() {
-    this.paymentService.getUserBalance()
+    this.globalService.tokenValue.subscribe(token => {
+      this.tk = token.length > 0
+    })
+    if (this.tk) {
+      this.paymentService.getUserBalance()
       .subscribe((res: { brokerBalance: number; terminalBalance: number; }) => {
         this.brokerBalance = res.brokerBalance;
         this.terminalBalance = res.terminalBalance;
       })
+    }
+    else{
+      return
+    }
+
   }
 
   getCompName() {
-    this.getUser.getUser(Number(localStorage.getItem('Userid'))).subscribe(res => {
-      this.compName = res.uCustname
-      console.log(this.compName)
+    this.globalService.tokenValue.subscribe(token => {
+      this.tk = token.length > 0
     })
+    if (this.tk) {
+      this.getUser.getUser(Number(localStorage.getItem('Userid'))).subscribe(res => {
+        this.compName = res.uCustname
+      })
+    }
+    else{
+      return
+    }
   }
 
 signOut(){
