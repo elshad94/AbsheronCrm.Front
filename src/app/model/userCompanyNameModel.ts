@@ -1,3 +1,3 @@
 export interface UserCompanyName {
-  C_NAME: string;
+  c_NAME: string;
 }

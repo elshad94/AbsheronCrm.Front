@@ -32,6 +32,7 @@ export class ProfileAccountComponent implements OnInit {
   public fileInput2Label = '';
   public fileInput3Label = '';
   files: any[] = [];
+  compname!: string;
 
   public fileApiUrl = 'http://localhost:4200/'
   ngOnInit(): void {
@@ -40,6 +41,11 @@ export class ProfileAccountComponent implements OnInit {
       this.model = response;
       this.loadFile();
     });
+
+    this.accountService.getUserCompanyName().subscribe(res =>{
+      this.compname = res.c_NAME
+    })
+
   }
 
   openFile(id?: number) {

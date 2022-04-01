@@ -182,17 +182,7 @@
                       <div *ngSwitchDefault>
                         <div class="form-group">
                           <label for="SKULabel" class="input-label">Şirkət Adı</label>
-                          <input type="text" class="form-control" name="UCustname" required id="SKULabel" ngModel
-                            #UCustname="ngModel" [(ngModel)]="model.uCustname" minlength="3" maxlength="32">
-                          <div class="alert alert-danger"
-                            *ngIf="UCustname.invalid && (UCustname.dirty || UCustname.touched)">
-                            <div *ngIf="UCustname.errors?.['required']">
-                              *Şirkət adı tələb olunur
-                            </div>
-                            <div *ngIf="UCustname.errors?.['minlength']">
-                              *Minimum 3 simvol tələb olunur
-                            </div>
-                          </div>
+                          <input type="text" class="form-control" name="UCustname" required id="SKULabel" disabled value="{{compname}}">
                         </div>
                       </div>
                     </div>

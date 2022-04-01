@@ -53,8 +53,9 @@ export class HeaderComponent implements OnInit {
       return
     }
     else {
-      this.getUser.getUser(Number(localStorage.getItem('Userid'))).subscribe(res => {
-        this.compName = res.uCustname
+      this.getUser.getUserCompanyName().subscribe(res => {
+        this.compName = res.c_NAME
+        console.log(res.c_NAME)
       })
     }
   }
