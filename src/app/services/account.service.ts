@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiUrlsService } from './api-urls.service';
+import { UserCompanyName } from '../model/userCompanyNameModel';
 
 
 @Injectable({
@@ -11,8 +12,14 @@ import { ApiUrlsService } from './api-urls.service';
 
 export class AccountService{
   baseUrl!: string;
+  crmApiUrl!: string;
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getAuthAPiURI();
+    this.crmApiUrl = apiUrlService.getCrmAPIURI();
+  }
+
+  getUserCompanyName(): Observable<UserCompanyName> {
+    return this.http.get<UserCompanyName>(this.crmApiUrl + '/TerminalOrder/GetUserCompanyName');
   }
 
   getUser(uId:number){

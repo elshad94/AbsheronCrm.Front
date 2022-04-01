@@ -13,6 +13,7 @@ import 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import logger from 'src/utils/logger';
 import { TITLE } from 'src/utils/contants';
+import { AccountService } from 'src/app/services/account.service';
 
 
 
@@ -51,7 +52,7 @@ export class BrokerComponent implements OnInit {
     private Brokerservice: BrokerItemService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private titleService: Title
+    private titleService: Title,
     ) {}
 
     ngOnInit(): void {
