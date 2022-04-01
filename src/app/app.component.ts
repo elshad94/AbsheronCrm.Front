@@ -20,8 +20,19 @@ export class AppComponent implements OnInit {
 
   @HostListener('window:beforeunload')
   doSomething() {
-    localStorage.removeItem('token');
+    window.onbeforeunload = function (e) {
+      window.onunload = function () {
+              window.localStorage['isMySessionActive'] = "false";
+      }
+      return undefined;
+  };
+  
+  window.onload = function () {
+              window.localStorage['isMySessionActive'] = "true";
+  };
+    // localStorage.removeItem('token');
   }
+
 
   ngOnInit() {
     this.globalService.tokenValue.subscribe((token: any) => {
@@ -29,6 +40,7 @@ export class AppComponent implements OnInit {
         this.passData.token = this.tk
       })
   }
+
 
 
 
