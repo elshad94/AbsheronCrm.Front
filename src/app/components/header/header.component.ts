@@ -30,10 +30,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.collapse();
-    setTimeout(() => {
-      this.getUserBalance();
-      this.getCompName();
-    }, 500);
+    this.getUserBalance();
+    this.getCompName();
   }
 
   getUserBalance() {
