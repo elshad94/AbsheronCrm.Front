@@ -79,7 +79,7 @@ export class PayModalComponent implements OnInit {
         data:{
           orderId: this.data.orderId,
           orderTypeId: this.data.orderTypeId,
-          orderNo: this.data.orderNo
+          amount: this.data.amount
         },
         height: 'max-content',
         width: '520px'

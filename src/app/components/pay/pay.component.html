@@ -70,7 +70,7 @@
           <td mat-cell *matCellDef="let order">
             <div>
               <div *ngIf="!payStat && order.orderStatus === 6">
-                <button class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo)">Ödə</button>
+                <button class="payBtn" (click)="openDialog(order.orderId, order.orderTypeId, order.orderNo, order.amount)">Ödə</button>
               </div>
               <div *ngIf="payStat">
                 <button class="payBtn" style="opacity: 0.5; cursor: not-allowed;" disabled>Ödə</button>

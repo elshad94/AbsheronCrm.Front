@@ -50,12 +50,13 @@ export class PayComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
-  public openDialog(orderId: number, orderTypeId: number, orderNo: string) {
+  public openDialog(orderId: number, orderTypeId: number, orderNo: string, amount: number) {
     this.dialogRef.open(PayModalComponent, {
       data: {
         orderId: orderId,
         orderTypeId: orderTypeId,
-        orderNo: orderNo
+        orderNo: orderNo,
+        amount: amount
       },
       height: 'max-content',
       width: '600px',

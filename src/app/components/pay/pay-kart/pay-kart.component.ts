@@ -6,6 +6,7 @@ import { PayModalComponent } from '../pay-modal/pay-modal.component';
 import Swal from 'sweetalert2';
 import { PayBorc } from 'src/app/model/payBorc';
 import { PaymentService } from 'src/app/services/payment.service';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-pay-kart',
@@ -44,15 +45,17 @@ export class PayKartComponent implements OnInit {
           showConfirmButton: false,
           timer: 2500
         })
+
         this.payment.isPaymentSuccesfull = true;
         this.dialogRef.closeAll()
   
       },
         (error: any) =>{
+        console.log(error.error.error)
         Swal.fire({
-          icon: 'error',
-          title: 'Uğursuz əməliyyat...',
-          text: 'Server xətası'
+          icon: 'info',
+          title: 'Məlumat',
+          text: `${error.error.error}`
         })
       })
     }
