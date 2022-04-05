@@ -42,8 +42,13 @@ export class PayKartComponent implements OnInit {
           position: 'center',
           icon: 'success',
           title: `${this.order.orderNo} sifarişin ödəməsi uğurla qeydə alındı`,
-          showConfirmButton: false,
-          timer: 2500
+          showConfirmButton: true,
+          confirmButtonText: 'Bağla',
+        }).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            location.reload()
+          } 
         })
 
         this.payment.isPaymentSuccesfull = true;
