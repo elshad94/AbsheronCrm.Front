@@ -29,6 +29,11 @@ body::-webkit-scrollbar-thumb {
     border-radius: 5px;
 }
 
+::selection{
+    background-color: #4299bf;
+    
+}
+
 h2 {
     margin: 0 !important;
     font-family: "Lexend Deca", sans-serif !important;
