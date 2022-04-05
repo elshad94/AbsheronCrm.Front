@@ -171,33 +171,39 @@ export class OrderComponent implements OnInit {
     this.expenses = updateTerminalData.expenses;
     this.notes = updateTerminalData.notes;
     this.total = updateTerminalData.total;
-    this.xidmetler = updateTerminalData.xidmetler.map(x => {return {
-      count: x.miqdar,
-      edv: x.edv,
-      expenseId: x.expenseId,
-      totalAmount: x.cemi,
-      temrinalWay: {
+    this.xidmetler = updateTerminalData.xidmetler.map(x => {
+      var expense = this.expenses.filter(exp => exp.id == x.expenseId)[0];
+      return {
+        count: x.miqdar,
+        edv: x.edv,
+        expenseId: x.expenseId,
+        totalAmount: x.cemi,
+        temrinalWay: {
+          nvNo: x.nvNo,
+          amount: x.qiymet,
+          isSelected: true,
+          fullRefCode: x.fullRefCode,
+          emptyRefCode: x.emptyRefCode
+        },
+        expenseText: expense === undefined ? '' : expense.text
+      };
+  });
+    const xidmetler = updateTerminalData.xidmetler.map(x => {
+      var expense = this.expenses.filter(exp => exp.id == x.expenseId)[0];
+      return {
+        count: x.miqdar,
+        edv: x.edv,
+        expenseId: x.expenseId,
+        totalAmount: x.cemi,
         nvNo: x.nvNo,
         amount: x.qiymet,
         isSelected: true,
         fullRefCode: x.fullRefCode,
-        emptyRefCode: x.emptyRefCode
-      },
-      expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text
-    };});
-    const xidmetler = updateTerminalData.xidmetler.map(x => {return {
-      count: x.miqdar,
-      edv: x.edv,
-      expenseId: x.expenseId,
-      totalAmount: x.cemi,
-      nvNo: x.nvNo,
-      amount: x.qiymet,
-      isSelected: true,
-      fullRefCode: x.fullRefCode,
-      emptyRefCode: x.emptyRefCode,
-      expenseText: this.expenses.filter(exp => exp.id == x.expenseId)[0].text,
-      isReadOnly: x.isExpenseReadOnly
-    };});
+        emptyRefCode: x.emptyRefCode,
+        expenseText: expense === undefined ? '' : expense.text,
+        isReadOnly: x.isExpenseReadOnly
+      };
+    });
     this.fullXidmetler = this.groupBy(xidmetler, 'nvNo');
     console.log("🚀 ~ file: order.component.ts ~ line 202 ~ OrderComponent ~ initialUpdateLoad ~ this.fullXidmetler", this.fullXidmetler)
 
