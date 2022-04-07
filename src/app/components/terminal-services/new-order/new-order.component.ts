@@ -44,18 +44,27 @@ export class NewOrderComponent implements OnInit {
     // check nvNoList not empty
     if(this.terminalWays.filter(tw => tw.isSelected).length === 0) {
       Swal.fire(
-        'Error!',
-        'En azı bir vaqon və ya konteynr seçin!',
-        'error'
+        'Məlumat!',
+        'Ən azı bir vaqon və ya konteynr seçin!',
+        'info'
+      );
+      return;
+    }
+
+    if (this.terminalWays.filter(tw => tw.wdsDocNo).length === 0) {
+      Swal.fire(
+        'Məlumat!',
+        'Seçilmiş vaqona görə gömrük icazəsi yoxdur!',
+        'info'
       );
       return;
     }
     // check terminalways not empty
     if(this.expenses.filter(exp => exp.isSelected).length === 0) {
       Swal.fire(
-        'Error!',
-        'En azı bir xidmət seçin!',
-        'error'
+        'Məlumat!',
+        'Ən azı bir xidmət seçin!',
+        'info'
       );
       return;
     }

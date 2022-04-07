@@ -24,16 +24,16 @@
           <div class="col-sm-auto">
             <div class="d-flex align-items-center mr-2">
               <div class="checkBox">
-                  <label>
-                    <input type="radio" name="radio" value="1" name="nvNoRadioButton" (change)="changeVaqonType(1)" checked
-                    id="nvNoRadio_vaqon"/>
-                    <span>Vaqon</span>
-                  </label>
+                <label>
+                  <input type="radio" name="radio" value="1" name="nvNoRadioButton" (change)="changeVaqonType(1)"
+                    checked id="nvNoRadio_vaqon" />
+                  <span>Vaqon</span>
+                </label>
               </div>
               <div class="checkBox">
                 <label>
                   <input type="radio" name="radio" value="2" name="nvNoRadioButton" (change)="changeVaqonType(2)"
-                  id="nvNoRadio_vaqon"/>
+                    id="nvNoRadio_vaqon" />
                   <span>Konteyner</span>
                 </label>
               </div>
@@ -71,6 +71,7 @@
                   <th>N/V №</th>
                   <th>Qaimə №</th>
                   <th>Yük</th>
+                  <th>Bəyannamə nömrəsi</th>
 
                 </tr>
               </thead>
@@ -79,16 +80,22 @@
                 <tr *ngFor="let tw of terminalWays">
                   <td class="table-column-pr-0">
                     <div class="custom-control custom-checkbox">
-                      <input type="checkbox" class="custom-control-input"
-                        [(ngModel)]="tw.isSelected" >
-                      <label class="custom-control-label"
-                        (click)="checkTerminalWayCheckbox(tw)"></label>
+                      <input type="checkbox" class="custom-control-input" [(ngModel)]="tw.isSelected">
+                      <label class="custom-control-label" (click)="checkTerminalWayCheckbox(tw)"></label>
                     </div>
                   </td>
 
                   <td>{{tw.nvNo}}</td>
                   <td>{{tw.qaimeNo}}</td>
                   <td>{{tw.yuk}}</td>
+                  <div [ngSwitch]="tw.wdsId">
+                    <div *ngSwitchCase="0">
+                      <td>-</td>
+                    </div>
+                    <div *ngSwitchDefault>
+                      <td>{{tw.wdsDocNo}}</td>
+                    </div>
+                  </div>
                 </tr>
               </tbody>
             </table>
@@ -104,8 +111,7 @@
               <div class="col-lg-12">
                 <div class="card-block">
                   <div class="row ">
-                    <div class="col-lg-6" *ngFor="let exp of expenses"
-                      [hidden]="!exp.isSelected">
+                    <div class="col-lg-6" *ngFor="let exp of expenses" [hidden]="!exp.isSelected">
                       <div title="{{exp.text}}" contenteditable="false" spellcheck="false" tabindex="-1"
                         class="tagify__tag tagify--noAnim expense_box" __isvalid="true" value="white">
                         <div class="expense_box"><span class="tagify__tag-text">{{exp.text}}</span></div>
@@ -153,4 +159,6 @@
     </div>
   </div>
 </div>
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-loader" [fullScreen] = "true"><p style="color: white" > Yüklənir... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">
+  <p style="color: white"> Yüklənir... </p>
+</ngx-spinner>

@@ -27,5 +27,7 @@ export interface TerminalWay {
     expenseIds?: number[],
     id?: number,
     fullRefCode: string,
-    emptyRefCode: string
+    emptyRefCode: string,
+    wdsId?: number,
+    wdsDocNo?: string
 }

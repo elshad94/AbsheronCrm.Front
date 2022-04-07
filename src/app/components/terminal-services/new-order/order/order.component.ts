@@ -183,7 +183,8 @@ export class OrderComponent implements OnInit {
           amount: x.qiymet,
           isSelected: true,
           fullRefCode: x.fullRefCode,
-          emptyRefCode: x.emptyRefCode
+          emptyRefCode: x.emptyRefCode,
+
         },
         expenseText: expense === undefined ? '' : expense.text
       };
