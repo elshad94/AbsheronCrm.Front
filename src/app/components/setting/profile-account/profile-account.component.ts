@@ -34,7 +34,7 @@ export class ProfileAccountComponent implements OnInit {
   files: any[] = [];
   compname!: string;
 
-  public fileApiUrl = 'http://localhost:4200/'
+  public fileApiUrl = 'http://cb.absheronport.az/'
   ngOnInit(): void {
     this.titleService.setTitle(`Profil Hesabı${TITLE}`);
     this.accountService.getUser(Number(localStorage.getItem('Userid'))).subscribe((response) => {
