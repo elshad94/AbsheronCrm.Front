@@ -22,23 +22,23 @@ export class AppComponent implements OnInit {
   doSomething() {
     window.onbeforeunload = function (e) {
       window.onunload = function () {
-              window.localStorage['isMySessionActive'] = "false";
+        window.localStorage['isMySessionActive'] = "false";
       }
       return undefined;
-  };
-  
-  window.onload = function () {
-              window.localStorage['isMySessionActive'] = "true";
-  };
+    };
+
+    window.onload = function () {
+      window.localStorage['isMySessionActive'] = "true";
+    };
     // localStorage.removeItem('token');
   }
 
 
   ngOnInit() {
     this.globalService.tokenValue.subscribe((token: any) => {
-        this.tk = token.length > 0
-        this.passData.token = this.tk
-      })
+      this.tk = token.length > 0
+      this.passData.token = this.tk
+    })
   }
 
 

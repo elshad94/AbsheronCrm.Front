@@ -55,7 +55,6 @@ export class HeaderComponent implements OnInit {
     else {
       this.getUser.getUserCompanyName().subscribe(res => {
         this.compName = res.c_NAME
-        console.log(res.c_NAME)
       })
     }
   }
