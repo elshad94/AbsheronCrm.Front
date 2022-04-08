@@ -206,7 +206,6 @@ export class OrderComponent implements OnInit {
       };
     });
     this.fullXidmetler = this.groupBy(xidmetler, 'nvNo');
-    console.log("🚀 ~ file: order.component.ts ~ line 202 ~ OrderComponent ~ initialUpdateLoad ~ this.fullXidmetler", this.fullXidmetler)
 
     for(const x of this.xidmetler ) {
       this.totalEdv += x.edv * x.count;
@@ -513,15 +512,7 @@ export class OrderComponent implements OnInit {
 
 
   printInv(){
-    if (this.invStatus == null || this.invStatus == undefined) {
-      alert()
-      return;
-
-    }
-    // this.itmUrl = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
-    // this.urlSafe= this.sanitizer.bypassSecurityTrustResourceUrl(this.itmUrl);
-
-    const src = `http://85.132.108.234/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
+    const src = `http://85.132.108.234:457/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     $('#printFrame').attr('src', src);
   }
 

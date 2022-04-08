@@ -26,10 +26,8 @@ export class ReportComponent implements OnInit {
   dataSource: MatTableDataSource<ReportAll> = new MatTableDataSource<ReportAll>(this.report);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-
+  
   pipe = new DatePipe('en-US');
-
   startDate: string = '';
   endDate: string = '';
 

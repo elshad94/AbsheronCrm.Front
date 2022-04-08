@@ -47,7 +47,7 @@ export class NextModalComponent implements OnInit {
       Swal.fire({
         position: 'center',
         icon: 'success',
-        title: `${this.order.orderNo} sifarişin ödəməsi uğurla qeydə alındı`,
+        title: `${this.order.orderNo} nömrəli sifarişin ödəməsi uğurla qeydə alındı`,
         showConfirmButton: false,
         timer: 2500
       })

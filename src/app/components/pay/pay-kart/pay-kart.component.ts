@@ -41,7 +41,7 @@ export class PayKartComponent implements OnInit {
         Swal.fire({
           position: 'center',
           icon: 'success',
-          title: `${this.order.orderNo} sifarişin ödəməsi uğurla qeydə alındı`,
+          title: `${this.order.orderNo} nömrəli sifarişin ödəməsi uğurla qeydə alındı`,
           showConfirmButton: true,
           confirmButtonText: 'Bağla',
         }).then((result) => {
