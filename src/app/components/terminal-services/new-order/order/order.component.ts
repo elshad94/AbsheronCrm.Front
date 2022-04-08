@@ -512,7 +512,7 @@ export class OrderComponent implements OnInit {
 
 
   printInv(){
-    const src = `http://85.132.108.234:457/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
+    const src = `http://udpas.absheronport.az:457/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     $('#printFrame').attr('src', src);
   }
 
