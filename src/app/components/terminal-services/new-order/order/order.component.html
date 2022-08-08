@@ -71,7 +71,7 @@
 
                   <div class="col-lg-6">
                     <select [disabled]="!isEditable() || x.isReadOnly" class="form-control mb-3" name="" id=""
-                      (change)="setXidmetPrice(x, $event, fx)">
+                      (change)="setXidmetPrice(x, $event)">
                       <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="x.expenseId == exp.id">
                         {{exp.text}}</option>
                     </select>

@@ -73,6 +73,9 @@ h6{
   .col-12{
     display: flex;
   }
+  .price p{
+transform: translateX(100px);
+  }
   .price span{
     display: block;
     font-weight: 500;

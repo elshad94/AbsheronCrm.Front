@@ -342,10 +342,11 @@ export class OrderComponent implements OnInit {
     this.orderNo = this.terminalService.orderNo;
   }
 
-  setXidmetPrice(xidmet: any, event: Event, fx: any) {
+  setXidmetPrice(xidmet: any, event: Event) {
     // TODO: fx in expid sini event den gotur (fx fullXidmetler arrayinin elementidi)
     const target = event.target as HTMLInputElement;
     const expenseId = Number(target.value);
+    xidmet.expenseId = expenseId
     this.terminalService
       .getExpensePrice(expenseId)
       .subscribe(price => {

@@ -17,11 +17,11 @@ export class ApiUrlsService {
     this.ip = 'cb.absheronport.az';
   }
   getAuthAPiURI() {
-    return `http://${this.ip}/redirect/reg/api`;
-    // return 'https://localhost:44383/api';
+    //return `http://${this.ip}/redirect/reg/api`;
+     return 'https://localhost:44383/api';
   }
   getCrmAPIURI() {
-    return `http://${this.ip}/redirect/crm/api`;
-    // return 'https://localhost:44393/api';
+   // return `http://${this.ip}/redirect/crm/api`;
+    return 'https://localhost:44393/api';
   }
 }
