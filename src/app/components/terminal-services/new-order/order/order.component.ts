@@ -15,13 +15,13 @@ import { Title, SafeResourceUrl, DomSanitizer } from '@angular/platform-browser'
 import isEditable from 'src/utils/isEditable';
 
 export interface Xidmet {
-    expenseId: number,
-    expenseText: string,
-    temrinalWay: TerminalWay,
-    count: number,
-    totalAmount: number,
-    edv: number,
-    isAmountInValid?: boolean
+  expenseId: number,
+  expenseText: string,
+  temrinalWay: TerminalWay,
+  count: number,
+  totalAmount: number,
+  edv: number,
+  isAmountInValid?: boolean
 }
 
 const EDV_MULTIPLIER = 0.18;
@@ -51,12 +51,12 @@ export class OrderComponent implements OnInit {
   urlSafe?: SafeResourceUrl;
 
   constructor(
-        private terminalService: TerminalService,
-        private router: Router,
-        private route: ActivatedRoute,
-        private location: Location,
-        private titleService: Title,
-        public sanitizer: DomSanitizer) {
+    private terminalService: TerminalService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private location: Location,
+    private titleService: Title,
+    public sanitizer: DomSanitizer) {
   }
 
   isEditable = () => isEditable(this.orderStatus);
@@ -68,7 +68,7 @@ export class OrderComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle(`Terminal${TITLE}`);
     const terminalUpdateData = this.terminalService.terminalUpdateData;
-    if(terminalUpdateData !== undefined) {
+    if (terminalUpdateData !== undefined) {
       this.initialCreateLoad(terminalUpdateData);
       this.terminalService.terminalUpdateData = undefined;
       return;
@@ -77,23 +77,23 @@ export class OrderComponent implements OnInit {
       .subscribe(params => {
         const fromReturnFile: boolean = params['fromReturnFile'];
         this.orderId = params['orderId'];
-        if(fromReturnFile) {
+        if (fromReturnFile) {
           this.fromFiles();
           return;
         }
-        if(this.orderId !== undefined && fromReturnFile === undefined) {
+        if (this.orderId !== undefined && fromReturnFile === undefined) {
           this.terminalService.getUpdateTerminalData(Number(this.orderId)).subscribe(updateTerminalData => {
             this.initialUpdateLoad(updateTerminalData);
           });
         }
       });
 
-      if (isNaN(this.orderId!)) {
-        return
-      }
-      this.terminalService.printInv((Number(this.orderId))).subscribe(res =>{
-        this.invStatus = res
-      })
+    if (isNaN(this.orderId!)) {
+      return
+    }
+    this.terminalService.printInv((Number(this.orderId))).subscribe(res => {
+      this.invStatus = res
+    })
   }
 
 
@@ -108,8 +108,8 @@ export class OrderComponent implements OnInit {
     const expenses = this.expenses.filter(e => e.isSelected);
     // xidmetler
     const xidmetler_: Xidmet[] = [];
-    for(const tw of terminalWays) {
-      for(const exp of expenses) {
+    for (const tw of terminalWays) {
+      for (const exp of expenses) {
         xidmetler_.push({
           expenseId: exp.id,
           expenseText: exp.text,
@@ -125,14 +125,14 @@ export class OrderComponent implements OnInit {
     }
     this.xidmetler = xidmetler_;
     // total amount and total amount with EDV
-    for(const x of xidmetler_) {
+    for (const x of xidmetler_) {
       this.total += x.totalAmount;
       this.totalEdv += x.edv * x.count;
     }
     // *************************************************
     const tempData: any[] = [];
-    for(const tw of terminalWays) {
-      for(const exp of expenses) {
+    for (const tw of terminalWays) {
+      for (const exp of expenses) {
         tempData.push({
           ...tw, ...exp,
           expenseId: exp.id,
@@ -142,19 +142,21 @@ export class OrderComponent implements OnInit {
         });
       }
     }
-    this.fullXidmetler = this.groupBy(tempData.map(x => {return {
-      count: 1,
-      edv: x.edv,
-      expenseId: x.expenseId,
-      totalAmount: x.price,
-      nvNo: x.nvNo,
-      amount: x.price,
-      isSelected: true,
-      fullRefCode: x.fullRefCode,
-      emptyRefCode: x.emptyRefCode,
-      expenseText: x.expenseText,
-      isReadOnly: this.expenses.find(e => e.id == x.expenseId)?.isReadOnly ?? false,
-    };}), 'nvNo');
+    this.fullXidmetler = this.groupBy(tempData.map(x => {
+      return {
+        count: 1,
+        edv: x.edv,
+        expenseId: x.expenseId,
+        totalAmount: x.price,
+        nvNo: x.nvNo,
+        amount: x.price,
+        isSelected: true,
+        fullRefCode: x.fullRefCode,
+        emptyRefCode: x.emptyRefCode,
+        expenseText: x.expenseText,
+        isReadOnly: this.expenses.find(e => e.id == x.expenseId)?.isReadOnly ?? false,
+      };
+    }), 'nvNo');
   }
 
   private groupBy(arr: any, key: any) {
@@ -188,7 +190,7 @@ export class OrderComponent implements OnInit {
         },
         expenseText: expense === undefined ? '' : expense.text
       };
-  });
+    });
     const xidmetler = updateTerminalData.xidmetler.map(x => {
       var expense = this.expenses.filter(exp => exp.id == x.expenseId)[0];
       return {
@@ -207,24 +209,26 @@ export class OrderComponent implements OnInit {
     });
     this.fullXidmetler = this.groupBy(xidmetler, 'nvNo');
 
-    for(const x of this.xidmetler ) {
+    for (const x of this.xidmetler) {
       this.totalEdv += x.edv * x.count;
     }
-    for(let i = 0; i < this.expenses.length; i++) {
+    for (let i = 0; i < this.expenses.length; i++) {
       this.xidmetler[i].edv = this.expenses[i].eX_SVAT;
     }
-    this.files = updateTerminalData.filelar.map(f => {return {
-      id: f.id,
-      nvNo: f.nvNo,
-      uri: f.uri
-    };});
+    this.files = updateTerminalData.filelar.map(f => {
+      return {
+        id: f.id,
+        nvNo: f.nvNo,
+        uri: f.uri
+      };
+    });
     this.customer = updateTerminalData.customer;
     this.orderDate = updateTerminalData.orderDate;
     this.orderNo = updateTerminalData.orderNo;
   }
 
   toReturnFile() {
-    if(this.terminalService.terminalUpdateRequestData === undefined) {
+    if (this.terminalService.terminalUpdateRequestData === undefined) {
       this.toFilesInitial();
       return;
     }
@@ -237,18 +241,20 @@ export class OrderComponent implements OnInit {
     this.terminalService.terminalUpdateRequestData = {
       notes: this.notes,
       files: this.files,
-      xidmetler: this.xidmetler.map(x => {return {
-        edv: x.edv,
-        expenseId: x.expenseId,
-        miqdar: x.count,
-        nvNo: x.temrinalWay.nvNo,
-        qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-      };}),
+      xidmetler: this.xidmetler.map(x => {
+        return {
+          edv: x.edv,
+          expenseId: x.expenseId,
+          miqdar: x.count,
+          nvNo: x.temrinalWay.nvNo,
+          qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+        };
+      }),
       transportTypeId: this.transportTypeId
     };
     this.terminalService.fullXidmetler = this.fullXidmetler;
     this.copyExtraFieldsToService();
-    if(this.orderId !== undefined) {
+    if (this.orderId !== undefined) {
       const navigationExtras: NavigationExtras = {
         queryParams: {
           orderId: this.orderId
@@ -264,21 +270,23 @@ export class OrderComponent implements OnInit {
     // switching to return-files component tab for subsequent times
     this.terminalService.orderStatus = this.orderStatus;
     this.terminalService.fullXidmetler = this.fullXidmetler;
-    if(this.terminalService.terminalUpdateRequestData === undefined) {
+    if (this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'terminalUpdateRequestData is undefined';
     }
     this.terminalService.terminalUpdateRequestData.notes = this.notes;
-    this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
-      edv: x.edv,
-      expenseId: x.expenseId,
-      miqdar: x.count,
-      nvNo: x.temrinalWay.nvNo,
-      qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-    };});
+    this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {
+      return {
+        edv: x.edv,
+        expenseId: x.expenseId,
+        miqdar: x.count,
+        nvNo: x.temrinalWay.nvNo,
+        qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+      };
+    });
     this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
     this.terminalService.terminalUpdateRequestData.files = this.files;
     this.copyExtraFieldsToService();
-    if(this.orderId !== undefined) {
+    if (this.orderId !== undefined) {
       const navigationExtras: NavigationExtras = {
         queryParams: {
           orderId: this.orderId
@@ -294,15 +302,15 @@ export class OrderComponent implements OnInit {
     this.orderStatus = this.terminalService.orderStatus;
     this.fullXidmetler = this.terminalService.fullXidmetler;
     // switching tabs from return-file component
-    if(this.terminalService.terminalUpdateRequestData === undefined) {
+    if (this.terminalService.terminalUpdateRequestData === undefined) {
       throw 'temrinalUpdateRequestData is undefined';
     }
-    if(this.terminalService.terminalUpdateRequestData.transportTypeId === undefined) {
+    if (this.terminalService.terminalUpdateRequestData.transportTypeId === undefined) {
       throw 'transportTypeId is undefined';
     }
     this.transportTypeId = this.terminalService.terminalUpdateRequestData.transportTypeId;
     this.notes = this.terminalService.terminalUpdateRequestData.notes;
-    if(this.terminalService.terminalUpdateRequestData.files === undefined) {
+    if (this.terminalService.terminalUpdateRequestData.files === undefined) {
       throw 'files is undefined';
     }
     this.files = this.terminalService.terminalUpdateRequestData.files;
@@ -321,20 +329,21 @@ export class OrderComponent implements OnInit {
   }
 
   private copyExtraFieldsFromService() {
-    if(this.terminalService.expenses === undefined) {throw 'expenses is undefined';}
+    if (this.terminalService.expenses === undefined) { throw 'expenses is undefined'; }
     this.expenses = this.terminalService.expenses;
-    if(this.terminalService.totalEdv === undefined) {throw 'totalEdv is undefined';}
+    if (this.terminalService.totalEdv === undefined) { throw 'totalEdv is undefined'; }
     this.totalEdv = this.terminalService.totalEdv;
-    if(this.terminalService.totalAmount === undefined) {throw 'totalAmount is undefined';}
+    if (this.terminalService.totalAmount === undefined) { throw 'totalAmount is undefined'; }
     this.total = this.terminalService.totalAmount;
-    if(this.terminalService.xidmetler === undefined) {throw 'xidmetler is undefined';}
+    if (this.terminalService.xidmetler === undefined) { throw 'xidmetler is undefined'; }
     this.xidmetler = this.terminalService.xidmetler;
     this.customer = this.terminalService.customer;
     this.orderDate = this.terminalService.orderDate;
     this.orderNo = this.terminalService.orderNo;
   }
 
-  setXidmetPrice(xidmet: any, event: Event) {
+  setXidmetPrice(xidmet: any, event: Event, fx: any) {
+    // TODO: fx in expid sini event den gotur (fx fullXidmetler arrayinin elementidi)
     const target = event.target as HTMLInputElement;
     const expenseId = Number(target.value);
     this.terminalService
@@ -358,12 +367,12 @@ export class OrderComponent implements OnInit {
   changeCount(xidmet: any, event: Event) {
     const target = event.target as HTMLInputElement;
     const value = target.valueAsNumber
-    if(value < 1 || isNaN(value)) {
+    if (value < 1 || isNaN(value)) {
       event.preventDefault();
       xidmet.isAmountInValid = true;
       return;
     }
-    if(`${value}`.length > 3) {
+    if (`${value}`.length > 3) {
       event.preventDefault();
       xidmet.isAmountInValid = true;
       return;
@@ -381,8 +390,8 @@ export class OrderComponent implements OnInit {
   }
 
   isValid(): boolean {
-    if(this.xidmetler) {
-      return this.xidmetler.some(x =>x.isAmountInValid);
+    if (this.xidmetler) {
+      return this.xidmetler.some(x => x.isAmountInValid);
     }
     return true;
   }
@@ -397,7 +406,7 @@ export class OrderComponent implements OnInit {
   }
 
   decreaseCount(xidmet: any) {
-    if(xidmet.count === 1) {
+    if (xidmet.count === 1) {
       return;
     }
     xidmet.count--;
@@ -419,17 +428,19 @@ export class OrderComponent implements OnInit {
 
   createTerminalOrder(save = true) {
     try {
-      if(this.orderId !== undefined || this.terminalService.terminalUpdateRequestData == undefined) {
+      if (this.orderId !== undefined || this.terminalService.terminalUpdateRequestData == undefined) {
         this.terminalService.terminalUpdateRequestData = {
           notes: this.notes,
           files: this.files,
-          xidmetler: this.xidmetler.map(x => {return {
-            edv: x.edv,
-            expenseId: x.expenseId,
-            miqdar: x.count,
-            nvNo: x.temrinalWay.nvNo,
-            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-          };}),
+          xidmetler: this.xidmetler.map(x => {
+            return {
+              edv: x.edv,
+              expenseId: x.expenseId,
+              miqdar: x.count,
+              nvNo: x.temrinalWay.nvNo,
+              qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+            };
+          }),
           transportTypeId: this.transportTypeId,
           statusId: save ? 4 : 5
         };
@@ -439,18 +450,20 @@ export class OrderComponent implements OnInit {
         //   return;
         // }
         this.terminalService.terminalUpdateRequestData.notes = this.notes;
-        this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {return {
-          edv: x.edv,
-          expenseId: x.expenseId,
-          miqdar: x.count,
-          nvNo: x.temrinalWay.nvNo,
-          qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
-        };});
+        this.terminalService.terminalUpdateRequestData.xidmetler = this.xidmetler.map(x => {
+          return {
+            edv: x.edv,
+            expenseId: x.expenseId,
+            miqdar: x.count,
+            nvNo: x.temrinalWay.nvNo,
+            qiymet: x.temrinalWay.amount == null ? 0 : x.temrinalWay.amount
+          };
+        });
         this.terminalService.terminalUpdateRequestData.transportTypeId = this.transportTypeId;
         this.terminalService.terminalUpdateRequestData.statusId = save ? 4 : 5;
         this.terminalService.terminalUpdateRequestData.files = this.files;
       }
-      if(this.orderId === undefined) {
+      if (this.orderId === undefined) {
         this.terminalService.totalEdv = this.totalEdv;
         this.terminalService
           .createTerminalOrder(this.fullXidmetler)
@@ -482,48 +495,48 @@ export class OrderComponent implements OnInit {
             errorAlert(res.error.error, 'Uğursuz');
           }
         });
-    } catch(exception) {
-      switch(exception) {
-      case errorCodes.REQUEST_DATA_UNDEFINED:
-        logger.error('REQUEST_DATA_UNDEFINED');
-        errorAlert('Bütün xanaları doldurun!');
-        break;
-      case errorCodes.EMPTY_REF_CODE_EMPTY:
-        logger.error('EMPTY_REF_CODE_EMPTY');
-        errorAlert('Boş yükdaşıma kodunu daxil edin!');
-        break;
-      case errorCodes.FILES_EMPTY:
-        logger.error('FILES_EMPTY');
-        errorAlert('Ən azı bir fayl seçin!');
-        break;
-      case errorCodes.FULL_REF_CODE_EMPTY:
-        logger.error('FULL_REF_CODE_EMPTY');
-        errorAlert('Dolu yükdaşıma kodunu daxil edin!');
-        break;
-      case errorCodes.XIDMETLER_EMPTY:
-        logger.error('XIDMETLER_EMPTY');
-        errorAlert('Ən azı bir xidmət seçin!');
-        break;
-      default:
-        throw exception;
+    } catch (exception) {
+      switch (exception) {
+        case errorCodes.REQUEST_DATA_UNDEFINED:
+          logger.error('REQUEST_DATA_UNDEFINED');
+          errorAlert('Bütün xanaları doldurun!');
+          break;
+        case errorCodes.EMPTY_REF_CODE_EMPTY:
+          logger.error('EMPTY_REF_CODE_EMPTY');
+          errorAlert('Boş yükdaşıma kodunu daxil edin!');
+          break;
+        case errorCodes.FILES_EMPTY:
+          logger.error('FILES_EMPTY');
+          errorAlert('Ən azı bir fayl seçin!');
+          break;
+        case errorCodes.FULL_REF_CODE_EMPTY:
+          logger.error('FULL_REF_CODE_EMPTY');
+          errorAlert('Dolu yükdaşıma kodunu daxil edin!');
+          break;
+        case errorCodes.XIDMETLER_EMPTY:
+          logger.error('XIDMETLER_EMPTY');
+          errorAlert('Ən azı bir xidmət seçin!');
+          break;
+        default:
+          throw exception;
       }
     }
   }
 
 
-  printInv(){
+  printInv() {
     const src = `http://udpas.absheronport.az:457/Frm_ProInvoice_Print.aspx?inv_id=${this.invStatus}&isYesNo=NO`;
     $('#printFrame').attr('src', src);
   }
 
   setFullRefCodes(fx: any, event: any) {
-    for(const f of fx) {
+    for (const f of fx) {
       f.fullRefCode = event.target.value;
     }
   }
 
   setEmptyRefCodes(fx: any, event: any) {
-    for(const f of fx) {
+    for (const f of fx) {
       f.emptyRefCode = event.target.value;
     }
   }

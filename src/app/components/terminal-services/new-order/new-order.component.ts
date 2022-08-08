@@ -25,11 +25,11 @@ export class NewOrderComponent implements OnInit {
   }
 
   checkExpenseCheckbox(ex: TerminalExpense) {
-    if(ex.isReadOnly) return;
+    if (ex.isReadOnly) return;
     ex.isSelected = !ex.isSelected;
   }
 
-  public isCheck?:boolean=true;
+  public isCheck?: boolean = true;
   ngOnInit() {
     this.getNewOrderData();
     this.titleService.setTitle(`Terminal${TITLE}`);
@@ -41,8 +41,9 @@ export class NewOrderComponent implements OnInit {
   }
 
   submit() {
+    // TODO: here
     // check nvNoList not empty
-    if(this.terminalWays.filter(tw => tw.isSelected).length === 0) {
+    if (this.terminalWays.filter(tw => tw.isSelected).length === 0) {
       Swal.fire(
         'Məlumat!',
         'Ən azı bir vaqon və ya konteynr seçin!',
@@ -60,7 +61,7 @@ export class NewOrderComponent implements OnInit {
       return;
     }
     // check terminalways not empty
-    if(this.expenses.filter(exp => exp.isSelected).length === 0) {
+    if (this.expenses.filter(exp => exp.isSelected).length === 0) {
       Swal.fire(
         'Məlumat!',
         'Ən azı bir xidmət seçin!',
@@ -82,7 +83,7 @@ export class NewOrderComponent implements OnInit {
       .subscribe(terminalNewData => {
         this.terminalWays = terminalNewData.terminalWays;
         this.expenses = terminalNewData.expenses;
-        for(const exp of this.expenses) {
+        for (const exp of this.expenses) {
           exp.checkCounter = 0;
         }
         this.terminalService.customer = terminalNewData.customer;
@@ -92,14 +93,14 @@ export class NewOrderComponent implements OnInit {
 
   checkAllTerminalWays() {
     this.expenses.forEach(e => e.checkCounter = 0);
-    if(this.masterCheck) {
-      for(const tw of this.terminalWays) {
+    if (this.masterCheck) {
+      for (const tw of this.terminalWays) {
         this.expenses.forEach(e => {
-          if(tw.expenseIds?.includes(e.id)) e.checkCounter!++;
+          if (tw.expenseIds?.includes(e.id)) e.checkCounter!++;
         });
       }
     }
-    for(const tw of this.terminalWays) {
+    for (const tw of this.terminalWays) {
       tw.isSelected = !this.masterCheck;
       this.selectTerminalWay(tw);
     }
@@ -112,8 +113,8 @@ export class NewOrderComponent implements OnInit {
 
   selectTerminalWay(tw: TerminalWay) {
     this.expenses.forEach(e => {
-      if(tw.expenseIds?.includes(e.id)) {
-        if(tw.isSelected) {
+      if (tw.expenseIds?.includes(e.id)) {
+        if (tw.isSelected) {
           e.checkCounter!++;
         } else {
           e.checkCounter!--;

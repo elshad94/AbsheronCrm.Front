@@ -57,8 +57,7 @@
 
                   <div class="col-lg-4">
                     <input type="text" id="full_ref_code" class="form-control" placeholder="Dolu yükdaşıma kodu"
-                      [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()"
-                      (keyup)="setFullRefCodes(fx, $event)">
+                      [(ngModel)]="fx[0].fullRefCode" [disabled]="!isEditable()" (keyup)="setFullRefCodes(fx, $event)">
                   </div>
 
                   <div class="col-lg-4">
@@ -72,7 +71,7 @@
 
                   <div class="col-lg-6">
                     <select [disabled]="!isEditable() || x.isReadOnly" class="form-control mb-3" name="" id=""
-                      (change)="setXidmetPrice(x, $event)">
+                      (change)="setXidmetPrice(x, $event, fx)">
                       <option *ngFor="let exp of expenses" value="{{exp.id}}" [selected]="x.expenseId == exp.id">
                         {{exp.text}}</option>
                     </select>
