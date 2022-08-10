@@ -41,7 +41,6 @@ export class NewOrderComponent implements OnInit {
   }
 
   submit() {
-    // TODO: here
     // check nvNoList not empty
     if (this.terminalWays.filter(tw => tw.isSelected).length === 0) {
       Swal.fire(
@@ -62,9 +61,13 @@ export class NewOrderComponent implements OnInit {
     }
     // check terminalways not empty
     if (this.expenses.filter(exp => exp.isSelected).length === 0) {
+    }
+    // check if last column is filled in everyone
+    const selectedTws = this.terminalWays.filter(tw => tw.isSelected);
+    if (selectedTws.some(tw => tw.wdsId === 0)) {
       Swal.fire(
         'Məlumat!',
-        'Ən azı bir xidmət seçin!',
+        'Bütün vaqonlarda bəyannamə nömrəsi olmalıdır!',
         'info'
       );
       return;
