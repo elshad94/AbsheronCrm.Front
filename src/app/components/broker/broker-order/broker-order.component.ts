@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Expense,fileDetails,TransportType} from './../../../model/broker-request.model';
+import { Expense, fileDetails, TransportType } from './../../../model/broker-request.model';
 import { DocumentType } from './../../../model/broker-request.model';
 import { BrokerRequestItem } from 'src/app/model/broker-request.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,14 +7,14 @@ import { BrokerItem } from './../../../model/broker-item';
 import { BrokerItemService } from './../../../services/broker-item.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {errorAlert, successAlert} from '../../../../utils/alerts';
-import {Title} from "@angular/platform-browser";
+import { errorAlert, successAlert } from '../../../../utils/alerts';
+import { Title } from "@angular/platform-browser";
 
 import 'sweetalert2/dist/sweetalert2.js';
 
 import 'sweetalert2/src/sweetalert2.scss';
 
-import {BrokerPostItem,FileDetailItem,} from 'src/app/model/broker-post-item.model';
+import { BrokerPostItem, FileDetailItem, } from 'src/app/model/broker-post-item.model';
 import logger from 'src/utils/logger';
 import { TITLE } from 'src/utils/contants';
 import isEditable from 'src/utils/isEditable';
@@ -25,10 +25,12 @@ import { getFileName } from 'src/utils/fileNameGetter';
 interface FileDetails {
   fileId?: number,
   docTypeId?: number,
-  uri?: string
+  uri?: string,
+  name?: string
 }
 
-@Component({selector: 'app-broker-order',templateUrl: './broker-order.component.html',styleUrls: ['./broker-order.component.scss'],
+@Component({
+  selector: 'app-broker-order', templateUrl: './broker-order.component.html', styleUrls: ['./broker-order.component.scss'],
 })
 export class BrokerOrderComponent implements OnInit {
   form!: FormGroup;
@@ -112,12 +114,12 @@ export class BrokerOrderComponent implements OnInit {
   };
 
   constructor(
-      private http: HttpClient,
-      private service: BrokerItemService,
-      private route: ActivatedRoute,
-      private router:Router,
-      private titleService: Title,
-      private fileService: FileService
+    private http: HttpClient,
+    private service: BrokerItemService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private titleService: Title,
+    private fileService: FileService
   ) { }
   //clone div
   public append() {
@@ -149,11 +151,14 @@ export class BrokerOrderComponent implements OnInit {
           this.notes = res.notes;
           this.expenses = res.expenses;
           this.Checkbox = res.expenses.filter(e => e.isSelected).map(e => e.id);
-          this.files = res.documents.map(d => {return {
-            docTypeId: d.documentTypeId,
-            fileId: d.fileId,
-            uri: getFileName(d.uri)
-          };});
+          this.files = res.documents.map(d => {
+            return {
+              docTypeId: d.documentTypeId,
+              fileId: d.fileId,
+              uri: getFileName(d.uri),
+              name: d.name
+            };
+          });
           this.transportNumber = res.transportNo;
           this.expenses = res.expenses;
         },
@@ -172,7 +177,7 @@ export class BrokerOrderComponent implements OnInit {
       this.brokerPostItem = res;
       this.transportTypes = res.transportTypes;
       this.documentTypes = res.documentTypes;
-      this.brokerItemModel.totalCost=res.totalCost;
+      this.brokerItemModel.totalCost = res.totalCost;
       this.notes = res.notes;
       this.Document.uri = res.FileDetail;
       this.documentTypes.forEach((res: any) => {
@@ -196,8 +201,9 @@ export class BrokerOrderComponent implements OnInit {
     this.files[index].docTypeId = Number(target.value);
   }
 
-  fileChange($event: any, index: number) {
+  fileChange($event: any, index: number, file: FileDetails) {
     const selectedFile = <fileDetails>$event.target.files[0];
+    file.name = (selectedFile as any).name;
     const Fd: any = new FormData();
     this.test = index
 
@@ -220,18 +226,18 @@ export class BrokerOrderComponent implements OnInit {
   private isValid(e: any) {
     if (typeof e == 'string') { e = e.trim(); }
     switch (e) {
-    case '':
-    case 0:
-    case -1:
-    case '0':
-    case null:
-    case false:
-    case 'false':
-    case undefined:
-    case typeof e == 'undefined':
-      return false;
-    default:
-      return true;
+      case '':
+      case 0:
+      case -1:
+      case '0':
+      case null:
+      case false:
+      case 'false':
+      case undefined:
+      case typeof e == 'undefined':
+        return false;
+      default:
+        return true;
     }
   }
 
@@ -253,28 +259,30 @@ export class BrokerOrderComponent implements OnInit {
       this.brokerItemModel.transportTypeId
     );
     this.brokerPostItem.TransportNumber = this.brokerItemModel.transportNo;
-    this.brokerPostItem.fileDetails = this.files.map(f => {return {
-      docTypeId: f.docTypeId!,
-      fileId: f.fileId!
-    };});
-    
+    this.brokerPostItem.fileDetails = this.files.map(f => {
+      return {
+        docTypeId: f.docTypeId!,
+        fileId: f.fileId!
+      };
+    });
+
 
     if (!this.isValid(this.brokerPostItem.TransportNumber)) {
       errorAlert('N/V No boşdur')
       return
     }
 
-    if(this.brokerPostItem.expenses.length === 0) {
+    if (this.brokerPostItem.expenses.length === 0) {
       errorAlert('Ən azı bir xidmət seçin')
       return
     }
 
-    if(!this.isValid(this.brokerPostItem.transportTypeId)) {
+    if (!this.isValid(this.brokerPostItem.transportTypeId)) {
       errorAlert('Sifraiş növü seçin')
       return
     }
 
-    if (!this.isValid(this.files[0].uri)) {
+    if (this.files.some(file => !file.fileId)) {
       errorAlert('Sənəd faylı seçin')
       return
     }
@@ -294,7 +302,7 @@ export class BrokerOrderComponent implements OnInit {
       .subscribe({
         next: (response: any) => {
           successAlert('Yeni broker yaradildi', 'Uğurlu')
-          if(response){
+          if (response) {
             this.router.navigate(['//broker']);
           }
         },
@@ -303,32 +311,32 @@ export class BrokerOrderComponent implements OnInit {
 
           const errMsg = error.error.error;
           switch (error.status) {
-          case 400:
-            errorAlert(errMsg, 'Error!')
-            break;
-          case 500:
-            errorAlert('Server problemi', 'Error!')
-            break;
-          default:
-            errorAlert('ERROR', 'ERROR')
+            case 400:
+              errorAlert(errMsg, 'Error!')
+              break;
+            case 500:
+              errorAlert('Server problemi', 'Error!')
+              break;
+            default:
+              errorAlert('ERROR', 'ERROR')
           }
         }
       });
   }
   private PutSaveOrApprove() {
 
-      this.service
-        .updateBrokerSave(this.orderIdQueryParam, this.brokerPostItem)
-        .subscribe((res) => {
-          successAlert('Broker güncəlləndi', 'Uğurlu')
-          if(res){
-            this.router.navigate(['//broker']);
-          }
-        }, error => {
-          console.error(error);
+    this.service
+      .updateBrokerSave(this.orderIdQueryParam, this.brokerPostItem)
+      .subscribe((res) => {
+        successAlert('Broker güncəlləndi', 'Uğurlu')
+        if (res) {
+          this.router.navigate(['//broker']);
+        }
+      }, error => {
+        console.error(error);
 
-          const errMsg = error.error.error;
-          switch (error.status) {
+        const errMsg = error.error.error;
+        switch (error.status) {
           case 400:
             errorAlert(errMsg, 'Error!')
             break;
@@ -337,9 +345,9 @@ export class BrokerOrderComponent implements OnInit {
             break;
           default:
             errorAlert('ERROR', 'ERROR')
-          }
-        });
-    }
+        }
+      });
+  }
 
   onChangeInput(expense: any, event: Event) {
     const target = event.target as HTMLInputElement;

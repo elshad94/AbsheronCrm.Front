@@ -49,7 +49,7 @@
                         <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
                         <input type="checkbox" name="{{checkbox.id}}" [(ngModel)]="checkbox.isSelected"
                           class="custom-control-input" value=" {{ checkbox.id }} " [checked]="checkbox.isSelected"
-                          [disabled]="!isEditable()" (change)="onChangeInput(checkbox, $event)" id="{{checkbox.id}}"/>
+                          [disabled]="!isEditable()" (change)="onChangeInput(checkbox, $event)" id="{{checkbox.id}}" />
                         <label for="{{checkbox.id}}" class="custom-control-label"></label>
 
                         <label class="m-0 pl-1" for="{{checkbox.id}}">{{ checkbox.text }}</label>
@@ -91,10 +91,10 @@
 
                 <div class="col-12 col-sm col-md-2 col-lg-5">
                   <input type="text" class="form-control selectfileInputCopy file_picker" name="weightName"
-                    id="weightLabel" aria-label="0.0" value="{{file.uri}}" placeholder="Sənəd seçin"
+                    id="weightLabel" aria-label="0.0" value="{{file.uri}}" placeholder="{{file.name ?? 'Sənəd seçin'}}"
                     [disabled]="!isEditable()">
 
-                  <input type="file" (change)="fileChange($event, i) " accept=".pdf,.doc,.docx "
+                  <input type="file" (change)="fileChange($event, i, file) " accept=".pdf,.doc,.docx "
                     [disabled]="!isEditable()" class="form-control selectfileInput " name="documents " aria-label="0.0 "
                     style="opacity: 0" />
 

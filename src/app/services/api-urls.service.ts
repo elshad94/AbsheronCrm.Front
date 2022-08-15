@@ -18,7 +18,7 @@ export class ApiUrlsService {
   }
   getAuthAPiURI() {
     return `http://${this.ip}/redirect/reg/api`;
-    //  return 'https://localhost:44383/api';
+    // return 'https://localhost:44383/api';
   }
   getCrmAPIURI() {
     return `http://${this.ip}/redirect/crm/api`;

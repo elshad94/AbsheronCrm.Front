@@ -1,37 +1,38 @@
 export interface BrokerRequestItem {
-  expenses:        Expense[];
-  transportNo:     string;
+  expenses: Expense[];
+  transportNo: string;
   transportTypeId: number;
-  notes:           string;
-  documentTypes:   DocumentType[];
-  documents:       fileDetails[];
-  transportTypes:  TransportType[];
-  docNo:           string;
-  customerName:    string;
-  date:            Date;
-  totalCost:       number;
-  orderStatus?:    number;
+  notes: string;
+  documentTypes: DocumentType[];
+  documents: fileDetails[];
+  transportTypes: TransportType[];
+  docNo: string;
+  customerName: string;
+  date: Date;
+  totalCost: number;
+  orderStatus?: number;
 }
 
 export interface DocumentType {
   documentTypeId: number;
-  name:           string;
+  name: string;
 }
 
 export interface fileDetails {
   documentTypeId: number;
-  uri:            string;
-  fileId:         number;
+  uri: string;
+  fileId: number;
+  name?: string;
 }
 
 export interface Expense {
-  id:         number;
+  id: number;
   isSelected: boolean;
-  text:       string;
+  text: string;
 }
 
 export interface TransportType {
-  id:   number;
+  id: number;
   text: string;
 }
 
