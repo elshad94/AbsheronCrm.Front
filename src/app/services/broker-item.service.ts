@@ -29,6 +29,11 @@ export class BrokerItemService {
   deleteBrokerItem1(item:BrokerItem[] = []) {
     return this.http.delete(`${this.baseUrl}/Broker?id=${item}`);
   }
+  getFile(fileId?:number):Observable<BlobPart[]>{
+    return this.http.get<any>(`${this.baseUrl}/File/getfile?fileId=${fileId}`,
+    {responseType:'Blob' as 'json'}
+    )
+  }
   updateBrokerItem1(id:any):Observable<BrokerRequestItem> {
     return this.http.get<BrokerRequestItem>(this.baseUrl + '/Broker/'+id);
   }

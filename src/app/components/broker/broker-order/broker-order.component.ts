@@ -20,6 +20,7 @@ import { TITLE } from 'src/utils/contants';
 import isEditable from 'src/utils/isEditable';
 import { FileService } from 'src/app/services/file.service';
 import { getFileName } from 'src/utils/fileNameGetter';
+import { ApiUrlsService } from 'src/app/services/api-urls.service';
 
 
 interface FileDetails {
@@ -52,7 +53,6 @@ export class BrokerOrderComponent implements OnInit {
   orderStatus?: number;
   fileName?: string;
   test!: number;
-
   date = new Date().toLocaleDateString();
   DocumentType: DocumentType = {
     documentTypeId: 0,
@@ -119,7 +119,8 @@ export class BrokerOrderComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private titleService: Title,
-    private fileService: FileService
+    private fileService: FileService,
+    private apiUrlService: ApiUrlsService
   ) { }
   //clone div
   public append() {
@@ -142,6 +143,8 @@ export class BrokerOrderComponent implements OnInit {
     if (this.orderIdQueryParam != undefined) {
       this.service.updateBrokerItem1(this.orderIdQueryParam).subscribe(
         (res) => {
+          console.log(res);
+
           this.orderStatus = res.orderStatus;
           this.brokerItemModel = res;
           this.brokerItemModel.documents = res.documents;
@@ -156,7 +159,7 @@ export class BrokerOrderComponent implements OnInit {
               docTypeId: d.documentTypeId,
               fileId: d.fileId,
               uri: getFileName(d.uri),
-              name: d.name
+              name: d.name,
             };
           });
           this.transportNumber = res.transportNo;
@@ -240,7 +243,18 @@ export class BrokerOrderComponent implements OnInit {
         return true;
     }
   }
-
+  SaveExcel(data:any){
+    const blob = new Blob([data], {
+      type: 'application/pdf'
+    });
+    const url = window.URL.createObjectURL(blob);
+    window.open(url);
+  }
+  DownloadFile(fileId?:number){
+   this.service.getFile(fileId).subscribe(res=>{
+     this.SaveExcel(res)
+   })
+  }
 
   onSaveOrApprove(data: BrokerItem, status: number) {
     //testiq:5, yaddas saxla 4

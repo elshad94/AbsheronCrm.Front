@@ -100,7 +100,10 @@
 
                   <label for=" " class="selectfileLabel Scan "><img src="assets/icon/Union.png " alt=" " /></label>
                 </div>
-                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1" *ngIf="isEditable()">
+                <div class=" deleteBtn col-12 col-sm col-md-2 col-lg-1 align-items-center justify-content-between"  *ngIf="isEditable()">
+                  <div class="download-div"  *ngIf="file.uri==''" >
+                    <a type="button"  (click)="DownloadFile(file.fileId)"><img src="../../../../assets/icon/download.png" alt=" " /></a>
+                  </div>
                   <div class="deletetdiv ">
                     <a type="button" (click)="Delete(i)"><i class="tio-delete-outlined"></i></a>
                   </div>
