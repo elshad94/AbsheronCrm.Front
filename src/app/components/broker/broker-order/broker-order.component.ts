@@ -243,7 +243,7 @@ export class BrokerOrderComponent implements OnInit {
         return true;
     }
   }
-  SaveExcel(data:any){
+  SavePdf(data:any){
     const blob = new Blob([data], {
       type: 'application/pdf'
     });
@@ -251,8 +251,10 @@ export class BrokerOrderComponent implements OnInit {
     window.open(url);
   }
   DownloadFile(fileId?:number){
+    console.log(fileId);
+
    this.service.getFile(fileId).subscribe(res=>{
-     this.SaveExcel(res)
+     this.SavePdf(res)
    })
   }
 
