@@ -60,6 +60,19 @@ export class BrokerComponent implements OnInit {
       this.titleService.setTitle(`Broker${TITLE}`);
     }
 
+
+
+    getBroker() {
+      this.Brokerservice.getBrokerItem().subscribe((res) => {
+        this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
+        res.map(res => {
+          this.id=res.orderId;
+        });
+        this.dataSource = new MatTableDataSource<BrokerItem>(res);
+        this.dataSource.paginator = this.paginator;
+      });
+    }
+
     openDialog(item: BrokerItem, itemNo: string){
       Swal.fire({
         title: `Sifariş No ${itemNo} silinsin?`,
@@ -73,17 +86,6 @@ export class BrokerComponent implements OnInit {
         if (result.isConfirmed) {
           this.deleteBrokerItem(item, itemNo);
         }
-      });
-    }
-
-    getBroker() {
-      this.Brokerservice.getBrokerItem().subscribe((res) => {
-        this.BrokerStatusTexts = [...new Set(res.map(res => res.orderStatusText ))];
-        res.map(res => {
-          this.id=res.orderId;
-        });
-        this.dataSource = new MatTableDataSource<BrokerItem>(res);
-        this.dataSource.paginator = this.paginator;
       });
     }
 
@@ -103,9 +105,13 @@ export class BrokerComponent implements OnInit {
       }
     }
 
+
+
+
     deleteBrokerItem(id:any, orderNo: string) {
 
       this.Brokerservice.deleteBrokerItem1(id).subscribe(
+
         (res:any) => {
           Swal.fire(
             'Silindi!',
