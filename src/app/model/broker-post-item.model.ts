@@ -2,7 +2,13 @@ export interface BrokerPostItem {
   notes?:           string;
   orderStatusId:   number;
   transportTypeId: number;
-  TransportNumber:     string;
+  TransportNumber: string;
+  pincode:string;
+  brPaymentTypeId:number;
+  brCustomsBorderOfficeId:number;
+  brCustomsOfficeId:number;
+  brWarehouse:string;
+  freightAmount:number;
   expenses:        Expense[];
   fileDetails:     FileDetailItem[];
 }

@@ -1,11 +1,22 @@
 export interface BrokerRequestItem {
   expenses: Expense[];
   transportNo: string;
+  brFreightAmount:any;
   transportTypeId: number;
+  brPaymentTypeId:number;
+  brCustomsBorderOfficeId:number;
+  brCustomsOfficeId:number;
   notes: string;
   documentTypes: DocumentType[];
   documents: fileDetails[];
   transportTypes: TransportType[];
+  brPaymentTypes: BrPaymentTypes[];
+  brCustomsBorderOffice:BrCustomsBorderOffice[];
+  brCustomsOffice:BrCustomsOffice[];
+  brPincode:string;
+  brWarehouse:string;
+  customPointId:number;
+  destinationId:number;
   docNo: string;
   customerName: string;
   date: Date;
@@ -35,5 +46,23 @@ export interface TransportType {
   id: number;
   text: string;
 }
-
-
+export interface CustomBorderPoint {
+  id: number;
+  text: string;
+}
+export interface DestinationCustomPoint {
+  id: number;
+  text: string;
+}
+export interface BrPaymentTypes {
+  id: number;
+  text: string;
+}
+export interface BrCustomsBorderOffice {
+  id: number;
+  text: string;
+}
+export interface BrCustomsOffice {
+  id: number;
+  text: string;
+}
