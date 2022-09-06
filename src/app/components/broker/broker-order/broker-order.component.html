@@ -17,9 +17,9 @@
           </div>
           <div class="input-group-add-field">
             <div class="row my-3">
-              <div class="col-lg-4" style="border-right: 1px solid #e7eaf3">
+              <div class="col-lg-8" style="border-right: 1px solid #e7eaf3">
                 <div class="row">
-                  <div class="col-lg-12">
+                  <div class="col-lg-6">
                     <select [(ngModel)]="brokerItemModel.transportTypeId" class="form-control mb-3"
                       name="transportTypeId" [disabled]="!isEditable()">
                       <option selected disabled value="-1">Sifariş növü seçin</option>
@@ -28,13 +28,63 @@
                       </option>
                     </select>
                   </div>
-                  <div class="col-lg-12">
+
+                  <div class="col-lg-6">
+                    <input type="number" class="form-control mb-3" placeholder="Yükün daşınma məbləği" aria-label="Description "
+                    name="freightAmount" [(ngModel)]="brokerItemModel.brFreightAmount " [disabled]="!isEditable()" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
                     <input type="text " class="form-control mb-3" placeholder="N/V № " aria-label="Description "
                       name="transportNo" [(ngModel)]="brokerItemModel.transportNo" [disabled]="!isEditable()" />
                   </div>
+
+                  <div class="col-lg-6">
+                    <select [(ngModel)]="brokerItemModel.brCustomsBorderOfficeId" class="form-control mb-3"
+                      name="brCustomsBorderOfficeId" [disabled]="!isEditable()">
+                      <option selected disabled value="-1">Gömrük sərhəd keçid məntəqəsi</option>
+                      <option *ngFor="let item of brCustomsBorderOffice" [value]="item.id">
+                        {{ item.text }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <input type="text " class="form-control mb-3" placeholder="PIN kod (M/Ə) " aria-label="Description "
+                      name="brPincode" [(ngModel)]="brokerItemModel.brPincode" [disabled]="!isEditable()" />
+                  </div>
+
+                  <div class="col-lg-6">
+                    <select [(ngModel)]="brokerItemModel.brCustomsOfficeId" class="form-control mb-3"
+                      name="brCustomsOfficeId" [disabled]="!isEditable()">
+                      <option selected disabled value="-1">Təyinat gömrük postu</option>
+                      <option *ngFor="let item of brCustomsOffice" [value]="item.id">
+                        {{ item.text }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                    <select [(ngModel)]="brokerItemModel.brPaymentTypeId" class="form-control mb-3"
+                      name="brPaymentTypeId" [disabled]="!isEditable()">
+                      <option selected disabled value="-1">Fakturanın ödəniş üsulu</option>
+                      <option *ngFor="let item of brPaymentTypes" [value]="item.id">
+                        {{ item.text }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <input type="text " class="form-control mb-3" placeholder="Anbar ünvanı" aria-label="Description "
+                      name="brWarehouse" [(ngModel)]="brokerItemModel.brWarehouse" [disabled]="!isEditable()" />
+
+                </div>
                 </div>
               </div>
-              <div class="col-lg-8">
+              <div class="col-lg-4">
                 <div class="form-group p-0">
                   <!-- Checkbox -->
 
@@ -44,7 +94,7 @@
                         Xidmətlər
                       </h3>
                     </div>
-                    <div class="col-lg-6 pb-3" *ngFor="let checkbox of expenses">
+                    <div class="col-lg-12 pb-3" *ngFor="let checkbox of expenses">
                       <div class="d-flex align-items-center custom-control custom-checkbox">
                         <!-- <input type="checkbox " [value]='checkbox.id' [(ngModel)]="checkbox.select " name="checkbox " (change)="onChangeInput($event) "> -->
                         <input type="checkbox" name="{{checkbox.id}}" [(ngModel)]="checkbox.isSelected"
@@ -186,6 +236,7 @@
         </div>
       </div>
     </div>
+
   </form>
 </div>
 <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-loader" [fullScreen]="true">

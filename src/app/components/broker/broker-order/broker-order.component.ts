@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Expense, fileDetails, TransportType } from './../../../model/broker-request.model';
+import { Expense, fileDetails, TransportType, CustomBorderPoint, DestinationCustomPoint, BrPaymentTypes, BrCustomsBorderOffice, BrCustomsOffice } from './../../../model/broker-request.model';
 import { DocumentType } from './../../../model/broker-request.model';
 import { BrokerRequestItem } from 'src/app/model/broker-request.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,10 +40,18 @@ export class BrokerOrderComponent implements OnInit {
   Checkbox: any = [];
   data!: BrokerItem;
   transportTypes: any = [];
+  customBorderPoint:any=[];
+  destinationCustomPoint:any=[];
+  brPaymentTypes:any=[];
+  brCustomsBorderOffice:any=[];
+  brCustomsOffice:any=[];
   documentTypes: any = [];
   expenses: Expense[] = [];
   documents: any = [];
   transportNumber: any;
+  freightAmount:any;
+  pincode:any;
+  brWarehouse:any;
   docTypeId: any;
   files: FileDetails[] = [{ docTypeId: 10 }];
   notes: any;
@@ -74,14 +82,41 @@ export class BrokerOrderComponent implements OnInit {
     id: 0,
     text: '',
   };
+  CustomBorderPoint: CustomBorderPoint = {
+    id: 0,
+    text: '',
+  };
+  BrPaymentTypes: BrPaymentTypes = {
+    id: 0,
+    text: '',
+  };
+  BrCustomsBorderOffice: BrCustomsBorderOffice = {
+    id: 0,
+    text: '',
+  };
+  BrCustomsOffice: BrCustomsOffice = {
+    id: 0,
+    text: '',
+  };
   brokerItemModel: BrokerRequestItem = {
     expenses: [],
     transportNo: '',
     transportTypeId: -1,
+    brPaymentTypeId:-1,
+    brCustomsBorderOfficeId:-1,
+    brCustomsOfficeId:-1,
+    brFreightAmount:'',
+    brPincode: '',
+    brWarehouse: '',
+    customPointId:-1,
+    destinationId:-1,
     notes: '',
     documentTypes: [],
     documents: [],
     transportTypes: [],
+    brPaymentTypes:[],
+    brCustomsBorderOffice:[],
+    brCustomsOffice:[],
     docNo: '',
     customerName: '',
     date: new Date(),
@@ -103,7 +138,13 @@ export class BrokerOrderComponent implements OnInit {
     notes: '',
     orderStatusId: 0,
     transportTypeId: 0,
+    freightAmount:0,
+    brPaymentTypeId:0,
+    brCustomsBorderOfficeId:0,
+    brCustomsOfficeId:0,
     TransportNumber: '',
+    pincode:'',
+    brWarehouse:'',
     expenses: [],
     fileDetails: [],
   };
@@ -144,12 +185,16 @@ export class BrokerOrderComponent implements OnInit {
       this.service.updateBrokerItem1(this.orderIdQueryParam).subscribe(
         (res) => {
           console.log(res);
-
+           debugger
           this.orderStatus = res.orderStatus;
           this.brokerItemModel = res;
           this.brokerItemModel.documents = res.documents;
+          this.brokerItemModel.transportTypeId =res.transportTypeId;
           this.brokerPostItem.notes = res.notes;
           this.transportTypes = res.transportTypes;
+          this.brPaymentTypes=res.brPaymentTypes;
+          this.brCustomsBorderOffice=res.brCustomsBorderOffice;
+          this.brCustomsOffice=res.brCustomsOffice;
           this.documentTypes = res.documentTypes;
           this.notes = res.notes;
           this.expenses = res.expenses;
@@ -163,6 +208,9 @@ export class BrokerOrderComponent implements OnInit {
             };
           });
           this.transportNumber = res.transportNo;
+          this.freightAmount=res.brFreightAmount;
+          this.pincode=res.brPincode;
+          this.brWarehouse=res.brWarehouse;
           this.expenses = res.expenses;
         },
         (error) => {
@@ -179,6 +227,9 @@ export class BrokerOrderComponent implements OnInit {
 
       this.brokerPostItem = res;
       this.transportTypes = res.transportTypes;
+      this.brPaymentTypes=res.brPaymentTypes;
+      this.brCustomsBorderOffice=res.brCustomsBorderOffice;
+      this.brCustomsOffice=res.brCustomsOffice;
       this.documentTypes = res.documentTypes;
       this.brokerItemModel.totalCost = res.totalCost;
       this.notes = res.notes;
@@ -191,6 +242,9 @@ export class BrokerOrderComponent implements OnInit {
       this.brokerItemModel.documents = res.documents;
 
       this.transportNumber = res.transportNo;
+      this.freightAmount=res.freightAmount;
+      this.pincode=res.pincode;
+      this.brWarehouse=res.brWarehouse;
       this.id = res.id;
       this.isSelected = res.isSelected;
       this.expenses = res.expenses;
@@ -274,7 +328,19 @@ export class BrokerOrderComponent implements OnInit {
     this.brokerPostItem.transportTypeId = Number(
       this.brokerItemModel.transportTypeId
     );
+    this.brokerPostItem.brPaymentTypeId=Number(
+      this.brokerItemModel.brPaymentTypeId
+    );
+    this.brokerPostItem.brCustomsBorderOfficeId=Number(
+      this.brokerItemModel.brCustomsBorderOfficeId
+    );
+    this.brokerPostItem.brCustomsOfficeId=Number(
+      this.brokerItemModel.brCustomsOfficeId
+    );
     this.brokerPostItem.TransportNumber = this.brokerItemModel.transportNo;
+    this.brokerPostItem.freightAmount=this.brokerItemModel.brFreightAmount;
+    this.brokerPostItem.brWarehouse=this.brokerItemModel.brWarehouse;
+    this.brokerPostItem.pincode=this.brokerItemModel.brPincode;
     this.brokerPostItem.fileDetails = this.files.map(f => {
       return {
         docTypeId: f.docTypeId!,
@@ -297,7 +363,31 @@ export class BrokerOrderComponent implements OnInit {
       errorAlert('Sifraiş növü seçin')
       return
     }
+    if (!this.isValid(this.brokerPostItem.brPaymentTypeId)) {
+      errorAlert('Ödəniş növünü seçin')
+      return
+    }
+    if (!this.isValid(this.brokerPostItem.brCustomsBorderOfficeId)) {
+      errorAlert('Gömrük sərhəd keçid məntəqəsini seçin')
+      return
+    }
+    if (!this.isValid(this.brokerPostItem.brCustomsOfficeId)) {
+      errorAlert('Təyinat gömrük postunu seçin')
+      return
+    }
+    if (!this.isValid(this.brokerPostItem.freightAmount)) {
+      errorAlert('Yükün daşınma məbləği boşdur')
+      return
+    }
+     if (!this.isValid(this.brokerPostItem.pincode)) {
+      errorAlert('PIN kod boşdur')
+      return
+    }
 
+    if (!this.isValid(this.brokerPostItem.brWarehouse)) {
+      errorAlert('Anbar ünvanı boşdur')
+      return
+    }
     if (this.files.some(file => !file.fileId)) {
       errorAlert('Sənəd faylı seçin')
       return
@@ -310,6 +400,8 @@ export class BrokerOrderComponent implements OnInit {
       this.PostSaveOrApprove();
 
     }
+    console.log(this.brokerPostItem);
+
   }
 
   private PostSaveOrApprove() {
