@@ -1,5 +1,5 @@
 export interface RezidentUser {
-  USubtype: string;
+  USubtype: number;
   UVoen: string;
   UCustname: string;
   UPersonname: string;
@@ -8,6 +8,7 @@ export interface RezidentUser {
   UEmail: string;
   UPassword: string;
   UTerms: boolean;
+  UType:number;
   FIN: string;
   FileResponseDto?: FileResponseDto;
 }

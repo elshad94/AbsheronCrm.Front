@@ -129,13 +129,13 @@ export class RegisterComponent implements OnInit {
     value.USubtype = value.USubtype == '' ? 2 : value.USubtype;
     if (!this.resPers) {
       const userData: NotRezidentUser = {
-        name: value.Uname,
-        surname: value.Usurname,
-        username: value.UUsername,
+        Name: value.Uname,
+        Surname: value.Usurname,
+        Username: value.UUsername,
         email: value.UEmailRes,
-        fin: value.UFinRes,
-        password: value.UPassword,
-        telehpone: value.UPhoneRes,
+        FIN: value.UFinRes,
+        Password: value.UPassword,
+        Telehpone: value.UPhoneRes,
       }
       this.auhtService.registerNotRezidentUser(userData).subscribe({
         next: handleSucces,
@@ -154,7 +154,8 @@ export class RegisterComponent implements OnInit {
       UPassword: value.UPassword,
       UTerms: value.UTerms,
       FIN: value.FIN,
-      USubtype: value.USubtype
+      USubtype: value.USubtype,
+      UType:value.UType
     }
     this.auhtService.register(userData).subscribe({
       next: handleSucces,

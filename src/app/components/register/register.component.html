@@ -14,8 +14,9 @@
 
       <div class="form-group">
         <label for="voen" class="input-label">Rezident/Qeyri Rezident şəxs</label>
-        <select (change)="rezidentPerson($event)" ngModel name="UResType" id="ResType" class="form-control">
-          <option value="" select disabled hidden>Rezident şəxs</option>
+        <select (change)="rezidentPerson($event)" ngModel name="UType" id="ResType" class="form-control">
+          <option *ngIf="resPers"  hidden>Rezident şəxs</option>
+          <option *ngIf="!resPers"  hidden>Qeyri Rezident şəxs</option>
           <option value="1">Rezident şəxs</option>
           <option value="2">Qeyri Rezident şəxs</option>
         </select>
@@ -25,8 +26,8 @@
           <div class="form-group">
             <label for="voen" class="input-label">Fiziki/Hüquqi şəxs</label>
             <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
-              <option *ngIf="isNameSelected" value="" hidden>Fiziki şəxs</option>
-              <option *ngIf="!isNameSelected" value="" hidden>Hüquqi şəxs</option>
+              <option *ngIf="isNameSelected" hidden>Fiziki şəxs</option>
+              <option *ngIf="!isNameSelected"  hidden>Hüquqi şəxs</option>
               <option value="1">Fiziki şəxs</option>
               <option value="0">Hüquqi şəxs</option>
             </select>

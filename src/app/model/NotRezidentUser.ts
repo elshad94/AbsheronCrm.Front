@@ -1,9 +1,9 @@
 export interface NotRezidentUser {
-  name: string;
-  surname: string;
-  username: string;
+  Name: string;
+  Surname: string;
+  Username: string;
   email: string;
-  telehpone: string;
-  password: string;
-  fin: string;
+  Telehpone: string;
+  Password: string;
+  FIN: string;
 }
