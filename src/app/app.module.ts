@@ -1,3 +1,4 @@
+import { CorsInterceptorInterceptor } from '../interceptor/cors-interceotor.interceptor';
 import { FormsModule} from '@angular/forms';
 import { ApplicationRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -93,18 +94,19 @@ import {IMaskModule} from 'angular-imask';
         AddBalanceComponent,
         ErrorOperationComponent,
         SuccesOperationComponent,
-        CertificateComponent
+        CertificateComponent,
+
     ],
     imports: [
         BrowserModule,
- 
+
         AppRoutingModule,
         BrowserAnimationsModule,
         MatDialogModule,
         MatSelectModule,
         HttpClientModule,
         FormsModule,
-      
+
         MatInputModule,
         MatTableModule,
         MatPaginatorModule,
@@ -117,7 +119,10 @@ import {IMaskModule} from 'angular-imask';
     ],
     providers: [
         DatePipe,
+        { provide: HTTP_INTERCEPTORS, useClass: CorsInterceptorInterceptor, multi: true },
+
         SpinnerService,
+
         {
             provide:'BrokerItemUrl',
             useValue:'https://localhost:44323/api'

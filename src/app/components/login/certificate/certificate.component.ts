@@ -64,10 +64,21 @@ export class CertificateComponent implements OnInit {
     this.titleService.setTitle("Serifikatlar | Abşeron Logistika Mərkəzi");
 
     this.data = this.passDataService.data;
+    debugger
     this.authService.asanCertificate(this.data).subscribe({
       next: (result: CertificateResult) => {
 
-        this.certificateData = result
+
+      this.certificateData = result
+      // let counter=0
+      // for (let i = 0; i < this.certificateData.length; i++) {
+      //   if (this.certificateData[i])
+      //    counter++;
+      // }
+      // console.log(counter+1);
+
+      //  console.log(this.certificateData.size);
+
       },
       error: () => {
         Swal.fire({

@@ -70,7 +70,7 @@
 
 .login-content {
     background-color: #fff;
-    padding: 20px 30px;
+    padding: 20px 0px;
     width: 400px;
     margin: 10px auto;
     border-radius: 20px;
@@ -108,7 +108,7 @@ label {
 	overflow: hidden;
 	margin-bottom: 0.375em;
 	/* Accessible outline */
-	/* Remove comment to use */ 
+	/* Remove comment to use */
 	/*
 		&:focus-within {
 				outline: .125em solid $primary-color;

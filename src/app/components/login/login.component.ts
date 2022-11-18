@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   status?: any = {
     status: ''
   };
-  
+
 
   ngOnInit(): void {
     this.titleService.setTitle("Login | Abşeron Logistika Mərkəzi");
@@ -93,6 +93,7 @@ export class LoginComponent implements OnInit {
 
   asanLog() {
     const setInterval = interval(this.intervalReg)
+    debugger
     this.authService.aslogin(this.asanRequestData).subscribe({
       next: (result: AsanLoginResponceData) => {
         this.statCheck = result
@@ -110,6 +111,7 @@ export class LoginComponent implements OnInit {
           this.testsubscription.unsubscribe()
           return;
         }
+        debugger
         Swal.fire({
           imageUrl: '../../../assets/img/loading.gif',
           showCloseButton: true,
@@ -122,6 +124,8 @@ export class LoginComponent implements OnInit {
         })
       },
       error: (error: any) => {
+        debugger
+
         Swal.fire({
           icon: 'error',
           title: 'Xəta',
@@ -131,15 +135,16 @@ export class LoginComponent implements OnInit {
         return;
       }
     })
-
+debugger
     this.testsubscription = setInterval.subscribe((res: any) => {
+      debugger
       this.authService.asloginStat(this.statCheck).subscribe({
         next: (result: string) => {
           this.status = result
           if (this.status.status == 'USER_AUTHENTICATED') {
 
             this.passDataService.data = this.asanRequestData;
-            
+
             this.testsubscription.unsubscribe()
             Swal.close();
             this.router.navigate(['/certificate']);
@@ -156,10 +161,7 @@ export class LoginComponent implements OnInit {
         }
       })
 
-
     })
-
-
   }
 
   tabChange(check: number) {

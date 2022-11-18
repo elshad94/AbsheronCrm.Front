@@ -17,8 +17,8 @@
         <select (change)="rezidentPerson($event)" ngModel name="UType" id="ResType" class="form-control">
           <option *ngIf="resPers"  hidden>Rezident şəxs</option>
           <option *ngIf="!resPers"  hidden>Qeyri Rezident şəxs</option>
-          <option value="1">Rezident şəxs</option>
-          <option value="2">Qeyri Rezident şəxs</option>
+          <option value=1>Rezident şəxs</option>
+          <option value=2>Qeyri Rezident şəxs</option>
         </select>
       </div>
       <div [ngSwitch]="resPers">
@@ -28,8 +28,8 @@
             <select (change)="selectInput($event)" ngModel name="USubtype"  id="TypePerson" class="form-control">
               <option *ngIf="isNameSelected" hidden>Fiziki şəxs</option>
               <option *ngIf="!isNameSelected"  hidden>Hüquqi şəxs</option>
-              <option value="1">Fiziki şəxs</option>
-              <option value="0">Hüquqi şəxs</option>
+              <option value=1>Fiziki şəxs</option>
+              <option value=0>Hüquqi şəxs</option>
             </select>
           </div>
           <div class="form-group">

@@ -16,7 +16,7 @@ export class AuthService {
   public headers?: HttpHeaders ;
 
   baseUrl!: string;
-  asanUrl: string = 'http://192.168.37.41:7090/api/Account'
+  asanUrl: string = 'http://89.147.203.85:7090/api/Account'
   constructor(private http: HttpClient, private apiUrlService: ApiUrlsService) {
     this.baseUrl = apiUrlService.getAuthAPiURI();
   }

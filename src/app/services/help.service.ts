@@ -1,3 +1,4 @@
+import { HelpPostItem } from './../model/help-post-item.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -18,7 +19,11 @@ export class HelpService {
     this.baseUrl = apiUrlService.getCrmAPIURI();
   }
 
-  sendEmail(email: HelpRequestBody): Observable<unknown> {
+  sendEmail(email: HelpPostItem): Observable<any> {
     return this.http.post(`${this.baseUrl}/Help`, email, {headers});
+  }
+  getItem(): Observable<any>{
+
+    return this.http.get(`${this.baseUrl}/Help`);
   }
 }
